@@ -78,10 +78,13 @@ test("employer pages link to matching practice", async ({ page }) => {
   await expect(page).toHaveURL(/\/mock\/goldman-sachs/);
 });
 
-test("pricing asks signed-out visitors to sign in and shows both plans", async ({ page }) => {
+test("pricing shows the single Pro plan and asks signed-out visitors to sign in", async ({ page }) => {
   await page.goto("/pricing");
-  await expect(page.getByText("£17 a month").first()).toBeVisible();
-  await expect(page.getByText("£30 one-off").first()).toBeVisible();
+  await expect(page.getByText("£9.99 a month").first()).toBeVisible();
+  // Only one paid plan is sold: no pass, no other price.
+  await expect(page.getByText("£17")).toHaveCount(0);
+  await expect(page.getByText(/3-month pass|one-off/i)).toHaveCount(0);
+  await expect(page.getByRole("link", { name: "Sign in" }).first()).toBeVisible();
 });
 
 test("unknown pages show a friendly 404", async ({ page }) => {
