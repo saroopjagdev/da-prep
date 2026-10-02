@@ -151,10 +151,19 @@ const PER_FAMILY: Record<string, number> = { arith: 2, geo: 3, grow: 5, alt: 5, 
 
 export function buildInductive(): Item[] {
   const items: Item[] = [];
+  const seen = new Set<string>();
   FAMILIES.forEach(([name, gen], fi) => {
     for (let n = 0; n < PER_FAMILY[name]; n++) {
-      const r = rng(9000 + fi * 100 + n);
-      const b = gen(r, n);
+      // Re-roll if a seed happens to produce a sequence already in the bank.
+      let attempt = 0;
+      let r = rng(9000 + fi * 100 + n);
+      let b = gen(r, n);
+      while (seen.has(b.prompt) && attempt < 50) {
+        attempt++;
+        r = rng(9000 + fi * 100 + n + attempt * 7919);
+        b = gen(r, n);
+      }
+      seen.add(b.prompt);
       const { options, answer } = mcqOptions(r, b.correct, b.distractors);
       items.push({
         id: `ind-${name}-${n + 1}`,

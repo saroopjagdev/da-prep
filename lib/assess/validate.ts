@@ -1,3 +1,4 @@
+import { servedCount } from "./sample";
 import type { Item, Section, Stimulus, Test } from "./types";
 
 const TRAIT_KINDS = new Set(["likert", "forced-choice"]);
@@ -11,6 +12,9 @@ function validateStimulus(id: string, s: Stimulus): string[] {
   } else if (s.type === "chart") {
     if (!s.labels.length || !s.series.length) p.push(`stimulus ${id}: chart needs labels and a series`);
     s.series.forEach((ser) => ser.values.length !== s.labels.length && p.push(`stimulus ${id}: series ${ser.name} has ${ser.values.length} values for ${s.labels.length} labels`));
+  } else if (s.type === "email") {
+    if (!s.from.trim() || !s.subject.trim() || !s.body.trim()) p.push(`stimulus ${id}: email needs a sender, subject and body`);
+    s.table?.rows.forEach((r, i) => r.length !== s.table!.columns.length && p.push(`stimulus ${id}: table row ${i} has ${r.length} cells for ${s.table!.columns.length} columns`));
   } else if (!s.body.trim()) p.push(`stimulus ${id}: empty text`);
   return p;
 }
@@ -46,6 +50,13 @@ export function validateItem(item: Item): string[] {
       if (sorted.length !== n || !sorted.every((v, i) => v === i)) p.push(`${tag}: order must be a permutation of the options`);
       break;
     }
+    case "numeric":
+      if (!Number.isFinite(item.answer)) p.push(`${tag}: answer must be a number`);
+      if (item.tolerance !== undefined && !(item.tolerance >= 0)) p.push(`${tag}: tolerance must be zero or more`);
+      break;
+    case "written":
+      if (item.checklist.length < 2) p.push(`${tag}: needs a checklist of at least two points`);
+      break;
     case "likert":
       if (!item.trait.trim()) p.push(`${tag}: missing trait`);
       break;
@@ -60,7 +71,7 @@ export function validateItem(item: Item): string[] {
 export function validateSection(section: Section): string[] {
   const p: string[] = [];
   if (!section.items.length) p.push(`section ${section.id}: no items`);
-  if (section.timing.mode !== "untimed" && !(section.timing.seconds > 0)) p.push(`section ${section.id}: timing must be positive`);
+  if ((section.timing.mode === "section" || section.timing.mode === "item") && !(section.timing.seconds > 0)) p.push(`section ${section.id}: timing must be positive`);
   if (section.adaptive && (section.adaptive.count < 1 || section.adaptive.count > section.items.length)) {
     p.push(`section ${section.id}: adaptive count must be between 1 and the pool size`);
   }
@@ -94,7 +105,7 @@ export function validateTest(test: Test): string[] {
 export function totalSeconds(test: Test): number {
   return test.sections.reduce((sum, s) => {
     if (s.timing.mode === "section") return sum + s.timing.seconds;
-    if (s.timing.mode === "item") return sum + s.timing.seconds * (s.adaptive ? s.adaptive.count : s.items.length);
+    if (s.timing.mode === "item") return sum + s.timing.seconds * servedCount(s);
     return sum;
   }, 0);
 }

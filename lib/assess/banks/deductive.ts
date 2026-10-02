@@ -32,6 +32,49 @@ const PERMS = allPermutations(5);
 
 export const validArrangements = (constraints: Constraint[]) => PERMS.filter((p) => constraints.every((c) => c.test(p)));
 
+/** True when the constraint fixes the asked-about task to one day outright, which would give the answer away. */
+const statesTarget = (c: Constraint, tasks: string[], target: number) =>
+  c.text.toLowerCase().startsWith(`${tasks[target]} is on `);
+
+/** Drop rules that aren't needed: the answer must stay unique without them. Keeps puzzles tight. */
+function prune(constraints: Constraint[], target: number): Constraint[] {
+  let kept = [...constraints];
+  for (const c of constraints) {
+    const without = kept.filter((k) => k !== c);
+    if (without.length >= 3 && new Set(validArrangements(without).map((p) => p[target])).size === 1) kept = without;
+  }
+  return kept;
+}
+
+/** Why each other day is impossible: a single rule that rules it out, or "no arrangement fits" when it takes several. */
+function explain(constraints: Constraint[], tasks: string[], target: number, answer: number): { text: string; combined: number } {
+  const cap = (s: string) => s[0].toUpperCase() + s.slice(1);
+  const lines: string[] = [];
+  let combined = 0;
+  for (let d = 0; d < 5; d++) {
+    if (d === answer) continue;
+    const onD = PERMS.filter((p) => p[target] === d);
+    const idx = constraints.findIndex((c) => onD.every((p) => !c.test(p)));
+    if (idx >= 0) {
+      lines.push(`Not ${DAYS[d]}: rule ${idx + 1} rules it out.`);
+      continue;
+    }
+    combined++;
+    let pair: [number, number] | null = null;
+    for (let i = 0; i < constraints.length && !pair; i++)
+      for (let j = i + 1; j < constraints.length && !pair; j++)
+        if (onD.every((p) => !(constraints[i].test(p) && constraints[j].test(p)))) pair = [i + 1, j + 1];
+    lines.push(
+      pair
+        ? `Not ${DAYS[d]}: rules ${pair[0]} and ${pair[1]} can't both be true if it is on ${DAYS[d]}.`
+        : `Not ${DAYS[d]}: with it on ${DAYS[d]}, there is no way to place the other tasks so that every rule holds.`,
+    );
+  }
+  const fits = validArrangements(constraints);
+  const sample = fits.length === 1 ? ` The only week that fits: ${fits[0].map((day, i) => [day, i] as const).sort((a, b) => a[0] - b[0]).map(([day, i]) => `${DAYS[day].slice(0, 3)} ${tasks[i].replace(/^the /, "")}`).join(", ")}.` : "";
+  return { text: `${cap(tasks[target])} is on ${DAYS[answer]}. ${lines.join(" ")}${sample}`, combined };
+}
+
 function candidateConstraint(r: Rng, sol: number[], tasks: string[], usedOnDay: boolean): Constraint | null {
   const a = r.int(0, 4);
   let b = r.int(0, 4);
@@ -55,6 +98,10 @@ export type DeductiveBank = { items: Item[]; meta: Record<string, DeductiveMeta>
 export function buildDeductive(count = 16): DeductiveBank {
   const items: Item[] = [];
   const meta: Record<string, DeductiveMeta> = {};
+  // Spread the bank across difficulty 2-5 so the adaptive runner has easier and harder puzzles to move between.
+  // After enough seeds, any difficulty is accepted so the build always finishes.
+  const quota: Record<number, number> = { 2: Math.ceil(count / 4), 3: Math.ceil(count / 4), 4: Math.ceil(count / 4), 5: Math.ceil(count / 4) };
+  const relaxAt = 20000 + 20000;
   let seed = 20000;
   while (items.length < count) {
     seed++;
@@ -66,7 +113,9 @@ export function buildDeductive(count = 16): DeductiveBank {
     let usedOnDay = false;
     for (let guard = 0; guard < 200 && constraints.length < 7; guard++) {
       const c = candidateConstraint(r, sol, tasks, usedOnDay);
-      if (!c) continue;
+      if (!c || statesTarget(c, tasks, target) || constraints.some((k) => k.text === c.text)) continue;
+      // Every rule must narrow things down; a rule that rules nothing out is noise.
+      if (validArrangements([...constraints, c]).length === validArrangements(constraints).length) continue;
       if (c.text.includes(" is on ")) usedOnDay = true;
       constraints.push(c);
       const days = new Set(validArrangements(constraints).map((p) => p[target]));
@@ -74,22 +123,27 @@ export function buildDeductive(count = 16): DeductiveBank {
     }
     const days = new Set(validArrangements(constraints).map((p) => p[target]));
     if (days.size !== 1 || constraints.length < 3) continue; // retry with another seed
+    const rules = prune(constraints, target);
     const answer = [...days][0];
     const id = `ded-${items.length + 1}`;
-    const cap = (s: string) => s[0].toUpperCase() + s.slice(1);
+    const why = explain(rules, tasks, target, answer);
+    // Harder when more days can only be eliminated by combining rules, and when there are more rules to hold in mind.
+    const difficulty = Math.min(5, Math.max(2, 1 + why.combined + (rules.length >= 5 ? 1 : 0))) as 2 | 3 | 4 | 5;
+    if (quota[difficulty] <= 0 && seed < relaxAt) continue;
+    quota[difficulty]--;
     items.push({
       id,
       kind: "mcq",
       prompt:
         `Five tasks are each scheduled on a different day, Monday to Friday: ${tasks.join(", ")}.\n\n` +
-        `${constraints.map((c, i) => `${i + 1}. ${c.text}`).join("\n")}\n\n` +
+        `${rules.map((c, i) => `${i + 1}. ${c.text}`).join("\n")}\n\n` +
         `On which day is ${tasks[target]} scheduled?`,
       options: [...DAYS],
       answer,
-      explanation: `Combine the rules: only arrangements where all ${constraints.length} statements hold are possible, and in every one of them ${tasks[target]} falls on ${DAYS[answer]}. ${cap(tasks[target])} cannot be on any other day.`,
-      difficulty: (constraints.length <= 3 ? 2 : constraints.length === 4 ? 3 : constraints.length === 5 ? 4 : 5) as 2 | 3 | 4 | 5,
+      explanation: why.text,
+      difficulty,
     });
-    meta[id] = { constraints, target, tasks };
+    meta[id] = { constraints: rules, target, tasks };
   }
   return { items, meta };
 }

@@ -5,7 +5,6 @@ const HIGHERIN = "https://higherin.com/jobs/43052/bmw-group-uk/register-your-int
 const GF_TESTS = "https://www.graduatesfirst.com/bmw-assessment-tests";
 const GF_AC = "https://www.graduatesfirst.com/bmw-assessment-centre";
 const CULTURE = "https://www.bmwgroup.jobs/nl/en/about-us/our-culture-and-values.html";
-const BRIGHT = "https://www.brightnetwork.co.uk/graduate-jobs/bmw/apprentice-and-associate-training-placement-oxford-2026";
 
 export const bmwGroup: FirmProfile = {
   slug: "bmw-group",
@@ -108,7 +107,7 @@ export const bmwGroup: FirmProfile = {
     "Browser pass 2 Oct 2026: BMW's UK recruitment-process page and the whole /gb/en/apprentices section return a genuine 404 in a real browser (the site has been reorganised), so the earlier 404s were not blocks. BMW Group's global 'Application tips' page (bmwgroup.jobs/en/application-tips.html, official, read directly) describes a telephone or staggered video interview, a face-to-face interview, and a selection day (assessment centre) whose tools 'might be used' include self-presentation, group exercise or discussion, computer-aided testing, sample work, a presentation on a specialist topic, role-playing tasks and a short interview, varying by applicant type (school leavers, students, graduates). That is global rather than UK-apprentice-specific, but it suggests any testing may sit at the selection day rather than as a separate online stage.",
     "Re-checked 2 Oct 2026 by plain fetch: BMW's recruitment-process page returned 404 again. The process comes from a search extract of that page, which lists three steps and no online assessment, so the online assessment stage above is unconfirmed for apprentices.",
     "Assessment-centre activities seen in Glassdoor summaries (a paper-building team task, planning a car launch, a 15-minute presentation on electric versus combustion cars) could not be tied to a readable apprentice review and are not listed.",
-    "BMW page could not be fetched directly (404/timeouts); the three-step process and five-day windows come from search extracts of the official page and a BMW job listing (" + BRIGHT + ").",
+    "BMW page could not be fetched directly (404/timeouts); the three-step process and five-day windows come from search extracts of the official page and a BMW job listing on Bright Network.",
     "OA provider and item counts are from a commercial source describing BMW Group in general.",
     "No candidate-reported interview questions or AC details found for UK degree apprentices; Student Room BMW threads were not readable.",
     "2027 opening dates and per-role entry requirements not confirmed.",

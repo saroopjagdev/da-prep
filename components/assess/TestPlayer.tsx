@@ -23,6 +23,8 @@ function Results({ test, result, onRetry }: { test: Test; result: TestResult; on
       .filter((x) => x.score.max > 0 && x.score.points < x.score.max),
   );
 
+  const written = test.sections.flatMap((s) => s.items.filter((i) => i.kind === "written" && i.id in result.responses).map((item) => ({ item })));
+
   return (
     <div className="mx-auto max-w-3xl space-y-6">
       <div className="space-y-2 text-center">
@@ -78,6 +80,24 @@ function Results({ test, result, onRetry }: { test: Test; result: TestResult; on
             assessment. Use it to think about which strengths you can back up with examples. Employers weigh these
             questionnaires differently, and honest answers matter more than a particular profile.
           </p>
+        </section>
+      )}
+
+      {written.length > 0 && (
+        <section className="space-y-3">
+          <h2 className="font-bold">Your written replies</h2>
+          <p className="text-sm text-muted">These aren&apos;t marked automatically. Compare each reply with the checklist.</p>
+          <ul className="space-y-3">
+            {written.map(({ item }) => (
+              <li key={item.id} className="card space-y-2 p-4 text-sm">
+                <p className="whitespace-pre-line font-medium">{item.prompt}</p>
+                <p className="whitespace-pre-line rounded-md bg-soft p-3">{describeResponse(item, result.responses[item.id])}</p>
+                <p className="font-semibold">A strong reply would:</p>
+                <p className="whitespace-pre-line">{describeKey(item)}</p>
+                <p className="callout bg-brand-50">{item.explanation}</p>
+              </li>
+            ))}
+          </ul>
         </section>
       )}
 

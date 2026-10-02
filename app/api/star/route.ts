@@ -7,7 +7,7 @@ import { screenText } from "@/lib/server/safety";
 export const maxDuration = 60;
 
 export async function POST(req: Request) {
-  const gate = await guardAi(req, "star", 10);
+  const gate = await guardAi(req, "star", 10, 60);
   if (!gate.ok) return gate.response;
   const parsed = starInput.safeParse(await req.json().catch(() => null));
   if (!parsed.success) return Response.json({ error: "Invalid input" }, { status: 400 });

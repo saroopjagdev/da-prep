@@ -2,7 +2,12 @@
 
 import { createContext, useContext, useEffect, useMemo, useState, type ReactNode } from "react";
 import type { User } from "@supabase/supabase-js";
+import { z } from "zod";
 import { cloudEnabled, supabase } from "@/lib/supabase";
+
+// Zod probes for eval support with new Function(); the site's Content-Security-Policy blocks eval, so the probe
+// logs a policy warning in every browser. Jitless mode skips the probe (validation works the same, slightly slower).
+z.config({ jitless: true });
 
 type AuthState = {
   enabled: boolean;

@@ -1,6 +1,11 @@
+import { pageMeta } from "@/lib/site";
 import { CONTACT_EMAIL, LEGAL_UPDATED, OPERATOR_NAME } from "@/lib/legal";
 
-export const metadata = { title: "Terms" };
+export const metadata = pageMeta({
+  title: "Terms of use",
+  description: "The terms for using Level6, including plans, cancellation and using AI responsibly in applications.",
+  path: "/terms",
+});
 
 export default function Terms() {
   return (
@@ -58,12 +63,14 @@ export default function Terms() {
 
       <h2 className="text-base font-semibold">Free and Pro plans</h2>
       <p>
-        Free use has monthly and daily limits shown on the Plans page. Pro is a monthly subscription that renews
-        automatically until you cancel; the price is shown before you pay. You can cancel at any time from the Plans
-        page (Manage or cancel subscription) and keep Pro until the end of the period you have paid for. Because Pro is
-        a digital service you start using immediately, you agree it begins straight away. You have a right to cancel
-        within 14 days of subscribing, but if you have already used the service we may deduct a proportionate amount.
-        To ask for a refund, contact us. Nothing here affects your statutory rights.
+        Free use has monthly and daily limits shown on the Plans page. Pro comes in two forms, and the price is shown
+        before you pay. Pro monthly (£17 a month) renews automatically until you cancel: you can cancel at any time from
+        the Plans page (Manage or cancel subscription) and keep Pro until the end of the month you have paid for. The
+        Pro 3-month pass (£30) is a single payment for 3 months of Pro that does not renew; buying another pass adds 3
+        months to the end of the current one. The person paying must be 18 or over. Because Pro is a digital service
+        you start using immediately, you ask for it to begin straight away when you buy. You have a right to cancel
+        within 14 days of buying; if you do, we will refund you minus a proportionate amount for the time you have
+        already had Pro. To cancel or ask for a refund, contact us. Nothing here affects your statutory rights.
       </p>
 
       <h2 className="text-base font-semibold">Deleting your account</h2>

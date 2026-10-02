@@ -5,9 +5,11 @@ import { NUMERICAL_TF, buildNumericalTf } from "@/lib/assess/banks/numerical-tf"
 import { validateItem } from "@/lib/assess/validate";
 
 describe("numerical true/false/cannot say bank", () => {
-  it("has 18 valid statements in 3 groups sharing a table", () => {
-    expect(NUMERICAL_TF.items).toHaveLength(18);
-    expect(Object.keys(NUMERICAL_TF.stimuli)).toHaveLength(3);
+  it("has 96 valid statements in 16 groups sharing a table, across four themes", () => {
+    expect(NUMERICAL_TF.items).toHaveLength(96);
+    expect(Object.keys(NUMERICAL_TF.stimuli)).toHaveLength(16);
+    const titles = new Set(Object.values(NUMERICAL_TF.stimuli).map((s) => (s.type === "table" ? s.title : "")));
+    expect(titles.size).toBe(4);
     for (const item of NUMERICAL_TF.items) {
       expect(validateItem(item), item.id).toEqual([]);
       expect(NUMERICAL_TF.stimuli[item.stimulus!], item.id).toBeDefined();
@@ -18,6 +20,13 @@ describe("numerical true/false/cannot say bank", () => {
     for (const item of NUMERICAL_TF.items) {
       if (item.kind !== "tf-cannot-say") throw new Error("expected tf");
       expect(NUMERICAL_TF.checks[item.id](NUMERICAL_TF.stimuli[item.stimulus!]), item.id).toBe(item.answer);
+    }
+  });
+
+  it("never repeats a statement within a table", () => {
+    for (const id of Object.keys(NUMERICAL_TF.stimuli)) {
+      const texts = NUMERICAL_TF.items.filter((i) => i.stimulus === id).map((i) => i.prompt);
+      expect(new Set(texts).size, id).toBe(texts.length);
     }
   });
 
@@ -120,9 +129,61 @@ describe("deductive bank", () => {
     }
   });
 
+  it("never states the answer, never repeats a rule, and every rule is needed", () => {
+    for (const item of DEDUCTIVE.items) {
+      const m = DEDUCTIVE.meta[item.id];
+      const texts = m.constraints.map((c) => c.text);
+      expect(new Set(texts).size, item.id).toBe(texts.length);
+      expect(texts.some((t) => t.toLowerCase().startsWith(`${m.tasks[m.target]} is on `)), item.id).toBe(false);
+      m.constraints.forEach((c, i) => {
+        const without = m.constraints.filter((_, j) => j !== i);
+        expect(new Set(validArrangements(without).map((p) => p[m.target])).size, `${item.id} rule ${i + 1}`).toBeGreaterThan(1);
+      });
+    }
+  });
+
+  it("spans difficulty 2 to 5 and explains every ruled-out day", () => {
+    const levels = new Set(DEDUCTIVE.items.map((i) => i.difficulty));
+    for (const d of [2, 3, 4, 5]) expect(levels.has(d as 2 | 3 | 4 | 5)).toBe(true);
+    for (const item of DEDUCTIVE.items) {
+      if (item.kind !== "mcq") throw new Error("expected mcq");
+      const notLines = (item.explanation.match(/Not (Monday|Tuesday|Wednesday|Thursday|Friday):/g) ?? []).length;
+      expect(notLines, item.id).toBe(4);
+    }
+  });
+
   it("the prompt lists every constraint the solver used", () => {
     for (const item of DEDUCTIVE.items) {
       for (const c of DEDUCTIVE.meta[item.id].constraints) expect(item.prompt, item.id).toContain(c.text);
+    }
+  });
+});
+
+describe("no repeated questions", () => {
+  it.each([
+    ["inductive", INDUCTIVE],
+    ["deductive", DEDUCTIVE.items],
+  ] as const)("%s prompts are all different", (_name, items) => {
+    const prompts = items.map((i) => i.prompt);
+    expect(new Set(prompts).size).toBe(prompts.length);
+  });
+});
+
+describe("switch puzzles", () => {
+  it("have exactly one code that produces the output", async () => {
+    const { SWITCH, applySwitch } = await import("@/lib/assess/banks/switch");
+    expect(SWITCH).toHaveLength(24);
+    for (const item of SWITCH) {
+      if (item.kind !== "mcq") throw new Error("expected mcq");
+      expect(validateItem(item), item.id).toEqual([]);
+      const lines = item.prompt.split("\n");
+      const input = lines[0].replace("Input: ", "").split(" ");
+      const twoStep = lines.length === 4;
+      const middle = twoStep ? applySwitch(input, lines[1].match(/switch (\d{4})/)![1]) : input;
+      const output = lines[twoStep ? 2 : 1].split(": ")[1];
+      const producing = item.options.filter((code) => applySwitch(middle, code).join(" ") === output);
+      expect(producing, item.id).toEqual([item.options[item.answer]]);
+      expect(item.options.includes("1234"), item.id).toBe(false);
     }
   });
 });

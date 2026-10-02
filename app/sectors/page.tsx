@@ -1,8 +1,13 @@
+import { pageMeta } from "@/lib/site";
 import Link from "next/link";
 import Icon from "@/components/Icon";
 import { SECTORS, SHARED } from "@/lib/sectors";
 
-export const metadata = { title: "Sectors" };
+export const metadata = pageMeta({
+  title: "Degree apprenticeships by sector",
+  description: "What is the same and what differs between digital, engineering, finance, law, business, construction and public sector degree apprenticeships.",
+  path: "/sectors",
+});
 
 const DIFFERENT = [
   "The technical or commercial questions in interviews.",

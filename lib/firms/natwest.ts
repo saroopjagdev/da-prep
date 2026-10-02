@@ -131,6 +131,13 @@ export const natwest: FirmProfile = {
     "Purpose: champion potential, helping people, families and businesses to thrive",
     "What NatWest says it looks for: proactive, curious people who build relationships, manage priorities and use accurate information to solve problems",
   ],
+  pay: { text: "Reported degree-apprentice pay of £22,455 to £29,574.", source: "https://www.bestapprenticeships.com/knowledge-base/how-much-do-natwest-group-apprenticeships-pay/", confidence: "multiple-candidate-reports" },
+  dayToDay: [
+    "Senior Relationship Management apprentices help look after business or personal banking customers: understanding their needs, preparing information and building relationships.",
+  ],
+  whyThisFirm: [
+    { text: "NatWest Group made an attributable profit of £3.0 billion in the first half of 2026 with a 19.7% return on tangible equity, and completed its acquisition of the wealth manager Evelyn Partners.", source: "https://www.natwestgroup.com/news-and-insights/latest-stories/financial-reporting/2026/jul/h1-2026-natwest-group-results.html", confidence: "official" },
+  ],
   questions: [
     {
       stage: "Pre-recorded video assessment",

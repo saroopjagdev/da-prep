@@ -79,3 +79,50 @@ export const LLOYDS_EMAIL =
 
 export const RR_PRESENTATION =
   "Imagine you are presenting for seven minutes to a senior colleague from a different discipline. Explain a complex technical idea you understand well (it can be from school, a hobby or a project), say why it matters, and say what you learned or what skills you developed by understanding it. Give your presentation as you would in the room.";
+
+// Finance cases for the investment-bank mocks (all invented).
+
+export const SETTLEMENT_CASE: { brief: string; stimulus: Stimulus } = {
+  brief:
+    "You are an operations apprentice. The number of trades that failed to settle on time rose this month, and the head of the desk wants a short update. Use the data. In your answer: (1) say what is driving the rise, (2) suggest two practical actions, (3) say what you would tell the trading desk, and (4) name one thing you would want to check before acting.",
+  stimulus: {
+    type: "table",
+    title: "Failed settlements by cause (number of trades)",
+    columns: ["Cause", "Last month", "This month", "Average value per failed trade (£k)"],
+    rows: [
+      ["Missing client settlement instructions", 14, 31, 180],
+      ["Wrong trade details booked", 9, 11, 240],
+      ["Counterparty did not deliver", 22, 24, 410],
+      ["Cut-off time missed", 5, 6, 95],
+    ],
+    note: "A new client onboarding system went live at the start of this month. Total trades processed were about the same in both months.",
+  },
+};
+
+export const RETAIL_BANK_CASE: { brief: string; stimulus: Stimulus } = {
+  brief:
+    "Northfield Bank is choosing which of three customer groups to target with a new savings account. Look at the data. In your answer: (1) say which group looks most attractive and why, (2) name one risk with your choice, (3) say what extra information you would want, and (4) give a clear recommendation in one sentence.",
+  stimulus: {
+    type: "table",
+    title: "Northfield Bank: customer groups (illustrative figures)",
+    columns: ["Group", "Customers (thousand)", "Average savings balance (£)", "Share using the mobile app", "Share who left the bank last year"],
+    rows: [
+      ["Students and graduates", 120, 900, "92%", "14%"],
+      ["Young families", 210, 4200, "71%", "6%"],
+      ["Retired customers", 160, 18500, "38%", "3%"],
+    ],
+    note: "A rival bank launched a high-interest app-only savings account six months ago.",
+  },
+};
+
+export const GS_REASONING =
+  "Estimate how many cups of coffee are sold in London on a typical weekday. There is no single right answer: talk through your assumptions step by step, give a final number, and say how you would sanity-check it.";
+
+export const MARKETS_STORY =
+  "Pick one recent market or economic story (for example an interest rate decision, a company's results, or a big move in a currency or commodity). Explain what happened, why it happened, and who in a bank's markets business would care and why. Keep it simple enough for someone outside finance to follow.";
+
+export const HSBC_EMAIL =
+  "You work in commercial banking. A small business client, a family-run furniture maker, emails to say a payment to their main supplier has not arrived and the supplier is threatening to pause deliveries. You have checked and the payment was held for a routine security check that should clear today. Write a reply of around 150 words: acknowledge the problem, explain clearly, say what happens next, and keep the client's trust.";
+
+export const PITCH_60 =
+  "In about a minute, introduce yourself to a managing director you meet at the assessment evening: who you are, why this programme, and one question you would ask them.";

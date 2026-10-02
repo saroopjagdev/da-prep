@@ -1,4 +1,9 @@
-export const metadata = { title: "FAQ" };
+import { pageMeta } from "@/lib/site";
+export const metadata = pageMeta({
+  title: "FAQ",
+  description: "Degree apprenticeship questions answered: pay, fees, grades, how applications work and what happens if you are rejected.",
+  path: "/faq",
+});
 
 const faqs = [
   {

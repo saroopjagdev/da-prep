@@ -12,6 +12,7 @@ export default function Login() {
   const [email, setEmail] = useState("");
   const [msg, setMsg] = useState("");
   const [error, setError] = useState("");
+  const [over16, setOver16] = useState(false);
 
   if (enabled && !ready) return <p className="text-muted">Loading...</p>;
 
@@ -67,6 +68,7 @@ export default function Login() {
             onSubmit={async (e) => {
               e.preventDefault();
               setError("");
+              if (!over16) return setError("Please confirm you're 16 or over.");
               const err = await signInEmail(email);
               if (err) setError(err);
               else setMsg("Check your email for a sign-in link.");
@@ -81,9 +83,16 @@ export default function Login() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
+            <label className="flex items-start gap-2 text-sm">
+              <input type="checkbox" className="mt-1 accent-brand-600" checked={over16} onChange={(e) => setOver16(e.target.checked)} required />
+              <span>I&apos;m 16 or over</span>
+            </label>
             <button className="btn btn-primary w-full">Email me a link</button>
           </form>
-          <button onClick={async () => setError((await signInGoogle()) ?? "")} className="btn btn-secondary w-full">
+          <button
+            onClick={async () => (over16 ? setError((await signInGoogle()) ?? "") : setError("Please confirm you're 16 or over."))}
+            className="btn btn-secondary w-full"
+          >
             Continue with Google
           </button>
           {msg && <p className="text-sm text-mint-600">{msg}</p>}
@@ -97,7 +106,8 @@ export default function Login() {
             <Link className="underline" href="/privacy">
               privacy notice
             </Link>
-            . If you&apos;re under 16, ask a parent or carer first.
+            . Accounts are for people aged 16 and over. If you&apos;re younger, you can still use everything without an
+            account: your work is saved on this device.
           </p>
         </section>
       )}

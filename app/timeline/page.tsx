@@ -1,4 +1,9 @@
-export const metadata = { title: "Timeline" };
+import { pageMeta } from "@/lib/site";
+export const metadata = pageMeta({
+  title: "Degree apprenticeship timeline",
+  description: "What to do and when, from Year 12 to your offer: when applications open, tests, interviews and offers.",
+  path: "/timeline",
+});
 
 const steps = [
   {

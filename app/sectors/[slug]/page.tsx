@@ -4,6 +4,7 @@ import SectorPicker from "@/components/SectorPicker";
 import { EMPLOYERS } from "@/lib/employers";
 import { CATEGORY_INFO } from "@/lib/questions";
 import { SECTOR_BY_ID, SECTOR_IDS, type SectorId } from "@/lib/sectors";
+import { pageMeta } from "@/lib/site";
 
 export function generateStaticParams() {
   return SECTOR_IDS.map((slug) => ({ slug }));
@@ -12,7 +13,12 @@ export function generateStaticParams() {
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
   const s = SECTOR_BY_ID[slug as SectorId];
-  return { title: s ? `${s.name} | Level6` : "Sector" };
+  if (!s) return { title: "Sector" };
+  return pageMeta({
+    title: `${s.name} degree apprenticeships`,
+    description: `${s.blurb} How ${s.name.toLowerCase()} degree apprenticeship applications work, what employers test and how to prepare.`,
+    path: `/sectors/${s.id}`,
+  });
 }
 
 export default async function SectorPage({ params }: { params: Promise<{ slug: string }> }) {

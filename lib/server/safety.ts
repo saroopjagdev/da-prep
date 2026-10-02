@@ -1,5 +1,6 @@
 import OpenAI from "openai";
 import { mockEnabled } from "@/lib/ai";
+import { redact } from "@/lib/redact";
 
 export const SUPPORT_MESSAGE =
   "It sounds like you might be going through something difficult, and that matters more than any application. " +
@@ -18,7 +19,7 @@ let client: OpenAI | null = null;
  */
 export async function screenText(...texts: (string | undefined)[]): Promise<Response | null> {
   if (!process.env.OPENAI_API_KEY || mockEnabled()) return null;
-  const input = texts.filter(Boolean).join("\n\n").slice(0, 20_000);
+  const input = redact(texts.filter(Boolean).join("\n\n")).slice(0, 20_000);
   if (!input.trim()) return null;
   try {
     const res = await (client ??= new OpenAI()).moderations.create({ model: "omni-moderation-latest", input });

@@ -1,5 +1,6 @@
 import type { FirmProfile } from "./types";
 
+// Updated 2026-10-02: Glasgow Graduate Apprenticeship and Heriot-Watt pay/dates (docs/research/finance-firms/existing-profiles-updates.md).
 // Research date 2026-09-30. Most recent cycle: 2025 applications (Sept-Dec 2025) for September 2026 entry, plus 2024 cycle for 2025 entry.
 const JPM_OFFICIAL = "https://www.jpmorganchase.com/careers/explore-opportunities/programs/financial-services-apprenticeship";
 const TSR_OFFER26 = "https://www.thestudentroom.co.uk/showthread.php?t=7633223";
@@ -25,6 +26,12 @@ export const jpMorgan: FirmProfile = {
       degree: "BSc Digital and Technology Solutions (2025 cycle listed London and Bournemouth)",
       locations: ["London", "Bournemouth"],
     },
+    {
+      name: "Graduate Apprenticeship, Software Development (Scotland)",
+      level: "Scottish Graduate Apprenticeship (degree level)",
+      degree: "Software development degree (provider not confirmed)",
+      locations: ["Glasgow"],
+    },
   ],
   entry: {
     ucas: "Exeter route: three B grades at A-level (or UCAS equivalent). One STEM A-level required on the official page (Business Studies accepted). Technology route needs Maths or Computer Science/IT as one A-level (candidate-reported strictly enforced). Heriot-Watt route: BBBB Highers.",
@@ -37,7 +44,7 @@ export const jpMorgan: FirmProfile = {
     closes: "Rolling. London Financial Services invited to Superday from about late September to mid-October in 2025; some applicants saw the role 'no longer available' by mid-September.",
     rolling: true,
     notes:
-      "Applications are reviewed on a rolling basis and JPM strongly encourages early submission. In 2025 the Superday email arrived around a month after applying, with Superday interviews from about 28 October and the in-person Assessment Evening about a month later. Outcomes were still awaited in mid-December. One applicant said JPM accepts and rejects everyone at a given stage on the same day, so no news for days is not informative.",
+      "Scotland runs on a different calendar: Heriot-Watt reported J.P. Morgan's Graduate Apprenticeships opening on 14 October 2024 and closing on 28 February 2025, with a £24,000 starting salary and BBBB at Scottish Higher (Heriot-Watt news and school careers posts). Applications are reviewed on a rolling basis and JPM strongly encourages early submission. In 2025 the Superday email arrived around a month after applying, with Superday interviews from about 28 October and the in-person Assessment Evening about a month later. Outcomes were still awaited in mid-December. One applicant said JPM accepts and rejects everyone at a given stage on the same day, so no news for days is not informative.",
     source: TSR_OFFER26,
   },
   stages: [
@@ -109,6 +116,14 @@ export const jpMorgan: FirmProfile = {
     "Service, Heart, Curiosity, Courage, Excellence (2024 cycle applicant-advised firm values)",
     "Business principles: exceptional client service, operational excellence, integrity, fairness and responsibility, a great team and winning culture",
     "Prep site: creativity, teamwork and humility (unverified)",
+  ],
+  pay: { text: "Scotland Graduate Apprenticeships: £24,000 starting salary (2025 intake). Pay for the London and Bournemouth programmes was not published in the sources seen.", source: "https://www.hw.ac.uk/news/2024/heriot-watt-university-and-j.p.-morgan-pave-new-paths-for-graduate-apprenticeships", confidence: "official" },
+  dayToDay: [
+    "Financial Services apprentices typically join operations or finance teams: checking that client trades and payments settle correctly, investigating breaks and improving processes.",
+    "Digital & Technology Solutions apprentices build, test and support the bank's software.",
+  ],
+  whyThisFirm: [
+    { text: "J.P. Morgan reported record second-quarter 2026 net income of $21.2 billion (including a one-off gain on Visa shares); Commercial & Investment Bank revenue rose 27%, with equities trading up 86%.", source: "https://www.jpmorganchase.com/content/dam/jpmc/jpmorgan-chase-and-co/investor-relations/documents/quarterly-earnings/2026/2nd-quarter/6cded9fd-a164-4e6c-8cff-377357cf105c.pdf", confidence: "official" },
   ],
   questions: [
     {

@@ -1,14 +1,27 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { FIRMS, getFirm } from "@/lib/firms";
-import { getMock } from "@/lib/mockprocess/definitions";
+import { glance, practiceLinks } from "@/lib/firms/glance";
 import type { Confidence } from "@/lib/firms/types";
+import { pageMeta } from "@/lib/site";
 
 export const generateStaticParams = () => FIRMS.map((f) => ({ slug: f.slug }));
 
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+  const firm = getFirm((await params).slug);
+  if (!firm) return { title: "Employer not found" };
+  const stages = firm.stages.map((s) => s.name.split(/[(:]/)[0].trim().toLowerCase()).join(", ");
+  return pageMeta({
+    title: `${firm.name} degree apprenticeship: process, tests and interview`,
+    description: `How the ${firm.name} degree apprenticeship application works: ${stages}. Sourced dates, entry requirements, reported questions and tips.`.slice(0, 300),
+    path: `/employers/${firm.slug}`,
+  });
+}
+
 const CONFIDENCE: Record<Confidence, string> = {
   official: "Official source",
-  "multiple-candidate-reports": "Several candidate reports",
+  "multiple-candidate-reports": "Several independent reports",
   "single-report": "Single report",
   inferred: "Inferred, unverified",
 };
@@ -47,12 +60,59 @@ export default async function FirmPage({ params }: { params: Promise<{ slug: str
           {firm.sector} · researched {firm.lastVerified}. Processes change every year, so confirm on the employer&apos;s
           own page.
         </p>
-        {getMock(firm.slug) && (
-          <Link href={`/mock/${firm.slug}`} className="btn btn-primary mt-3 inline-block">
-            Run the {firm.name} mock process
-          </Link>
-        )}
       </div>
+
+      <section className="card p-4 space-y-3" aria-labelledby="glance">
+        <h2 id="glance" className="font-semibold">
+          At a glance
+        </h2>
+        <dl className="grid gap-x-6 gap-y-2 text-sm sm:grid-cols-[8rem_1fr]">
+          {glance(firm).map((r) => (
+            <div key={r.label} className="contents">
+              <dt className="font-semibold">{r.label}</dt>
+              <dd className="mb-1 sm:mb-0">{r.value}</dd>
+            </div>
+          ))}
+        </dl>
+        {firm.pay && (
+          <p className="flex items-center gap-2">
+            <span className="text-xs text-muted">Pay:</span> <Badge c={firm.pay.confidence} /> <Src href={firm.pay.source} />
+          </p>
+        )}
+        <div className="flex flex-wrap gap-2 pt-1">
+          {practiceLinks(firm).map((l, i) => (
+            <Link key={l.href} href={l.href} className={`btn ${i === 0 ? "btn-primary" : "btn-secondary"}`}>
+              {l.label}
+            </Link>
+          ))}
+        </div>
+      </section>
+
+      {firm.dayToDay && firm.dayToDay.length > 0 && (
+        <section className="card p-4 space-y-2">
+          <h2 className="font-semibold">What you&apos;d actually do</h2>
+          <ul className="list-disc pl-5 text-sm space-y-1">
+            {firm.dayToDay.map((d) => (
+              <li key={d}>{d}</li>
+            ))}
+          </ul>
+          <p className="text-xs text-muted">Our plain-English summary from the firm&apos;s adverts, not the firm&apos;s own words.</p>
+        </section>
+      )}
+
+      {firm.whyThisFirm && firm.whyThisFirm.length > 0 && (
+        <section className="card p-4 space-y-2">
+          <h2 className="font-semibold">Why this firm: talking points</h2>
+          <p className="text-sm text-muted">Recent facts you can use in a &quot;why us?&quot; answer. Check for newer news before your interview.</p>
+          <ul className="space-y-2 text-sm">
+            {firm.whyThisFirm.map((w) => (
+              <li key={w.text}>
+                {w.text} <Badge c={w.confidence} /> <Src href={w.source} />
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
 
       <section className="card p-4 space-y-2">
         <h2 className="font-semibold">Programmes and entry</h2>

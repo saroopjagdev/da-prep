@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { START_TARGET, nextTarget, pickAdaptive } from "@/lib/assess/adaptive";
+import { serveIds, servedCount } from "@/lib/assess/sample";
 import { scoreSection, summarise, traitProfile } from "@/lib/assess/score";
 import { TESTS, getTest } from "@/lib/assess/tests";
 import type { Item, Response, Test } from "@/lib/assess/types";
@@ -17,6 +18,10 @@ function perfect(item: Item): Response {
       return { kind: "rate-each", ratings: item.ratings };
     case "rank":
       return { kind: "rank", order: item.order };
+    case "numeric":
+      return { kind: "numeric", value: String(item.answer) };
+    case "written":
+      return { kind: "written", text: "A reply." };
     case "likert":
       return { kind: "likert", value: 5 };
     case "forced-choice":
@@ -51,15 +56,47 @@ describe("test catalogue", () => {
   });
 
   it("scales replicas keep the reported pace", () => {
-    expect(getTest("scales-numerical")!.sections[0].items).toHaveLength(18);
+    expect(servedCount(getTest("scales-numerical")!.sections[0])).toBe(18);
     expect(getTest("scales-numerical")!.sections[0].timing).toEqual({ mode: "section", seconds: 360 });
     const pace = 265 / 18;
     const real = (12 * 60) / 49;
     expect(Math.abs(pace - real)).toBeLessThan(0.5);
   });
 
-  it("adaptive pools are bigger than the number served", () => {
+  it("adaptive and rotating pools are bigger than the number served", () => {
     for (const t of TESTS) for (const s of t.sections) if (s.adaptive) expect(s.items.length, t.id).toBeGreaterThan(s.adaptive.count);
+    for (const t of TESTS) for (const s of t.sections) if (s.sample) expect(s.items.length, t.id).toBeGreaterThan(s.sample.count);
+  });
+
+  it("rotating sections serve whole groups, the right number, and vary between attempts", () => {
+    let seed = 1;
+    const rand = () => ((seed = (seed * 16807) % 2147483647) / 2147483647);
+    for (const t of TESTS) {
+      for (const s of t.sections) {
+        if (!s.sample) continue;
+        const picks = new Set<string>();
+        for (let k = 0; k < 6; k++) {
+          const ids = serveIds(s, rand);
+          expect(new Set(ids).size, t.id).toBe(ids.length);
+          if (s.sample.exact) expect(ids.length, t.id).toBe(s.sample.count);
+          else if (s.sample.byStimulus) {
+            const groups = new Set(ids.map((id) => s.items.find((i) => i.id === id)!.stimulus).filter(Boolean));
+            for (const g of groups) for (const i of s.items.filter((x) => x.stimulus === g)) expect(ids, t.id).toContain(i.id);
+            expect(ids.length, t.id).toBeGreaterThanOrEqual(s.sample.count);
+          } else expect(ids.length, t.id).toBe(s.sample.count);
+          picks.add([...ids].sort().join());
+        }
+        expect(picks.size, t.id).toBeGreaterThan(1);
+      }
+    }
+  });
+
+  it("scores only the items served in a rotating section", () => {
+    const s = getTest("scales-numerical")!.sections[0];
+    const ids = serveIds(s, () => 0.3);
+    const r = scoreSection(s, {}, 10, ids);
+    expect(r.total).toBe(ids.length);
+    expect(r.max).toBe(ids.length);
   });
 
   it("a perfect candidate scores full marks on every ability test", () => {

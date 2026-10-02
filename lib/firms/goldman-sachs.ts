@@ -1,7 +1,8 @@
 import type { FirmProfile } from "./types";
 
-// Research date 2026-09-30. Most recent cycle with candidate detail: 2025 entry (applications Aug 2024 - Jan 2025, processed in batches to March 2025). 2027 entry applications open Autumn 2026 (official).
+// Research date 2026-09-30, updated 2026-10-02 (docs/research/finance-firms/existing-profiles-updates.md). Most recent cycle with candidate detail: 2025 entry (applications Aug 2024 - Jan 2025, processed in batches to March 2025). 2027 entry applications open Autumn 2026 (official).
 const GS_DA = "https://www.goldmansachs.com/careers/students/programs-and-internships/emea/degree-apprentices";
+const GS_BHAM = "https://www.goldmansachs.com/pressroom/press-releases/2025/degree-apprenticeship-programme-in-birmingham";
 const GS_PREP = "https://www.goldmansachs.com/careers/students/prepare";
 const TSR_P8 = "https://www.thestudentroom.co.uk/showthread.php?t=7519558&page=8";
 const TSR_P10 = "https://www.thestudentroom.co.uk/showthread.php?t=7519558&page=10";
@@ -26,9 +27,9 @@ export const goldmanSachs: FirmProfile = {
       locations: ["London", "Birmingham"],
     },
     {
-      name: "Operations Degree Apprenticeship (2025 cycle; not listed on the current official 2027 page)",
-      level: "Level 6",
-      degree: "Finance & Investment (prep-site description)",
+      name: "Operations Degree Apprenticeship",
+      level: "Level 6, 4 years",
+      degree: "BSc Finance & Investment, Walbrook Institute London (read through a search summary of the official page; confirm on the live page)",
       locations: ["London"],
     },
   ],
@@ -39,7 +40,7 @@ export const goldmanSachs: FirmProfile = {
     source: GS_DA,
   },
   timeline: {
-    opens: "2027 entry: applications open Autumn 2026 (official). 2025 cycle: opened around August-September 2024 and ran to early January 2025 per prep sites.",
+    opens: "2027 entry: applications are open now (official page, early October 2026). For 2026 entry they opened on 1 October 2025. 2025 cycle: opened around August-September 2024 and ran to early January 2025 per prep sites.",
     closes: "Early January (prep site); applications are reviewed on a rolling basis.",
     rolling: true,
     notes:
@@ -118,6 +119,15 @@ export const goldmanSachs: FirmProfile = {
     "Integrity",
     "Excellence",
   ],
+  dayToDay: [
+    "FICC and Equities apprentices support traders and salespeople: preparing market updates, pricing data and client information, and checking trades.",
+    "Engineering apprentices build and run the software and systems the firm's businesses use.",
+    "Operations apprentices make sure trades are confirmed, settled and recorded correctly, and fix problems when they are not.",
+  ],
+  whyThisFirm: [
+    { text: "In October 2025 Goldman Sachs announced its first degree apprenticeship outside London: an Engineering programme in Birmingham with Warwick (WMG). Its London programme has run for about ten years.", source: GS_BHAM, confidence: "official" },
+    { text: "Net revenues were $20.34 billion in the second quarter of 2026, 39% higher than a year earlier, led by Global Banking & Markets.", source: "https://www.goldmansachs.com/pressroom/press-releases/2026/2026-07-14-q2-results", confidence: "official" },
+  ],
   questions: [
     {
       stage: "HireVue video interview",
@@ -157,7 +167,8 @@ export const goldmanSachs: FirmProfile = {
     },
   ],
   specificAdvice: [
-    "Apply for FICC and Engineering early in the window (Autumn 2026 for 2027 entry); Goldman processes in batches, so do not read silence as rejection.",
+    "2027-entry applications are open now: apply early for FICC and Equities, Operations or Engineering. Goldman processes in batches, so do not read silence as rejection.",
+    "For 'why Goldman', you can mention the firm's first degree apprenticeship outside London: an Engineering programme in Birmingham with WMG, University of Warwick, announced in October 2025 after ten years of the London programme (Goldman Sachs press release).",
     "Treat the HireVue as the real screen: 30 seconds prep and 2 minutes per answer with no retakes; rehearse out loud with a timer.",
     "For FICC, be ready for a technical question in the HireVue; know what FICC does (rates, FX, credit, commodities) and one recent market story.",
     "For Engineering, practise HackerRank-style coding; it is an official stage.",
@@ -165,12 +176,12 @@ export const goldmanSachs: FirmProfile = {
     "Expect the Superday to be in person (London/Birmingham) with 2-5 interviews; prepare a CV walkthrough and a live logical puzzle.",
     "Hit all four values (partnership, client service, integrity, excellence) with specific examples, not generic prestige.",
   ],
-  officialLinks: [GS_DA, GS_PREP],
-  lastVerified: "2026-09-30",
+  officialLinks: [GS_DA, GS_PREP, GS_BHAM],
+  lastVerified: "2026-10-02",
   gaps: [
     "Official A-level/UCAS entry requirements for 2027 entry (AAA/A-level Maths claim is from a prep site).",
     "Verbatim HireVue and Superday questions for the DA route: Glassdoor and r/UKApprenticeships pages could not be read; HireVue question examples come from a prep site, not candidates.",
-    "Whether an Operations DA exists for 2027 (current official page lists only FICC and Equities and Engineering).",
+    "Operations DA for 2027 (BSc Finance & Investment, Walbrook) was seen only through a search summary of the official page; confirm on the live page.",
     "Exact Superday length/format for DA (only one prep-site report of three ~30-minute interviews).",
     "Official statement of Goldman's values for early careers (values from the firm's published core values via aggregator pages; GS site blocked).",
     "Actual timings of the 2026-27 cycle batches.",

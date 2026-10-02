@@ -3,8 +3,6 @@ import type { FirmProfile } from "./types";
 const UK_PAGE = "https://www.airbus.com/en/careers/students-and-graduates/apprentices/apprenticeships-in-the-united-kingdom";
 const ENTRY_PDF = "https://www.airbus.com/sites/g/files/jlcbta136/files/2024-01/degree_level_apprenticeships_entry_requirements.pdf";
 const GD_DA = "https://www.glassdoor.co.uk/Interview/Airbus-Engineering-Degree-Apprenticeship-Interview-Questions-EI_IE3059.0,6_KO7,40.htm";
-const TSR_2026 = "https://www.thestudentroom.co.uk/showthread.php?t=7654444";
-const TSR_2025 = "https://www.thestudentroom.co.uk/showthread.php?t=7554064";
 const VALUES = "https://www.airbus.com/en/careers/our-values";
 
 export const airbus: FirmProfile = {
@@ -173,6 +171,6 @@ export const airbus: FirmProfile = {
     "The three sample questions under 'inferred' come from a commercial prep site and may not be candidate-reported.",
     "Entry requirements are from the September 2024 entry PDF (Oct 2023 document); 2027 requirements not retrieved.",
     "Arctic Shores game count/duration for the apprentice variant is unpublished.",
-    "Student Room 2025/26 threads (" + TSR_2025 + ", " + TSR_2026 + ") not readable directly.",
+    "The Student Room's 2025 and 2026 Airbus threads could not be read directly.",
   ],
 };

@@ -101,11 +101,58 @@ function Chart({ s }: { s: Extract<Stimulus, { type: "chart" }> }) {
   );
 }
 
+function Email({ s }: { s: Extract<Stimulus, { type: "email" }> }) {
+  return (
+    <div className="space-y-3">
+      <dl className="grid grid-cols-[4.5rem_1fr] gap-x-2 gap-y-0.5 border-b border-line pb-2 text-xs">
+        <dt className="text-muted">From</dt>
+        <dd className="font-semibold">{s.from}</dd>
+        <dt className="text-muted">Subject</dt>
+        <dd className="font-semibold">{s.subject}</dd>
+        {s.time && (
+          <>
+            <dt className="text-muted">Received</dt>
+            <dd>{s.time}</dd>
+          </>
+        )}
+      </dl>
+      <p className="whitespace-pre-line leading-relaxed">{s.body}</p>
+      {s.table && (
+        <div className="overflow-x-auto">
+          <table className="w-full min-w-[18rem] border-collapse text-left">
+            <thead>
+              <tr className="border-b border-line">
+                {s.table.columns.map((c) => (
+                  <th key={c} scope="col" className="py-1.5 pr-4 font-semibold">
+                    {c}
+                  </th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              {s.table.rows.map((r, i) => (
+                <tr key={i} className="border-b border-line last:border-0">
+                  {r.map((cell, j) => (
+                    <td key={j} className="py-1.5 pr-4 tabular-nums">
+                      {cell}
+                    </td>
+                  ))}
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      )}
+    </div>
+  );
+}
+
 export default function StimulusView({ stimulus }: { stimulus: Stimulus }) {
   return (
     <div className="space-y-2 rounded-lg border border-line bg-white p-4 text-sm">
       {stimulus.title && <p className="font-semibold">{stimulus.title}</p>}
       {stimulus.type === "text" && <p className="whitespace-pre-line leading-relaxed">{stimulus.body}</p>}
+      {stimulus.type === "email" && <Email s={stimulus} />}
       {stimulus.type === "table" && (
         <div className="overflow-x-auto">
           <table className="w-full min-w-[20rem] border-collapse text-left">

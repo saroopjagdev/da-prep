@@ -6,8 +6,7 @@ import Runner from "@/components/assess/Runner";
 import QaStage, { type Turn } from "@/components/mock/QaStage";
 import { postJson } from "@/lib/api";
 import { percent, traitProfile } from "@/lib/assess/score";
-import { getTest } from "@/lib/assess/tests";
-import type { TestResult } from "@/lib/assess/types";
+import type { Test, TestResult } from "@/lib/assess/types";
 import type { MockProcess, MockStage } from "@/lib/mockprocess/types";
 import type { MockScoreOutput } from "@/lib/mockprocess/score";
 import { useCollection } from "@/lib/store";
@@ -27,8 +26,10 @@ function describeStage(s: MockStage) {
   return s.mode === "video" ? "Video answers" : s.mode === "exercise" ? "Exercise" : "Interview";
 }
 
-export default function MockRunner({ mock, firmName }: { mock: MockProcess; firmName: string }) {
-  const [phase, setPhase] = useState<"intro" | "stage" | "report" | null>(null);
+// `tests` holds only the tests this mock uses, passed from the server so the browser doesn't build every bank.
+export default function MockRunner({ mock, firmName, tests }: { mock: MockProcess; firmName: string; tests: Record<string, Test> }) {
+  // Start on the intro straight away (it doesn't depend on saved progress), so the page doesn't jump on load.
+  const [phase, setPhase] = useState<"intro" | "stage" | "report">("intro");
   const [stageIdx, setStageIdx] = useState(0);
   const [results, setResults] = useState<StageResult[]>([]);
   const [startedAt, setStartedAt] = useState(() => new Date().toISOString());
@@ -87,7 +88,7 @@ export default function MockRunner({ mock, firmName }: { mock: MockProcess; firm
   }
 
   function onTest(idx: number, stage: Extract<MockStage, { kind: "test" }>, r: TestResult) {
-    const test = getTest(stage.testId)!;
+    const test = tests[stage.testId];
     const next = [...results.slice(0, idx), { kind: "test", name: stage.name, ability: test.kind === "ability", points: r.points, max: r.max, profile: test.kind === "trait" ? traitProfile(test, r) : [] } as StageResult];
     advance(idx, next);
   }
@@ -149,8 +150,6 @@ export default function MockRunner({ mock, firmName }: { mock: MockProcess; firm
     // score() only reads values that are stable for a run.
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [phase, results]);
-
-  if (phase === null) return <p role="status" className="py-12 text-center text-muted">Loading…</p>;
 
   if (phase === "intro") {
     return (
@@ -233,7 +232,7 @@ export default function MockRunner({ mock, firmName }: { mock: MockProcess; firm
       );
     }
     if (stage.kind === "test") {
-      const test = getTest(stage.testId)!;
+      const test = tests[stage.testId];
       return (
         <div>
           {header}

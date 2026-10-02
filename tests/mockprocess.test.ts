@@ -4,10 +4,22 @@ import { FIRMS } from "@/lib/firms";
 import { MOCKS, getMock } from "@/lib/mockprocess/definitions";
 
 const WAVE_1 = ["pwc", "deloitte", "kpmg", "ey", "barclays", "rolls-royce", "bae-systems", "lloyds"];
+const BANKS = ["goldman-sachs", "jp-morgan", "morgan-stanley", "bank-of-america", "hsbc"];
 
 describe("mock processes", () => {
-  it("cover the eight wave-1 firms exactly once", () => {
-    expect(MOCKS.map((m) => m.firm).sort()).toEqual([...WAVE_1].sort());
+  it("cover the wave-1 firms and the investment banks exactly once", () => {
+    expect(MOCKS.map((m) => m.firm).sort()).toEqual([...WAVE_1, ...BANKS].sort());
+  });
+
+  it("bank video stages match the video interview settings for that bank", async () => {
+    const { getPreset } = await import("@/lib/hirevue");
+    for (const slug of ["goldman-sachs", "morgan-stanley", "bank-of-america", "hsbc"]) {
+      const v = getMock(slug)!.stages.find((s) => s.kind === "qa" && s.mode === "video");
+      const p = getPreset(slug);
+      expect(p.id, slug).toBe(slug);
+      expect(v?.kind === "qa" && [v.prepSeconds, v.answerSeconds, v.retakes], slug).toEqual([p.thinkSeconds, p.answerSeconds, p.retakes]);
+      expect(v?.kind === "qa" && v.prompts.length, slug).toBe(p.questions);
+    }
   });
 
   it.each(MOCKS.map((m) => [m.firm, m] as const))("%s links to real firm stages and real tests", (slug, m) => {

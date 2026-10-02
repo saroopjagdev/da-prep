@@ -1,5 +1,6 @@
 import { mockEnabled, transcribeAudio, transcribeModel } from "@/lib/ai";
 import { guardAi } from "@/lib/server/guard";
+import { requirePass } from "@/lib/server/pass";
 
 /** Lets the setup screen warn up front if voice transcription isn't available on this server. */
 export function GET() {
@@ -12,8 +13,13 @@ export const maxDuration = 60;
 const MAX_BYTES = 8 * 1024 * 1024;
 
 export async function POST(req: Request) {
-  const gate = await guardAi(req, "transcribe", 15);
+  const gate = await guardAi(req, "transcribe", 15, 150);
   if (!gate.ok) return gate.response;
+  // Transcription only happens inside an interview or mock process, so it needs that session's pass.
+  if (gate.userId) {
+    const denied = await requirePass(req, gate.userId, ["interview", "mock"]);
+    if (denied) return denied;
+  }
 
   const form = await req.formData().catch(() => null);
   const file = form?.get("audio");

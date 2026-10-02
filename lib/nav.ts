@@ -28,6 +28,7 @@ export const NAV_GROUPS: NavGroup[] = [
     label: "Learn",
     href: "/learn",
     links: [
+      { href: "/finance", label: "Finance hub", blurb: "Banks and accountancy: who hires, when, and myths checked" },
       { href: "/sectors", label: "Sector guides", blurb: "What changes between tech, engineering, finance and more" },
       { href: "/guide", label: "Process guide", blurb: "What happens at each stage" },
       { href: "/tips", label: "Tips", blurb: "Tests, video interviews and assessment centres" },
@@ -42,4 +43,5 @@ export const LEGAL_LINKS: NavLink[] = [
   { href: "/pricing", label: "Plans" },
   { href: "/privacy", label: "Privacy" },
   { href: "/terms", label: "Terms" },
+  { href: "/accessibility", label: "Accessibility" },
 ];
