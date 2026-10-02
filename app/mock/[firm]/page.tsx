@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import JsonLd from "@/components/JsonLd";
 import MockRunner from "@/components/mock/MockRunner";
+import { breadcrumbLd } from "@/lib/seo";
 import { getFirm } from "@/lib/firms";
 import { getTest } from "@/lib/assess/tests";
 import type { Test } from "@/lib/assess/types";
@@ -28,5 +30,10 @@ export default async function MockPage({ params }: { params: Promise<{ firm: str
   if (!mock || !firm) notFound();
   const tests: Record<string, Test> = {};
   for (const s of mock.stages) if (s.kind === "test") tests[s.testId] = getTest(s.testId)!;
-  return <MockRunner mock={mock} firmName={firm.name} tests={tests} />;
+  return (
+    <>
+      <JsonLd data={breadcrumbLd([{ name: "Home", path: "/" }, { name: "Mock processes", path: "/mock" }, { name: `${firm.name} mock process`, path: `/mock/${slug}` }])} />
+      <MockRunner mock={mock} firmName={firm.name} tests={tests} />
+    </>
+  );
 }

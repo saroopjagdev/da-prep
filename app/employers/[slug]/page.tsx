@@ -4,6 +4,8 @@ import { notFound } from "next/navigation";
 import { FIRMS, getFirm } from "@/lib/firms";
 import { glance, practiceLinks } from "@/lib/firms/glance";
 import type { Confidence } from "@/lib/firms/types";
+import JsonLd from "@/components/JsonLd";
+import { articleLd, breadcrumbLd } from "@/lib/seo";
 import { pageMeta } from "@/lib/site";
 
 export const generateStaticParams = () => FIRMS.map((f) => ({ slug: f.slug }));
@@ -51,6 +53,21 @@ export default async function FirmPage({ params }: { params: Promise<{ slug: str
 
   return (
     <div className="space-y-6">
+      <JsonLd
+        data={[
+          breadcrumbLd([
+            { name: "Home", path: "/" },
+            { name: "Employers", path: "/employers" },
+            { name: firm.name, path: `/employers/${firm.slug}` },
+          ]),
+          articleLd({
+            headline: `${firm.name} degree apprenticeship: process, tests and interview`,
+            description: `How the ${firm.name} degree apprenticeship application works, with sourced dates, entry requirements and tips.`,
+            path: `/employers/${firm.slug}`,
+            dateModified: firm.lastVerified,
+          }),
+        ]}
+      />
       <div>
         <Link className="text-sm underline" href="/employers">
           All employers
