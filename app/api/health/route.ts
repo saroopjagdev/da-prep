@@ -13,6 +13,8 @@ export function GET() {
     paymentsReady: Boolean(
       process.env.STRIPE_SECRET_KEY && process.env.STRIPE_WEBHOOK_SECRET && (process.env.STRIPE_PRICE_ID || process.env.STRIPE_PRICE_MONTHLY),
     ),
+    // Practice sessions are signed with PASS_SECRET; without it they fall back to the service-role key.
+    passSecret: Boolean(process.env.PASS_SECRET),
     contactSet: Boolean(process.env.NEXT_PUBLIC_OPERATOR_NAME && process.env.NEXT_PUBLIC_CONTACT_EMAIL),
     limits: limitsEnforced(),
     sharedRateLimit: Boolean(process.env.UPSTASH_REDIS_REST_URL),
