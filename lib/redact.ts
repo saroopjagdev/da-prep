@@ -19,3 +19,35 @@ export function redact(text: string): string {
     })
     .replace(POSTCODE, "[postcode removed]");
 }
+
+// --- CV checker: stricter removal with a count, so the page can say what was taken out. ---------------------------
+// `redact` above stays as the lightweight pass applied to every prompt. A CV is mostly personal data, so the CV checker
+// also removes links and dates of birth, and reports how many details it removed.
+
+const LINK = /\b(?:https?:\/\/|www\.)[^\s<>"')]+|\b(?:linkedin|facebook|instagram|tiktok|twitter|x)\.com\/[^\s<>"')]+/gi;
+const DOB = /\b(?:date of birth|d\.?o\.?b\.?|born(?: on)?)\s*[:\-]?\s*[^\n,;]{0,30}/gi;
+
+export type CvRedaction = { text: string; removed: number };
+
+export function redactForCv(input: string): CvRedaction {
+  let removed = 0;
+  const count = (label: string) => () => {
+    removed++;
+    return label;
+  };
+  let text = input
+    .replace(EMAIL, count("[email removed]"))
+    .replace(LINK, count("[link removed]"))
+    .replace(DOB, count("[date of birth removed]"))
+    .replace(NI_NUMBER, count("[NI number removed]"))
+    .replace(PHONE, (m) => {
+      const digits = m.replace(/\D/g, "");
+      const ok = (digits.startsWith("44") && digits.length >= 12 && digits.length <= 13) || (digits.startsWith("0") && digits.length === 11);
+      if (!ok) return m;
+      removed++;
+      return "[phone removed]";
+    })
+    .replace(POSTCODE, count("[postcode removed]"));
+  text = text.trim();
+  return { text, removed };
+}

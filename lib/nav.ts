@@ -13,6 +13,7 @@ export const NAV_GROUPS: NavGroup[] = [
       { href: "/tests", label: "Assessment replicas", blurb: "Employer-style tests with the real format and timing" },
       { href: "/mock", label: "Firm mock processes", blurb: "Run a firm's stages in its real order" },
       { href: "/review", label: "Statement review", blurb: "Feedback on your personal statement or answers" },
+      { href: "/cv", label: "CV checker", blurb: "Feedback on your CV for degree apprenticeship applications" },
     ],
   },
   {

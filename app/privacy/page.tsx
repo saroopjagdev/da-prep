@@ -88,7 +88,8 @@ export default function Privacy() {
         <strong>Please don&apos;t include names, addresses, phone numbers or other personal details</strong> about
         yourself or anyone else in what you type or say. As a safety net, we automatically remove email addresses,
         UK phone numbers, postcodes and National Insurance numbers from text before it is sent, but this can&apos;t
-        catch everything (for example names or street addresses).
+        catch everything (for example names or street addresses). The CV checker also removes links and dates of birth,
+        tells you how many details it removed, and does not keep your CV.
       </p>
 
       <h2 className="text-base font-semibold">Voice, speech and camera</h2>
