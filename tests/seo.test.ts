@@ -41,3 +41,66 @@ describe("page metadata", () => {
     }
   });
 });
+
+import sitemap from "@/app/sitemap";
+import { abs, articleLd, breadcrumbLd, organizationLd, serialiseLd, websiteLd } from "@/lib/seo";
+import { SITE_URL } from "@/lib/site";
+
+describe("structured data", () => {
+  it("builds valid breadcrumb lists with absolute URLs and 1-based positions", () => {
+    const ld = breadcrumbLd([{ name: "Home", path: "/" }, { name: "Employers", path: "/employers" }, { name: "Barclays", path: "/employers/barclays" }]);
+    expect(ld["@type"]).toBe("BreadcrumbList");
+    expect(ld.itemListElement.map((i) => i.position)).toEqual([1, 2, 3]);
+    expect(ld.itemListElement[0].item).toBe(SITE_URL);
+    expect(ld.itemListElement[2].item).toBe(`${SITE_URL}/employers/barclays`);
+  });
+
+  it("describes the organisation and site", () => {
+    expect(organizationLd()).toMatchObject({ "@type": "Organization", name: "Level6", url: SITE_URL });
+    expect(websiteLd()).toMatchObject({ "@type": "WebSite", name: "Level6", inLanguage: "en-GB" });
+  });
+
+  it("firm articles carry a real last-verified date and a short headline", () => {
+    const ld = articleLd({ headline: "x".repeat(200), description: "d", path: "/employers/barclays", dateModified: "2026-10-02" });
+    expect(ld.dateModified).toBe("2026-10-02");
+    expect(ld.headline.length).toBeLessThanOrEqual(110);
+    expect(ld.mainEntityOfPage).toBe(abs("/employers/barclays"));
+  });
+
+  it("serialises safely: text can never close the script tag", () => {
+    const out = serialiseLd({ name: "</script><script>alert(1)</script>" });
+    expect(out).not.toContain("</script>");
+    expect(JSON.parse(out).name).toBe("</script><script>alert(1)</script>");
+  });
+
+  it("does not use FAQPage markup (Google withdrew those rich results)", () => {
+    expect(serialiseLd([organizationLd(), websiteLd()])).not.toContain("FAQPage");
+  });
+});
+
+describe("sitemap", () => {
+  const entries = sitemap();
+
+  it("has no duplicate URLs and uses the canonical www host", () => {
+    const urls = entries.map((e) => e.url);
+    expect(new Set(urls).size).toBe(urls.length);
+    for (const u of urls) expect(u.startsWith(SITE_URL)).toBe(true);
+  });
+
+  it("gives every firm page its verified date", () => {
+    const firm = entries.filter((e) => e.url.includes("/employers/") && e.url !== `${SITE_URL}/employers`);
+    expect(firm.length).toBeGreaterThan(30);
+    for (const e of firm) expect(e.lastModified, e.url).toBeInstanceOf(Date);
+  });
+
+  it("excludes the private tool pages", () => {
+    for (const p of ["/tracker", "/stories", "/progress", "/login"]) expect(entries.some((e) => e.url === `${SITE_URL}${p}`), p).toBe(false);
+  });
+});
+
+describe("private pages are not indexed", () => {
+  it.each(["tracker", "stories", "progress", "login"])("%s layout sets noindex", async (name) => {
+    const mod = (await import(`@/app/${name}/layout`)) as { metadata: { robots?: { index?: boolean } } };
+    expect(mod.metadata.robots?.index).toBe(false);
+  });
+});

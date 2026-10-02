@@ -93,7 +93,7 @@ test("unknown pages show a friendly 404", async ({ page }) => {
   await expect(page.getByRole("heading", { level: 1 })).toBeVisible();
 });
 
-const PAGES = ["/", "/finance", "/finance/calendar", "/finance/myths", "/employers", "/employers/ubs", "/interview", "/tests", "/mock", "/tracker", "/review", "/pricing", "/privacy", "/terms", "/accessibility"];
+const PAGES = ["/", "/finance", "/finance/calendar", "/finance/myths", "/employers", "/employers/ubs", "/interview", "/tests", "/mock", "/tracker", "/review", "/cv", "/pricing", "/privacy", "/terms", "/accessibility"];
 
 for (const path of PAGES) {
   test(`no automatically detectable accessibility problems on ${path}`, async ({ page }) => {
