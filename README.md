@@ -15,7 +15,7 @@ AI mock interviews, practice tests, an application tracker and guides for UK deg
 - **Sectors** (`/sectors`): what is shared by every degree apprenticeship and what differs for seven sector groups.
 - **Content**: process guide, tips (tests, video interviews, assessment centres), timeline, employers, FAQ.
 - **Data**: backup/restore as JSON and clear local data from the account page.
-- Optional **accounts + cloud sync** (Supabase) and **free-tier limits + Pro** (Stripe): £17 a month, or a £30 one-off 3-month pass.
+- Optional **accounts + cloud sync** (Supabase) and **free-tier limits + Pro** (Stripe): £9.99 a month.
 
 ## Run
 ```
@@ -36,8 +36,8 @@ Without Supabase env vars the app is local-only (data in the browser). Without S
 3. Set `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY`, `SUPABASE_SERVICE_ROLE_KEY`.
 
 ## Enabling limits and payments
-1. In Stripe, create a Pro product with two prices that match `lib/plans.ts`: a recurring £17 a month price and a one-off £30 price (the 3-month pass, which never renews). Set `STRIPE_SECRET_KEY`, `STRIPE_PRICE_MONTHLY` and `STRIPE_PRICE_PASS`.
-2. Point a webhook at `/api/stripe/webhook` for `checkout.session.completed`, `checkout.session.async_payment_succeeded`, `charge.refunded`, `customer.subscription.updated` and `customer.subscription.deleted`; set `STRIPE_WEBHOOK_SECRET`. Pro is only granted once a payment is marked paid. A pass extends `profiles.pro_until` by 3 months (from its current end if one is running); the subscription sets `profiles.plan`. Enable the customer portal in the Stripe dashboard (Settings, Billing, Customer portal) so "Manage or cancel" works.
+1. In Stripe, create a Pro product with one recurring price that matches `lib/plans.ts` (£9.99 a month, GBP). Set `STRIPE_SECRET_KEY` and `STRIPE_PRICE_ID`. Checkout refuses to take money if the Stripe price's amount, currency or interval differs from `lib/plans.ts`.
+2. Point a webhook at `/api/stripe/webhook` for `checkout.session.completed`, `checkout.session.async_payment_succeeded`, `customer.subscription.updated` and `customer.subscription.deleted`; set `STRIPE_WEBHOOK_SECRET`. Pro is only granted once a payment is marked paid, and the subscription sets `profiles.plan`. Enable the customer portal in the Stripe dashboard (Settings, Billing, Customer portal) so "Manage or cancel" works.
 3. Limits switch on automatically in production once Supabase is configured (set `ENFORCE_LIMITS=false` to opt out, or `true` to force them on in development). All AI routes then require sign-in, share a 150-calls-a-day budget per user (`DAILY_AI_CALLS` in `lib/server/guard.ts`) plus a daily cap per expensive route, and free users get 2 interviews a month and 2 reviews a week (`FREE_INTERVIEWS`, `FREE_REVIEWS` in `lib/server/usage.ts`); Pro has fair-use limits only. Starting an interview or mock process issues a signed practice pass (`lib/server/pass.ts`) that its follow-up questions, marking and transcription must present, so the free allowance can't be skipped.
 4. Production: set `UPSTASH_REDIS_REST_URL` / `UPSTASH_REDIS_REST_TOKEN` so rate limits are shared across serverless instances, and `NEXT_PUBLIC_OPERATOR_NAME` / `NEXT_PUBLIC_CONTACT_EMAIL` for the legal pages.
 

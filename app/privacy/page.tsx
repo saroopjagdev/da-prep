@@ -64,8 +64,7 @@ export default function Privacy() {
           interview data so it syncs between devices. We use this to provide the service you asked for (contract).
         </li>
         <li>
-          <strong>If you buy Pro:</strong> a Stripe customer ID, your plan and, for the 3-month pass, the date it
-          ends. When you pay we also record, with the payment, that you confirmed the payer is 18 or over, that you
+          <strong>If you buy Pro:</strong> a Stripe customer ID and your plan. When you pay we also record, with the payment, that you confirmed the payer is 18 or over, that you
           asked Pro to start straight away and that you accepted the terms. Stripe holds your payment details.
         </li>
         <li>

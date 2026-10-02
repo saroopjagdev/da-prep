@@ -3,8 +3,7 @@
 What the Plans page (`app/pricing/page.tsx`) shows before payment, as built on 2 October 2026. Prices are set in `lib/plans.ts` and must match the Stripe prices.
 
 ## Plans
-- **Pro monthly, £17 a month.** "Renews every month until you cancel. Cancel any time from your account; Pro stays on until the end of the month you've paid for."
-- **Pro 3-month pass, £30 one-off.** "One payment for 3 months of Pro. It does not renew and you won't be charged again. Buying another pass adds 3 months to the end of the current one."
+- **Pro monthly, £9.99 a month.** "Renews every month until you cancel. Cancel any time from your account; Pro stays on until the end of the month you've paid for."
 
 ## "Before you pay" summary
 - **You're buying:** [plan]: [price]. Prices are in pounds sterling.

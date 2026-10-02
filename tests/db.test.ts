@@ -71,7 +71,6 @@ describe("database row-level security", () => {
 
   it("stops users making themselves Pro or resetting their usage", async () => {
     expect(blocked(await as(A, `update profiles set plan='pro' where id='${A}'`))).toBe(true);
-    expect(blocked(await as(A, `update profiles set pro_until=now() + interval '1 year' where id='${A}'`))).toBe(true);
     expect((await as(A, `insert into profiles (id, plan) values ('${A}','pro') on conflict (id) do update set plan='pro'`)).err).toBeTruthy();
     expect(blocked(await as(A, `update usage set interviews=0 where user_id='${A}'`))).toBe(true);
   });
@@ -81,8 +80,6 @@ describe("database row-level security", () => {
       `select consume_interview('${A}','2026-10',99)`,
       `select consume_review('${A}','2026-W40',99)`,
       `select consume_ai_call('${A}','2026-10-02',9999)`,
-      `select is_pro('${A}')`,
-      `select extend_pro_pass('${A}', 120)`,
     ])
       expect((await as(A, sql)).err, sql).toBeTruthy();
     const ai = await as(A, "select * from ai_usage");
@@ -104,41 +101,18 @@ describe("plans and quotas (server-side functions)", () => {
     expect(got).toEqual([true, true, false]);
   });
 
-  it("treats an unexpired pass as Pro, and a lapsed one as Free", async () => {
-    expect((await one(`select is_pro('${A}') as p`)).p).toBe(false);
-    const until = (await one(`select extend_pro_pass('${A}', 3) as u`)).u as Date;
-    const months = (until.getTime() - Date.now()) / (30.4 * 86_400_000);
-    expect(months).toBeGreaterThan(2.9);
-    expect(months).toBeLessThan(3.1);
-    expect((await one(`select is_pro('${A}') as p`)).p).toBe(true);
-    expect((await one(`select consume_interview('${A}','2026-10',2) as ok`)).ok).toBe(true);
-    await db.exec(`update profiles set pro_until = now() - interval '1 day' where id='${A}'`);
-    expect((await one(`select is_pro('${A}') as p`)).p).toBe(false);
-    expect((await one(`select consume_interview('${A}','2026-10',2) as ok`)).ok).toBe(false);
-  });
-
-  it("adds a second pass on to the end of the first", async () => {
-    await db.exec(`update profiles set pro_until = null where id='${A}'`);
-    await one(`select extend_pro_pass('${A}', 3)`);
-    const until = (await one(`select extend_pro_pass('${A}', 3) as u`)).u as Date;
-    expect((until.getTime() - Date.now()) / (30.4 * 86_400_000)).toBeGreaterThan(5.8);
-  });
-
-  it("takes a refunded pass back off the end date, never earlier than now", async () => {
-    await db.exec(`update profiles set pro_until = now() + interval '6 months' where id='${A}'`);
-    const until = (await one(`select shorten_pro_pass('${A}', 3) as u`)).u as Date;
-    const months = (until.getTime() - Date.now()) / (30.4 * 86_400_000);
-    expect(months).toBeGreaterThan(2.8);
-    expect(months).toBeLessThan(3.2);
-    const now = (await one(`select shorten_pro_pass('${A}', 12) as u`)).u as Date;
-    expect(Math.abs(now.getTime() - Date.now())).toBeLessThan(60_000);
-    expect((await as(A, `select shorten_pro_pass('${A}', 1)`)).err).toBeTruthy();
-  });
-
-  it("treats the monthly subscription as Pro", async () => {
-    await db.exec(`update profiles set plan='pro', pro_until=null where id='${B}'`);
-    expect((await one(`select is_pro('${B}') as p`)).p).toBe(true);
+  it("free users hit the weekly review limit; the monthly subscription (plan = pro) does not", async () => {
+    const free = [];
+    for (let i = 0; i < 3; i++) free.push((await one(`select consume_review('${A}','2026-W40',2) as ok`)).ok);
+    expect(free).toEqual([true, true, false]);
+    await db.exec(`update profiles set plan='pro' where id='${B}'`);
     expect((await one(`select consume_review('${B}','2026-W40',0) as ok`)).ok).toBe(true);
+    expect((await one(`select consume_interview('${B}','2026-10',0) as ok`)).ok).toBe(true);
+  });
+
+  it("the pro plan is the only paid state: a Free user with no subscription gets no free pass", async () => {
+    await db.exec(`update profiles set plan='free' where id='${A}'`);
+    expect((await one(`select consume_interview('${A}','2026-10',2) as ok`)).ok).toBe(false);
   });
 
   it("removes every row when a user is deleted", async () => {

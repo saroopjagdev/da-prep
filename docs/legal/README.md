@@ -19,4 +19,4 @@ Also in the app (drafts until reviewed):
 3. **Lawful basis for 16 to 17-year-olds** (contract vs legitimate interests).
 4. **Processor agreements** with OpenAI, Supabase, Vercel and Stripe (usually click-through in each dashboard).
 5. **Trade mark use** in test names ("SHL-style", "Aon/cut-e scales style", "HireVue-style", "Cappfinity style").
-6. **DMCC Act subscription rules**, expected spring 2027: renewal reminders and easy exit for Pro monthly. The 3-month pass doesn't renew, so it avoids most of this.
+6. **DMCC Act subscription rules**, expected spring 2027: renewal reminders and easy exit for Pro monthly.

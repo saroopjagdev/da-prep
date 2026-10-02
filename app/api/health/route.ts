@@ -9,12 +9,9 @@ export function GET() {
     ai: Boolean(process.env.OPENAI_API_KEY),
     accounts: Boolean(process.env.NEXT_PUBLIC_SUPABASE_URL && process.env.SUPABASE_SERVICE_ROLE_KEY),
     payments: Boolean(process.env.STRIPE_SECRET_KEY),
-    // Both Pro prices and the webhook secret must be set for checkout and plan updates to work.
+    // The Pro price and the webhook secret must both be set for checkout and plan updates to work.
     paymentsReady: Boolean(
-      process.env.STRIPE_SECRET_KEY &&
-        process.env.STRIPE_WEBHOOK_SECRET &&
-        (process.env.STRIPE_PRICE_MONTHLY || process.env.STRIPE_PRICE_ID) &&
-        process.env.STRIPE_PRICE_PASS,
+      process.env.STRIPE_SECRET_KEY && process.env.STRIPE_WEBHOOK_SECRET && (process.env.STRIPE_PRICE_ID || process.env.STRIPE_PRICE_MONTHLY),
     ),
     contactSet: Boolean(process.env.NEXT_PUBLIC_OPERATOR_NAME && process.env.NEXT_PUBLIC_CONTACT_EMAIL),
     limits: limitsEnforced(),

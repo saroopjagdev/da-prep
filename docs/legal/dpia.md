@@ -8,7 +8,7 @@
 Level6 is an online service likely to be used by children (most users are 16 to 18). The ICO's Age Appropriate Design Code (Children's Code) expects a DPIA for such services. The service also sends user-written text and voice recordings to an AI provider in the United States.
 
 ## 2. What the service does
-Practice tools for UK degree apprenticeship applications: AI mock interviews (text or recorded voice), practice tests, mock application processes, statement and answer review, an application tracker and a stories bank. A free tier and paid Pro plans (£17 a month subscription, or a £30 one-off 3-month pass).
+Practice tools for UK degree apprenticeship applications: AI mock interviews (text or recorded voice), practice tests, mock application processes, statement and answer review, an application tracker and a stories bank. A free tier and a paid Pro plan (£9.99 a month subscription).
 
 ## 3. Data, where it goes and why
 
