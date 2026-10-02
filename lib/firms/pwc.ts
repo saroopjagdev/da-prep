@@ -42,6 +42,7 @@ export const pwc: FirmProfile = {
   },
   timeline: {
     rolling: true,
+    opens: "Flying Start degrees for autumn 2027 are applied for through UCAS (Belfast, London, Manchester, Newcastle, Reading). Example: Reading's Accounting and Business Flying Start uses the UCAS equal-consideration deadline of 13 January 2027; PwC's bursary deadline is 12 March 2027 (PwC, University of Reading and UCAS pages via search summaries).",
     notes:
       "Third-party (single-source, unofficial): school leaver window roughly Sept-Nov for a following-September start, rolling. Flying Start candidates on TSR reported online assessment + video interview Nov-Jan then group/virtual assessment centre around March (2025 cycle). Treat dates as approximate.",
     source: "https://www.apprenticeedge.co.uk/packs/pwc",

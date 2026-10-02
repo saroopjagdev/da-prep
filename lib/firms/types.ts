@@ -48,6 +48,9 @@ export type FirmProfile = {
   assessmentCentre?: Sourced; // activities: group exercise, case study, presentation, in-tray
   finalInterview?: Sourced; // HV / partner / manager interview format
   values: string[]; // firm values/behaviours they assess against
+  pay?: Sourced; // starting salary, if published or reported
+  dayToDay?: string[]; // our plain-English summary of the work (a judgement, labelled as such on the page)
+  whyThisFirm?: Sourced[]; // sourced talking points for "why us" answers (news, strategy, results)
   questions: ReportedQuestion[];
   specificAdvice: string[]; // firm-specific, actionable
   officialLinks: string[];

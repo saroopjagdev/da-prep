@@ -12,7 +12,61 @@ export type NumericalTfBank = {
   checks: Record<string, (stimulus: Stimulus) => TfAnswer>;
 };
 
-const LINES = ["Home", "Garden", "Office", "Sport", "Travel", "Toys"] as const;
+// Table themes: a retail one and three finance ones. Every statement is worded from the theme, so the same
+// computed checks apply to all of them.
+type Theme = {
+  title: string;
+  entity: string; // column heading and singular noun, e.g. "Product line"
+  plural: string;
+  names: readonly string[];
+  measure: string;
+  verb: "was" | "were";
+  countClaim: string; // a quantity the table does not contain
+  countWhy: string;
+};
+
+const THEMES: Theme[] = [
+  {
+    title: "Sales revenue by product line (£ thousand)",
+    entity: "Product line",
+    plural: "product lines",
+    names: ["Home", "Garden", "Office", "Sport", "Travel", "Toys"],
+    measure: "revenue",
+    verb: "was",
+    countClaim: "sold more units than",
+    countWhy: "The table gives revenue, not units sold, so the number of units cannot be worked out.",
+  },
+  {
+    title: "Fee income by client region (£ thousand)",
+    entity: "Region",
+    plural: "regions",
+    names: ["London", "North West", "Scotland", "Midlands", "South West", "Wales"],
+    measure: "fee income",
+    verb: "was",
+    countClaim: "had more clients than",
+    countWhy: "The table shows fee income, not the number of clients, so client numbers cannot be compared.",
+  },
+  {
+    title: "Trading desk revenue (£ million)",
+    entity: "Desk",
+    plural: "desks",
+    names: ["Rates", "Credit", "FX", "Equities", "Commodities", "Emerging markets"],
+    measure: "revenue",
+    verb: "was",
+    countClaim: "made more trades than",
+    countWhy: "The table shows revenue, not the number of trades, so trade counts cannot be compared.",
+  },
+  {
+    title: "Customer deposits by branch (£ million)",
+    entity: "Branch",
+    plural: "branches",
+    names: ["Leeds", "Bristol", "Cardiff", "Glasgow", "Norwich", "York"],
+    measure: "deposits",
+    verb: "were",
+    countClaim: "had more customers than",
+    countWhy: "The table shows deposit balances, not customer numbers, so customers cannot be compared.",
+  },
+];
 
 type Spec = { text: string; truth: TfAnswer; why: string; check: (s: Stimulus) => TfAnswer };
 
@@ -23,13 +77,14 @@ const rowsOf = (s: Stimulus) => {
 const lookup = (s: Stimulus, name: string) => rowsOf(s).find((r) => r[0] === name)!;
 const hasColumn = (s: Stimulus, word: RegExp) => s.type === "table" && s.columns.some((c) => word.test(c));
 
-function group(r: Rng): { stimulus: Stimulus; specs: Spec[] } {
-  const names = r.shuffle(LINES).slice(0, 5);
+function group(r: Rng, t: Theme): { stimulus: Stimulus; specs: Spec[] } {
+  const names = r.shuffle(t.names).slice(0, 5);
   const rows: [string, number, number][] = names.map((n) => {
     const a = r.int(12, 60) * 10;
     return [n, a, a + r.int(-9, 16) * 10];
   });
-  const stimulus: Stimulus = { type: "table", title: "Sales revenue by product line (£ thousand)", columns: ["Product line", "2024", "2025"], rows };
+  const stimulus: Stimulus = { type: "table", title: t.title, columns: [t.entity, "2024", "2025"], rows };
+  const one = t.entity.toLowerCase();
   const [x, y, z] = names;
   const [, x24, x25] = rows[0];
   const [, y24, y25] = rows[1];
@@ -41,7 +96,10 @@ function group(r: Rng): { stimulus: Stimulus; specs: Spec[] } {
   const claimTrue = r.next() < 0.5;
   const claimedPct = claimTrue ? pctX : pctX + r.pick([-7, -5, 6, 9]);
   const specA: Spec = {
-    text: `${x} revenue changed by ${claimedPct}% between 2024 and 2025 (to the nearest whole percent).`,
+    text:
+      claimedPct === 0
+        ? `${x} ${t.measure} ${t.verb} unchanged between 2024 and 2025 (to the nearest whole percent).`
+        : `${x} ${t.measure} ${claimedPct > 0 ? "rose" : "fell"} by ${Math.abs(claimedPct)}% between 2024 and 2025 (to the nearest whole percent).`,
     truth: claimTrue ? 0 : 1,
     why: `${x}: (${x25} − ${x24}) ÷ ${x24} = ${(((x25 - x24) / x24) * 100).toFixed(1)}%, which is ${pctX}% to the nearest whole percent.`,
     check: (s) => {
@@ -52,9 +110,9 @@ function group(r: Rng): { stimulus: Stimulus; specs: Spec[] } {
 
   const bestName = r.pick([x, y, z]);
   const specB: Spec = {
-    text: `${bestName} had the highest revenue of any product line in 2025.`,
+    text: `${bestName} had the highest ${t.measure} of any ${one} in 2025.`,
     truth: bestName === best25 ? 0 : 1,
-    why: `Highest 2025 revenue: ${best25} (${Math.max(...rows.map((q) => q[2]))}).`,
+    why: `Highest 2025 ${t.measure}: ${best25} (${Math.max(...rows.map((q) => q[2]))}).`,
     check: (s) => {
       const best = rowsOf(s).reduce((b, q) => (q[2] > b[2] ? q : b))[0];
       return best === bestName ? 0 : 1;
@@ -64,7 +122,7 @@ function group(r: Rng): { stimulus: Stimulus; specs: Spec[] } {
   const growth = (tot25 - tot24) / tot24;
   const thresh = r.pick([5, 8, 10]);
   const specC: Spec = {
-    text: `Total revenue across all five product lines rose by more than ${thresh}% between 2024 and 2025.`,
+    text: `Total ${t.measure} across all five ${t.plural} rose by more than ${thresh}% between 2024 and 2025.`,
     truth: growth * 100 > thresh ? 0 : 1,
     why: `Totals: 2024 = ${tot24}, 2025 = ${tot25}, a change of ${(growth * 100).toFixed(1)}%.`,
     check: (s) => {
@@ -76,35 +134,36 @@ function group(r: Rng): { stimulus: Stimulus; specs: Spec[] } {
   };
 
   const specD: Spec = {
-    text: `${y} revenue in 2025 was higher than ${z} revenue in 2024.`,
+    text: `${y} ${t.measure} in 2025 ${t.verb} higher than ${z} ${t.measure} in 2024.`,
     truth: y25 > rows[2][1] ? 0 : 1,
     why: `${y} 2025 = ${y25}; ${z} 2024 = ${rows[2][1]}.`,
     check: (s) => (lookup(s, y)[2] > lookup(s, z)[1] ? 0 : 1),
   };
 
   const specE: Spec = {
-    text: `${x} sold more units than ${y} in 2025.`,
+    text: `${x} ${t.countClaim} ${y} in 2025.`,
     truth: 2,
-    why: "The table gives revenue, not units sold, so the number of units cannot be worked out.",
-    check: (s) => (hasColumn(s, /units?/i) ? 0 : 2),
+    why: t.countWhy,
+    check: (s) => (hasColumn(s, /units?|clients?|trades?|customers?/i) ? 0 : 2),
   };
   const specF: Spec = {
     text: `${y} was more profitable than ${z} in 2024.`,
     truth: 2,
-    why: "The table shows revenue only. There is no cost or profit data, so profitability cannot be compared.",
+    why: `The table shows ${t.measure} only. There is no cost or profit data, so profitability cannot be compared.`,
     check: (s) => (hasColumn(s, /profit|cost|margin/i) ? 0 : 2),
   };
   void y24;
   return { stimulus, specs: [specA, specB, specC, specD, specE, specF] };
 }
 
-export function buildNumericalTf(groups = 3): NumericalTfBank {
+/** 16 groups of 6 statements; the short test serves 3 groups (18) and the full-length test 37 statements. */
+export function buildNumericalTf(groups = 16): NumericalTfBank {
   const items: Item[] = [];
   const stimuli: Record<string, Stimulus> = {};
   const checks: NumericalTfBank["checks"] = {};
   for (let g = 1; g <= groups; g++) {
     const r = rng(5000 + g);
-    const { stimulus, specs } = group(r);
+    const { stimulus, specs } = group(r, THEMES[(g - 1) % THEMES.length]);
     const stimId = `ntf-g${g}`;
     stimuli[stimId] = stimulus;
     r.shuffle(specs).forEach((spec, k) => {

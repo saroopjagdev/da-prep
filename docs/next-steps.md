@@ -1,15 +1,15 @@
 # Next steps and handover
 
-Written 2 October 2026. Read `README.md` for what the app is, `docs/launch-checklist.md` for launch status, and `AGENTS.md` before touching any Next.js code (this is Next 16, and its docs live in `node_modules/next/dist/docs/`).
+Written 2 October 2026; updated the same day after the finance rebuild (branch `shayaan`). For launch status and steps read `docs/LAUNCH.md`. Read `README.md` for what the app is, and `AGENTS.md` before touching any Next.js code (this is Next 16, and its docs live in `node_modules/next/dist/docs/`).
 
 ## Where things stand
 
-Built and tested: the app and its AI features, accounts and cloud sync (Supabase), limits and payments code (Stripe), security hardening, privacy notice and terms, 32 firm profiles, ten assessment replicas (`/tests`) and eight firm mock processes (`/mock`). All 284 tests pass and the production build works.
+Built and tested: the app and its AI features, accounts and cloud sync (Supabase), limits and payments code (Stripe: £9.99 a month), security hardening, privacy notice and terms (plus legal drafts in `docs/legal/`), 42 firm profiles, 19 assessment replicas (`/tests`, including Cappfinity-style tests, job simulations, full-length Aon scales and switch puzzles), 13 firm mock processes (`/mock`) and a finance hub. 493 unit tests and 46 Playwright journeys pass (`npm test`, `npm run test:e2e`) and the production build works. Testing results: `docs/testing/phase4-report.md`.
 
 Not yet done, in priority order:
 
 ### 1. Launch blockers that need an account, a key or a person
-See `docs/launch-checklist.md` ("Needs you"). In short:
+See `docs/LAUNCH.md` (launch blockers and set-up steps). In short:
 1. Email provider for Supabase magic links (the built-in one allows 2 emails an hour for the whole project). Resend is being set up.
 2. Supabase auth settings: Site URL, redirect URLs for the production domain.
 3. Stripe: product, price, webhook, customer portal, then one test-mode run (checkout, cancel, refund, account deletion with a live subscription). The Stripe code is unit tested but has never run against Stripe.
@@ -37,14 +37,16 @@ See `docs/launch-checklist.md` ("Needs you"). In short:
 - Full accessibility audit (only the practice tests have had a pass, plus the new components were built with labels and live regions but not audited).
 - The CSP allows inline scripts; moving to a per-request nonce makes every page dynamic.
 - Free-interview allowance is counted when an interview starts and can be inflated by a client faking history; the daily budget bounds the cost.
-- `docs/launch-checklist.md` "Known limitations" lists more.
+- `docs/LAUNCH.md` "Known limitations" lists more.
 
 ## How to work in this repo
 
 ```
 npm install
 npm run dev        # http://localhost:3000
-npm test           # vitest, 284 tests
+npm test           # vitest, 493 tests
+npm run test:e2e   # Playwright journeys (starts a dev server with MOCK_AI=1)
+npm run check:freshness  # employer guides not re-verified in 150 days
 npx tsc --noEmit && npm run lint && npm run build
 ```
 Copy `.env.example` to `.env.local`. `MOCK_AI=1` serves canned AI output so every screen works offline (ignored in production). `.env.local` is gitignored: never commit keys.

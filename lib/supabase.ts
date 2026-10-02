@@ -1,6 +1,7 @@
 import { createClient, type SupabaseClient } from "@supabase/supabase-js";
+import { supabaseOrigin } from "@/lib/supabase-url";
 
-const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
+const url = supabaseOrigin(process.env.NEXT_PUBLIC_SUPABASE_URL);
 const anon = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
 
 /** True when Supabase env vars are present. Without them the app runs local-only. */

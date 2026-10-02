@@ -1,3 +1,4 @@
+import { servedCount } from "@/lib/assess/sample";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { TESTS } from "@/lib/assess/tests";
@@ -10,7 +11,7 @@ export const metadata: Metadata = {
 
 function summary(id: string) {
   const t = TESTS.find((x) => x.id === id)!;
-  const items = t.sections.reduce((n, s) => n + (s.adaptive ? s.adaptive.count : s.items.length), 0);
+  const items = t.sections.reduce((n, s) => n + servedCount(s), 0);
   const secs = totalSeconds(t);
   return `${items} ${t.kind === "trait" ? "statements" : "questions"} · ${secs ? `${Math.round(secs / 60)} min` : "untimed"}`;
 }

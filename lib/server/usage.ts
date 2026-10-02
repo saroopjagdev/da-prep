@@ -1,4 +1,5 @@
 import { admin, userFromRequest } from "@/lib/server/auth";
+import { limitsEnforced } from "@/lib/server/guard";
 
 export const FREE_INTERVIEWS = 2;
 export const FREE_REVIEWS = 2;
@@ -14,7 +15,7 @@ export function isoWeek(d = new Date()): string {
   return `${t.getUTCFullYear()}-W${String(week).padStart(2, "0")}`;
 }
 
-/** Count one use against a free allowance. Only enforced when ENFORCE_LIMITS=true; otherwise always allowed. */
+/** Count one use against a free allowance. Only enforced when limits are enforced (see limitsEnforced); otherwise always allowed. */
 async function consume(
   req: Request,
   rpc: "consume_interview" | "consume_review",
@@ -23,7 +24,7 @@ async function consume(
   signIn: string,
   used: string,
 ): Promise<Result> {
-  if (process.env.ENFORCE_LIMITS !== "true") return { ok: true };
+  if (!limitsEnforced()) return { ok: true };
   const a = admin();
   if (!a) return { ok: false, status: 500, error: "Usage limits are enabled but Supabase is not configured." };
   const user = await userFromRequest(req);
@@ -45,7 +46,7 @@ export const consumeInterview = (req: Request) =>
     new Date().toISOString().slice(0, 7),
     FREE_INTERVIEWS,
     "Sign in to start an interview.",
-    `You've used your ${FREE_INTERVIEWS} free interviews this month. Upgrade to Pro for unlimited practice.`,
+    `You've used your ${FREE_INTERVIEWS} free interviews this month. Upgrade to Pro to keep practising (fair-use limits apply).`,
   );
 
 /** Count one statement or answer review against the caller's weekly free allowance. */
@@ -56,5 +57,5 @@ export const consumeReview = (req: Request) =>
     isoWeek(),
     FREE_REVIEWS,
     "Sign in to get a review.",
-    `You've used your ${FREE_REVIEWS} free reviews this week. They reset on Monday, or upgrade to Pro for unlimited reviews.`,
+    `You've used your ${FREE_REVIEWS} free reviews this week. They reset on Monday, or upgrade to Pro for more (fair-use limits apply).`,
   );

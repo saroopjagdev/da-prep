@@ -1,5 +1,6 @@
 import OpenAI from "openai";
 import { z } from "zod";
+import { redact } from "@/lib/redact";
 
 /**
  * Two model tiers, both overridable by env:
@@ -81,7 +82,7 @@ export async function askJson<T extends z.ZodTypeAny>({
       // JSON mode requires the word "JSON" in the input messages themselves (the `instructions` field doesn't count).
       input: [
         { role: "system", content: `${system}\n\nRespond with a single JSON object only. No prose, no code fences.` },
-        { role: "user", content: user },
+        { role: "user", content: redact(user) }, // strip emails, phone numbers and postcodes first
       ],
       max_output_tokens: maxTokens,
       text: { format: { type: "json_object" } },

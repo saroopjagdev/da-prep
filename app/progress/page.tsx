@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import ProgressBar from "@/components/Progress";
+import { STAGE_LABEL } from "@/lib/interview";
 import { CATEGORY_INFO, type Category } from "@/lib/questions";
 import { useCollection } from "@/lib/store";
 import type { PracticeRecord, SessionRecord } from "@/lib/types";
@@ -112,7 +113,7 @@ export default function Progress() {
                     <summary className="flex cursor-pointer flex-wrap items-center justify-between gap-2 p-4">
                       <span>
                         <span className="font-semibold">
-                          {fmt(s.date)} · <span className="capitalize">{s.stage}</span> · {s.mode}
+                          {fmt(s.date)} · {STAGE_LABEL[s.stage] ?? s.stage} · {s.mode}
                         </span>
                         <span className="block text-sm text-muted">{s.jobSnippet}…</span>
                       </span>
@@ -140,6 +141,14 @@ export default function Progress() {
                           )}
                         </div>
                       )}
+                      {s.nextSteps?.length ? (
+                        <div>
+                          <p className="font-semibold">Next things to practise</p>
+                          <ol className="mt-1 list-decimal space-y-1 pl-5">
+                            {s.nextSteps.map((x, i) => <li key={i}>{x}</li>)}
+                          </ol>
+                        </div>
+                      ) : null}
                       {s.turns.map((t, i) => (
                         <div key={i} className="space-y-1.5 rounded-lg bg-background p-3">
                           <p className="font-semibold">

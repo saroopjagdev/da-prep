@@ -4,7 +4,6 @@ const APPS = "https://careers.jaguarlandrover.com/early-careers/apprentices";
 const HUB = "https://careers.jaguarlandrover.com/early-careers/employability-hub";
 const SAVILLE = "https://www.savilleassessment.com/jaguar-land-rover-preparation-guide/";
 const GD_DA = "https://www.glassdoor.co.uk/Interview/JLR-Degree-Apprentice-Interview-Questions-EI_IE374962.0,3_KO4,21.htm";
-const TSR_AC = "https://www.thestudentroom.co.uk/showthread.php?t=7309663";
 const GJ = "https://www.graduate-jobs.com/interviews/company/jlr";
 
 export const jlr: FirmProfile = {
@@ -131,6 +130,6 @@ export const jlr: FirmProfile = {
     "Reported questions come from search summaries of Glassdoor and Student Room (403 to direct fetch); year per question unknown. GJ questions are not DA-specific.",
     "Entry grades per programme not retrieved.",
     "Conflict: Match 6.5 scale described as 9-point (Saville) and 1-10 (JLR hub).",
-    "Third-party claim of group panel and skills test stages could not be verified and is excluded. Student Room AC thread " + TSR_AC + " unreadable.",
+    "Third-party claim of group panel and skills test stages could not be verified and is excluded. The Student Room assessment-centre thread could not be read.",
   ],
 };

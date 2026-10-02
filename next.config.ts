@@ -1,7 +1,8 @@
 import type { NextConfig } from "next";
+import { supabaseOrigin } from "./lib/supabase-url";
 
 const isDev = process.env.NODE_ENV !== "production";
-const supabase = process.env.NEXT_PUBLIC_SUPABASE_URL;
+const supabase = supabaseOrigin(process.env.NEXT_PUBLIC_SUPABASE_URL);
 
 // Static CSP: a per-request nonce would force every page to render dynamically. Inline scripts are still needed
 // for Next's hydration data, so script-src allows 'unsafe-inline'; the rest of the policy locks down framing,

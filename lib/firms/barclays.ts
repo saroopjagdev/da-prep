@@ -1,21 +1,31 @@
 import type { FirmProfile } from "./types";
 
-// Research date 2026-09-30. Most recent cycle with candidate detail: 2025 entry (applications Oct 2024 - early 2025).
+// Research date 2026-09-30, updated 2026-10-02 with 2027 roles. Most recent cycle with candidate detail: 2025 entry (applications Oct 2024 - early 2025).
 const B_OFFICIAL = "https://search.jobs.barclays/apprentice-application-journey";
 const B_PROGS = "https://search.jobs.barclays/apprenticeship-programmes";
 const B_VALUES = "https://home.barclays/who-we-are/our-strategy/purpose-and-values/";
 const TSR_HIGHER = "https://www.thestudentroom.co.uk/showthread.php?t=7538333";
-const TSR_HIGHER_P2 = "https://www.thestudentroom.co.uk/showthread.php?t=7538333&page=2";
 const TSR_HIGHER_P4 = "https://www.thestudentroom.co.uk/showthread.php?t=7538333&page=4";
 const TSR_HIGHER_P5 = "https://www.thestudentroom.co.uk/showthread.php?t=7538333&page=5";
 const TSR_2025 = "https://www.thestudentroom.co.uk/showthread.php?t=7552128";
-const BA_GUIDE = "https://www.bestapprenticeships.com/barclays-apprenticeships-guide/";
+const B_BB_2027 = "https://search.jobs.barclays/job/london/2027-business-banking-degree-apprenticeship-programme-london/13015/100411086720";
+const B_CB_2027 = "https://search.jobs.barclays/job/london/uk-corporate-banking-degree-apprenticeship-programme-2027-london/13015/100812856416";
 
 export const barclays: FirmProfile = {
   slug: "barclays",
   name: "Barclays",
   sector: "Banking / financial services",
   programmes: [
+    {
+      name: "2027 Business Banking Degree Apprenticeship Programme",
+      level: "Level 6 degree apprenticeship (2027 start)",
+      locations: ["London"],
+    },
+    {
+      name: "UK Corporate Banking Degree Apprenticeship Programme 2027",
+      level: "Level 6 degree apprenticeship (2027 start)",
+      locations: ["London"],
+    },
     {
       name: "UK Corporate Banking Higher Apprenticeship (Level 6, BSc (Hons) Financial Services Management with LIBF per a 2025 applicant)",
       level: "Level 6 degree-level (Barclays labels these 'Higher Apprenticeships'; candidates confirm the higher ones are Level 6)",
@@ -35,16 +45,17 @@ export const barclays: FirmProfile = {
   ],
   entry: {
     ucas: "Varies by listing. Sources disagree: BCC / 112 UCAS points (BBC) for higher/degree routes; Glasgow listing reported as BBBB Highers. Check the live listing.",
-    other: "GCSE Maths and English grade 4/C reported. Must have right to work in the UK for the duration (Barclays does not sponsor). Only one application per six-month period (official).",
-    source: BA_GUIDE,
+    predictedGrades: "UK Corporate Banking degree apprenticeship (2027): BBB at A level (or equivalent), GCSE Maths grade 6 and English Language grade 4 (Barclays careers page, read through a search summary). Pay: £25,200 from day one for higher and degree apprenticeships (same source).",
+    other: "Older guides report GCSE Maths and English grade 4/C. Must have right to work in the UK for the duration (Barclays does not sponsor). Only one application per six-month period (official).",
+    source: B_PROGS,
   },
   timeline: {
-    opens: "2025 cycle: roles opened from roughly late October 2024 and were released in waves (Risk and Corporate Banking for London opened later, in November). Expect Oct-Nov for 2026 cycle; Barclays roles appear on search.jobs.barclays.",
+    opens: "2027 entry: roles are open now. The Business Banking Degree Apprenticeship (London) was posted on 9 September 2026 and the UK Corporate Banking Degree Apprenticeship (London) on 18 September 2026 (Barclays job pages). Other routes are released in waves; in the 2025 cycle Risk and Corporate Banking opened in November.",
     closes: "Rolling; roles close when filled.",
     rolling: true,
     notes:
       "Response times vary: some candidates report hearing back within weeks of the online assessment and others after a couple of months. Applying early tends to move faster. Decision-to-feedback: unsuccessful candidates receive a personalised feedback report (official).",
-    source: TSR_HIGHER_P2,
+    source: B_CB_2027,
   },
   stages: [
     {
@@ -139,6 +150,13 @@ export const barclays: FirmProfile = {
     "Excellence: set high standards, champion innovation",
     "Stewardship: leave things better than you found them",
   ],
+  pay: { text: "£25,200 from day one (Barclays apprenticeship-programmes page; check the degree role's own advert).", source: B_PROGS, confidence: "official" },
+  dayToDay: [
+    "Business and Corporate Banking apprentices support relationship managers who look after company clients: researching businesses, preparing lending and account information, and helping clients with payments and borrowing.",
+  ],
+  whyThisFirm: [
+    { text: "Barclays UK Corporate Bank's first-half 2026 profit before tax rose 30% to £566 million, and its UK corporate lending grew 12% year on year.", source: "https://home.barclays/content/dam/home-barclays/documents/investor-relations/ResultAnnouncements/H12026Results/Q226-BPLC-Results-RA.pdf", confidence: "official" },
+  ],
   questions: [
     {
       stage: "Interview / assessment centre",
@@ -173,7 +191,7 @@ export const barclays: FirmProfile = {
     },
   ],
   specificAdvice: [
-    "Apply as soon as a role opens (Oct-Nov); the 2025 cycle moved earlier applicants forward first and December applicants reported weeks of silence.",
+    "Apply as soon as a role opens: 2027 roles started appearing in September 2026. The 2025 cycle moved earlier applicants forward first and December applicants reported weeks of silence.",
     "Treat the SHL-style numerical as the main filter: practise timed interactive numerical tests, because candidates called it hard and Barclays gives no feedback.",
     "Expect a long gap (up to ~2 months) between the online assessment and the interview invite; keep applying elsewhere.",
     "Prepare both for a 70-minute two-interviewer competency interview and for a group activity, since the official page lists both.",
@@ -181,7 +199,7 @@ export const barclays: FirmProfile = {
     "Know the degree awarded: corporate banking applicants report a BSc Financial Services Management with LIBF; Barclays 'higher apprenticeships' are Level 6.",
     "No AI tools in any assessment or interview stage; Barclays says this explicitly.",
   ],
-  officialLinks: [B_OFFICIAL, B_PROGS, B_VALUES],
+  officialLinks: [B_OFFICIAL, B_PROGS, B_BB_2027, B_CB_2027, B_VALUES],
   lastVerified: "2026-10-02",
   gaps: [
     "Re-checked 2 Oct 2026: Barclays' apprentice journey lists no video interview stage. Third-party descriptions of a HireVue interview (5-7 questions) and 60-90 min of numerical, verbal, logical and personality tests describe the graduate route and are not applied here.",
@@ -190,7 +208,7 @@ export const barclays: FirmProfile = {
     "Exact test vendor and item counts for the 2025/2026 DA online assessments (SHL is candidate-reported only; Barclays does not name it).",
     "Whether a video interview or group exercise is part of the DA route; official page mentions a group activity but the only 2025 candidate report of the final stage described an interview only.",
     "Official UCAS/A-level entry requirements per role (sources conflict: BCC, BBB, 112 points).",
-    "2026 cycle (applications from Oct 2026) opening dates.",
+    "Opening dates for 2027 routes other than Business Banking and UK Corporate Banking (London); the two 2027 role pages were seen only through search summaries.",
     "Glassdoor, Reddit and Rate My Apprenticeship pages could not be read (blocked or no relevant posts); no verbatim question lists beyond those cited.",
     "Barclays apprentice government survey stage mentioned in a search snippet but not verified.",
   ],

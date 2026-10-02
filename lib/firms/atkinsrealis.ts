@@ -5,7 +5,6 @@ const FAQ = "https://careers.atkinsrealis.com/uk-early-careers/faqs-apprentices"
 const PREP = "https://careers.atkinsrealis.com/uk-early-careers/blogs/2025-5/how-to-prepare-for-an-early-careers-interview";
 const IA_BLOG = "https://careers.atkinsrealis.com/uk-early-careers/blogs/2024-10/how-to-prepare-for-the-atkinsrealis-immersive-assessment";
 const AMAZING = "https://www.amazingapprenticeships.com/employers/atkinsrealis/";
-const GF = "https://www.graduatesfirst.com/atkins-job-tests";
 const TSR = "https://www.thestudentroom.co.uk/showthread.php?t=7297619";
 const VALUES = "https://careers.atkinsrealis.com/en/what-matters-to-us";
 
@@ -108,7 +107,7 @@ export const atkinsrealis: FirmProfile = {
   gaps: [
     "Conflicting durations: 45 min (official FAQ/blog), 60 min (Amazing Apprenticeships and a search summary); interview 'about an hour' vs '90 minutes'.",
     "Reported questions are from search summaries of the Student Room (403), likely video answers from the pre-2026 format.",
-    "No item counts or pass mark; third-party prep content (" + GF + ") not used for facts.",
+    "No item counts or pass mark; a commercial prep site's description was not used for facts.",
     "Entry grades per programme not retrieved; AtkinsRéalis values in search summary of a careers page.",
   ],
 };

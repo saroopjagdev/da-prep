@@ -24,6 +24,7 @@ export const kpmg: FirmProfile = {
   },
   timeline: {
     rolling: true,
+    closes: "2027 Audit Apprenticeship listings show a deadline of 31 July 2027 for a 1 September 2027 start, but KPMG says vacancies fill quickly, so apply as early as possible (KPMG vacancies page, seen through a search summary).",
     notes:
       "2026/27 Launch Pad dates (KPMG): 17 Nov 2026 London; 1 Dec Birmingham; 9 Dec Manchester; 16 Mar 2027 Bristol; 23 Mar Glasgow; 27 Apr London; 5 May Leeds. Offers within 2 working days of Launch Pad. Roles are across 19 offices. Unofficial prep site suggests application window Oct-Feb for a Sept start, rolling offers, typical application to offer 6-10 weeks (single report).",
     source: K_PROC,

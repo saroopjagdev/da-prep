@@ -1,6 +1,11 @@
+import { pageMeta } from "@/lib/site";
 import Link from "next/link";
 
-export const metadata = { title: "Process guide" };
+export const metadata = pageMeta({
+  title: "How degree apprenticeship applications work",
+  description: "Each stage of a degree apprenticeship application explained: online form, tests, video interview, assessment centre and offer.",
+  path: "/guide",
+});
 
 const stages = [
   {

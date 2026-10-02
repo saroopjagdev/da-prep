@@ -126,6 +126,13 @@ export const santander: FirmProfile = {
     "Simple, Personal, Fair (The Santander Way)",
     "TEAMS behaviours: Think Customer, Embrace Change, Act Now, Move Together, Speak Up",
   ],
+  pay: { text: "Corporate & Commercial Banking Level 6: £27,500.", source: "https://www.santanderjobs.co.uk/realiseyourfuture/corporate-banking-apprenticeship.php", confidence: "official" },
+  dayToDay: [
+    "Corporate & Commercial Banking apprentices work on two 12-month placements supporting teams that look after business clients.",
+  ],
+  whyThisFirm: [
+    { text: "Santander UK completed its £2.65 billion acquisition of TSB on 30 April 2026, making it the UK's third largest bank by personal current account balances.", source: "https://www.santander.co.uk/about-santander/media-centre/press-releases/santander-uk-completes-cash-acquisition-of-tsb-banking/", confidence: "official" },
+  ],
   questions: [],
   specificAdvice: [
     "Be ready the day applications open: in 2025 the window opened later than first announced, then filled quickly.",

@@ -1,6 +1,11 @@
+import { pageMeta } from "@/lib/site";
 import { CONTACT_EMAIL, LEGAL_UPDATED, OPERATOR_NAME } from "@/lib/legal";
 
-export const metadata = { title: "Privacy" };
+export const metadata = pageMeta({
+  title: "Privacy notice",
+  description: "What Level6 stores, what is sent to AI services, and your rights. No ads, no tracking, no analytics.",
+  path: "/privacy",
+});
 
 const PROCESSORS: [string, string, string][] = [
   ["OpenAI", "Generates interview questions and feedback, transcribes your voice, and screens text for harmful content", "United States"],
@@ -15,6 +20,20 @@ export default function Privacy() {
     <div className="max-w-2xl space-y-4 text-sm leading-relaxed">
       <h1 className="page-title">Privacy notice</h1>
       <p className="text-muted">Last updated {LEGAL_UPDATED}.</p>
+
+      <section aria-labelledby="short-version" className="callout space-y-2 bg-brand-50">
+        <h2 id="short-version" className="text-base font-semibold">
+          The short version
+        </h2>
+        <ul className="list-disc space-y-1 pl-5">
+          <li>You don&apos;t need an account. Without one, everything you save stays on your device and we never see it.</li>
+          <li>If you make an account (16 and over), we keep your email and your saved work so it syncs. You can delete it all yourself, any time.</li>
+          <li>What you type or say into the AI tools is sent to OpenAI to make questions and feedback. We don&apos;t keep it. Please leave out names, phone numbers and addresses.</li>
+          <li>No adverts, no tracking, no analytics, and we never share your data with employers.</li>
+          <li>The feedback is written by AI, so it can be wrong. You decide what to use.</li>
+        </ul>
+        <p>The full details are below.</p>
+      </section>
 
       <h2 className="text-base font-semibold">Who we are</h2>
       <p>
@@ -45,8 +64,8 @@ export default function Privacy() {
           interview data so it syncs between devices. We use this to provide the service you asked for (contract).
         </li>
         <li>
-          <strong>If you subscribe to Pro:</strong> a Stripe customer ID and your plan. Stripe holds your payment
-          details.
+          <strong>If you buy Pro:</strong> a Stripe customer ID and your plan. When you pay we also record, with the payment, that you confirmed the payer is 18 or over, that you
+          asked Pro to start straight away and that you accepted the terms. Stripe holds your payment details.
         </li>
         <li>
           <strong>Usage counts:</strong> how many interviews and AI requests your account has made, to apply fair-use
@@ -67,7 +86,9 @@ export default function Privacy() {
       </p>
       <p>
         <strong>Please don&apos;t include names, addresses, phone numbers or other personal details</strong> about
-        yourself or anyone else in what you type or say.
+        yourself or anyone else in what you type or say. As a safety net, we automatically remove email addresses,
+        UK phone numbers, postcodes and National Insurance numbers from text before it is sent, but this can&apos;t
+        catch everything (for example names or street addresses).
       </p>
 
       <h2 className="text-base font-semibold">Voice, speech and camera</h2>
@@ -87,7 +108,8 @@ export default function Privacy() {
       </p>
 
       <h2 className="text-base font-semibold">Who else handles your data</h2>
-      <div className="overflow-x-auto">
+      {/* Focusable so keyboard users can scroll the table sideways on narrow screens. */}
+      <div className="overflow-x-auto" tabIndex={0} role="region" aria-label="Services that handle your data">
         <table className="w-full min-w-[32rem] border-collapse text-left">
           <thead>
             <tr className="border-b border-line">
@@ -128,6 +150,20 @@ export default function Privacy() {
           ico.org.uk
         </a>
         , 0303 123 1113.
+      </p>
+
+      <h2 className="text-base font-semibold">Automated feedback</h2>
+      <p>
+        Interview questions, marks and feedback are produced automatically by AI. They are practice guidance only, are
+        never shared with employers and don&apos;t decide anything about you. If you think feedback was wrong or
+        unfair, tell us{CONTACT_EMAIL ? ` at ${CONTACT_EMAIL}` : ""} and we will look into it.
+      </p>
+
+      <h2 className="text-base font-semibold">If you contact us</h2>
+      <p>
+        If you email us, we keep your message and contact details to reply. If a message raises a concern about
+        someone&apos;s safety, we keep a short, secure record of it and may share it with the right service (such as
+        children&apos;s services or the police) to keep someone safe.
       </p>
 
       <h2 className="text-base font-semibold">If you are struggling</h2>

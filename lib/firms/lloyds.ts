@@ -21,7 +21,7 @@ export const lloyds: FirmProfile = {
     source: L_AA,
   },
   timeline: {
-    opens: "Lloyds' apprenticeships page says opportunities open for applications on 3 November (the year is not stated; presumably 2026)",
+    opens: "Sources disagree for 2027 entry: Lloyds' apprenticeships page says opportunities open on 3 November (year not stated), while job boards report applications opening in October 2026 for September 2027 starts. Register interest so you are told when your programme opens.",
     notes: "If a programme is closed you can register interest. Closing dates not verified.",
     source: L_PROC,
   },
@@ -72,6 +72,13 @@ export const lloyds: FirmProfile = {
   },
   finalInterview: { text: "Interview or assessment day depending on apprenticeship; digital or in person.", source: L_PROC, confidence: "official" },
   values: ["Customer focus", "Enthusiasm", "Inquisitiveness", "Motivation", "Problem solving", "Resilience", "Respect", "Teamwork"],
+  pay: { text: "Job boards report a minimum of £26,500 for 2027 apprenticeships, with Risk roles at £31,700 in London.", source: "https://www.apprenticewizard.co.uk/lloyds-apprenticeship", confidence: "multiple-candidate-reports" },
+  dayToDay: [
+    "Depending on the programme, apprentices work in areas such as risk, accounting and finance, technology or customer-facing banking, studying alongside the job.",
+  ],
+  whyThisFirm: [
+    { text: "Lloyds' first-half 2026 statutory profit before tax was £4.3 billion, up 23%, and the group launched a new strategy, 'Accelerate 2030', focused on growth, innovation and simplification.", source: "https://www.lloydsbankinggroup.com/assets/pdfs/investors/financial-performance/lloyds-banking-group-plc/2026/q2/2026-lbg-hy-results.pdf", confidence: "official" },
+  ],
   questions: [
     { stage: "Final interview or assessment day", question: "Why do you want to join Lloyds Banking Group? What do you understand of its mission and how your values align?", type: "motivation", source: L_WJ, confidence: "single-report" },
   ],

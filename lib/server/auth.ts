@@ -1,10 +1,11 @@
 import { createClient, type SupabaseClient, type User } from "@supabase/supabase-js";
+import { supabaseOrigin } from "@/lib/supabase-url";
 
 let adminClient: SupabaseClient | null = null;
 
 /** Service-role client. Server only. Null when Supabase isn't configured. */
 export function admin(): SupabaseClient | null {
-  const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
+  const url = supabaseOrigin(process.env.NEXT_PUBLIC_SUPABASE_URL);
   const key = process.env.SUPABASE_SERVICE_ROLE_KEY;
   if (!url || !key) return null;
   return (adminClient ??= createClient(url, key, { auth: { persistSession: false } }));

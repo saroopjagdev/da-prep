@@ -1,3 +1,4 @@
+import { servedCount } from "@/lib/assess/sample";
 import type { Item, Response, Section, SectionResult, Test, TestResult } from "./types";
 
 export type ItemScore = { points: number; max: number; answered: boolean; traits?: Record<string, number> };
@@ -15,6 +16,10 @@ export function blankResponse(item: Item): Response {
       return { kind: "rate-each", ratings: item.actions.map(() => null) };
     case "rank":
       return { kind: "rank", order: null };
+    case "numeric":
+      return { kind: "numeric", value: null };
+    case "written":
+      return { kind: "written", text: null };
     case "likert":
       return { kind: "likert", value: null };
   }
@@ -34,6 +39,14 @@ export function rankConcordance(key: number[], given: number[]): number {
     }
   }
   return pairs ? agree / pairs : 0;
+}
+
+/** Read a typed number, ignoring £, %, commas and spaces. Returns null when it isn't a number. */
+export function parseNumber(s: string | null): number | null {
+  if (s === null) return null;
+  const clean = s.replace(/[£$€%,\s]/g, "");
+  if (!/^-?\d*\.?\d+$/.test(clean)) return null;
+  return Number(clean);
 }
 
 /**
@@ -74,6 +87,15 @@ export function scoreItem(item: Item, r: Response): ItemScore {
       const x = r as Extract<Response, { kind: "rank" }>;
       return { points: x.order ? rankConcordance(item.order, x.order) : 0, max: 1, answered: x.order !== null };
     }
+    case "numeric": {
+      const v = parseNumber((r as Extract<Response, { kind: "numeric" }>).value);
+      const ok = v !== null && Math.abs(v - item.answer) <= (item.tolerance ?? 0) + 1e-9;
+      return { points: ok ? 1 : 0, max: 1, answered: v !== null };
+    }
+    case "written": {
+      const t = (r as Extract<Response, { kind: "written" }>).text;
+      return { points: 0, max: 0, answered: Boolean(t && t.trim()) };
+    }
     case "likert": {
       const x = r as Extract<Response, { kind: "likert" }>;
       if (x.value === null) return { points: 0, max: 0, answered: false };
@@ -94,7 +116,7 @@ function addTraits(into: Record<string, number>, from?: Record<string, number>) 
   for (const [k, v] of Object.entries(from ?? {})) into[k] = (into[k] ?? 0) + v;
 }
 
-export function scoreSection(section: Section, responses: Record<string, Response>, secondsUsed: number): SectionResult {
+export function scoreSection(section: Section, responses: Record<string, Response>, secondsUsed: number, servedIds?: string[]): SectionResult {
   let points = 0;
   let max = 0;
   let answered = 0;
@@ -107,15 +129,17 @@ export function scoreSection(section: Section, responses: Record<string, Respons
     if (s.answered) answered++;
     addTraits(traits, s.traits);
   }
-  // Unserved items (timed out before reaching them) still count towards the maximum.
-  const unserved = section.adaptive ? [] : section.items.filter((i) => !(i.id in responses));
+  // Items selected for this attempt but not reached (time ran out) still count towards the maximum. Items a rotating
+  // section did not select this time do not.
+  const chosen = servedIds ? new Set(servedIds) : null;
+  const unserved = section.adaptive ? [] : section.items.filter((i) => !(i.id in responses) && (!chosen || chosen.has(i.id)));
   for (const item of unserved) max += scoreItem(item, blankResponse(item)).max;
   return {
     sectionId: section.id,
     points,
     max,
     answered,
-    total: section.adaptive ? Math.min(section.adaptive.count, section.items.length) : section.items.length,
+    total: servedIds && !section.adaptive ? servedIds.length : servedCount(section),
     secondsUsed,
     traits: Object.keys(traits).length ? traits : undefined,
   };

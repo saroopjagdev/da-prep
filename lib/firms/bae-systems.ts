@@ -5,9 +5,7 @@ const HA_PAGE = "https://www.baesystems.com/en/careers/careers-in-the-uk/apprent
 const VALUES_PAGE = "https://careers.baesystems.com/life-at-bae-systems/our-values";
 const GD_DA = "https://www.glassdoor.co.uk/Interview/BAE-Systems-Degree-Apprentice-Interview-Questions-EI_IE3102.0,11_KO12,29.htm";
 const TSR_2026 = "https://www.thestudentroom.co.uk/showthread.php?t=7664062";
-const TSR_2025 = "https://www.thestudentroom.co.uk/showthread.php?t=7548013";
 const GF_VIDEO = "https://www.graduatesfirst.com/bae-systems-interviews";
-const GF_TESTS = "https://www.graduatesfirst.com/bae-systems-job-tests";
 
 export const baeSystems: FirmProfile = {
   slug: "bae-systems",
@@ -183,6 +181,6 @@ export const baeSystems: FirmProfile = {
     "Conflicting reports on video interview prep time (30 s vs 3 min) and retake allowance; not resolved.",
     "No verified group exercise or presentation for degree apprenticeships.",
     "Reported questions come from Glassdoor search summaries (page returned 403 to direct fetch), so dates and roles are unknown.",
-    "Student Room threads (" + TSR_2025 + ", " + TSR_2026 + ") not directly readable. Tests page: " + GF_TESTS + " is a commercial source.",
+    "The Student Room's 2025 and 2026 BAE threads could not be read directly. The online-test description comes from a commercial prep site.",
   ],
 };

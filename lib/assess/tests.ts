@@ -2,11 +2,15 @@
 // response style, rules) with original items. `formatNotes` says what is confirmed and what is approximated, so the
 // app never implies more precision than the research supports. Sources: docs/research/02-assessment-formats.md.
 
+import { CAPP_NUMERICAL } from "@/lib/assess/banks/capp-numerical";
+import { CAPP_CRITICAL, CAPP_CRITICAL_STIMULI, CAPP_VERBAL, CAPP_VERBAL_STIMULI } from "@/lib/assess/banks/capp-verbal";
 import { DEDUCTIVE } from "@/lib/assess/banks/deductive";
+import { AUDIT_SIM, BANKING_SIM } from "@/lib/assess/banks/job-sim";
 import { INDUCTIVE } from "@/lib/assess/banks/inductive";
 import { NUMERICAL } from "@/lib/assess/banks/numerical";
 import { NUMERICAL_TF } from "@/lib/assess/banks/numerical-tf";
 import { SJT } from "@/lib/assess/banks/sjt";
+import { SWITCH } from "@/lib/assess/banks/switch";
 import { TRAIT_BANK } from "@/lib/assess/banks/traits";
 import { VERBAL_TF, VERBAL_TF_STIMULI } from "@/lib/assess/banks/verbal-tf";
 import type { Section, Test } from "@/lib/assess/types";
@@ -18,6 +22,14 @@ const AD_CUTE = "https://www.assessmentday.co.uk/cut-e.htm";
 const AD_SHL = "https://www.assessmentday.co.uk/shl.htm";
 const PAT_SJT = "https://www.practiceaptitudetests.com/resources/situational-judgement-test-response-formats/";
 const CS_SJT = "https://www.gov.uk/guidance/preparing-for-the-new-civil-service-judgement-test";
+const GF_CAPP = "https://www.graduatesfirst.com/aptitude-tests-publishers/cappfinity";
+const PAT_CAPP = "https://www.practiceaptitudetests.com/testing-publishers/cappfinity/";
+const HEY_CR = "https://heycademy.com/en/cappfinity-critical-reasoning-test/";
+const GF_HSBC_SIM = "https://www.graduatesfirst.com/hsbc-job-simulation";
+const SIM_NOTES = [
+  "Reported format: a fictional working day delivered through emails, documents and data, mixing situational judgement, numerical and verbal tasks, and sometimes a typed email reply (prep-site reports of Cappfinity simulations at HSBC, Deloitte, KPMG and EY). Real versions also use videos and voicemails, which this replica does not.",
+  "Time-recorded here, and you cannot go back, as in a real day. Typed replies are not auto-marked: the results show a checklist and an example to compare against.",
+];
 
 const section = (s: Partial<Section> & Pick<Section, "id" | "title" | "instructions" | "items" | "timing">): Section => ({
   allowBack: false,
@@ -113,6 +125,7 @@ export const TESTS: Test[] = [
       "Reported format: 18 true / false / cannot say statements on data in 6 minutes for the short form (prep-site reports; no official Aon guide found). The full test reports 37 items in 12 minutes.",
       "Aon does not publish its calculator or going-back rules. Here a calculator is provided and you can go back.",
       "Very fast: about 20 seconds per statement. Expect not to finish everything.",
+      "Each attempt serves 3 of 16 tables (retail, fee income, trading desks and branch deposits), so repeat attempts differ.",
     ],
     sources: [AD_CUTE],
     sections: [
@@ -125,6 +138,7 @@ export const TESTS: Test[] = [
         timing: { mode: "section", seconds: 6 * 60 },
         calculator: true,
         allowBack: true,
+        sample: { count: 18, byStimulus: true },
       }),
     ],
   },
@@ -138,6 +152,7 @@ export const TESTS: Test[] = [
     formatNotes: [
       "Reported format: 49 true / false / cannot say statements in 12 minutes (prep-site reports). This replica keeps the same pace (about 15 seconds per statement) over 18 statements, so 265 seconds.",
       "No official Aon guide found; going-back rule is not published, so you can go back here.",
+      "Each attempt serves 3 of 8 passages, so repeat attempts differ.",
     ],
     sources: [AD_CUTE],
     sections: [
@@ -149,6 +164,104 @@ export const TESTS: Test[] = [
         stimuli: VERBAL_TF_STIMULI,
         timing: { mode: "section", seconds: 265 },
         allowBack: true,
+        sample: { count: 18, byStimulus: true },
+      }),
+    ],
+  },
+  {
+    id: "scales-numerical-full",
+    name: "Numerical statements, full length (Aon/cut-e scales style)",
+    replicates: "Aon/cut-e scales numerical (full length)",
+    kind: "ability",
+    confidence: "multiple-candidate-reports",
+    approximate: true,
+    formatNotes: [
+      "Reported format: 37 true / false / cannot say statements on data in 12 minutes (prep-site reports; no official Aon guide found). Real versions show data in up to 6 tabs, one visible at a time; this replica shows one table per group of statements.",
+      "A calculator is provided and you can go back. Expect not to finish: about 19 seconds per statement.",
+    ],
+    sources: [AD_CUTE],
+    sections: [
+      section({
+        id: "scnf",
+        title: "Numerical statements",
+        instructions: "Decide whether each statement is true, false or cannot be said from the data given. You have 12 minutes for 37 statements.",
+        items: NUMERICAL_TF.items,
+        stimuli: NUMERICAL_TF.stimuli,
+        timing: { mode: "section", seconds: 12 * 60 },
+        calculator: true,
+        allowBack: true,
+        sample: { count: 37, byStimulus: true, exact: true },
+      }),
+    ],
+  },
+  {
+    id: "scales-verbal-full",
+    name: "Verbal statements, full length (Aon/cut-e scales style)",
+    replicates: "Aon/cut-e scales verbal (full length)",
+    kind: "ability",
+    confidence: "multiple-candidate-reports",
+    approximate: true,
+    formatNotes: [
+      "Reported format: 49 true / false / cannot say statements in 12 minutes (prep-site reports). This replica uses all 48 of our statements at the same pace, so 705 seconds.",
+      "You can go back. Expect not to finish: about 15 seconds per statement.",
+    ],
+    sources: [AD_CUTE],
+    sections: [
+      section({
+        id: "scvf",
+        title: "Verbal statements",
+        instructions: "Read each passage and decide whether each statement is true, false or cannot be said from the passage alone. You have just under 12 minutes for 48 statements.",
+        items: VERBAL_TF,
+        stimuli: VERBAL_TF_STIMULI,
+        timing: { mode: "section", seconds: 705 },
+        allowBack: true,
+      }),
+    ],
+  },
+  {
+    id: "switch-challenge",
+    name: "Switch puzzles (Aon switchChallenge style)",
+    replicates: "Aon switchChallenge (game-based)",
+    kind: "ability",
+    confidence: "multiple-candidate-reports",
+    approximate: true,
+    formatNotes: [
+      "Reported format: a gamified test of about 6 minutes where you work out which 'switch' reorders a row of shapes, getting harder as you go (prep-site reports). The real game is adaptive, animated and scored on speed and accuracy; this is a simplified multiple-choice version.",
+      "Codes are four digits: position 1 of the output takes the shape at the code's first digit, and so on. The second half chains two switches.",
+    ],
+    sources: ["https://www.gameassessmentprep.com/game-based-assessments"],
+    sections: [
+      section({
+        id: "sw",
+        title: "Switch puzzles",
+        instructions:
+          "Each switch reorders four shapes. A code like 3142 means: the first shape out is the 3rd shape in, the second is the 1st, the third is the 4th and the fourth is the 2nd. Choose the code that turns the input into the output. You have 6 minutes; work quickly.",
+        items: SWITCH,
+        timing: { mode: "section", seconds: 6 * 60 },
+      }),
+    ],
+  },
+  {
+    id: "work-scenarios",
+    name: "Work scenarios (SHL style, as used by NatWest)",
+    replicates: "SHL situational judgement 'work scenarios' assessment",
+    kind: "ability",
+    confidence: "multiple-candidate-reports",
+    approximate: true,
+    formatNotes: [
+      "Reported format: about 14 untimed workplace scenarios where you judge which responses are most and least effective (prep-site reports of NatWest's Work Scenarios assessment, run by SHL; NatWest's own page says about 20 to 25 minutes).",
+      "Each attempt serves 14 of our 24 scenarios, including banking ones.",
+    ],
+    sources: ["https://www.graduatesfirst.com/rbs-natwest-work-scenarios-assessment", "https://jobs.natwestgroup.com/pages/degree-apprenticeships"],
+    sections: [
+      section({
+        id: "ws",
+        title: "Work scenarios",
+        instructions: "For each scenario, choose the MOST effective and the LEAST effective response. There is no time limit, but the real assessment takes about 20 to 25 minutes.",
+        items: SJT.mostLeast,
+        timing: { mode: "untimed" },
+        allowBack: true,
+        sample: { count: 14 },
       }),
     ],
   },
@@ -161,7 +274,7 @@ export const TESTS: Test[] = [
     approximate: true,
     formatNotes: [
       "Reported format: choose the most effective and the least effective response from 4 or 5 options (prep-site reports). Partial credit is reported when only one pick is right, and that is how this replica scores it.",
-      "Item counts and time limits vary by employer and are not published. This replica is untimed with 10 scenarios.",
+      "Item counts and time limits vary by employer and are not published. This replica is untimed with 10 scenarios per attempt, drawn from 24 (including 14 set in banking and finance).",
     ],
     sources: [PAT_SJT],
     sections: [
@@ -172,6 +285,7 @@ export const TESTS: Test[] = [
         items: SJT.mostLeast,
         timing: { mode: "untimed" },
         allowBack: true,
+        sample: { count: 10 },
       }),
     ],
   },
@@ -184,7 +298,7 @@ export const TESTS: Test[] = [
     approximate: true,
     formatNotes: [
       "Official format: each scenario has 4 actions and you rate each as Counterproductive, Ineffective, Fairly effective or Effective. The real test is untimed, with 3 scenarios per behaviour (Civil Service guidance).",
-      "This replica has 6 scenarios, not the full set. The real test also has a self-assessment part worth 15%, which is not included. The Civil Service does not publish its scoring key, so half credit for a rating one step away is our approximation.",
+      "This replica serves 6 scenarios per attempt from a pool of 12 (half set in finance), not the full set. The real test also has a self-assessment part worth 15%, which is not included. The Civil Service does not publish its scoring key, so half credit for a rating one step away is our approximation.",
     ],
     sources: [CS_SJT],
     sections: [
@@ -195,6 +309,7 @@ export const TESTS: Test[] = [
         items: SJT.rateEach,
         timing: { mode: "untimed" },
         allowBack: true,
+        sample: { count: 6 },
       }),
     ],
   },
@@ -207,7 +322,7 @@ export const TESTS: Test[] = [
     approximate: true,
     formatNotes: [
       "Some employers (for example Deloitte's immersive assessment) ask candidates to rank the most and least likely actions in workplace scenarios. Timings are not published.",
-      "This replica asks you to rank four to five responses from best to worst and scores the fraction of pairs in the right order. It is untimed.",
+      "This replica asks you to rank four to five responses from best to worst and scores the fraction of pairs in the right order. It is untimed and serves 4 scenarios per attempt from a pool of 10.",
     ],
     sources: ["https://www.deloitte.com/uk/en/careers/early-careers/early-careers-assessment.html"],
     sections: [
@@ -218,6 +333,125 @@ export const TESTS: Test[] = [
         items: SJT.rank,
         timing: { mode: "untimed" },
         allowBack: true,
+        sample: { count: 4 },
+      }),
+    ],
+  },
+  {
+    id: "capp-numerical",
+    name: "Numerical reasoning, mixed answers (Cappfinity style)",
+    replicates: "Cappfinity numerical reasoning (time-recorded)",
+    kind: "ability",
+    confidence: "multiple-candidate-reports",
+    approximate: true,
+    formatNotes: [
+      "Reported format: about 12 to 15 questions on tables and charts, with mixed answer types: choose one, type the number, or put values in order (prep-site reports; Cappfinity publishes no item counts).",
+      "Employers choose whether the test is time-limited, adaptive or time-recorded. This replica is time-recorded: no countdown, but your time is shown, and speed is reported to count when time is recorded.",
+      "A calculator is reported to be allowed. Each attempt serves 3 of 8 tables (12 questions).",
+    ],
+    sources: [GF_CAPP, PAT_CAPP],
+    sections: [
+      section({
+        id: "cnum",
+        title: "Numerical reasoning",
+        instructions: "Answer each question from the table. Some ask you to type a number, some to choose an answer and some to put values in order. There is no time limit, but your time is recorded, so work quickly and accurately.",
+        items: CAPP_NUMERICAL.items,
+        stimuli: CAPP_NUMERICAL.stimuli,
+        timing: { mode: "recorded" },
+        calculator: true,
+        sample: { count: 12, byStimulus: true },
+      }),
+    ],
+  },
+  {
+    id: "capp-verbal",
+    name: "Verbal reasoning, mixed answers (Cappfinity style)",
+    replicates: "Cappfinity verbal reasoning (time-recorded)",
+    kind: "ability",
+    confidence: "multiple-candidate-reports",
+    approximate: true,
+    formatNotes: [
+      "Reported answer styles: fill the gap, match a statement to the passage, rank statements, and true/false (prep-site reports). Item counts vary by employer and are not published.",
+      "Time-recorded here: no countdown, but your time is shown. Each attempt serves 3 of 4 passages (12 questions).",
+    ],
+    sources: [GF_CAPP, PAT_CAPP],
+    sections: [
+      section({
+        id: "cverb",
+        title: "Verbal reasoning",
+        instructions: "Read each passage and answer the questions using only what it says. There is no time limit, but your time is recorded.",
+        items: CAPP_VERBAL,
+        stimuli: CAPP_VERBAL_STIMULI,
+        timing: { mode: "recorded" },
+        sample: { count: 12, byStimulus: true },
+      }),
+    ],
+  },
+  {
+    id: "capp-critical",
+    name: "Critical reasoning, five styles (Cappfinity style)",
+    replicates: "Cappfinity critical reasoning (time-recorded)",
+    kind: "ability",
+    confidence: "single-report",
+    approximate: true,
+    formatNotes: [
+      "Reported format: five question styles in one test: logical conclusions, beyond reasonable doubt, strong or weak arguments, true/false/cannot say, and assumptions, with time recorded (single prep-site report).",
+      "Each attempt serves about 12 of 20 questions, mixing the styles.",
+    ],
+    sources: [HEY_CR],
+    sections: [
+      section({
+        id: "ccrit",
+        title: "Critical reasoning",
+        instructions: "Each question says what to decide: which conclusion must be true, whether a conclusion follows beyond reasonable doubt, whether an argument is strong or weak, whether a statement is true, false or cannot be said, or whether an assumption is made. Your time is recorded.",
+        items: CAPP_CRITICAL,
+        stimuli: CAPP_CRITICAL_STIMULI,
+        timing: { mode: "recorded" },
+        sample: { count: 12, byStimulus: true },
+      }),
+    ],
+  },
+  {
+    id: "job-sim-banking",
+    name: "Job simulation: a day in commercial banking",
+    replicates: "Immersive job simulation (Cappfinity style), banking",
+    kind: "ability",
+    confidence: "multiple-candidate-reports",
+    approximate: true,
+    formatNotes: SIM_NOTES,
+    sources: [GF_HSBC_SIM, GF_CAPP],
+    sections: [
+      section({
+        id: "simbk",
+        title: "Your day at Northfield Bank",
+        instructions:
+          "You're an apprentice supporting Sam, a relationship manager who looks after business clients. Work through your inbox in order and respond to each message. Your time is recorded and you can't go back.",
+        items: BANKING_SIM.items,
+        stimuli: BANKING_SIM.stimuli,
+        timing: { mode: "recorded" },
+        calculator: true,
+      }),
+    ],
+  },
+  {
+    id: "job-sim-audit",
+    name: "Job simulation: a day on an audit",
+    replicates: "Immersive job simulation (Cappfinity style), audit and professional services",
+    kind: "ability",
+    confidence: "multiple-candidate-reports",
+    approximate: true,
+    formatNotes: SIM_NOTES,
+    sources: [GF_CAPP],
+    sections: [
+      section({
+        id: "simau",
+        title: "Your day on the Brightwater audit",
+        instructions:
+          "You're an audit apprentice working for Aisha, an audit senior, on the audit of a logistics company. Work through your inbox in order and respond to each message. Your time is recorded and you can't go back.",
+        items: AUDIT_SIM.items,
+        stimuli: AUDIT_SIM.stimuli,
+        timing: { mode: "recorded" },
+        calculator: true,
       }),
     ],
   },

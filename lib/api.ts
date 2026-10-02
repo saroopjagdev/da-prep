@@ -3,9 +3,39 @@ import { supabase } from "@/lib/supabase";
 
 const TIMEOUT_MS = 90_000;
 
+// Practice passes (see lib/server/pass.ts): issued when a free allowance is charged and sent with that practice
+// session's follow-up AI calls. Kept in localStorage so a mock process can be resumed in another tab.
+const PASS_KINDS = { interview: "x-pass-interview", mock: "x-pass-mock" } as const;
+type PassKind = keyof typeof PASS_KINDS;
+const passKey = (k: PassKind) => `da-prep:pass:${k}`;
+
+function savePass(data: unknown) {
+  const d = data as { pass?: unknown; kind?: unknown; expires?: unknown };
+  if (typeof d?.pass !== "string" || typeof d.expires !== "number" || !(typeof d.kind === "string" && d.kind in PASS_KINDS)) return;
+  try {
+    localStorage.setItem(passKey(d.kind as PassKind), JSON.stringify({ pass: d.pass, expires: d.expires }));
+  } catch {
+    /* storage unavailable: the next charged action issues a new pass */
+  }
+}
+
+function passHeaders(): Record<string, string> {
+  const out: Record<string, string> = {};
+  for (const [kind, header] of Object.entries(PASS_KINDS) as [PassKind, string][]) {
+    try {
+      const raw = localStorage.getItem(passKey(kind));
+      const p = raw ? (JSON.parse(raw) as { pass: string; expires: number }) : null;
+      if (p && p.expires > Date.now()) out[header] = p.pass;
+    } catch {
+      /* ignore */
+    }
+  }
+  return out;
+}
+
 async function authHeaders(): Promise<Record<string, string>> {
   const token = (await supabase()?.auth.getSession())?.data.session?.access_token;
-  return token ? { Authorization: `Bearer ${token}` } : {};
+  return { ...passHeaders(), ...(token ? { Authorization: `Bearer ${token}` } : {}) };
 }
 
 /** fetch with a deadline, so a hung request ends in a clear error instead of an endless spinner. */
@@ -31,6 +61,7 @@ export async function postJson<T>(url: string, body?: unknown, method = "POST"):
   });
   const data = await res.json().catch(() => ({}));
   if (!res.ok) throw new Error(data.error ?? "Something went wrong");
+  savePass(data);
   return data as T;
 }
 

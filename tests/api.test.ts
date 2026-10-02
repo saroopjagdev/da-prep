@@ -88,7 +88,7 @@ describe("POST /api/interview/next", () => {
     for (let i = 0; i < 22; i++) statuses.push((await next(req(body, "9.9.9.9"))).status);
     expect(statuses.slice(0, 20).every((s) => s === 200)).toBe(true);
     expect(statuses.slice(20)).toEqual([429, 429]);
-  });
+  }, 20_000); // 22 sequential route calls; slow when the database test runs alongside
 });
 
 describe("POST /api/interview/score", () => {
@@ -97,6 +97,8 @@ describe("POST /api/interview/score", () => {
     summary: "ok",
     strengths: ["a"],
     improvements: ["b"],
+    rubric: { structure: 3, specificity: 2, motivation: 4, firmKnowledge: 1, commercialAwareness: 2, values: 3 },
+    nextSteps: ["one", "two", "three", "four"],
     turns: turns.map(() => ({
       score: 6,
       feedback: "f",
@@ -109,11 +111,27 @@ describe("POST /api/interview/score", () => {
     expect((await score(req({ jobAd: ad, stage: "competency", turns: [] }))).status).toBe(400);
   });
 
+  it("marks against an employer profile when no advert is given", async () => {
+    askJson.mockResolvedValue(good);
+    const res = await score(req({ stage: "commercial", turns, firm: "morgan-stanley", programme: 0 }));
+    expect(res.status).toBe(200);
+    const call = askJson.mock.calls.at(-1)![0] as { user: string; system: string };
+    expect(call.user).toContain("<employer_profile>");
+    expect(call.user).toContain("Morgan Stanley");
+    expect(call.system).toContain("firmKnowledge");
+  });
+
+  it("rejects an unknown employer with no advert", async () => {
+    expect((await score(req({ stage: "competency", turns, firm: "not-a-firm" }))).status).toBe(400);
+  });
+
   it("returns the marked result", async () => {
     askJson.mockResolvedValue(good);
     const res = await score(req({ jobAd: ad, stage: "competency", turns }));
     expect(res.status).toBe(200);
-    expect((await res.json()).overall).toBe(70);
+    const body = await res.json();
+    expect(body.overall).toBe(70);
+    expect(body.nextSteps).toEqual(["one", "two", "three"]);
   });
 
   it("fails safely if the model returns the wrong number of answers", async () => {
@@ -148,13 +166,28 @@ describe("writing helpers", () => {
     askJson.mockResolvedValue({ score: 6, summary: "s", strengths: [], improvements: [], rewrittenOpening: "o" });
     expect((await review(req({ kind: "statement", text: "x".repeat(80) }))).status).toBe(200);
   });
+
+  it("statement review uses the employer, question and word limit", async () => {
+    askJson.mockResolvedValue({ score: 6, summary: "s", strengths: [], improvements: [], rewrittenOpening: "o", criteria: { answersQuestion: 3, evidence: 2, tailoring: 2, values: 2, structure: 4 } });
+    const text = Array(40).fill("word").join(" ");
+    const res = await review(req({ kind: "answer", text, firm: "jp-morgan", question: "What one trait makes you a unique candidate?", wordLimit: 30 }));
+    expect(res.status).toBe(200);
+    const body = await res.json();
+    expect(body).toMatchObject({ wordCount: 40, wordLimit: 30 });
+    const call = askJson.mock.calls.at(-1)![0] as { user: string; system: string };
+    expect(call.user).toContain("<employer_profile>");
+    expect(call.user).toContain("<question>");
+    expect(call.system).toMatch(/over the limit/);
+    expect(call.system).toContain("tailoring");
+  });
 });
 
 describe("billing and account endpoints without configuration", () => {
   it("checkout reports payments aren't configured", async () => {
     vi.stubEnv("STRIPE_SECRET_KEY", "");
     vi.stubEnv("STRIPE_PRICE_ID", "");
-    expect((await checkout(req({}))).status).toBe(503);
+    vi.stubEnv("STRIPE_PRICE_PASS", "");
+    expect((await checkout(req({ plan: "pass", payerAdult: true, startNow: true, acceptTerms: true }))).status).toBe(503);
     vi.unstubAllEnvs();
   });
 

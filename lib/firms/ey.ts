@@ -10,7 +10,7 @@ export const ey: FirmProfile = {
   name: "EY UK",
   sector: "Professional services (Big 4)",
   programmes: [
-    { name: "Audit (Assurance) apprenticeship", level: "Apprenticeship with professional qualification" },
+    { name: "Audit (Assurance) apprenticeship", level: "4 years, Level 7 Accountancy and Taxation apprenticeship (master's-level) leading to ICAEW chartered accountancy (2027 listing via Prospects)" },
     { name: "Tax apprenticeship", level: "Apprenticeship" },
     { name: "Law (Entity Compliance and Governance) apprenticeship", level: "Apprenticeship" },
     { name: "Finance (Turnaround and Restructuring Strategy) apprenticeship", level: "Apprenticeship" },

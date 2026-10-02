@@ -5,6 +5,7 @@ import Calculator from "@/components/assess/Calculator";
 import ItemView from "@/components/assess/ItemView";
 import StimulusView from "@/components/assess/StimulusView";
 import { START_TARGET, nextTarget, pickAdaptive } from "@/lib/assess/adaptive";
+import { serveIds, servedCount } from "@/lib/assess/sample";
 import { blankResponse, scoreItem, scoreSection, summarise } from "@/lib/assess/score";
 import type { Item, Response, Section, SectionResult, Test, TestResult } from "@/lib/assess/types";
 
@@ -46,6 +47,7 @@ const mmss = (s: number) => `${Math.floor(s / 60)}:${String(s % 60).padStart(2, 
 
 function describeTiming(s: Section) {
   if (s.timing.mode === "untimed") return "Untimed";
+  if (s.timing.mode === "recorded") return "No time limit, but your time is recorded: work quickly and accurately";
   if (s.timing.mode === "section") return `${Math.round(s.timing.seconds / 60)} minutes for the whole section`;
   return `${s.timing.seconds} seconds per question`;
 }
@@ -56,7 +58,7 @@ function startSection(st: RunState, section: Section, now: number): RunState {
     ...st,
     phase: "running",
     itemIdx: 0,
-    served: section.adaptive ? (first ? [first.id] : []) : section.items.map((i) => i.id),
+    served: section.adaptive ? (first ? [first.id] : []) : serveIds(section),
     target: START_TARGET,
     sectionStart: now,
     sectionDeadline: section.timing.mode === "section" ? now + section.timing.seconds * 1000 : null,
@@ -121,7 +123,7 @@ export default function Runner({ test, onComplete, onExit }: { test: Test; onCom
       const item = section.items.find((i) => i.id === id);
       if (item && !(id in responses)) responses[id] = blankResponse(item);
     }
-    const result = scoreSection(section, responses, Math.round((t - cur.sectionStart) / 1000));
+    const result = scoreSection(section, responses, Math.round((t - cur.sectionStart) / 1000), section.adaptive ? undefined : cur.served);
     const results = [...cur.results, result];
     if (cur.sectionIdx + 1 >= test.sections.length) return complete(results, { ...cur, responses });
     setSt({ ...cur, responses, results, sectionIdx: cur.sectionIdx + 1, phase: "intro", itemIdx: 0, served: [], sectionDeadline: null, itemDeadline: null });
@@ -168,18 +170,18 @@ export default function Runner({ test, onComplete, onExit }: { test: Test; onCom
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [now, st]);
 
-  if (!st) return <p role="status" className="py-12 text-center text-muted">Loading…</p>;
-
-  const section = test.sections[st.sectionIdx];
-
-  if (st.phase === "intro") {
+  // Until the saved run has been read (first paint), show the first section's intro with Start disabled,
+  // so the page doesn't jump when the browser state arrives.
+  if (!st || st.phase === "intro") {
+    const idx = st?.sectionIdx ?? 0;
+    const section = test.sections[idx];
     return (
       <div className="mx-auto max-w-2xl space-y-4">
         <p className="text-sm font-semibold text-muted">
-          {test.name}: section {st.sectionIdx + 1} of {test.sections.length}
+          {test.name}: section {idx + 1} of {test.sections.length}
         </p>
         <h1 className="page-title">{section.title}</h1>
-        {st.sectionIdx === 0 && test.approximate && (
+        {idx === 0 && test.approximate && (
           <p className="callout bg-brand-50 text-sm">
             This replicates the published format of {test.replicates}, with original questions. Some details are not
             published by the provider, so timing and difficulty are approximate.
@@ -188,12 +190,16 @@ export default function Runner({ test, onComplete, onExit }: { test: Test; onCom
         <p className="whitespace-pre-line">{section.instructions}</p>
         <ul className="list-disc space-y-1 pl-5 text-sm">
           <li>{describeTiming(section)}</li>
-          <li>{section.adaptive ? `${section.adaptive.count} questions, adapting to your answers` : `${section.items.length} questions`}</li>
+          <li>
+            {section.adaptive
+              ? `${section.adaptive.count} questions, adapting to your answers`
+              : `${servedCount(section)} questions${section.sample ? ", a different selection each attempt" : ""}`}
+          </li>
           <li>{section.allowBack && !section.adaptive ? "You can go back to earlier questions" : "You cannot go back once you move on"}</li>
           <li>{section.calculator ? "A calculator is provided" : "No calculator"}</li>
         </ul>
         <div className="flex gap-3">
-          <button className="btn btn-primary" onClick={() => setSt(startSection(st, section, Date.now()))}>
+          <button className="btn btn-primary" disabled={!st} onClick={() => st && setSt(startSection(st, section, Date.now()))}>
             Start
           </button>
           {onExit && (
@@ -206,16 +212,17 @@ export default function Runner({ test, onComplete, onExit }: { test: Test; onCom
     );
   }
 
+  const section = test.sections[st.sectionIdx];
   const item = section.items.find((i) => i.id === st.served[st.itemIdx]);
   if (!item) return null;
-  const total = section.adaptive ? Math.min(section.adaptive.count, section.items.length) : section.items.length;
+  const total = section.adaptive ? servedCount(section) : st.served.length;
   const response = st.responses[item.id] ?? blankResponse(item);
   const locked = st.locked.includes(item.id);
   const deadline = st.itemDeadline ?? st.sectionDeadline;
   const remaining = deadline === null ? null : Math.max(0, Math.ceil((deadline - now) / 1000));
   const announce = remaining !== null && [60, 30, 10].includes(remaining) ? `${remaining} seconds left` : "";
   const canBack = section.allowBack && !section.adaptive && section.timing.mode !== "item" && st.itemIdx > 0;
-  const lastItem = section.adaptive ? st.served.length >= total : st.itemIdx + 1 >= section.items.length;
+  const lastItem = section.adaptive ? st.served.length >= total : st.itemIdx + 1 >= st.served.length;
   const stimulus = item.stimulus ? section.stimuli?.[item.stimulus] : undefined;
   const sc = locked ? scoreItem(item, response) : null;
 
@@ -233,14 +240,19 @@ export default function Runner({ test, onComplete, onExit }: { test: Test; onCom
   return (
     <div className="mx-auto max-w-3xl space-y-4">
       <div className="flex flex-wrap items-center justify-between gap-2 text-sm font-semibold text-muted">
-        <p>
+        <h1>
           {section.title}: question {st.itemIdx + 1} of {total}
-        </p>
+        </h1>
         <div className="flex items-center gap-2">
           {section.calculator && (
             <button type="button" className="btn btn-secondary px-3 py-1 text-sm" aria-expanded={calcOpen} onClick={() => setCalcOpen((v) => !v)}>
               Calculator
             </button>
+          )}
+          {section.timing.mode === "recorded" && (
+            <p role="timer" aria-label="Time taken" aria-live="off" className="rounded-md bg-soft px-3 py-1 text-base tabular-nums text-muted">
+              {mmss(Math.max(0, Math.floor((now - st.sectionStart) / 1000)))}
+            </p>
           )}
           {remaining !== null && (
             <p

@@ -3,12 +3,13 @@
 import { useState } from "react";
 import Link from "next/link";
 import { FIND_APPRENTICESHIP_URL } from "@/lib/employers";
-import type { DirectoryEntry } from "@/lib/directory";
+import type { DirectoryEntry, NoDegreeRoute } from "@/lib/directory";
 import { SECTORS, type SectorId } from "@/lib/sectors";
 import { useCollection } from "@/lib/store";
+import { fromTemplate } from "@/lib/tracker-item";
 import type { Application } from "@/lib/types";
 
-export default function EmployersList({ entries }: { entries: DirectoryEntry[] }) {
+export default function EmployersList({ entries, noDegree = [] }: { entries: DirectoryEntry[]; noDegree?: NoDegreeRoute[] }) {
   const apps = useCollection<Application>("applications");
   const [query, setQuery] = useState("");
   const [filter, setFilter] = useState<SectorId | "all">("all");
@@ -17,6 +18,9 @@ export default function EmployersList({ entries }: { entries: DirectoryEntry[] }
     (e) =>
       (filter === "all" || e.sectors.includes(filter)) &&
       `${e.name} ${e.sector}`.toLowerCase().includes(query.toLowerCase()),
+  );
+  const others = noDegree.filter(
+    (n) => (filter === "all" || filter === "finance") && `${n.name} ${n.finding}`.toLowerCase().includes(query.toLowerCase()),
   );
   const tracked = (name: string) => apps.items.some((a) => a.employer === name);
 
@@ -77,7 +81,9 @@ export default function EmployersList({ entries }: { entries: DirectoryEntry[] }
               onClick={() =>
                 apps.update((p) => [
                   ...p,
-                  { id: crypto.randomUUID(), employer: e.name, role: "", deadline: "", status: "Interested", notes: "" },
+                  e.template
+                    ? { ...fromTemplate(e.template, crypto.randomUUID()), employer: e.name }
+                    : { id: crypto.randomUUID(), employer: e.name, role: "", deadline: "", status: "Interested", notes: "" },
                 ])
               }
               className="btn btn-secondary"
@@ -88,6 +94,30 @@ export default function EmployersList({ entries }: { entries: DirectoryEntry[] }
         ))}
       </ul>
       {list.length === 0 && <p className="text-sm text-muted">No matches.</p>}
+      {others.length > 0 && (
+        <section aria-labelledby="no-degree" className="space-y-2 pt-4">
+          <h2 id="no-degree" className="text-lg font-semibold">
+            Finance firms without a UK degree apprenticeship
+          </h2>
+          <p className="text-sm text-muted">
+            Well-known names we checked in October 2026 that had no degree-level (Level 6) apprenticeship. Schemes change, so
+            check their pages each year.
+          </p>
+          <ul className="space-y-2">
+            {others.map((n) => (
+              <li key={n.name} className="card p-3 text-sm">
+                <p className="font-semibold">{n.name}</p>
+                <p className="text-muted">
+                  {n.finding}{" "}
+                  <a className="underline" href={n.source} target="_blank" rel="noreferrer">
+                    Source
+                  </a>
+                </p>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
     </div>
   );
 }

@@ -105,6 +105,8 @@ describe("model output schemas", () => {
       summary: "Decent",
       strengths: ["Clear"],
       improvements: ["More detail"],
+      rubric: { structure: 3, specificity: 2, motivation: 4, firmKnowledge: 1, commercialAwareness: 2, values: 3 },
+      nextSteps: ["Add a result"],
       turns: [
         {
           score: 6,

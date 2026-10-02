@@ -29,7 +29,7 @@ export default function ToolkitSection({
         }`}
       >
         <h2 className="text-xl font-bold tracking-tight">{title}</h2>
-        <p className="text-sm font-medium text-white/85">{fact}</p>
+        <p className="text-sm font-medium text-white">{fact}</p>
       </div>
       <ul className="grid divide-y divide-line md:grid-cols-3 md:divide-x md:divide-y-0">
         {items.map((it) => (

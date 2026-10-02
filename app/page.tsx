@@ -20,6 +20,7 @@ const resources = [
   { tag: "Planning", title: "A suggested timeline from Year 12 to your offer", href: "/timeline" },
   { tag: "Sectors", title: "One process, many sectors: what changes where", href: "/sectors" },
   { tag: "Employers", title: "A starting list of employers that recruit", href: "/employers" },
+  { tag: "Finance", title: "Finance degree apprenticeships: who, when and myths checked", href: "/finance" },
   { tag: "FAQ", title: "Pay, fees, grades and what happens if you're rejected", href: "/faq" },
 ];
 
@@ -89,6 +90,39 @@ export default function Home() {
       <div className="mx-auto max-w-6xl px-4 pb-10">
         <Dashboard />
       </div>
+
+      {/* Finance */}
+      <section className="mx-auto max-w-6xl px-4 pb-14">
+        <div className="grid gap-6 rounded-2xl border border-line bg-white p-6 lg:grid-cols-[1fr_1.4fr] lg:p-8">
+          <div className="space-y-2">
+            <p className="text-sm font-bold text-brand-700">Applying in finance?</p>
+            <h2 className="text-2xl font-bold tracking-tight">Banks and accountancy firms open early and fill fast</h2>
+            <p className="text-sm text-muted">
+              Most open between late August and October. Prepare for their real processes: tests, a recorded interview and
+              a Superday or assessment centre.
+            </p>
+            <Link href="/finance" className="btn btn-primary mt-2">
+              Go to the finance hub
+              <Icon name="arrow" className="h-4 w-4" />
+            </Link>
+          </div>
+          <ul className="grid gap-3 sm:grid-cols-2">
+            {[
+              ["/finance/calendar", "Season calendar", "When each firm opened and closed last cycle"],
+              ["/mock", "Bank mock processes", "Goldman Sachs, J.P. Morgan, Morgan Stanley, Bank of America, HSBC"],
+              ["/interview", "Firm-specific interviews", "Commercial awareness, technical and ethics questions"],
+              ["/finance/myths", "Myths, checked", "Grades, fees, pay and AI rules"],
+            ].map(([href, title, body]) => (
+              <li key={href}>
+                <Link href={href} className="block h-full rounded-lg border border-line p-4 hover:border-brand-500">
+                  <span className="font-semibold">{title}</span>
+                  <span className="block text-sm text-muted">{body}</span>
+                </Link>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
 
       {/* The process */}
       <section className="band border-y border-line">

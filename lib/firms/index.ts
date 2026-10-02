@@ -32,7 +32,17 @@ import { natwest } from "./natwest";
 import { pwc } from "./pwc";
 import { rollsRoyce } from "./rolls-royce";
 import { santander } from "./santander";
+import { bankOfAmerica } from "./bank-of-america";
+import { bankOfEngland } from "./bank-of-england";
+import { bny } from "./bny";
+import { cibc } from "./cibc";
+import { citi } from "./citi";
+import { deutscheBank } from "./deutsche-bank";
+import { fca } from "./fca";
+import { morganStanley } from "./morgan-stanley";
+import { rothschild } from "./rothschild";
+import { ubs } from "./ubs";
 
-export const FIRMS: FirmProfile[] = [airbus, amazon, arup, atkinsrealis, aviva, baeSystems, barclays, bdo, bmwGroup, bt, capgemini, cisco, civilServiceFastTrack, deloitte, experian, ey, goldmanSachs, google, grantThornton, hsbc, ibm, jlr, jpMorgan, kpmg, lloyds, forvisMazars, metropolitanPolice, microsoft, natwest, pwc, rollsRoyce, santander].sort((a, b) => a.name.localeCompare(b.name));
+export const FIRMS: FirmProfile[] = [airbus, amazon, arup, atkinsrealis, aviva, baeSystems, barclays, bdo, bmwGroup, bt, capgemini, cisco, civilServiceFastTrack, deloitte, experian, ey, goldmanSachs, google, grantThornton, hsbc, ibm, jlr, jpMorgan, kpmg, lloyds, forvisMazars, metropolitanPolice, microsoft, natwest, pwc, rollsRoyce, santander, bankOfAmerica, bankOfEngland, bny, cibc, citi, deutscheBank, fca, morganStanley, rothschild, ubs].sort((a, b) => a.name.localeCompare(b.name));
 
 export const getFirm = (slug: string) => FIRMS.find((f) => f.slug === slug);

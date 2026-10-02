@@ -29,9 +29,9 @@ export const deloitte: FirmProfile = {
   },
   timeline: {
     rolling: true,
-    opens: "Search result states selection opens December 2025 for degree apprenticeships (unverified, third-party)",
+    opens: "BrightStart roles for September 2027 are open now across about 10 offices; several close in October 2026 and some are rolling (Deloitte's application portal, seen through a search summary). Check each role's date.",
     notes: "Applications are reviewed on a rolling basis; apply early. Deloitte allows one application per academic year.",
-    source: D_TJ,
+    source: "https://apply.deloitte.co.uk/UKEarlyCareers",
   },
   stages: [
     {

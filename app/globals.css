@@ -35,7 +35,7 @@
   --color-mint-50: #e6f5ec;
   --color-mint-600: #177a45;
   --color-coral-50: #fdeceb;
-  --color-coral-600: #c93c3c;
+  --color-coral-600: #b02e2e;
   --color-sun-50: #fdf3dc;
   --color-sun-600: #96600a;
 
@@ -71,6 +71,8 @@ body {
   color: var(--foreground);
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
+  /* Long unbroken strings (web addresses, codes) wrap instead of widening the page on phones. */
+  overflow-wrap: anywhere;
 }
 
 ::selection {
