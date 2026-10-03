@@ -91,6 +91,7 @@ export const metropolitanPolice: FirmProfile = {
     source: MET,
     confidence: "official",
   },
+  pay: { text: "Starting salary £43,689 including allowances, rising to £49,137 after three years when you graduate from the degree and probation, then up to £62,094 (Met recruitment page, 3 Oct 2026).", source: MET, confidence: "official" },
   values: ["Integrity", "Courage", "Accountability", "Respect", "Empathy"],
   questions: [
     { stage: "Online assessment", question: "Competency-based interview: five questions about how you dealt with specific situations, using work or personal life examples.", type: "competency", source: COP_GUIDE, confidence: "official" },
@@ -105,11 +106,11 @@ export const metropolitanPolice: FirmProfile = {
     "Know the Met's five values and the trust and confidence agenda; be honest about mistakes (Accountability).",
   ],
   officialLinks: [MET, MET_OFFICIAL, COP_GUIDE, COP_SIFT],
-  lastVerified: "2026-09-30",
+  lastVerified: "2026-10-03",
   gaps: [
     "Candidate-reported questions for the Met's face-to-face values interview were not found.",
     "Official assessment timings come from the College of Policing guide v3.2 (Sept 2024): SJT is shown as 30 minutes there but about 45 minutes in another version.",
-    "Pay differs between Met pages (43,689 vs 42,210).",
+    "An older Met page showed 42,210 as the starting pay; the current recruitment page says 43,689 including allowances, so use the current figure and confirm on your advert.",
     "Student Room PCDA threads unreadable, so candidate reports are summaries and from other forces.",
     "Sift provider inferred from the support contact in the College guide.",
   ],

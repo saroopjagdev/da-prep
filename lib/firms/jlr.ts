@@ -123,7 +123,7 @@ export const jlr: FirmProfile = {
     "Know three trends (electrification, Jaguar's pure-electric relaunch, software-defined vehicles) and at least one real JLR challenge.",
   ],
   officialLinks: [APPS, HUB, SAVILLE],
-  lastVerified: "2026-09-30",
+  lastVerified: "2026-10-03",
   gaps: [
     "Aptitude item counts/timings and pass marks are not published by JLR or Saville for apprentice versions.",
     "Specific presentation topics for 2026-27 are not public; the Reimagine pillar topic is a candidate report.",

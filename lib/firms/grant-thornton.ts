@@ -21,7 +21,7 @@ export const grantThornton: FirmProfile = {
   },
   timeline: {
     rolling: true,
-    notes: "2026 graduate and apprentice programmes listed as open on the official page; 2027 dates not verified.",
+    notes: "The official page (checked 3 Oct 2026) still says it is open for 2026 graduate and apprentice programmes; 2027 dates are not published yet.",
     source: GT_PROG,
   },
   stages: [
@@ -113,7 +113,7 @@ export const grantThornton: FirmProfile = {
     "GT sends a positive-action/coaching offer and a dedicated recruiter; use them if eligible.",
   ],
   officialLinks: [GT_PROC, GT_PROG, "https://www.grantthornton.co.uk/careers/early-careers/"],
-  lastVerified: "2026-09-30",
+  lastVerified: "2026-10-03",
   gaps: [
     "GT does not state whether its Level 7 route is a degree (Level 6) or master's-level apprenticeship; degree title/university not verified.",
     "Digital interview question count and timings not from an official page.",

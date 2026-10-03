@@ -41,7 +41,7 @@ export const bdo: FirmProfile = {
     {
       order: 2,
       name: "Online task-based assessment",
-      format: "Interactive, puzzle-style tasks measuring cognitive ability, resilience and decision-making; no prior preparation needed. Third-party sites describe numerical and critical reasoning elements (older cycles).",
+      format: "Interactive, puzzle-style tasks measuring cognitive ability, resilience and decision-making; no prior preparation needed. BDO's process page (3 Oct 2026) says these tasks are based on quantitative and inductive reasoning and that AI will not help with them. BDO also bans AI help during the online tasks, video interviews and assessment centre; it allows AI for preparation and polishing an application draft.",
       tips: ["Do it in one quiet sitting; approach each game instinctively."],
       source: BDO_PROC,
       confidence: "official",
@@ -114,7 +114,7 @@ export const bdo: FirmProfile = {
     "Prepare a short presentation on an assigned topic and a group case; older reports have both.",
   ],
   officialLinks: [BDO_PROC, BDO_JOB, BDO_FAQ, "https://careers.bdo.co.uk"],
-  lastVerified: "2026-09-30",
+  lastVerified: "2026-10-03",
   gaps: [
     "Assessment provider, number of tasks and timings for the task-based assessment not published.",
     "Video interview number of questions, prep and answer time for the school leaver version not verified (only a Fishbowl mention of 3 questions; page not read).",
