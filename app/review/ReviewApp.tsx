@@ -1,5 +1,6 @@
 "use client";
 
+import SignInNotice from "@/components/SignInNotice";
 import Link from "next/link";
 import { useState } from "react";
 import AreaTabs from "@/components/AreaTabs";
@@ -75,6 +76,7 @@ export default function ReviewApp({ firms }: { firms: ReviewFirm[] }) {
     <div className="space-y-4">
       <AreaTabs area="feedback" current="/review" />
       <h1 className="page-title">Statement and answer review</h1>
+      <SignInNotice what="written feedback" />
       <p className="text-muted">
         Get feedback on a personal statement or application form answer. Write it yourself and use the feedback to
         improve it. Employers want your own words.

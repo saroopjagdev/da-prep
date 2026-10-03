@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
+import SignInNotice from "@/components/SignInNotice";
 import Runner from "@/components/assess/Runner";
 import QaStage, { type Turn } from "@/components/mock/QaStage";
 import { postJson } from "@/lib/api";
@@ -155,6 +156,7 @@ export default function MockRunner({ mock, firmName, tests }: { mock: MockProces
     return (
       <div className="mx-auto max-w-2xl space-y-4">
         <h1 className="page-title">{mock.title}</h1>
+        <SignInNotice what="the interview stages of this mock process" />
         {mock.notes.map((n) => (
           <p key={n} className="callout bg-brand-50 text-sm">{n}</p>
         ))}

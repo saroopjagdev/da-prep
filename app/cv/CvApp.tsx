@@ -1,5 +1,6 @@
 "use client";
 
+import SignInNotice from "@/components/SignInNotice";
 import { useState } from "react";
 import AreaTabs from "@/components/AreaTabs";
 import { postJson } from "@/lib/api";
@@ -31,6 +32,7 @@ export default function CvApp({ firms }: { firms: { slug: string; name: string }
     <div className="mx-auto max-w-3xl space-y-4">
       <AreaTabs area="feedback" current="/cv" />
       <h1 className="page-title">CV checker</h1>
+      <SignInNotice what="the CV checker" />
       <p className="text-muted">
         Get feedback on your CV for a degree apprenticeship application. It is written for school leavers: grades first,
         evidence over claims, and clear results. Write your CV yourself and use the feedback to improve it. Employers

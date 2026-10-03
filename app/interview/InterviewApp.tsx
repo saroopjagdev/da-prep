@@ -1,5 +1,6 @@
 "use client";
 
+import SignInNotice from "@/components/SignInNotice";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import CameraPreview from "@/components/CameraPreview";
@@ -391,6 +392,7 @@ export default function InterviewApp({
           <h1 className="page-title">Mock interview</h1>
           <p className="lead">Pick an employer from our guides or paste a real advert, and get questions built around that role.</p>
         </div>
+        <SignInNotice what="the mock interview" />
         <div className="card space-y-5 p-6">
           <div className="space-y-2">
             <p className="label">
