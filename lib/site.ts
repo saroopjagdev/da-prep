@@ -42,6 +42,7 @@ export const PUBLIC_PATHS = [
   "/learn",
   "/tips",
   "/timeline",
+  "/calendar",
   "/employers",
   "/sectors/finance/calendar",
   "/sectors/finance/myths",

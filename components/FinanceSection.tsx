@@ -4,7 +4,7 @@ import { isFinanceFirm } from "@/lib/firms/context";
 import { getMock } from "@/lib/mockprocess/definitions";
 
 const LINKS = [
-  { href: "/sectors/finance/calendar", title: "Season calendar", body: "When banks, accountancy firms and regulators open and close, month by month." },
+  { href: "/sectors/finance/calendar", title: "Finance season calendar", body: "When banks, accountancy firms and regulators opened and closed, month by month." },
   { href: "/sectors/finance/myths", title: "Myths, checked", body: "Grades, fees, pay, degrees, deadlines and AI: what's actually true." },
   { href: "/mock", title: "Bank mock processes", body: "Goldman Sachs, J.P. Morgan, Morgan Stanley, Bank of America and HSBC, stage by stage." },
   { href: "/interview", title: "Finance interview practice", body: "Pick a bank and programme, then practise commercial awareness, technical and ethics questions." },

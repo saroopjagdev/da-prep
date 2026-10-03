@@ -111,7 +111,7 @@ export default function Home() {
             <p className="text-sm font-bold text-brand-700">Timing matters</p>
             <h2 className="text-2xl font-bold tracking-tight">Many employers open early and fill fast</h2>
             <p className="text-sm text-muted">
-              Large employers often open in the autumn and close once they have enough applicants. Check each employer's dates,
+              Large employers often open in the autumn and close once they have enough applicants. Check each employer&apos;s dates,
               then rehearse their real process: tests, a recorded interview and an assessment centre.
             </p>
             <Link href="/employers" className="btn btn-primary mt-2">
@@ -121,7 +121,7 @@ export default function Home() {
           </div>
           <ul className="grid gap-3 sm:grid-cols-2">
             {[
-              ["/sectors/finance/calendar", "Finance season calendar", "When banks and accountancy firms opened and closed last cycle"],
+              ["/calendar", "Application calendar", "When each employer opens and closes, across every sector"],
               ["/mock", "Firm mock processes", "Run an employer's stages in their real order"],
               ["/interview", "Firm-specific interviews", "Questions built around the employer and role"],
               ["/sectors/finance/myths", "Finance myths, checked", "Grades, fees, pay and AI rules"],

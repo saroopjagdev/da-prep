@@ -31,6 +31,7 @@ export const NAV_GROUPS: NavGroup[] = [
       { href: "/guide", label: "Process guide", blurb: "What happens at each stage" },
       { href: "/tips", label: "Tips", blurb: "Tests, video interviews and assessment centres" },
       { href: "/timeline", label: "Timeline", blurb: "When to do what" },
+      { href: "/calendar", label: "Application calendar", blurb: "When each employer opens and closes, across every sector" },
       { href: "/employers", label: "Employers", blurb: "A starting list of who recruits" },
       { href: "/faq", label: "FAQ", blurb: "Common questions answered" },
     ],
