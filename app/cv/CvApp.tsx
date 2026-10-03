@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import AreaTabs from "@/components/AreaTabs";
 import { postJson } from "@/lib/api";
 import type { CvOutput } from "@/lib/cv";
 
@@ -28,6 +29,7 @@ export default function CvApp({ firms }: { firms: { slug: string; name: string }
 
   return (
     <div className="mx-auto max-w-3xl space-y-4">
+      <AreaTabs area="feedback" current="/cv" />
       <h1 className="page-title">CV checker</h1>
       <p className="text-muted">
         Get feedback on your CV for a degree apprenticeship application. It is written for school leavers: grades first,

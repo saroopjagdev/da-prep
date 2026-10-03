@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
+import AreaTabs from "@/components/AreaTabs";
 import Progress from "@/components/Progress";
 import ScoreRing from "@/components/ScoreRing";
 import { useSector } from "@/lib/prefs";
@@ -88,6 +89,7 @@ export default function Practice() {
   if (!category || !info) {
     return (
       <div className="space-y-6">
+        <AreaTabs area="tests" current="/practice" />
         <div className="space-y-2">
           <h1 className="page-title">Practice tests</h1>
           <p className="lead max-w-2xl">
