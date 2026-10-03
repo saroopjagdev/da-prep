@@ -104,7 +104,7 @@ export const arup: FirmProfile = {
     "Know your CV: candidates were asked about early work experience.",
   ],
   officialLinks: [APPS, KEY_SPEECH, "https://www.arup.com/en-us/careers/recruitment-process/", "https://www.arup.com/en-us/about-us/values/"],
-  lastVerified: "2026-09-30",
+  lastVerified: "2026-10-03",
   gaps: [
     "Question bank is from a graduate-focused TargetJobs piece (1 Aug 2024); no apprenticeship-specific questions verified.",
     "OA provider, item counts and timings are unconfirmed commercial claims. A prep site's pre-recorded video interview is not in Arup's apprenticeship process, so excluded.",

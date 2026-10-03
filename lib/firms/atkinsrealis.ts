@@ -1,6 +1,6 @@
 import type { FirmProfile } from "./types";
 
-const SEL = "https://careers.atkinsrealis.com/uk-early-careers/selection-process-apprenticeships";
+const SEL = "https://careers.atkinsrealis.com/en/early-careers/uk/apprentices/selection-process";
 const FAQ = "https://careers.atkinsrealis.com/uk-early-careers/faqs-apprentices";
 const PREP = "https://careers.atkinsrealis.com/uk-early-careers/blogs/2025-5/how-to-prepare-for-an-early-careers-interview";
 const IA_BLOG = "https://careers.atkinsrealis.com/uk-early-careers/blogs/2024-10/how-to-prepare-for-the-atkinsrealis-immersive-assessment";
@@ -103,7 +103,7 @@ export const atkinsrealis: FirmProfile = {
     "Learn values: Safety first, plus Integrity, Collaboration, Innovation, Excellence.",
   ],
   officialLinks: [SEL, FAQ, PREP, IA_BLOG, AMAZING, VALUES],
-  lastVerified: "2026-09-30",
+  lastVerified: "2026-10-03",
   gaps: [
     "Conflicting durations: 45 min (official FAQ/blog), 60 min (Amazing Apprenticeships and a search summary); interview 'about an hour' vs '90 minutes'.",
     "Reported questions are from search summaries of the Student Room (403), likely video answers from the pre-2026 format.",

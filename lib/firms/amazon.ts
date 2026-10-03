@@ -30,7 +30,7 @@ export const amazon: FirmProfile = {
     source: AMZ_SDE,
   },
   timeline: {
-    opens: "November (for 2026 cohorts)",
+    opens: "November (the FAQ, checked 3 Oct 2026, still describes the 2026 cohorts; no 2027 date is published yet)",
     rolling: true,
     notes:
       "Rolling; roles close when enough applications arrive, so apply early. Degree apprenticeships start in September, non-degree in July. After the first assessment, later assessments have a strict 5-day deadline that cannot be extended.",
@@ -174,12 +174,13 @@ export const amazon: FirmProfile = {
     AMZ_LP,
     AMZ_ABOUT,
   ],
-  lastVerified: "2026-09-30",
+  lastVerified: "2026-10-03",
   gaps: [
     "Video interview question count conflict (Amazon FAQ: 3 vs prep-site: 12); game-based assessment provider (Arctic Shores) and game names not confirmed on Amazon's own page.",
     "Presentation topic/length and group exercise scenario for the SDE apprentice centre.",
     "Whether SDE apprentices take the coding OA (amazon.jobs SDE OA page does not cover apprenticeships).",
     "Real candidate questions are prep-site summaries; TSR threads blocked (403), Glassdoor blocked.",
     "Pass marks and time to offer.",
+    "Opening date for the 2027 cohorts: Amazon's FAQ still refers to 2026 cohorts, so expect November again but confirm on the site.",
   ],
 };

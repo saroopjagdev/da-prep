@@ -122,7 +122,7 @@ export const civilServiceFastTrack: FirmProfile = {
     "Treat written evidence as the main filter: concise examples with result, impact and what you learned.",
   ],
   officialLinks: [GOV_WHAT, GOV_ORG, GOV_HOW, GOV_CODE, "https://www.civil-service-careers.gov.uk/fast-stream"],
-  lastVerified: "2026-09-30",
+  lastVerified: "2026-10-03",
   gaps: [
     "No current official Fast Track Apprenticeship process exists; the programme is closed. No 2025-26 cycle to verify.",
     "Whether a successor apprenticeship Fast Track-type scheme exists: searches showed only departmental apprenticeships and the Fast Stream (graduate).",

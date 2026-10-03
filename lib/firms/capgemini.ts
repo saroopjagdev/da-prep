@@ -115,7 +115,7 @@ export const capgemini: FirmProfile = {
     "Take the post-centre feedback call if offered - reapply next season with it.",
   ],
   officialLinks: [CAP_FAQ, CAP_APPR, CAP_INVENT, "https://www.capgemini.com/gb-en/wp-content/uploads/sites/5/2025/12/12983_Apprentice-brochure_v9.pdf"],
-  lastVerified: "2026-09-30",
+  lastVerified: "2026-10-03",
   gaps: [
     "No psychometric test is named in the official apprentice process; prep-site claims of SHL/Matrigma tests, an SJT and games relate to graduate/India routes and are excluded.",
     "Digital interview question count and time limits for apprentices.",

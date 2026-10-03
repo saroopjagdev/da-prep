@@ -1,7 +1,7 @@
 import type { FirmProfile } from "./types";
 
 // Research date 2026-09-30.
-const FM_SEL = "https://careers-uk.forvismazars.com/jobs/selection-process/";
+const FM_SEL = "https://careers-uk.forvismazars.com/early-careers/selection-process/";
 const FM_TJ = "https://targetjobs.co.uk/organisations/forvis-mazars";
 const FM_GJ = "https://www.graduate-jobs.com/interviews/company/forvismazars";
 
@@ -104,7 +104,7 @@ export const forvisMazars: FirmProfile = {
     "Question lists are from graduate-jobs.com (age and cohort not stated): indicative, not verified 2025-26.",
   ],
   officialLinks: [FM_SEL, "https://careers-uk.forvismazars.com/faqs/", FM_TJ],
-  lastVerified: "2026-09-30",
+  lastVerified: "2026-10-03",
   gaps: [
     "Entry requirements (UCAS/GCSE), salary and closing dates not found; vacancy pages redirected.",
     "Live video interview length and question count not stated.",
