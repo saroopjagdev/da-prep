@@ -3,6 +3,7 @@ import Dashboard from "@/components/Dashboard";
 import Icon from "@/components/Icon";
 import ScoreRing from "@/components/ScoreRing";
 import ToolkitSection from "@/components/ToolkitSection";
+import { PRO_PLAN } from "@/lib/plans";
 import { QUESTIONS } from "@/lib/questions";
 import { SECTORS } from "@/lib/sectors";
 
@@ -29,7 +30,7 @@ export default function Home() {
     [String(QUESTIONS.length), "original practice questions"],
     [String(SECTORS.length), "sector guides"],
     ["2", "interview formats: text or timed video"],
-    ["Free", "to start, no account needed"],
+    ["Free", "to start: tests, tracker and guides need no account"],
   ];
 
   return (
@@ -54,6 +55,18 @@ export default function Home() {
               Explore the toolkit
             </Link>
           </div>
+          <form action="/employers" method="get" role="search" className="flex max-w-lg gap-2">
+            <input
+              name="q"
+              className="input w-full text-sm"
+              placeholder="Search employers, e.g. Barclays or Airbus"
+              aria-label="Search employers"
+              maxLength={80}
+            />
+            <button type="submit" className="btn btn-secondary whitespace-nowrap">
+              Search
+            </button>
+          </form>
         </div>
 
         {/* Product preview in a tinted frame */}
@@ -266,12 +279,51 @@ export default function Home() {
         </ul>
       </section>
 
+      {/* Plans */}
+      <section className="mx-auto max-w-6xl space-y-6 px-4 pb-16" aria-labelledby="plans">
+        <h2 id="plans" className="text-3xl font-bold tracking-tight">Free to start. Pro if you want more.</h2>
+        <div className="grid gap-5 sm:grid-cols-2">
+          <div className="card space-y-2 p-6">
+            <h3 className="text-lg font-bold">Free</h3>
+            <p className="text-sm text-muted">Practice tests, assessment replicas, the tracker, stories bank, all guides and a couple of AI mock interviews and reviews each week.</p>
+          </div>
+          <div className="card space-y-2 p-6">
+            <h3 className="text-lg font-bold">Pro: {PRO_PLAN.price}</h3>
+            <p className="text-sm text-muted">Higher limits on AI mock interviews and written feedback. Cancel any time.</p>
+            <Link href="/pricing" className="btn btn-secondary mt-2">
+              See plans
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* Quick answers (plain content, no FAQ markup) */}
+      <section className="mx-auto max-w-6xl space-y-4 px-4 pb-16" aria-labelledby="quick">
+        <h2 id="quick" className="text-3xl font-bold tracking-tight">Quick answers</h2>
+        <dl className="grid gap-5 sm:grid-cols-2">
+          {[
+            ["Is a degree apprenticeship really a degree?", "Most lead to a full degree (BA, BSc or BEng) while you work and are paid. Some, such as NatWest's Level 6 route, give a degree-level qualification without a degree, so check each programme."],
+            ["Do I pay tuition fees?", "No. Your employer and the government cover training costs, and you earn a salary."],
+            ["When should I apply?", "Many large employers open in autumn and some close once they have enough applicants. Check each employer's page."],
+            ["Are these the real tests?", "No. They are original practice items in the same format and timing. We say where a detail is approximated."],
+          ].map(([q, a]) => (
+            <div key={q} className="space-y-1">
+              <dt className="font-semibold">{q}</dt>
+              <dd className="text-sm text-muted">{a}</dd>
+            </div>
+          ))}
+        </dl>
+        <Link href="/faq" className="text-sm font-semibold text-brand-700 underline underline-offset-4">
+          More questions
+        </Link>
+      </section>
+
       {/* Closing call to action */}
       <section className="bg-navy">
         <div className="mx-auto flex max-w-6xl flex-col items-start justify-between gap-6 px-4 py-14 md:flex-row md:items-center">
           <div className="max-w-xl space-y-2">
             <h2 className="text-3xl font-bold tracking-tight text-white">Run your first mock interview today</h2>
-            <p className="text-white/75">It takes about ten minutes and you don&apos;t need an account.</p>
+            <p className="text-white/75">It takes about ten minutes. You sign in so the AI feedback stays within fair-use limits.</p>
           </div>
           <Link href="/interview" className="btn btn-light !px-8 !py-3">
             Start a mock interview

@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { pageMeta } from "@/lib/site";
 export const metadata = pageMeta({
   title: "Degree apprenticeship timeline",
@@ -45,7 +46,9 @@ export default function Timeline() {
     <div className="space-y-6">
       <h1 className="page-title">Suggested timeline</h1>
       <p className="text-muted">
-        There&apos;s no national deadline, so this is a planning guide, not fixed dates. Employers set their own.
+        There&apos;s no national deadline, so this is a planning guide, not fixed dates. Employers set their own. For real dates, see each{" "}
+        <Link href="/employers" className="underline">employer page</Link> or the{" "}
+        <Link href="/finance/calendar" className="underline">finance calendar</Link>.
       </p>
       {steps.map((s) => (
         <section key={s.when} className="card p-4">

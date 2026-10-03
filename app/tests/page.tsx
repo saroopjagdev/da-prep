@@ -1,3 +1,4 @@
+import AreaTabs from "@/components/AreaTabs";
 import { servedCount } from "@/lib/assess/sample";
 import type { Metadata } from "next";
 import Link from "next/link";
@@ -19,6 +20,7 @@ function summary(id: string) {
 export default function Tests() {
   return (
     <div className="space-y-6">
+      <AreaTabs area="tests" current="/tests" />
       <div className="max-w-2xl space-y-2">
         <h1 className="page-title">Assessment replicas</h1>
         <p className="lead">

@@ -164,7 +164,7 @@ export const airbus: FirmProfile = {
     "Airbus scores on the six values: prepare one STAR example each for Customer focus, Reliability, Integrity, Respect, Creativity and Teamwork.",
   ],
   officialLinks: [UK_PAGE, ENTRY_PDF, VALUES, "https://www.airbus.com/en/careers/students-and-graduates/apprentices"],
-  lastVerified: "2026-09-30",
+  lastVerified: "2026-10-03",
   gaps: [
     "Airbus UK page confirms Arctic Shores plus a virtual or in-person interview/assessment day but does not publish AC activities; AC detail comes from Glassdoor/Student Room search summaries (full pages returned 403) and is single-report.",
     "Whether UK degree apprenticeships include a HireVue video interview: a third-party guide describes one for other Airbus schemes, but TSR/Glassdoor reports say degree apprenticeships go straight to the AC. Not verified, so left out.",

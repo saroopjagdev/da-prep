@@ -104,3 +104,22 @@ for (const path of PAGES) {
     expect(await page.evaluate(() => document.documentElement.scrollWidth > window.innerWidth)).toBe(false);
   });
 }
+
+test("home search opens the employers list prefilled, with timing and a research date", async ({ page }) => {
+  await page.goto("/");
+  await page.getByRole("search").getByRole("textbox").fill("natwest");
+  await page.getByRole("search").getByRole("button", { name: "Search" }).click();
+  await expect(page).toHaveURL(/\/employers\?q=natwest/);
+  await expect(page.getByLabel("Search employers")).toHaveValue("natwest");
+  await expect(page.getByText("NatWest Group").first()).toBeVisible();
+  await expect(page.getByText(/researched 20\d\d-\d\d-\d\d/).first()).toBeVisible();
+});
+
+test("related pages share tabs: tests and feedback", async ({ page }) => {
+  await page.goto("/practice");
+  await page.getByRole("navigation", { name: "Practice tests" }).getByRole("link", { name: "Employer replicas" }).click();
+  await expect(page).toHaveURL(/\/tests$/);
+  await page.goto("/cv");
+  await page.getByRole("navigation", { name: "Written feedback" }).getByRole("link", { name: "Statement and answers" }).click();
+  await expect(page).toHaveURL(/\/review$/);
+});

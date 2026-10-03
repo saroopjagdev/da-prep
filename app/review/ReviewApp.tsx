@@ -1,7 +1,9 @@
 "use client";
 
+import SignInNotice from "@/components/SignInNotice";
 import Link from "next/link";
 import { useState } from "react";
+import AreaTabs from "@/components/AreaTabs";
 import ConfidenceBadge from "@/components/ConfidenceBadge";
 import { postJson } from "@/lib/api";
 import { AI_RULES, COMMON_QUESTIONS, countWords, type AppQuestion } from "@/lib/application-questions";
@@ -72,7 +74,9 @@ export default function ReviewApp({ firms }: { firms: ReviewFirm[] }) {
 
   return (
     <div className="space-y-4">
+      <AreaTabs area="feedback" current="/review" />
       <h1 className="page-title">Statement and answer review</h1>
+      <SignInNotice what="written feedback" />
       <p className="text-muted">
         Get feedback on a personal statement or application form answer. Write it yourself and use the feedback to
         improve it. Employers want your own words.
