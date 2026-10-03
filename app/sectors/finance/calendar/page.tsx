@@ -6,15 +6,15 @@ import { pageMeta } from "@/lib/site";
 export const metadata = pageMeta({
   title: "Finance degree apprenticeship calendar",
   description: "When banks, accountancy firms and regulators open and close degree apprenticeship applications, month by month, with sources.",
-  path: "/finance/calendar",
+  path: "/sectors/finance/calendar",
 });
 
 export default function FinanceCalendar() {
   return (
     <div className="mx-auto max-w-3xl space-y-6">
       <div className="space-y-2">
-        <Link className="text-sm underline" href="/finance">
-          Finance hub
+        <Link className="text-sm underline" href="/sectors/finance">
+          Finance
         </Link>
         <h1 className="page-title">Finance application calendar</h1>
         <p className="lead">

@@ -9,6 +9,13 @@ Built and tested: the app and its AI features, accounts and cloud sync (Supabase
 Not yet done, in priority order:
 
 ### 1. Launch blockers that need an account, a key or a person
+
+**Status on 3 Oct 2026**
+- Done: Stripe live mode (product, £9.99 price, webhook at www.level6.uk/api/stripe/webhook, billing portal); Vercel Production vars for AI, accounts, limits; lawyer review of /privacy and /terms.
+- Check `https://www.level6.uk/api/health`: `payments`, `paymentsReady` and `passSecret` must all be true after the last redeploy.
+- **TODO tomorrow (4 Oct): support email.** Choose the mail router for `support@level6.uk`, set it up on the domain, then set `NEXT_PUBLIC_CONTACT_EMAIL` in Vercel Production and redeploy. The legal pages and the footer show this address.
+- TODO: Resend SMTP for Supabase sign-in email (needs the level6.uk domain verified in Resend), Supabase Site URL and redirect URLs, Upstash Redis, revoke the Supabase access token used during setup.
+- Dependabot: six open PRs (#1 to #6); each needs testing before merging. Master CI was red until PR #7.
 See `docs/LAUNCH.md` (launch blockers and set-up steps). In short:
 1. Email provider for Supabase magic links (the built-in one allows 2 emails an hour for the whole project). Resend is being set up.
 2. Supabase auth settings: Site URL, redirect URLs for the production domain.

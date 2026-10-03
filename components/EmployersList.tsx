@@ -1,6 +1,7 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useSearchParams } from "next/navigation";
+import { useState } from "react";
 import Link from "next/link";
 import { FIND_APPRENTICESHIP_URL } from "@/lib/employers";
 import type { DirectoryEntry, NoDegreeRoute } from "@/lib/directory";
@@ -11,15 +12,12 @@ import type { Application } from "@/lib/types";
 
 export default function EmployersList({ entries, noDegree = [] }: { entries: DirectoryEntry[]; noDegree?: NoDegreeRoute[] }) {
   const apps = useCollection<Application>("applications");
-  const [query, setQuery] = useState("");
+  // The home page search sends people here as /employers?q=name.
+  const initialQuery = (useSearchParams().get("q") ?? "").slice(0, 80);
+  const [query, setQuery] = useState(initialQuery);
   const [filter, setFilter] = useState<SectorId | "all">("all");
   const [researchedOnly, setResearchedOnly] = useState(false);
 
-  // The home page search sends people here as /employers?q=name.
-  useEffect(() => {
-    const q = new URLSearchParams(window.location.search).get("q");
-    if (q) setQuery(q.slice(0, 80));
-  }, []);
 
   const list = entries.filter(
     (e) =>

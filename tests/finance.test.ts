@@ -36,6 +36,6 @@ describe("finance calendar and myths", () => {
   });
 
   it("lists the finance pages in the sitemap", () => {
-    for (const p of ["/finance", "/finance/calendar", "/finance/myths"]) expect(PUBLIC_PATHS).toContain(p);
+    for (const p of ["/sectors/finance/calendar", "/sectors/finance/myths"]) expect(PUBLIC_PATHS).toContain(p);
   });
 });
