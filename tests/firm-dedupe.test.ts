@@ -21,3 +21,21 @@ describe("firm de-duplication", () => {
     for (const f of FIRMS) if (f.specificAdvice.length > 3) expect(extraAdvice(f).length, f.slug).toBeGreaterThan(0);
   });
 });
+
+import { directory, shortTiming } from "@/lib/directory";
+
+describe("employer directory timing", () => {
+  it("keeps the first sentence and cuts long text at a word", () => {
+    expect(shortTiming("Opens in Spring.")).toBe("Opens in Spring.");
+    const long = shortTiming("word ".repeat(60))!;
+    expect(long.length).toBeLessThanOrEqual(141);
+    expect(long.endsWith("…")).toBe(true);
+    expect(shortTiming(undefined)).toBeUndefined();
+  });
+
+  it("carries timing and the research date for firms with a profile", () => {
+    const nw = directory().find((e) => e.slug === "natwest")!;
+    expect(nw.timing).toContain("Spring");
+    expect(nw.verified).toBe("2026-10-03");
+  });
+});

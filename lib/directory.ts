@@ -5,7 +5,23 @@ import { trackerTemplate } from "@/lib/tracker";
 import type { TrackerTemplate } from "@/lib/tracker-item";
 
 /** One row in the employer directory: the seed list merged with researched firm profiles. */
-export type DirectoryEntry = Employer & { slug?: string; template?: TrackerTemplate };
+export type DirectoryEntry = Employer & {
+  slug?: string;
+  template?: TrackerTemplate;
+  /** Short, sourced timing line from the researched profile (e.g. when applications open). */
+  timing?: string;
+  /** ISO date the profile was last researched. */
+  verified?: string;
+};
+
+/** A profile's timing text, cut at a word boundary so a list row stays one or two lines. */
+export function shortTiming(opens?: string, max = 140): string | undefined {
+  const text = opens?.trim();
+  if (!text) return undefined;
+  if (text.length <= max) return text;
+  return text.slice(0, max).replace(/\s+\S*$/, "") + "…";
+}
+const extra = (f: (typeof FIRMS)[number]) => ({ timing: shortTiming(f.timeline.opens), verified: f.lastVerified });
 
 const firstWord = (s: string) =>
   s
@@ -37,11 +53,11 @@ export function directory(): DirectoryEntry[] {
   const merged: DirectoryEntry[] = EMPLOYERS.map((e) => {
     const firm = FIRMS.find((f) => !HIDDEN.has(f.slug) && firstWord(f.name) === firstWord(e.name));
     if (firm) used.add(firm.slug);
-    return firm ? { ...e, slug: firm.slug, template: trackerTemplate(firm) } : e;
+    return firm ? { ...e, slug: firm.slug, template: trackerTemplate(firm), ...extra(firm) } : e;
   });
   for (const f of FIRMS) {
     if (used.has(f.slug) || HIDDEN.has(f.slug)) continue;
-    merged.push({ name: f.name, sector: f.sector, sectors: sectorsFor(f.sector), slug: f.slug, note: NOTES[f.slug], template: trackerTemplate(f) });
+    merged.push({ name: f.name, sector: f.sector, sectors: sectorsFor(f.sector), slug: f.slug, note: NOTES[f.slug], template: trackerTemplate(f), ...extra(f) });
   }
   return merged.sort((a, b) => a.name.localeCompare(b.name));
 }

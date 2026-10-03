@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { FIND_APPRENTICESHIP_URL } from "@/lib/employers";
 import type { DirectoryEntry, NoDegreeRoute } from "@/lib/directory";
@@ -13,9 +13,17 @@ export default function EmployersList({ entries, noDegree = [] }: { entries: Dir
   const apps = useCollection<Application>("applications");
   const [query, setQuery] = useState("");
   const [filter, setFilter] = useState<SectorId | "all">("all");
+  const [researchedOnly, setResearchedOnly] = useState(false);
+
+  // The home page search sends people here as /employers?q=name.
+  useEffect(() => {
+    const q = new URLSearchParams(window.location.search).get("q");
+    if (q) setQuery(q.slice(0, 80));
+  }, []);
 
   const list = entries.filter(
     (e) =>
+      (!researchedOnly || Boolean(e.slug)) &&
       (filter === "all" || e.sectors.includes(filter)) &&
       `${e.name} ${e.sector}`.toLowerCase().includes(query.toLowerCase()),
   );
@@ -56,6 +64,13 @@ export default function EmployersList({ entries, noDegree = [] }: { entries: Dir
           </button>
         ))}
       </div>
+      <label className="flex items-center gap-2 text-sm">
+        <input type="checkbox" checked={researchedOnly} onChange={(e) => setResearchedOnly(e.target.checked)} />
+        Only employers with a researched process guide
+      </label>
+      <p className="text-sm text-muted" aria-live="polite">
+        {list.length} {list.length === 1 ? "employer" : "employers"}
+      </p>
       <ul className="space-y-3">
         {list.map((e) => (
           <li key={e.name} className="flex flex-wrap items-center justify-between gap-2 card p-3">
@@ -65,6 +80,12 @@ export default function EmployersList({ entries, noDegree = [] }: { entries: Dir
                 {e.sector}
                 {e.note && ` · ${e.note}`}
               </p>
+              {e.timing && (
+                <p className="text-sm">
+                  <span className="font-semibold">Applications:</span> {e.timing}{" "}
+                  {e.verified && <span className="text-xs text-muted">(researched {e.verified})</span>}
+                </p>
+              )}
               {e.slug && (
                 <Link className="text-sm underline mr-3" href={`/employers/${e.slug}`}>
                   Process guide
