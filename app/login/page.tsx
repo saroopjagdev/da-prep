@@ -106,8 +106,7 @@ export default function Login() {
             <Link className="underline" href="/privacy">
               privacy notice
             </Link>
-            . Accounts are for people aged 16 and over. Without an account you can still use the practice tests, tracker
-            and guides: your work is saved on this device. The AI features need an account.
+            . Accounts and the AI features are for people aged 16 and over.
           </p>
         </section>
       )}
