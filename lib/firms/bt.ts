@@ -129,7 +129,7 @@ export const bt: FirmProfile = {
     "Have qualifications evidence ready for the under-20-minute screening call.",
   ],
   officialLinks: [BT_HOME, BT_FAQ, BT_ENG, "https://jobs.bt.com/content/Transformation-and-Delivery-Apprenticeships/"],
-  lastVerified: "2026-09-30",
+  lastVerified: "2026-10-03",
   gaps: [
     "BT pages do not show the year of the stated February window; treat as the annual pattern.",
     "Entry grades (UCAS points) for Level 6 roles and degree universities.",

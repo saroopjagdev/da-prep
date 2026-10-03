@@ -163,7 +163,7 @@ export const natwest: FirmProfile = {
     "Only degree-level applicants in England qualify: check you meet 80 UCAS points.",
   ],
   officialLinks: [NW_DA, NW_RM, "https://jobs.natwestgroup.com/pages/early-talent-application-support"],
-  lastVerified: "2026-09-30",
+  lastVerified: "2026-10-03",
   gaps: [
     "Names and definitions of NatWest's Behaviours (official page refers to them but does not list them).",
     "Format of the final interview/assessment centre for apprentices (official page says only 'interview'); virtual assessment centre claims come from prep sites for graduate/intern routes.",
