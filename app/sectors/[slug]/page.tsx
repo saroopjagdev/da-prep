@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import FinanceSection from "@/components/FinanceSection";
 import SectorPicker from "@/components/SectorPicker";
 import { EMPLOYERS } from "@/lib/employers";
 import { CATEGORY_INFO } from "@/lib/questions";
@@ -100,6 +101,8 @@ export default async function SectorPage({ params }: { params: Promise<{ slug: s
       <Link href="/interview" className="btn btn-primary !px-6 !py-3">
         Practise a {sector.name.toLowerCase()} interview
       </Link>
+
+      {sector.id === "finance" && <FinanceSection />}
     </div>
   );
 }

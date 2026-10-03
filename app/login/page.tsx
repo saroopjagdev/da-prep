@@ -61,7 +61,7 @@ export default function Login() {
       {enabled && !user && (
         <section className="card max-w-sm space-y-4 p-6">
           <p className="text-sm text-muted">
-            Save your progress and sync across devices. Optional: the site works without it.
+            An account is needed for the AI features (mock interviews, written feedback and the CV checker) and lets you sync your progress across devices. Practice tests, the tracker and the guides work without one.
           </p>
           <form
             className="space-y-2"
@@ -106,8 +106,7 @@ export default function Login() {
             <Link className="underline" href="/privacy">
               privacy notice
             </Link>
-            . Accounts are for people aged 16 and over. If you&apos;re younger, you can still use everything without an
-            account: your work is saved on this device.
+            . Accounts and the AI features are for people aged 16 and over.
           </p>
         </section>
       )}

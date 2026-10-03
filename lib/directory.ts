@@ -10,6 +10,8 @@ export type DirectoryEntry = Employer & {
   template?: TrackerTemplate;
   /** Short, sourced timing line from the researched profile (e.g. when applications open). */
   timing?: string;
+  /** Short, sourced closing-date text from the researched profile. */
+  closing?: string;
   /** ISO date the profile was last researched. */
   verified?: string;
 };
@@ -21,7 +23,7 @@ export function shortTiming(opens?: string, max = 140): string | undefined {
   if (text.length <= max) return text;
   return text.slice(0, max).replace(/\s+\S*$/, "") + "…";
 }
-const extra = (f: (typeof FIRMS)[number]) => ({ timing: shortTiming(f.timeline.opens), verified: f.lastVerified });
+const extra = (f: (typeof FIRMS)[number]) => ({ timing: shortTiming(f.timeline.opens), closing: shortTiming(f.timeline.closes), verified: f.lastVerified });
 
 const firstWord = (s: string) =>
   s
