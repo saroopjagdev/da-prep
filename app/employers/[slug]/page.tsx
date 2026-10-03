@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { FIRMS, getFirm } from "@/lib/firms";
+import { extraAdvice, extraBlocks, extraOaTests } from "@/lib/firms/dedupe";
 import { glance, practiceLinks } from "@/lib/firms/glance";
 import type { Confidence } from "@/lib/firms/types";
 import JsonLd from "@/components/JsonLd";
@@ -45,11 +46,9 @@ export default async function FirmPage({ params }: { params: Promise<{ slug: str
   const firm = getFirm(slug);
   if (!firm) notFound();
 
-  const sourced = [
-    ["Video interview", firm.videoInterview],
-    ["Assessment centre", firm.assessmentCentre],
-    ["Final interview", firm.finalInterview],
-  ] as const;
+  const sourced = extraBlocks(firm);
+  const oaTests = extraOaTests(firm);
+  const advice = extraAdvice(firm);
 
   return (
     <div className="space-y-6">
@@ -187,11 +186,11 @@ export default async function FirmPage({ params }: { params: Promise<{ slug: str
           ))}
       </section>
 
-      {firm.oa && (
+      {firm.oa && (oaTests.length > 0 || firm.oa.styleNotes) && (
         <section className="card p-4 space-y-2">
           <h2 className="font-semibold">Online assessment: {firm.oa.provider}</h2>
           <ul className="list-disc pl-5 text-sm space-y-1">
-            {firm.oa.tests.map((t) => (
+            {oaTests.map((t) => (
               <li key={t.name}>
                 {t.name}: {t.format}
                 {t.items ? ` · ${t.items} items` : ""}
@@ -207,18 +206,15 @@ export default async function FirmPage({ params }: { params: Promise<{ slug: str
         </section>
       )}
 
-      {sourced.map(
-        ([label, v]) =>
-          v && (
-            <section key={label} className="card p-4 space-y-1">
-              <h2 className="font-semibold">{label}</h2>
-              <p className="text-sm">{v.text}</p>
-              <p className="flex items-center gap-2">
-                <Badge c={v.confidence} /> <Src href={v.source} />
-              </p>
-            </section>
-          ),
-      )}
+      {sourced.map(({ label, v }) => (
+        <section key={label} className="card p-4 space-y-1">
+          <h2 className="font-semibold">{label}</h2>
+          <p className="text-sm">{v.text}</p>
+          <p className="flex items-center gap-2">
+            <Badge c={v.confidence} /> <Src href={v.source} />
+          </p>
+        </section>
+      ))}
 
       {firm.values.length > 0 && (
         <section className="card p-4 space-y-1">
@@ -241,11 +237,11 @@ export default async function FirmPage({ params }: { params: Promise<{ slug: str
         </section>
       )}
 
-      {firm.specificAdvice.length > 0 && (
+      {advice.length > 0 && (
         <section className="card p-4 space-y-1">
           <h2 className="font-semibold">Advice for this firm</h2>
           <ul className="list-disc pl-5 text-sm space-y-1">
-            {firm.specificAdvice.map((a) => (
+            {advice.map((a) => (
               <li key={a}>{a}</li>
             ))}
           </ul>
