@@ -3,11 +3,11 @@ import { expect, test, type Page } from "@playwright/test";
 
 const clearRuns = (page: Page) => page.evaluate(() => localStorage.clear());
 
-test("home page leads to the finance hub and calendar", async ({ page }) => {
+test("finance is a sector page with its calendar, and old finance links redirect", async ({ page }) => {
   await page.goto("/");
   await expect(page.getByRole("heading", { level: 1 })).toBeVisible();
-  await page.getByRole("link", { name: /go to the finance hub/i }).click();
-  await expect(page).toHaveURL(/\/finance$/);
+  await page.goto("/finance");
+  await expect(page).toHaveURL(/\/sectors\/finance$/);
   await page.getByRole("link", { name: /season calendar/i }).first().click();
   await expect(page.getByRole("heading", { name: /finance application calendar/i })).toBeVisible();
   await expect(page.getByText("Goldman Sachs").first()).toBeVisible();
@@ -93,7 +93,7 @@ test("unknown pages show a friendly 404", async ({ page }) => {
   await expect(page.getByRole("heading", { level: 1 })).toBeVisible();
 });
 
-const PAGES = ["/", "/finance", "/finance/calendar", "/finance/myths", "/employers", "/employers/ubs", "/interview", "/tests", "/mock", "/tracker", "/review", "/cv", "/pricing", "/privacy", "/terms", "/accessibility"];
+const PAGES = ["/", "/sectors/finance", "/sectors/finance/calendar", "/sectors/finance/myths", "/employers", "/employers/ubs", "/interview", "/tests", "/mock", "/tracker", "/review", "/cv", "/pricing", "/privacy", "/terms", "/accessibility"];
 
 for (const path of PAGES) {
   test(`no automatically detectable accessibility problems on ${path}`, async ({ page }) => {

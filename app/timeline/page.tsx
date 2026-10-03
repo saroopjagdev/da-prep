@@ -48,7 +48,7 @@ export default function Timeline() {
       <p className="text-muted">
         There&apos;s no national deadline, so this is a planning guide, not fixed dates. Employers set their own. For real dates, see each{" "}
         <Link href="/employers" className="underline">employer page</Link> or the{" "}
-        <Link href="/finance/calendar" className="underline">finance calendar</Link>.
+        <Link href="/sectors/finance/calendar" className="underline">finance calendar</Link>.
       </p>
       {steps.map((s) => (
         <section key={s.when} className="card p-4">

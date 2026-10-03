@@ -5,15 +5,15 @@ import { pageMeta } from "@/lib/site";
 export const metadata = pageMeta({
   title: "Finance degree apprenticeship myths",
   description: "Common myths about finance degree apprenticeships (grades, fees, pay, degrees, AI and deadlines) checked against sources.",
-  path: "/finance/myths",
+  path: "/sectors/finance/myths",
 });
 
 export default function FinanceMyths() {
   return (
     <div className="mx-auto max-w-3xl space-y-6">
       <div className="space-y-2">
-        <Link className="text-sm underline" href="/finance">
-          Finance hub
+        <Link className="text-sm underline" href="/sectors/finance">
+          Finance
         </Link>
         <h1 className="page-title">Finance degree apprenticeship myths</h1>
         <p className="lead">Things people often believe about finance degree apprenticeships, checked against sources.</p>
