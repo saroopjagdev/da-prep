@@ -13,8 +13,8 @@ updates:
         update-types: ["version-update:semver-major"]
       - dependency-name: "@types/node" # keep types on the Node 24 runtime major
         update-types: ["version-update:semver-major"]
-      - dependency-name: "@playwright/test" # 1.62 and later break the e2e runner (ERR_PACKAGE_PATH_NOT_EXPORTED during playwright install); revisit when a newer release is fixed
-        versions: [">=1.62.0"]
+      - dependency-name: "@playwright/test" # 1.57 and later fail the e2e job (checked 4 Oct 2026: 1.61.1, 1.62.1, 1.63); stay on 1.56 until a fixed release
+        versions: [">=1.57.0"]
     groups:
       minor-and-patch:
         update-types: [minor, patch]
