@@ -21,6 +21,8 @@ export default defineConfig({
     url: `http://localhost:${PORT}`,
     reuseExistingServer: true,
     timeout: 240_000,
-    env: { MOCK_AI: "1", ENFORCE_LIMITS: "false" },
+    // Accounts are switched on against a dummy address so a signed-in browser can be simulated (see signedIn() in the specs).
+    // Nothing is ever sent there: the session is read from local storage and AI limits are off.
+    env: { MOCK_AI: "1", ENFORCE_LIMITS: "false", NEXT_PUBLIC_SUPABASE_URL: "http://localhost:54321", NEXT_PUBLIC_SUPABASE_ANON_KEY: "e2e-anon-key" },
   },
 });

@@ -161,11 +161,20 @@ test("a new visitor sees the pitch with a way to start, and opportunities still 
   await expect(page.locator("tbody tr").filter({ hasText: "NatWest Group" }).getByText("Not open yet", { exact: true })).toBeVisible();
 });
 
+// A signed-in browser without a real Supabase: supabase-js reads this session from local storage (key sb-<host>-auth-token).
+const signedIn = (page: Page) =>
+  page.addInitScript(() => {
+    const b64 = (o: object) => btoa(JSON.stringify(o)).replace(/=+$/, "").replace(/\+/g, "-").replace(/\//g, "_");
+    const exp = Math.floor(Date.now() / 1000) + 24 * 3600;
+    const user = { id: "00000000-0000-0000-0000-000000000001", aud: "authenticated", role: "authenticated", email: "e2e@example.com", app_metadata: {}, user_metadata: {}, created_at: new Date().toISOString() };
+    const jwt = `${b64({ alg: "HS256", typ: "JWT" })}.${b64({ sub: user.id, exp, role: "authenticated" })}.sig`;
+    localStorage.setItem("sb-localhost-auth-token", JSON.stringify({ access_token: jwt, refresh_token: "e2e-refresh", token_type: "bearer", expires_in: 86400, expires_at: exp, user }));
+  });
 const withActivity = (page: Page) =>
   page.addInitScript(() => localStorage.setItem("da-prep:practice", JSON.stringify([{ id: "p1", date: new Date().toISOString(), category: "numerical", score: 7, total: 10 }])));
 
-test("someone with saved activity gets the dashboard instead of the pitch, and /?pitch=1 shows the pitch", async ({ page }) => {
-  await withActivity(page);
+test("a signed-in person gets the dashboard instead of the pitch, and /?pitch=1 shows the pitch", async ({ page }) => {
+  await signedIn(page);
   await page.goto("/");
   await expect(page.getByRole("heading", { level: 1, name: "Your dashboard" })).toBeVisible();
   await expect(page.getByRole("heading", { name: /Practise the real stages/ })).toBeHidden();
@@ -175,8 +184,15 @@ test("someone with saved activity gets the dashboard instead of the pitch, and /
   await expect(page.getByRole("heading", { name: "Your dashboard" })).toBeHidden();
 });
 
-test("the dashboard has no accessibility problems", async ({ page }) => {
+test("saved practice and a tracker without an account still get the landing page, not the dashboard", async ({ page }) => {
   await withActivity(page);
+  await page.goto("/");
+  await expect(page.getByRole("heading", { level: 1, name: /Practise the real stages/ })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Your dashboard" })).toBeHidden();
+});
+
+test("the dashboard has no accessibility problems", async ({ page }) => {
+  await signedIn(page);
   await page.goto("/");
   await expect(page.getByRole("heading", { level: 1, name: "Your dashboard" })).toBeVisible();
   const result = await new AxeBuilder({ page }).analyze();

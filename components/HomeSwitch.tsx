@@ -5,12 +5,12 @@ import { useAuth } from "@/components/AuthProvider";
 import HomeDashboard from "@/components/HomeDashboard";
 import type { OpenNow } from "@/lib/home";
 import { track } from "@/lib/funnel";
-import { hasLocalActivity, shouldShowDashboard } from "@/lib/home-gate";
+import { shouldShowDashboard } from "@/lib/home-gate";
 
 /**
- * Holds the dashboard slot on the home page. CSS (keyed on the data-returning attribute that the head script sets)
+ * Holds the dashboard slot on the home page. Only signed-in people get the dashboard. CSS (keyed on the data-returning attribute that the head script sets)
  * decides what is visible before the page loads; this confirms the real answer once the session is known, and keeps the
- * attribute honest (set for returning users, cleared if the saved activity or the session has gone).
+ * attribute honest (set when a saved session exists, cleared if the session has gone).
  * /?pitch=1 always shows the landing page, for people who want to read about Level6 again.
  */
 export default function HomeSwitch({ open }: { open: OpenNow[] }) {
@@ -20,13 +20,7 @@ export default function HomeSwitch({ open }: { open: OpenNow[] }) {
   useEffect(() => {
     if (!ready) return;
     const wantsPitch = /[?&]pitch=1/.test(window.location.search);
-    let local = false;
-    try {
-      local = hasLocalActivity((k) => localStorage.getItem(k));
-    } catch {
-      /* storage blocked: treat as a new visitor */
-    }
-    const dash = !wantsPitch && shouldShowDashboard({ signedIn: Boolean(user), localActivity: local });
+    const dash = !wantsPitch && shouldShowDashboard({ signedIn: Boolean(user) });
     const root = document.documentElement;
     if (dash) root.setAttribute("data-returning", "1");
     else root.removeAttribute("data-returning");

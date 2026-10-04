@@ -2,29 +2,16 @@ import { describe, expect, it, vi } from "vitest";
 import { TESTS } from "@/lib/assess/tests";
 import { FIRMS } from "@/lib/firms";
 import { homeStats, openNow } from "@/lib/home";
-import { LOCAL_COLLECTIONS, RETURNING_HINT_SCRIPT, hasLocalActivity, shouldShowDashboard } from "@/lib/home-gate";
+import { RETURNING_HINT_SCRIPT, shouldShowDashboard } from "@/lib/home-gate";
 import { ALL_MOCKS } from "@/lib/mockprocess/definitions";
 import { opportunityRows } from "@/lib/opportunities";
 import { FREE_INTERVIEWS, FREE_REVIEWS } from "@/lib/plans";
 import { streak } from "@/components/HomeDashboard";
 
-const store = (o: Record<string, string>) => (k: string) => o[k] ?? null;
-
 describe("who gets the dashboard", () => {
-  it("is signed-in users and anyone with saved activity, nobody else", () => {
-    expect(shouldShowDashboard({ signedIn: true, localActivity: false })).toBe(true);
-    expect(shouldShowDashboard({ signedIn: false, localActivity: true })).toBe(true);
-    expect(shouldShowDashboard({ signedIn: false, localActivity: false })).toBe(false);
-  });
-
-  it("counts a saved list only when it has something in it", () => {
-    expect(hasLocalActivity(store({}))).toBe(false);
-    expect(hasLocalActivity(store({ "da-prep:practice": "[]" }))).toBe(false);
-    expect(hasLocalActivity(store({ "da-prep:practice": "not json" }))).toBe(false);
-    expect(hasLocalActivity(store({ "da-prep:practice": '[{"id":"1"}]' }))).toBe(true);
-    for (const c of LOCAL_COLLECTIONS) expect(hasLocalActivity(store({ [`da-prep:${c}`]: '[{"id":"1"}]' })), c).toBe(true);
-    // Picking a sector alone is not activity.
-    expect(hasLocalActivity(store({ "da-prep:sector": "finance" }))).toBe(false);
+  it("is signed-in people only", () => {
+    expect(shouldShowDashboard({ signedIn: true })).toBe(true);
+    expect(shouldShowDashboard({ signedIn: false })).toBe(false);
   });
 });
 
@@ -43,15 +30,14 @@ describe("the pre-paint hint script", () => {
     return attrs["data-returning"];
   }
 
-  it("marks a returning visitor (saved session or saved activity) and nobody else", () => {
+  it("marks only a visitor with a saved sign-in session", () => {
     expect(run({})).toBeUndefined();
-    expect(run({ "da-prep:sector": "finance" })).toBeUndefined();
     expect(run({ "sb-abc-auth-token": "{}" })).toBe("1");
-    expect(run({ "da-prep:practice": '[{"id":"1"}]' })).toBe("1");
-    expect(run({ "da-prep:practice": "[]" })).toBeUndefined();
+    // Saved practice, tracker or a chosen sector is not a sign-in: those visitors still get the landing page.
+    expect(run({ "da-prep:practice": '[{"id":"1"}]', "da-prep:applications": '[{"id":"1"}]', "da-prep:sector": "finance" })).toBeUndefined();
   });
 
-  it("lets /?pitch=1 show the pitch to a returning visitor", () => {
+  it("lets /?pitch=1 show the pitch to a signed-in visitor", () => {
     expect(run({ "sb-abc-auth-token": "{}" }, "?pitch=1")).toBeUndefined();
   });
 
