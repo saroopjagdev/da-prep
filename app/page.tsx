@@ -31,10 +31,12 @@ const resources = [
 
 // Well-known employers we have a guide for. A logo shows if a file named <slug>.svg (or .png) is in public/logos,
 // otherwise the name is shown as a wordmark. Add only logos you are licensed or permitted to use.
-const BANNER = ["barclays", "goldman-sachs", "jp-morgan", "morgan-stanley", "hsbc", "lloyds", "natwest", "santander", "ubs", "deutsche-bank", "bank-of-america", "citi", "deloitte", "pwc", "kpmg", "ey", "grant-thornton", "bdo", "rolls-royce", "bae-systems", "airbus", "jlr", "amazon", "google", "microsoft", "ibm", "bt", "capgemini", "cisco", "arup", "atkinsrealis", "bmw-group", "experian", "aviva"];
+const FIRST = ["barclays", "goldman-sachs", "jp-morgan", "morgan-stanley", "hsbc", "lloyds", "natwest", "santander", "ubs", "deutsche-bank", "bank-of-america", "citi", "deloitte", "pwc", "kpmg", "ey", "grant-thornton", "bdo", "rolls-royce", "bae-systems", "airbus", "jlr", "amazon", "google", "microsoft", "ibm", "bt", "capgemini", "cisco", "arup", "atkinsrealis", "bmw-group", "experian", "aviva"];
 
+// Every researched firm: the best known first, then the rest A to Z. The closed Civil Service scheme is left out.
 function bannerFirms(): MarqueeFirm[] {
-  const logoFile = (slug: string) => ["svg", "png"].map((ext) => `${slug}.${ext}`).find((f) => fs.existsSync(path.join(process.cwd(), "public", "logos", f)));
+  const BANNER = [...FIRST, ...FIRMS.map((f) => f.slug).filter((s) => !FIRST.includes(s) && s !== "civil-service-fast-track")];
+  const logoFile = (slug: string) => ["svg", "png", "jpg", "webp"].map((ext) => `${slug}.${ext}`).find((f) => fs.existsSync(path.join(process.cwd(), "public", "logos", f)));
   return BANNER.map((slug) => FIRMS.find((f) => f.slug === slug))
     .filter((f): f is (typeof FIRMS)[number] => Boolean(f))
     .map((f) => {
