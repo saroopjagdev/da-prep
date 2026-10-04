@@ -91,3 +91,18 @@ export async function transcribeBlob(blob: Blob): Promise<string> {
   if (!res.ok) throw new Error(data.error ?? "Could not transcribe your answer.");
   return (data.text as string) ?? "";
 }
+
+/** Upload a CV, cover letter or statement (PDF or Word) and get its plain text back. The file is not stored. */
+export async function extractFileText(file: File): Promise<{ text: string; truncated: boolean }> {
+  const body = new FormData();
+  body.append("file", file);
+  let res: Response;
+  try {
+    res = await fetchWithTimeout("/api/extract", { method: "POST", body, headers: await authHeaders() });
+  } catch (e) {
+    throw new Error((e as Error)?.message || "Couldn't reach the server to read your file. Check your connection.");
+  }
+  const data = await res.json().catch(() => ({}));
+  if (!res.ok) throw new Error(data.error ?? "Could not read that file.");
+  return { text: String(data.text ?? ""), truncated: Boolean(data.truncated) };
+}
