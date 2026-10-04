@@ -47,7 +47,7 @@ export default function Timeline() {
       <h1 className="page-title">Suggested timeline</h1>
       <p className="text-muted">
         There&apos;s no national deadline, so this is a planning guide, not fixed dates. Employers set their own. For real dates, see each{" "}
-        <Link href="/employers" className="underline">employer page</Link> or the{" "}
+        <Link href="/opportunities" className="underline">opportunities list</Link> or the{" "}
         <Link href="/opportunities" className="underline">opportunities page</Link>.
       </p>
       {steps.map((s) => (

@@ -99,7 +99,7 @@ describe("sitemap", () => {
 });
 
 describe("private pages are not indexed", () => {
-  it.each(["tracker", "stories", "progress", "login"])("%s layout sets noindex", async (name) => {
+  it.each(["stories", "progress", "login"])("%s layout sets noindex", async (name) => {
     const mod = (await import(`@/app/${name}/layout`)) as { metadata: { robots?: { index?: boolean } } };
     expect(mod.metadata.robots?.index).toBe(false);
   });

@@ -9,17 +9,23 @@ export const NAV_GROUPS: NavGroup[] = [
     href: "/interview",
     links: [
       { href: "/interview", label: "Mock interview", blurb: "Questions built from a real advert, with marked feedback" },
-      { href: "/opportunities", label: "Opportunities", blurb: "Who is open now, opening soon or closed, across every sector" },
       { href: "/practice", label: "Practice tests", blurb: "General practice with explanations, plus employer-style replicas with real formats and timings" },
       { href: "/mock", label: "Firm mock processes", blurb: "Run a firm's stages in its real order" },
       { href: "/review", label: "Written feedback", blurb: "Your personal statement, application answers or CV" },
     ],
   },
   {
-    label: "My applications",
-    href: "/tracker",
+    label: "Opportunities",
+    href: "/opportunities",
     links: [
-      { href: "/tracker", label: "Application tracker", blurb: "Employers, stages and closing dates" },
+      { href: "/opportunities", label: "All opportunities", blurb: "Who is open now, opening soon or closed, across every sector" },
+      { href: "/opportunities?mine=1", label: "My list", blurb: "Track where you have applied, your stage, notes and closing dates" },
+    ],
+  },
+  {
+    label: "My applications",
+    href: "/stories",
+    links: [
       { href: "/stories", label: "Stories bank", blurb: "Reusable STAR examples" },
       { href: "/progress", label: "Progress", blurb: "Scores, STAR coverage and past interviews" },
     ],
@@ -32,7 +38,6 @@ export const NAV_GROUPS: NavGroup[] = [
       { href: "/guide", label: "Process guide", blurb: "What happens at each stage" },
       { href: "/tips", label: "Tips", blurb: "Tests, video interviews and assessment centres" },
       { href: "/timeline", label: "Timeline", blurb: "When to do what" },
-      { href: "/employers", label: "Employers", blurb: "A starting list of who recruits" },
       { href: "/faq", label: "FAQ", blurb: "Common questions answered" },
     ],
   },

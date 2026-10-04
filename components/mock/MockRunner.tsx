@@ -365,8 +365,8 @@ export default function MockRunner({ mock, firmName, tests }: { mock: MockProces
         <button className="btn btn-primary" onClick={() => { reset(); setPhase("intro"); }}>
           Run it again
         </button>
-        <Link href="/employers" className="btn btn-secondary">
-          All employers
+        <Link href="/opportunities" className="btn btn-secondary">
+          All opportunities
         </Link>
       </div>
     </div>

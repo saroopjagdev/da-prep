@@ -56,13 +56,22 @@ describe("opportunity data", () => {
     expect(new Set(slugs).size).toBe(slugs.length);
   });
 
-  it("lists every directory employer with a guide exactly once, open ones first", () => {
+  it("lists each employer once: researched ones first, then listed ones we have not researched", () => {
     const rows = opportunityRows(day("2026-10-04"));
-    const slugs = rows.map((r) => r.slug);
-    expect(new Set(slugs).size).toBe(slugs.length);
-    expect(rows.length).toBeGreaterThanOrEqual(FIRMS.length - 2); // hidden profiles aside
-    const firstClosedLike = rows.findIndex((r) => r.status !== "open" && r.status !== "opening-soon");
-    const lastOpen = rows.map((r) => r.status).lastIndexOf("open");
-    expect(lastOpen).toBeLessThan(firstClosedLike === -1 ? rows.length : firstClosedLike);
+    const names = rows.map((r) => r.name.toLowerCase());
+    expect(new Set(names).size).toBe(names.length);
+    const researched = rows.filter((r) => r.slug);
+    expect(researched.length).toBeGreaterThanOrEqual(FIRMS.length - 2); // hidden profiles aside
+    const firstUnresearched = rows.findIndex((r) => !r.slug);
+    expect(rows.slice(firstUnresearched).every((r) => !r.slug && r.status === "not-confirmed" && r.vacancyUrl)).toBe(true);
+    // Researched rows lead, open ones before the rest.
+    expect(rows.slice(0, firstUnresearched).map((r) => r.status).lastIndexOf("open")).toBeLessThan(
+      rows.slice(0, firstUnresearched).findIndex((r) => r.status === "closed" || r.status === "not-confirmed") + 1 || 1e9,
+    );
+  });
+
+  it("matches listed names to researched profiles instead of duplicating them", () => {
+    const rows = opportunityRows(day("2026-10-04"));
+    for (const n of ["barclays", "goldman sachs", "ubs", "bdo", "jlr"]) expect(rows.filter((r) => r.name.toLowerCase().includes(n)).length, n).toBe(1);
   });
 });

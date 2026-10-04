@@ -42,7 +42,7 @@ export default function Dashboard() {
     { done: !!sector, label: "Pick your sector", href: "/sectors" },
     { done: sessions.items.length > 0, label: "Do a mock interview", href: "/interview" },
     { done: practice.items.length > 0, label: "Try a practice test", href: "/practice" },
-    { done: apps.items.length >= 3, label: "Track 3 applications", href: "/tracker" },
+    { done: apps.items.length >= 3, label: "Track 3 applications", href: "/opportunities?mine=1" },
     { done: stories.items.length > 0, label: "Save a STAR story", href: "/stories" },
   ];
   const done = checklist.filter((c) => c.done).length;

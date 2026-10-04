@@ -6,6 +6,7 @@
 
 import { directory, type DirectoryEntry } from "@/lib/directory";
 import { FIRMS } from "@/lib/firms";
+import { LISTED, normName, vacancySearchUrl, type Listed } from "@/lib/listings";
 import type { Confidence } from "@/lib/firms/types";
 import type { SectorId } from "@/lib/sectors";
 import type { TrackerTemplate } from "@/lib/tracker-item";
@@ -165,37 +166,61 @@ export function formatWhen(s: string): string {
 
 export type OpportunityRow = {
   name: string;
-  slug: string;
+  /** Set only when we have a researched guide for the employer. */
+  slug?: string;
   sectors: SectorId[];
+  /** Programme names from public listings, as the employer words them. */
+  programmes: string[];
   status: Status;
   opens: string;
   closes: string;
+  /** Closing date as YYYY-MM-DD when the employer gives a full date, used to pre-fill a tracked application. */
+  closesIso?: string;
   rolling: boolean;
   note?: string;
   providers: string[];
   confidence?: Confidence;
   checked?: string;
-  verified: string;
+  verified?: string;
   template?: TrackerTemplate;
+  /** Official search for this employer's live vacancies, for employers without a guide. */
+  vacancyUrl?: string;
 };
 
 const ORDER: Record<Status, number> = { open: 0, "opening-soon": 1, "not-announced": 2, closed: 3, "not-confirmed": 4 };
 
-/** One row per employer with a researched guide, soonest-to-act first. */
+// Researched profile slug -> the name its employer goes by in public listings, where the names differ.
+const LISTING_ALIAS: Record<string, string[]> = {
+  "bmw-group": ["BMW"],
+  bny: ["BNY Mellon"],
+  fca: ["Financial Conduct Authority"],
+  jlr: ["JLR"],
+  natwest: ["NatWest Markets"],
+};
+
+/** One row per employer: researched ones first by what to act on soonest, then listed employers we have not researched yet. */
 export function opportunityRows(today = new Date()): OpportunityRow[] {
-  const byName = new Map<string, DirectoryEntry>(directory().filter((e) => e.slug).map((e) => [e.slug!, e]));
-  const rows = FIRMS.filter((f) => byName.has(f.slug)).map((f): OpportunityRow => {
-    const e = byName.get(f.slug)!;
+  const dir = new Map<string, DirectoryEntry>(directory().filter((e) => e.slug).map((e) => [e.slug!, e]));
+  const listedByKey = new Map(LISTED.map((l) => [normName(l.name), l]));
+  const used = new Set<string>();
+
+  const profiled = FIRMS.filter((f) => dir.has(f.slug)).map((f): OpportunityRow => {
+    const e = dir.get(f.slug)!;
     const w = WINDOWS.find((x) => x.slug === f.slug);
-    const status = statusOf(w, today);
+    const keys = [normName(f.name), ...(LISTING_ALIAS[f.slug] ?? []).map(normName)];
+    const listed = keys.map((k) => listedByKey.get(k)).filter((l): l is Listed => Boolean(l));
+    for (const k of keys) used.add(k);
+    const programmes = [...new Set(listed.flatMap((l) => l.programmes))];
     const providers = [...new Set(f.stages.map((s) => s.provider).filter((p): p is string => Boolean(p)).map((p) => p.replace(/\s*\(.*\)\s*$/, "")))].slice(0, 3);
     return {
-      name: f.name,
+      name: f.name.replace(/\s*\(.*\)\s*$/, ""),
       slug: f.slug,
-      sectors: e.sectors,
-      status,
+      sectors: [...new Set([...e.sectors, ...listed.flatMap((l) => l.sectors)])],
+      programmes,
+      status: statusOf(w, today),
       opens: w ? (w.opens ? formatWhen(w.opens) : w.opensLabel ?? "") : "",
       closes: w ? (w.closes ? formatWhen(w.closes) : w.closesLabel ?? "") : "",
+      closesIso: w?.closes && isFullDate(w.closes) ? w.closes : undefined,
       rolling: Boolean(w?.rolling),
       note: w?.note,
       providers,
@@ -205,10 +230,29 @@ export function opportunityRows(today = new Date()): OpportunityRow[] {
       template: e.template,
     };
   });
+
   const key = (r: OpportunityRow) => {
     const w = WINDOWS.find((x) => x.slug === r.slug);
     const date = w?.closes && isFullDate(w.closes) ? w.closes : w?.opens ?? "9999";
     return `${ORDER[r.status]}|${date}|${r.name}`;
   };
-  return rows.sort((a, b) => key(a).localeCompare(key(b)));
+  profiled.sort((a, b) => key(a).localeCompare(key(b)));
+
+  const others = LISTED.filter((l) => !used.has(normName(l.name)))
+    .map(
+      (l): OpportunityRow => ({
+        name: l.name,
+        sectors: l.sectors,
+        programmes: l.programmes,
+        status: "not-confirmed",
+        opens: "",
+        closes: "",
+        rolling: false,
+        providers: [],
+        vacancyUrl: vacancySearchUrl(l.name),
+      }),
+    )
+    .sort((a, b) => a.name.localeCompare(b.name));
+
+  return [...profiled, ...others];
 }
