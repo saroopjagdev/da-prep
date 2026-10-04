@@ -60,19 +60,30 @@ test("a bank mock process runs to its report", async ({ page }) => {
   await expect(page.getByText(/: report/)).toBeVisible();
 });
 
-test("opportunities: track an employer, set my status, and it survives a reload", async ({ page }) => {
+test("opportunities: set my status from the row dropdown, add notes, and it survives a reload", async ({ page }) => {
   await page.goto("/opportunities");
   await clearRuns(page);
   await page.reload();
   await page.getByLabel("Search employers or programmes").fill("ubs");
-  const card = page.locator("main li").filter({ hasText: "UBS" }).first();
-  await card.getByRole("button", { name: "Track" }).click();
-  await card.getByLabel("My status for UBS").selectOption("Applied");
-  await card.getByText("My notes, dates and stages").click();
-  await expect(card.getByText(/Stages: 0 of \d+ done/)).toBeVisible();
+  const row = page.locator("tbody tr").filter({ hasText: "UBS" }).first();
+  await row.getByLabel("My status for UBS").selectOption("Applied");
+  await row.getByRole("button", { name: /Notes and stages for UBS/ }).click();
+  await expect(page.getByText(/Stages: 0 of \d+ done/)).toBeVisible();
   await page.reload();
   await page.getByRole("button", { name: /My list/ }).click();
-  await expect(page.locator("main li").filter({ hasText: "UBS" }).getByLabel("My status for UBS")).toHaveValue("Applied");
+  await expect(page.locator("tbody tr").filter({ hasText: "UBS" }).getByLabel("My status for UBS")).toHaveValue("Applied");
+});
+
+test("the My list menu link works from the page you are already on", async ({ page, isMobile }) => {
+  test.skip(isMobile, "the dropdown menu is the desktop navigation");
+  await page.goto("/opportunities");
+  await clearRuns(page);
+  await page.reload();
+  await page.locator("tbody tr").filter({ hasText: "Barclays" }).first().getByLabel("My status for Barclays").selectOption("Interested");
+  await page.getByRole("navigation").getByRole("link", { name: "Opportunities" }).first().hover();
+  await page.getByRole("link", { name: /My list/ }).first().click();
+  await expect(page.getByRole("button", { name: /My list/ })).toHaveAttribute("aria-pressed", "true");
+  await expect(page.locator("tbody tr")).toHaveCount(1);
 });
 
 test("old tracker and employer list links go to opportunities", async ({ page }) => {
@@ -123,7 +134,7 @@ test("home search opens opportunities prefilled, with a status", async ({ page }
   await expect(page).toHaveURL(/\/opportunities\?q=natwest/);
   await expect(page.getByLabel("Search employers or programmes")).toHaveValue("natwest");
   await expect(page.getByText("NatWest Group").first()).toBeVisible();
-  await expect(page.locator("main li").filter({ hasText: "NatWest Group" }).getByText(/Open|Opening soon|Not open yet|Closed|Not confirmed/).first()).toBeVisible();
+  await expect(page.locator("tbody tr").filter({ hasText: "NatWest Group" }).getByText("Not open yet", { exact: true })).toBeVisible();
 });
 
 test("related pages share tabs: tests and feedback", async ({ page }) => {

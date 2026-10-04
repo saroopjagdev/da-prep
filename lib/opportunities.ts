@@ -7,6 +7,7 @@
 import { directory, type DirectoryEntry } from "@/lib/directory";
 import { FIRMS } from "@/lib/firms";
 import { LISTED, normName, vacancySearchUrl, type Listed } from "@/lib/listings";
+import { getMock } from "@/lib/mockprocess/definitions";
 import type { Confidence } from "@/lib/firms/types";
 import type { SectorId } from "@/lib/sectors";
 import type { TrackerTemplate } from "@/lib/tracker-item";
@@ -190,6 +191,8 @@ export type OpportunityRow = {
   template?: TrackerTemplate;
   /** Page the dates were read from (employers without a guide). */
   source?: string;
+  /** There is a mock process for this employer. */
+  hasMock?: boolean;
   /** Web search for this employer's own careers page, for employers without a guide. */
   vacancyUrl?: string;
 };
@@ -218,7 +221,7 @@ export function opportunityRows(today = new Date()): OpportunityRow[] {
     const listed = keys.map((k) => listedByKey.get(k)).filter((l): l is Listed => Boolean(l));
     for (const k of keys) used.add(k);
     const programmes = [...new Set(listed.flatMap((l) => l.programmes))];
-    const providers = [...new Set(f.stages.map((s) => s.provider).filter((p): p is string => Boolean(p)).map((p) => p.replace(/\s*\(.*\)\s*$/, "")))].slice(0, 3);
+    const providers = [...new Set(f.stages.map((s) => s.provider).filter((p): p is string => Boolean(p)).map((p) => p.split(/[;(,]/)[0].trim().slice(0, 24)))].slice(0, 3);
     return {
       name: f.name.replace(/\s*\(.*\)\s*$/, ""),
       slug: f.slug,
@@ -235,6 +238,7 @@ export function opportunityRows(today = new Date()): OpportunityRow[] {
       checked: w?.checked,
       verified: f.lastVerified,
       template: e.template,
+      hasMock: Boolean(getMock(f.slug)),
     };
   });
 
