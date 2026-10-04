@@ -1,9 +1,13 @@
 import Link from "next/link";
+import fs from "node:fs";
+import path from "node:path";
 import Dashboard from "@/components/Dashboard";
+import FirmMarquee, { type MarqueeFirm } from "@/components/FirmMarquee";
 import Icon from "@/components/Icon";
 import ScoreRing from "@/components/ScoreRing";
 import ToolkitSection from "@/components/ToolkitSection";
 import { PRO_PLAN } from "@/lib/plans";
+import { FIRMS } from "@/lib/firms";
 import { QUESTIONS } from "@/lib/questions";
 import { SECTORS } from "@/lib/sectors";
 
@@ -24,6 +28,20 @@ const resources = [
   { tag: "Finance", title: "Finance degree apprenticeships: who, when and myths checked", href: "/sectors/finance" },
   { tag: "FAQ", title: "Pay, fees, grades and what happens if you're rejected", href: "/faq" },
 ];
+
+// Well-known employers we have a guide for. A logo shows if a file named <slug>.svg (or .png) is in public/logos,
+// otherwise the name is shown as a wordmark. Add only logos you are licensed or permitted to use.
+const BANNER = ["barclays", "goldman-sachs", "jp-morgan", "morgan-stanley", "hsbc", "lloyds", "natwest", "santander", "ubs", "deutsche-bank", "bank-of-america", "citi", "deloitte", "pwc", "kpmg", "ey", "grant-thornton", "bdo", "rolls-royce", "bae-systems", "airbus", "jlr", "amazon", "google", "microsoft", "ibm", "bt", "capgemini", "cisco", "arup", "atkinsrealis", "bmw-group", "experian", "aviva"];
+
+function bannerFirms(): MarqueeFirm[] {
+  const logoFile = (slug: string) => ["svg", "png"].map((ext) => `${slug}.${ext}`).find((f) => fs.existsSync(path.join(process.cwd(), "public", "logos", f)));
+  return BANNER.map((slug) => FIRMS.find((f) => f.slug === slug))
+    .filter((f): f is (typeof FIRMS)[number] => Boolean(f))
+    .map((f) => {
+      const file = logoFile(f.slug);
+      return { slug: f.slug, name: f.name.replace(/\s*\(.*\)\s*$/, "").replace(/ UK&I| UK$/, ""), logo: file ? `/logos/${file}` : undefined };
+    });
+}
 
 export default function Home() {
   const stats = [
@@ -98,6 +116,8 @@ export default function Home() {
           <p className="px-1 pt-3 text-center text-xs text-muted">Example of the marked feedback you get</p>
         </div>
       </section>
+
+      <FirmMarquee firms={bannerFirms()} />
 
       {/* Returning-user progress (renders nothing until local data loads) */}
       <div className="mx-auto max-w-6xl px-4 pb-10">

@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import JsonLd from "@/components/JsonLd";
 import OpportunitiesApp from "@/components/OpportunitiesApp";
 import { opportunityRows } from "@/lib/opportunities";
@@ -17,16 +18,18 @@ export const revalidate = 3600;
 export default function Opportunities() {
   const rows = opportunityRows(new Date());
   return (
-    <div className="mx-auto max-w-4xl space-y-6">
+    <div className="mx-auto max-w-6xl space-y-4">
       <JsonLd data={breadcrumbLd([{ name: "Home", path: "/" }, { name: "Opportunities", path: "/opportunities" }])} />
       <div className="space-y-2">
-        <h1 className="page-title">Opportunities and my list</h1>
-        <p className="lead">
-          Who is open, opening soon or closed for this cycle. Dates move and many employers close early once they have enough
-          applicants, so always confirm on the employer&apos;s page. Press Track on any employer to add it to your own list, then set where you are with it.
+        <h1 className="page-title">Opportunities</h1>
+        <p className="text-muted">
+          Who is open, opening soon or closed. Set your status on any employer to track it. Dates move, so confirm on the employer&apos;s own page.
         </p>
       </div>
-      <OpportunitiesApp rows={rows} />
+      {/* useSearchParams (for ?mine= and ?q=) needs a Suspense boundary so the page can still be prerendered. */}
+      <Suspense>
+        <OpportunitiesApp rows={rows} />
+      </Suspense>
     </div>
   );
 }

@@ -96,3 +96,6 @@ Copy `.env.example` to `.env.local`. `MOCK_AI=1` serves canned AI output so ever
 
 ## Where the research lives
 `docs/research/01-selection-process.md` (interim, original), `02-assessment-formats.md` (vendor formats, sourced), `03-firm-processes-wave1.md` (the eight firms). Each profile's `gaps` field lists what could not be verified.
+
+## Home banner logos
+The sliding employer banner on the home page (`components/FirmMarquee.tsx`, list in `app/page.tsx`) shows each employer's name as a wordmark. To show a logo instead, add `public/logos/<slug>.svg` (or `.png`), for example `public/logos/barclays.svg`. Only add logos you are licensed or otherwise permitted to use: they are the employers' trademarks, and the banner must not suggest the employer endorses Level6.

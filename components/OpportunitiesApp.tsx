@@ -1,7 +1,8 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 import { useAuth } from "@/components/AuthProvider";
 import { applicationsToIcs, hasDeadlines } from "@/lib/ics";
 import type { OpportunityRow, Status as OppStatus } from "@/lib/opportunities";
@@ -12,63 +13,78 @@ import { fromTemplate } from "@/lib/tracker-item";
 import { STATUSES, type Application, type Status } from "@/lib/types";
 
 const CHIP: Record<OppStatus, string> = {
-  open: "bg-mint-50 text-mint-700 ring-1 ring-mint-200",
-  "opening-soon": "bg-sun-50 text-sun-700 ring-1 ring-sun-200",
-  "not-announced": "bg-soft text-muted ring-1 ring-line",
-  closed: "bg-soft text-muted ring-1 ring-line",
-  "not-confirmed": "bg-soft text-muted ring-1 ring-line",
+  open: "bg-mint-50 text-mint-700 ring-mint-200",
+  "opening-soon": "bg-sun-50 text-sun-700 ring-sun-200",
+  "not-announced": "bg-soft text-muted ring-line",
+  closed: "bg-soft text-muted ring-line",
+  "not-confirmed": "bg-soft text-muted ring-line",
 };
 const OPP_STATUSES: OppStatus[] = ["open", "opening-soon", "not-announced", "closed", "not-confirmed"];
-const OUTCOME: Partial<Record<Status, string>> = { Offer: "bg-mint-50 text-mint-600", Rejected: "bg-coral-50 text-coral-600" };
-const PAGE = 40;
+const NOT_APPLIED = "Not applied";
+const MINE_COLOUR: Partial<Record<Status, string>> = { Offer: "bg-mint-50 text-mint-700", Rejected: "bg-coral-50 text-coral-600" };
+const PAGE = 60;
 
 /** The application a student has for this employer, if any. */
 const mine = (apps: Application[], r: OpportunityRow) => apps.find((a) => (a.firm ? a.firm === r.slug : a.employer.toLowerCase() === r.name.toLowerCase()));
+const pristine = (a: Application) => !a.notes.trim() && !(a.checklist ?? []).some((c) => c.done);
 
 export default function OpportunitiesApp({ rows }: { rows: OpportunityRow[] }) {
   const { user, enabled } = useAuth();
   const { items: apps, loaded, update } = useCollection<Application>("applications");
+  const params = useSearchParams();
   const [query, setQuery] = useState("");
   const [sector, setSector] = useState<SectorId | "all">("all");
   const [status, setStatus] = useState<OppStatus | "all">("all");
-  const [view, setView] = useState<"all" | "mine">("all");
+  const [onlyMine, setOnlyMine] = useState(false);
   const [shown, setShown] = useState(PAGE);
+  const [open, setOpen] = useState<string | null>(null);
+  const [kept, setKept] = useState("");
   const [own, setOwn] = useState({ employer: "", role: "", deadline: "" });
 
-  // Deep link: /opportunities?mine=1 opens straight on the student's own list; ?q= pre-fills the search.
+  // Links like /opportunities?mine=1 (from the menu) and /opportunities?q=barclays (from the home search) steer the page,
+  // including when you are already on it, so follow the URL as it changes.
   useEffect(() => {
-    const p = new URLSearchParams(window.location.search);
-    // eslint-disable-next-line react-hooks/set-state-in-effect -- reading the URL needs the browser, so it cannot be initial state
-    if (p.get("mine")) setView("mine");
-    const q = p.get("q");
-    if (q) setQuery(q.slice(0, 80));
-  }, []);
+    /* eslint-disable react-hooks/set-state-in-effect -- the URL is the source for these controls and only the browser knows it */
+    setOnlyMine(Boolean(params.get("mine")));
+    const q = params.get("q");
+    if (q !== null) setQuery(q.slice(0, 80));
+    /* eslint-enable react-hooks/set-state-in-effect */
+  }, [params]);
 
   const today = new Date().toLocaleDateString("en-CA"); // local YYYY-MM-DD
   const patch = (id: string, p: Partial<Application>) => update((prev) => prev.map((a) => (a.id === id ? { ...a, ...p } : a)));
-  const track = (r: OpportunityRow) =>
+
+  function choose(r: OpportunityRow, a: Application | undefined, value: string) {
+    setKept("");
+    if (value === NOT_APPLIED) {
+      if (!a) return;
+      if (pristine(a)) update((p) => p.filter((x) => x.id !== a.id));
+      else setKept(`${r.name} stays in your list because it has notes or ticked stages. Open Notes to remove it.`);
+      return;
+    }
+    if (a) return patch(a.id, { status: value as Status });
     update((prev) => [
       ...prev,
       {
         ...(r.template
           ? { ...fromTemplate(r.template, crypto.randomUUID()), employer: r.name }
           : { id: crypto.randomUUID(), employer: r.name, role: r.programmes[0] ?? "", deadline: "", status: "Interested" as Status, notes: "" }),
+        status: value as Status,
         ...(r.closesIso ? { deadline: r.closesIso } : {}),
         ...(r.rolling ? { rolling: true } : {}),
       },
     ]);
+  }
 
   const listed = new Set(apps.filter((a) => rows.some((r) => mine([a], r) === a)).map((a) => a.id));
   const unlisted = apps.filter((a) => !listed.has(a.id));
   const filtered = rows.filter(
     (r) =>
-      (view === "all" || mine(apps, r)) &&
+      (!onlyMine || mine(apps, r)) &&
       (sector === "all" || r.sectors.includes(sector)) &&
       (status === "all" || r.status === status) &&
       `${r.name} ${r.programmes.join(" ")}`.toLowerCase().includes(query.toLowerCase()),
   );
-  const count = (s: OppStatus) => rows.filter((r) => r.status === s).length;
-  const myCount = apps.length;
   const closingSoon = apps.filter((a) => {
     if (!a.deadline || a.status !== "Interested") return false;
     const days = (Date.parse(a.deadline) - Date.parse(today)) / 86_400_000;
@@ -84,227 +100,272 @@ export default function OpportunitiesApp({ rows }: { rows: OpportunityRow[] }) {
     URL.revokeObjectURL(url);
   }
 
+  const reset = () => setShown(PAGE);
+
   return (
-    <div className="space-y-4">
-      <div className="flex flex-wrap items-start justify-between gap-3">
-        <p className="text-xs text-muted">
-          {enabled && user
-            ? "Your list is synced to your account."
-            : "Your list is saved in this browser only. Clearing site data deletes it. Sign in to sync, or download a backup from your account page."}
-        </p>
+    <div className="space-y-3">
+      <div className="flex flex-wrap items-center gap-2">
+        <input
+          className="input !w-auto min-w-48 flex-1 text-sm"
+          placeholder="Search employers or programmes"
+          aria-label="Search employers or programmes"
+          value={query}
+          onChange={(e) => {
+            setQuery(e.target.value);
+            reset();
+          }}
+        />
+        <select
+          className="input !w-auto text-sm"
+          aria-label="Filter by status"
+          value={status}
+          onChange={(e) => {
+            setStatus(e.target.value as OppStatus | "all");
+            reset();
+          }}
+        >
+          <option value="all">Any status</option>
+          {OPP_STATUSES.map((s) => (
+            <option key={s} value={s}>
+              {STATUS_LABEL[s]} ({rows.filter((r) => r.status === s).length})
+            </option>
+          ))}
+        </select>
+        <select
+          className="input !w-auto text-sm"
+          aria-label="Filter by sector"
+          value={sector}
+          onChange={(e) => {
+            setSector(e.target.value as SectorId | "all");
+            reset();
+          }}
+        >
+          <option value="all">All sectors</option>
+          {SECTORS.map((s) => (
+            <option key={s.id} value={s.id}>
+              {s.name}
+            </option>
+          ))}
+        </select>
+        <button onClick={() => setOnlyMine((v) => !v)} aria-pressed={onlyMine} className={`chip ${onlyMine ? "chip-active" : ""}`}>
+          My list ({apps.length})
+        </button>
         {hasDeadlines(apps) && (
-          <button onClick={downloadCalendar} className="btn btn-secondary">
+          <button onClick={downloadCalendar} className="chip">
             Add deadlines to calendar
           </button>
         )}
       </div>
 
       {closingSoon.length > 0 && (
-        <div className="callout bg-sun-50 text-sun-600">
-          <strong>Closing within 14 days and not applied yet:</strong> {closingSoon.map((a) => `${a.employer} (${a.deadline})`).join(", ")}
-        </div>
+        <p className="callout bg-sun-50 text-sm text-sun-600">
+          <strong>Closing within 14 days, not applied yet:</strong> {closingSoon.map((a) => `${a.employer} (${a.deadline})`).join(", ")}
+        </p>
+      )}
+      {kept && (
+        <p className="callout bg-sun-50 text-sm text-sun-600" role="status">
+          {kept}
+        </p>
       )}
 
-      <input
-        className="input w-full text-sm"
-        placeholder="Search employers or programmes"
-        aria-label="Search employers or programmes"
-        value={query}
-        onChange={(e) => {
-          setQuery(e.target.value);
-          setShown(PAGE);
-        }}
-      />
-      <div className="flex flex-wrap gap-2" role="group" aria-label="Show">
-        <button onClick={() => setView("all")} className={`chip ${view === "all" ? "chip-active" : ""}`}>
-          All employers ({rows.length})
-        </button>
-        <button onClick={() => setView("mine")} className={`chip ${view === "mine" ? "chip-active" : ""}`}>
-          My list ({myCount})
-        </button>
+      <div role="region" aria-label="Opportunities table" tabIndex={0} className="overflow-x-auto rounded-xl border border-line bg-white">
+        <table className="w-full min-w-[34rem] text-left text-sm">
+          <caption className="sr-only">Employers with your status, the application status, and opening and closing dates</caption>
+          <thead className="bg-soft text-xs uppercase tracking-wide text-muted">
+            <tr>
+              <th scope="col" className="px-3 py-2 font-semibold">
+                My status
+              </th>
+              <th scope="col" className="px-3 py-2 font-semibold">
+                Employer
+              </th>
+              <th scope="col" className="px-3 py-2 font-semibold">
+                Status
+              </th>
+              <th scope="col" className="hidden min-w-28 px-3 py-2 font-semibold md:table-cell">
+                Opens
+              </th>
+              <th scope="col" className="hidden min-w-44 px-3 py-2 font-semibold md:table-cell">
+                Closes
+              </th>
+              <th scope="col" className="hidden min-w-28 whitespace-nowrap px-3 py-2 font-semibold lg:table-cell">
+                Assessments
+              </th>
+              <th scope="col" className="px-3 py-2 text-right font-semibold">
+                <span className="sr-only">Links</span>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            {filtered.slice(0, shown).map((r) => {
+              const a = mine(apps, r);
+              const key = r.slug ?? r.name;
+              const expanded = open === key && a;
+              const overdue = a && a.deadline && a.deadline < today && a.status === "Interested";
+              return (
+                <Fragment key={key}>
+                  <tr className="border-t border-line align-top hover:bg-soft/60">
+                    <td className="px-3 py-2">
+                      <select
+                        className={`input !w-36 !py-1 text-sm ${a ? `font-semibold ${MINE_COLOUR[a.status] ?? "text-brand-700"}` : "text-muted"}`}
+                        aria-label={`My status for ${r.name}`}
+                        value={a ? a.status : NOT_APPLIED}
+                        onChange={(e) => choose(r, a, e.target.value)}
+                      >
+                        <option>{NOT_APPLIED}</option>
+                        {STATUSES.map((s) => (
+                          <option key={s}>{s}</option>
+                        ))}
+                      </select>
+                    </td>
+                    <td className="px-3 py-2">
+                      {r.slug ? (
+                        <Link href={`/employers/${r.slug}`} className="font-semibold underline-offset-2 hover:underline">
+                          {r.name}
+                        </Link>
+                      ) : (
+                        <span className="font-semibold">{r.name}</span>
+                      )}
+                      {r.programmes.length > 0 && (
+                        <span className="block max-w-[16rem] truncate text-xs text-muted" title={r.programmes.join(" · ")}>
+                          {r.programmes[0]}
+                          {r.programmes.length > 1 && ` +${r.programmes.length - 1}`}
+                        </span>
+                      )}
+                      {(r.opens || r.closes) && (
+                        <span className="block text-xs text-muted md:hidden">
+                          {r.opens && `Opens ${r.opens}`}
+                          {r.opens && r.closes && " · "}
+                          {r.closes && `Closes ${r.closes}`}
+                        </span>
+                      )}
+                    </td>
+                    <td className="px-3 py-2">
+                      <span title={r.note} className={`inline-block whitespace-nowrap rounded-full px-2.5 py-0.5 text-xs font-semibold ring-1 ${CHIP[r.status]}`}>
+                        {STATUS_LABEL[r.status]}
+                      </span>
+                    </td>
+                    <td className="hidden px-3 py-2 md:table-cell">
+                      <span className="line-clamp-2" title={r.opens}>
+                        {r.opens || <span className="text-muted">-</span>}
+                      </span>
+                    </td>
+                    <td className="hidden px-3 py-2 md:table-cell">
+                      <span className="line-clamp-2" title={r.closes}>
+                        {r.closes || <span className="text-muted">-</span>}
+                      </span>
+                    </td>
+                    <td className="hidden px-3 py-2 text-xs text-muted lg:table-cell">
+                      <span className="line-clamp-2" title={r.providers.join(", ")}>
+                        {r.providers.join(", ") || "-"}
+                      </span>
+                    </td>
+                    <td className="whitespace-nowrap px-3 py-2 text-right text-xs">
+                      {r.slug ? (
+                        <>
+                          <Link href={`/employers/${r.slug}`} className="underline">
+                            Guide
+                          </Link>
+                          {r.hasMock && (
+                            <>
+                              {" · "}
+                              <Link href={`/mock/${r.slug}`} className="underline">
+                                Mock
+                              </Link>
+                            </>
+                          )}
+                        </>
+                      ) : (
+                        <a href={r.vacancyUrl} target="_blank" rel="noreferrer" className="underline">
+                          Careers
+                        </a>
+                      )}
+                      {a && (
+                        <button
+                          onClick={() => setOpen(expanded ? null : key)}
+                          aria-expanded={Boolean(expanded)}
+                          aria-label={`Notes and stages for ${r.name}`}
+                          className="ml-2 rounded-md border border-line px-2 py-0.5 hover:border-brand-500"
+                        >
+                          Notes{overdue && <span className="text-coral-600"> !</span>}
+                        </button>
+                      )}
+                    </td>
+                  </tr>
+                  {expanded && a && (
+                    <tr className="bg-soft/50">
+                      <td colSpan={7} className="px-3 py-3">
+                        <div className="grid gap-3 sm:grid-cols-2">
+                          <label className="text-sm">
+                            <span className="font-semibold">Role</span>
+                            <input className="input mt-1 w-full" value={a.role} onChange={(e) => patch(a.id, { role: e.target.value })} placeholder="Role or programme" />
+                          </label>
+                          <label className="text-sm">
+                            <span className="font-semibold">Closing date</span>
+                            <input type="date" className="input mt-1 w-full" value={a.deadline} onChange={(e) => patch(a.id, { deadline: e.target.value })} />
+                          </label>
+                        </div>
+                        {a.checklist && a.checklist.length > 0 && (
+                          <fieldset className="mt-3 space-y-1">
+                            <legend className="text-sm font-semibold">
+                              Stages: {a.checklist.filter((c) => c.done).length} of {a.checklist.length} done
+                            </legend>
+                            <ul className="flex flex-wrap gap-x-4 gap-y-1 text-sm">
+                              {a.checklist.map((c, i) => (
+                                <li key={i}>
+                                  <label className="flex items-center gap-2">
+                                    <input
+                                      type="checkbox"
+                                      className="accent-brand-600"
+                                      checked={c.done}
+                                      onChange={(e) => patch(a.id, { checklist: a.checklist!.map((x, j) => (j === i ? { ...x, done: e.target.checked } : x)) })}
+                                    />
+                                    {c.label}
+                                  </label>
+                                </li>
+                              ))}
+                            </ul>
+                          </fieldset>
+                        )}
+                        <textarea className="input mt-3 w-full text-sm" placeholder="Notes" aria-label={`Notes for ${r.name}`} value={a.notes} onChange={(e) => patch(a.id, { notes: e.target.value })} />
+                        <button
+                          className="mt-2 text-sm text-muted hover:text-coral-600"
+                          onClick={() => {
+                            update((p) => p.filter((x) => x.id !== a.id));
+                            setOpen(null);
+                          }}
+                        >
+                          Remove from my list
+                        </button>
+                      </td>
+                    </tr>
+                  )}
+                </Fragment>
+              );
+            })}
+          </tbody>
+        </table>
       </div>
-      <div className="flex flex-wrap gap-2" role="group" aria-label="Filter by status">
-        <button onClick={() => setStatus("all")} className={`chip ${status === "all" ? "chip-active" : ""}`}>
-          Any status
-        </button>
-        {OPP_STATUSES.filter((s) => count(s) > 0).map((s) => (
-          <button key={s} onClick={() => setStatus(s)} className={`chip ${status === s ? "chip-active" : ""}`}>
-            {STATUS_LABEL[s]} ({count(s)})
-          </button>
-        ))}
-      </div>
-      <div className="flex flex-wrap gap-2" role="group" aria-label="Filter by sector">
-        <button onClick={() => setSector("all")} className={`chip ${sector === "all" ? "chip-active" : ""}`}>
-          All sectors
-        </button>
-        {SECTORS.map((s) => (
-          <button key={s.id} onClick={() => setSector(s.id)} className={`chip ${sector === s.id ? "chip-active" : ""}`}>
-            {s.name}
-          </button>
-        ))}
-      </div>
-      <p className="text-sm text-muted" aria-live="polite">
+
+      <p className="text-xs text-muted" aria-live="polite">
         {filtered.length} {filtered.length === 1 ? "employer" : "employers"}
+        {!(enabled && user) && ". Your list is saved in this browser only: sign in to sync it."}
       </p>
-
-      {view === "mine" && loaded && myCount === 0 && (
-        <div className="card border-dashed p-8 text-center">
-          <p className="font-bold">Nothing in your list yet</p>
-          <p className="mt-1 text-sm text-muted">Choose All employers and press Track on the ones you are interested in.</p>
-        </div>
-      )}
-
-      <ul className="space-y-3">
-        {filtered.slice(0, shown).map((r) => {
-          const a = mine(apps, r);
-          const overdue = a && a.deadline && a.deadline < today && a.status === "Interested";
-          return (
-            <li key={r.slug ?? r.name} className="card space-y-2 p-4">
-              <div className="flex flex-wrap items-center justify-between gap-2">
-                <div>
-                  {r.slug ? (
-                    <Link href={`/employers/${r.slug}`} className="text-lg font-semibold underline">
-                      {r.name}
-                    </Link>
-                  ) : (
-                    <p className="text-lg font-semibold">{r.name}</p>
-                  )}
-                  {r.programmes.length > 0 && (
-                    <p className="text-sm text-muted">
-                      {r.programmes.slice(0, 2).join(" · ")}
-                      {r.programmes.length > 2 && ` · +${r.programmes.length - 2} more`}
-                    </p>
-                  )}
-                </div>
-                <span className={`rounded-full px-3 py-1 text-xs font-semibold ${CHIP[r.status]}`}>{STATUS_LABEL[r.status]}</span>
-              </div>
-              <dl className="grid gap-x-6 gap-y-1 text-sm sm:grid-cols-[6rem_1fr]">
-                {r.opens && (
-                  <>
-                    <dt className="font-semibold">Opens</dt>
-                    <dd>{r.opens}</dd>
-                  </>
-                )}
-                {r.closes && (
-                  <>
-                    <dt className="font-semibold">Closes</dt>
-                    <dd>{r.closes}</dd>
-                  </>
-                )}
-                {r.providers.length > 0 && (
-                  <>
-                    <dt className="font-semibold">Assessments</dt>
-                    <dd>{r.providers.join(", ")}</dd>
-                  </>
-                )}
-              </dl>
-              {r.status === "not-confirmed" && (
-                <p className="text-sm text-muted">
-                  {r.slug
-                    ? "This cycle's dates are not confirmed yet. The guide has the usual timing."
-                    : "Dates not confirmed yet. Check the employer's own careers page."}
-                </p>
-              )}
-              {r.note && <p className="text-sm text-muted">{r.note}</p>}
-
-              <div className="flex flex-wrap items-center gap-3 pt-1">
-                {a ? (
-                  <label className="flex items-center gap-2 text-sm">
-                    <span className="font-semibold">My status</span>
-                    <select
-                      className="input !w-auto !py-1"
-                      aria-label={`My status for ${r.name}`}
-                      value={a.status}
-                      onChange={(e) => patch(a.id, { status: e.target.value as Status })}
-                    >
-                      {STATUSES.map((s) => (
-                        <option key={s}>{s}</option>
-                      ))}
-                    </select>
-                    {OUTCOME[a.status] && <span className={`rounded-md px-2 py-0.5 text-xs font-semibold ${OUTCOME[a.status]}`}>{a.status}</span>}
-                  </label>
-                ) : (
-                  <button onClick={() => track(r)} className="btn btn-primary">
-                    Track
-                  </button>
-                )}
-                {r.slug ? (
-                  <Link href={`/employers/${r.slug}`} className="btn btn-secondary">
-                    Process guide
-                  </Link>
-                ) : (
-                  <a href={r.vacancyUrl} target="_blank" rel="noreferrer" className="btn btn-secondary">
-                    Find their careers page
-                  </a>
-                )}
-              </div>
-
-              {a && (
-                <details className="rounded-lg border border-line p-3">
-                  <summary className="cursor-pointer text-sm font-semibold">
-                    My notes, dates and stages
-                    {overdue && <span className="ml-2 text-coral-600">(closing date passed)</span>}
-                  </summary>
-                  <div className="mt-3 space-y-3">
-                    <div className="grid gap-3 sm:grid-cols-2">
-                      <label className="text-sm">
-                        <span className="font-semibold">Role</span>
-                        <input className="input mt-1 w-full" value={a.role} onChange={(e) => patch(a.id, { role: e.target.value })} placeholder="Role or programme" />
-                      </label>
-                      <label className="text-sm">
-                        <span className="font-semibold">Closing date</span>
-                        <input type="date" className="input mt-1 w-full" value={a.deadline} onChange={(e) => patch(a.id, { deadline: e.target.value })} />
-                      </label>
-                    </div>
-                    {a.datesHint && <p className="text-xs text-muted">Last cycle: {a.datesHint}</p>}
-                    {a.checklist && a.checklist.length > 0 && (
-                      <fieldset className="space-y-1">
-                        <legend className="text-sm font-semibold">
-                          Stages: {a.checklist.filter((c) => c.done).length} of {a.checklist.length} done
-                        </legend>
-                        <ul className="flex flex-wrap gap-x-4 gap-y-1 text-sm">
-                          {a.checklist.map((c, i) => (
-                            <li key={i}>
-                              <label className="flex items-center gap-2">
-                                <input
-                                  type="checkbox"
-                                  className="accent-brand-600"
-                                  checked={c.done}
-                                  onChange={(e) => patch(a.id, { checklist: a.checklist!.map((x, j) => (j === i ? { ...x, done: e.target.checked } : x)) })}
-                                />
-                                {c.label}
-                              </label>
-                            </li>
-                          ))}
-                        </ul>
-                      </fieldset>
-                    )}
-                    <textarea className="input w-full text-sm" placeholder="Notes" aria-label={`Notes for ${r.name}`} value={a.notes} onChange={(e) => patch(a.id, { notes: e.target.value })} />
-                    <button className="text-sm text-muted hover:text-coral-600" onClick={() => update((p) => p.filter((x) => x.id !== a.id))}>
-                      Remove from my list
-                    </button>
-                  </div>
-                </details>
-              )}
-            </li>
-          );
-        })}
-      </ul>
       {filtered.length > shown && (
         <button className="btn btn-secondary" onClick={() => setShown((n) => n + PAGE)}>
           Show more ({filtered.length - shown} left)
         </button>
       )}
-      {filtered.length === 0 && view === "all" && <p className="text-sm text-muted">No matches.</p>}
+      {onlyMine && loaded && apps.length === 0 && <p className="text-sm text-muted">Nothing in your list yet. Set a status on any employer to add it.</p>}
 
-      {view === "mine" && unlisted.length > 0 && (
+      {onlyMine && unlisted.length > 0 && (
         <section className="space-y-2" aria-labelledby="others">
-          <h2 id="others" className="font-semibold">
+          <h2 id="others" className="text-sm font-semibold">
             Other applications I added
           </h2>
           <ul className="space-y-2">
             {unlisted.map((a) => (
-              <li key={a.id} className="card flex flex-wrap items-center justify-between gap-2 p-3 text-sm">
+              <li key={a.id} className="flex flex-wrap items-center justify-between gap-2 rounded-lg border border-line bg-white p-2 text-sm">
                 <span>
                   <strong>{a.employer}</strong> <span className="text-muted">{a.role || "No role set"}</span>
                 </span>
@@ -325,19 +386,16 @@ export default function OpportunitiesApp({ rows }: { rows: OpportunityRow[] }) {
         </section>
       )}
 
-      <details className="card p-4">
-        <summary className="cursor-pointer font-semibold">Add an employer that is not listed</summary>
+      <details className="rounded-lg border border-line bg-white p-3">
+        <summary className="cursor-pointer text-sm font-semibold">Add an employer that is not listed</summary>
         <form
           className="mt-3 grid gap-3 sm:grid-cols-[1.2fr_1.2fr_auto_auto]"
           onSubmit={(e) => {
             e.preventDefault();
             if (!own.employer.trim()) return;
-            update((prev) => [
-              ...prev,
-              { id: crypto.randomUUID(), employer: own.employer.trim(), role: own.role.trim(), deadline: own.deadline, status: "Interested", notes: "" },
-            ]);
+            update((prev) => [...prev, { id: crypto.randomUUID(), employer: own.employer.trim(), role: own.role.trim(), deadline: own.deadline, status: "Interested", notes: "" }]);
             setOwn({ employer: "", role: "", deadline: "" });
-            setView("mine");
+            setOnlyMine(true);
           }}
         >
           <input className="input" placeholder="Employer" aria-label="Employer" value={own.employer} onChange={(e) => setOwn({ ...own, employer: e.target.value })} />
