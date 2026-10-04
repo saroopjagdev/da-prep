@@ -1,13 +1,9 @@
 # Employer logos on the home banner
 
-Files live in `public/logos/<slug>.<svg|png|jpg>`. The banner shows a logo when a file exists for the employer and its name otherwise.
+Files live in `public/logos/<slug>.<svg|png|jpg>`. The banner shows the logo alone (its name is the image's alt text) when a file exists for the employer, and the name as text otherwise. Prefer the full logo with the name in it; use a symbol only when the employer has no wordmark.
 
-**Where they came from**
-- Barclays, HSBC, Goldman Sachs, Deutsche Bank, Bank of America, Rolls-Royce, Airbus, Google, BT, Cisco, BMW: the Simple Icons set (CC0 artwork).
-- The others were fetched by `scripts/fetch-logos.mjs` from the employer's own public website: the Organization logo in the page's JSON-LD, an SVG icon, or its apple-touch-icon (Amazon, Bank of England, BDO, BNY, Capgemini, Citi, Experian, EY, FCA, Grant Thornton, JLR, J.P. Morgan, KPMG, Lloyds, Rothschild, Santander, UBS).
+**Where they came from.** Every logo is the one in the employer's Wikipedia infobox, fetched through the public MediaWiki API by `scripts/fetch-wikipedia-logos.mjs`. SVG is kept as is; a bitmap-only logo is saved at the 600px width Wikipedia serves (Arup, FCA, Lloyds). Three infobox images were a photo or a symbol only, so the script names a better file for them: BMW (BMW.svg), Bank of England (the wordmark file) and Rolls-Royce (the Group logo). All 41 employers have one.
 
-**Names only (no usable logo found)**: Arup, AtkinsRéalis, Aviva, BAE Systems, Deloitte, IBM, Forvis Mazars, Metropolitan Police, Microsoft, Morgan Stanley, NatWest, PwC. Their sites blocked automated downloads or only offered a social-media image, a tab icon, or a mascot (AtkinsRéalis, Forvis Mazars, IBM and NatWest were fetched, looked wrong, and are rejected in the script). To add one, save a file you are permitted to use as `public/logos/<slug>.svg` or `.png` (for example from the employer's brand or press page).
+**Rights.** These marks belong to their owners. They are shown to say which employers have guides here, not to suggest any affiliation. If an employer asks for its logo to be removed, delete its file and the banner falls back to the name. To use an employer's own brand-page file instead, save it over `public/logos/<slug>.svg`.
 
-**Rights.** These marks belong to their owners. They are shown to say which employers have guides here, not to suggest any affiliation. If an employer asks for its logo to be removed, delete its file and the banner falls back to the name.
-
-To refresh: delete a file and run `node scripts/fetch-logos.mjs <slug>`, then check how it looks.
+To refresh: `node scripts/fetch-wikipedia-logos.mjs <slug>`, then check how it looks. The older `scripts/fetch-logos.mjs` (employer websites) is kept for reference but is no longer used.
