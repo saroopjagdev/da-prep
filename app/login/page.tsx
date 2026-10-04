@@ -7,6 +7,9 @@ import DataTools from "@/components/DataTools";
 import { postJson } from "@/lib/api";
 import { clearLocalData } from "@/lib/store";
 
+// Hidden until the Google provider is switched on in Supabase (Authentication > Providers). Then set this to "true".
+const GOOGLE_SIGN_IN = process.env.NEXT_PUBLIC_GOOGLE_SIGNIN === "true";
+
 export default function Login() {
   const { enabled, ready, user, signInEmail, signInGoogle, signOut } = useAuth();
   const [email, setEmail] = useState("");
@@ -89,12 +92,14 @@ export default function Login() {
             </label>
             <button className="btn btn-primary w-full">Email me a link</button>
           </form>
-          <button
-            onClick={async () => (over16 ? setError((await signInGoogle()) ?? "") : setError("Please confirm you're 16 or over."))}
-            className="btn btn-secondary w-full"
-          >
-            Continue with Google
-          </button>
+          {GOOGLE_SIGN_IN && (
+            <button
+              onClick={async () => (over16 ? setError((await signInGoogle()) ?? "") : setError("Please confirm you're 16 or over."))}
+              className="btn btn-secondary w-full"
+            >
+              Continue with Google
+            </button>
+          )}
           {msg && <p className="text-sm text-mint-600">{msg}</p>}
           {error && <p className="text-sm text-coral-600">{error}</p>}
           <p className="text-xs text-muted">
