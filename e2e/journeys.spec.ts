@@ -83,7 +83,7 @@ test("the My list menu link works from the page you are already on", async ({ pa
   await page.getByRole("navigation").getByRole("link", { name: "Opportunities" }).first().hover();
   await page.getByRole("link", { name: /My list/ }).first().click();
   await expect(page.getByRole("button", { name: /My list/ })).toHaveAttribute("aria-pressed", "true");
-  await expect(page.locator("tbody tr")).toHaveCount(1);
+  await expect(page.getByLabel(/My status for/)).toHaveCount(1);
 });
 
 test("old tracker and employer list links go to opportunities", async ({ page }) => {
@@ -144,4 +144,19 @@ test("related pages share tabs: tests and feedback", async ({ page }) => {
   await page.goto("/cv");
   await page.getByRole("navigation", { name: "Written feedback" }).getByRole("link", { name: "Statement and answers" }).click();
   await expect(page).toHaveURL(/\/review$/);
+});
+
+test("opportunities are grouped by sector, and the guides link shows only researched employers", async ({ page }) => {
+  await page.goto("/opportunities");
+  const groups = page.locator("tbody th[scope='colgroup']");
+  await expect(groups.first()).toContainText("Finance and accountancy");
+  await page.getByLabel("Filter by sector").selectOption({ label: "Engineering" });
+  await expect(page.locator("tbody th[scope='colgroup']").first()).toContainText("Engineering");
+  await page.goto("/opportunities?guides=1");
+  await expect(page.getByRole("button", { name: /With a guide/ })).toHaveAttribute("aria-pressed", "true");
+  // Every row has a Guide link when only researched employers are shown.
+  const rows = page.locator("tbody tr").filter({ has: page.getByLabel(/My status for/) });
+  const total = await rows.count();
+  expect(total).toBeGreaterThan(30);
+  expect(await rows.filter({ has: page.getByRole("link", { name: "Guide" }) }).count()).toBe(total);
 });

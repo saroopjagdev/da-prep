@@ -7,7 +7,7 @@ import { useAuth } from "@/components/AuthProvider";
 import { applicationsToIcs, hasDeadlines } from "@/lib/ics";
 import type { OpportunityRow, Status as OppStatus } from "@/lib/opportunities";
 import { STATUS_LABEL } from "@/lib/opportunities";
-import { SECTORS, type SectorId } from "@/lib/sectors";
+import { SECTORS, SECTOR_BY_ID, type SectorId } from "@/lib/sectors";
 import { useCollection } from "@/lib/store";
 import { fromTemplate } from "@/lib/tracker-item";
 import { STATUSES, type Application, type Status } from "@/lib/types";
@@ -24,6 +24,14 @@ const NOT_APPLIED = "Not applied";
 const MINE_COLOUR: Partial<Record<Status, string>> = { Offer: "bg-mint-50 text-mint-700", Rejected: "bg-coral-50 text-coral-600" };
 const PAGE = 60;
 
+// Employers are grouped under their main sector, in this order; one with several sectors sits under the first.
+const SECTOR_ORDER: SectorId[] = ["finance", "digital", "engineering", "construction", "public", "business", "law"];
+const primary = (r: OpportunityRow): SectorId => r.sectors[0] ?? "business";
+const rank = (r: OpportunityRow) => {
+  const i = SECTOR_ORDER.indexOf(primary(r));
+  return i === -1 ? SECTOR_ORDER.length : i;
+};
+
 /** The application a student has for this employer, if any. */
 const mine = (apps: Application[], r: OpportunityRow) => apps.find((a) => (a.firm ? a.firm === r.slug : a.employer.toLowerCase() === r.name.toLowerCase()));
 const pristine = (a: Application) => !a.notes.trim() && !(a.checklist ?? []).some((c) => c.done);
@@ -36,6 +44,7 @@ export default function OpportunitiesApp({ rows }: { rows: OpportunityRow[] }) {
   const [sector, setSector] = useState<SectorId | "all">("all");
   const [status, setStatus] = useState<OppStatus | "all">("all");
   const [onlyMine, setOnlyMine] = useState(false);
+  const [onlyGuides, setOnlyGuides] = useState(false);
   const [shown, setShown] = useState(PAGE);
   const [open, setOpen] = useState<string | null>(null);
   const [kept, setKept] = useState("");
@@ -46,6 +55,7 @@ export default function OpportunitiesApp({ rows }: { rows: OpportunityRow[] }) {
   useEffect(() => {
     /* eslint-disable react-hooks/set-state-in-effect -- the URL is the source for these controls and only the browser knows it */
     setOnlyMine(Boolean(params.get("mine")));
+    setOnlyGuides(Boolean(params.get("guides")));
     const q = params.get("q");
     if (q !== null) setQuery(q.slice(0, 80));
     /* eslint-enable react-hooks/set-state-in-effect */
@@ -81,10 +91,17 @@ export default function OpportunitiesApp({ rows }: { rows: OpportunityRow[] }) {
   const filtered = rows.filter(
     (r) =>
       (!onlyMine || mine(apps, r)) &&
+      (!onlyGuides || r.slug) &&
       (sector === "all" || r.sectors.includes(sector)) &&
       (status === "all" || r.status === status) &&
       `${r.name} ${r.programmes.join(" ")}`.toLowerCase().includes(query.toLowerCase()),
   );
+  // Stable sort: sector groups in a fixed order, and within each the order we already have (open first).
+  // With a sector chosen, everything shown belongs to it, so there is one group; otherwise group by main sector.
+  const groupOf = (r: OpportunityRow): SectorId => (sector === "all" ? primary(r) : sector);
+  const grouped = sector === "all" ? [...filtered].sort((a, b) => rank(a) - rank(b)) : filtered;
+  const perSector = new Map<SectorId, number>();
+  for (const r of grouped) perSector.set(groupOf(r), (perSector.get(groupOf(r)) ?? 0) + 1);
   const closingSoon = apps.filter((a) => {
     if (!a.deadline || a.status !== "Interested") return false;
     const days = (Date.parse(a.deadline) - Date.parse(today)) / 86_400_000;
@@ -150,6 +167,9 @@ export default function OpportunitiesApp({ rows }: { rows: OpportunityRow[] }) {
         <button onClick={() => setOnlyMine((v) => !v)} aria-pressed={onlyMine} className={`chip ${onlyMine ? "chip-active" : ""}`}>
           My list ({apps.length})
         </button>
+        <button onClick={() => setOnlyGuides((v) => !v)} aria-pressed={onlyGuides} className={`chip ${onlyGuides ? "chip-active" : ""}`}>
+          With a guide ({rows.filter((r) => r.slug).length})
+        </button>
         {hasDeadlines(apps) && (
           <button onClick={downloadCalendar} className="chip">
             Add deadlines to calendar
@@ -197,13 +217,21 @@ export default function OpportunitiesApp({ rows }: { rows: OpportunityRow[] }) {
             </tr>
           </thead>
           <tbody>
-            {filtered.slice(0, shown).map((r) => {
+            {grouped.slice(0, shown).map((r, i, shownRows) => {
               const a = mine(apps, r);
               const key = r.slug ?? r.name;
               const expanded = open === key && a;
               const overdue = a && a.deadline && a.deadline < today && a.status === "Interested";
+              const startsGroup = i === 0 || groupOf(shownRows[i - 1]) !== groupOf(r);
               return (
                 <Fragment key={key}>
+                  {startsGroup && (
+                    <tr className="border-t border-line bg-brand-50">
+                      <th scope="colgroup" colSpan={7} className="px-3 py-2 text-left text-sm font-bold text-brand-700">
+                        {SECTOR_BY_ID[groupOf(r)].name} <span className="font-normal text-muted">({perSector.get(groupOf(r))})</span>
+                      </th>
+                    </tr>
+                  )}
                   <tr className="border-t border-line align-top hover:bg-soft/60">
                     <td className="px-3 py-2">
                       <select
