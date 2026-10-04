@@ -5,6 +5,16 @@ updates:
     schedule:
       interval: weekly
     open-pull-requests-limit: 5
+    ignore:
+      # Held back on purpose (tested 3 Oct 2026): each breaks tooling we rely on.
+      - dependency-name: eslint # 10 breaks eslint-config-next's React plugin
+        update-types: ["version-update:semver-major"]
+      - dependency-name: typescript # 7 breaks typescript-eslint
+        update-types: ["version-update:semver-major"]
+      - dependency-name: "@types/node" # keep types on the Node 24 runtime major
+        update-types: ["version-update:semver-major"]
+      - dependency-name: "@playwright/test" # 1.63 breaks the e2e runner (ERR_PACKAGE_PATH_NOT_EXPORTED)
+        versions: [">=1.63.0"]
     groups:
       minor-and-patch:
         update-types: [minor, patch]
