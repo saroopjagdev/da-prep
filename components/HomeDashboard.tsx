@@ -107,16 +107,6 @@ export default function HomeDashboard({ open }: { open: OpenNow[] }) {
         </p>
       </div>
 
-      {enabled && !user && (
-        <p className="callout bg-brand-50 text-sm">
-          Your work is saved on this device only.{" "}
-          <Link href="/login" className="font-semibold underline">
-            Create a free account
-          </Link>{" "}
-          to sync it and unlock the AI mock interview, written feedback and CV checker.
-        </p>
-      )}
-
       <div className="grid gap-4 lg:grid-cols-[1.4fr_1fr]">
         <section className="card space-y-4 p-5" aria-label="Next step">
           <div className="flex items-center justify-between">
@@ -144,10 +134,8 @@ export default function HomeDashboard({ open }: { open: OpenNow[] }) {
           </Link>
         </section>
 
-        <Card title="Your allowance" href={user && usage?.plan !== "pro" ? "/pricing" : undefined} cta="See Pro">
-          {!user ? (
-            <p className="text-muted">Sign in to see what is left of your free AI mock interviews and reviews.</p>
-          ) : !usage ? (
+        <Card title="Your allowance" href={usage?.plan !== "pro" ? "/pricing" : undefined} cta="See Pro">
+          {!usage ? (
             <p className="text-muted">Checking...</p>
           ) : usage.plan === "pro" ? (
             <p>
