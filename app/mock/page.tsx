@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { FIRMS } from "@/lib/firms";
-import { MOCKS } from "@/lib/mockprocess/definitions";
+import { ALL_MOCKS } from "@/lib/mockprocess/definitions";
 
 export const metadata: Metadata = {
   title: "Firm mock processes",
@@ -20,7 +20,7 @@ export default function MockIndex() {
         </p>
       </div>
       <ul className="grid gap-4 sm:grid-cols-2">
-        {MOCKS.map((m) => {
+        {ALL_MOCKS.map((m) => {
           const firm = FIRMS.find((f) => f.slug === m.firm)!;
           const interactive = m.stages.filter((s) => s.kind !== "info").length;
           return (
