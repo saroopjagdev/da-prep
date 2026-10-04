@@ -121,7 +121,7 @@ export default function Home() {
           </div>
           <ul className="grid gap-3 sm:grid-cols-2">
             {[
-              ["/calendar", "Application calendar", "When each employer opens and closes, across every sector"],
+              ["/opportunities", "Opportunities", "Who is open now, opening soon or closed"],
               ["/mock", "Firm mock processes", "Run an employer's stages in their real order"],
               ["/interview", "Firm-specific interviews", "Questions built around the employer and role"],
               ["/sectors/finance/myths", "Finance myths, checked", "Grades, fees, pay and AI rules"],

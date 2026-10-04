@@ -1,0 +1,214 @@
+// Live status of each employer's application window for the current cycle, shown on /opportunities.
+//
+// Only what we have verified from the employer's own page (or flagged as less certain) is entered here, with the date
+// it was checked. Employers without an entry still appear, marked "not confirmed this cycle", with the pattern from
+// their researched profile. Never infer a date: if the employer has not published one, leave it out and use `label`.
+
+import { directory, type DirectoryEntry } from "@/lib/directory";
+import { FIRMS } from "@/lib/firms";
+import type { Confidence } from "@/lib/firms/types";
+import type { SectorId } from "@/lib/sectors";
+import type { TrackerTemplate } from "@/lib/tracker-item";
+
+export type WindowEntry = {
+  slug: string;
+  /** Full ISO date, or "YYYY-MM" when only the month is published. */
+  opens?: string;
+  closes?: string;
+  /** Text shown instead of a date (for example "Spring 2027" or "Usually November"). */
+  opensLabel?: string;
+  closesLabel?: string;
+  /** Applications are reviewed as they arrive and close once filled. */
+  rolling?: boolean;
+  /** Use when there is no date but we know the state (for example "open now" on the employer's page). */
+  state?: "open" | "not-announced" | "closed";
+  note?: string;
+  confidence: Confidence;
+  /** ISO date the employer's page was last read. */
+  checked: string;
+};
+
+export const WINDOWS: WindowEntry[] = [
+  {
+    slug: "airbus",
+    opens: "2026-10-05",
+    closesLabel: "Likely before 26 Oct 2026 for digital, business, engineering and project management; early Jan 2027 for supply chain and quality (Airbus guidance)",
+    note: "Adverts can close early once enough applications arrive.",
+    confidence: "official",
+    checked: "2026-10-03",
+  },
+  {
+    slug: "bdo",
+    opens: "2026-09-23",
+    closes: "2026-11-15",
+    note: "2027 Audit school leaver programme. Other streams have their own dates.",
+    confidence: "official",
+    checked: "2026-10-03",
+  },
+  {
+    slug: "barclays",
+    opens: "2026-09-09",
+    rolling: true,
+    closesLabel: "Rolling: roles close when filled",
+    note: "Routes are released in waves; the UK Corporate Banking degree apprenticeship was posted on 18 Sep 2026.",
+    confidence: "official",
+    checked: "2026-10-03",
+  },
+  {
+    slug: "goldman-sachs",
+    state: "open",
+    rolling: true,
+    closesLabel: "Rolling; early January in the last cycle",
+    note: "2027 entry applications are open on the employer's page.",
+    confidence: "official",
+    checked: "2026-10-03",
+  },
+  {
+    slug: "deloitte",
+    state: "open",
+    rolling: true,
+    closesLabel: "Several roles close in October 2026; others are rolling",
+    note: "Seen through a search summary of the application portal: check each role's date.",
+    confidence: "inferred",
+    checked: "2026-10-03",
+  },
+  {
+    slug: "jlr",
+    opens: "2027-02",
+    closesLabel: "February or March; may close at short notice",
+    note: "September 2027 start. The 2026 programmes are closed.",
+    confidence: "official",
+    checked: "2026-10-03",
+  },
+  {
+    slug: "bae-systems",
+    opens: "2027-01",
+    closesLabel: "About six weeks after opening, with more hiring through February",
+    confidence: "official",
+    checked: "2026-10-02",
+  },
+  {
+    slug: "natwest",
+    state: "not-announced",
+    opensLabel: "Spring 2027",
+    note: "No programmes are open at the moment.",
+    confidence: "official",
+    checked: "2026-10-03",
+  },
+  {
+    slug: "amazon",
+    state: "not-announced",
+    opensLabel: "Usually November",
+    rolling: true,
+    note: "The employer's FAQ still describes the 2026 cohorts; no 2027 date is published yet.",
+    confidence: "official",
+    checked: "2026-10-03",
+  },
+  {
+    slug: "arup",
+    state: "not-announced",
+    opensLabel: "Usually November",
+    note: "The employer's FAQ says applications open in November.",
+    confidence: "official",
+    checked: "2026-10-03",
+  },
+  {
+    slug: "atkinsrealis",
+    state: "not-announced",
+    opensLabel: "Usually November",
+    closesLabel: "Typically the end of February",
+    note: "No vacancies listed at the moment.",
+    confidence: "official",
+    checked: "2026-10-03",
+  },
+  {
+    slug: "bt",
+    state: "not-announced",
+    opensLabel: "Usually February",
+    note: "Applications ran 2 to 22 February in the last cycle.",
+    confidence: "official",
+    checked: "2026-10-03",
+  },
+];
+
+export type Status = "open" | "opening-soon" | "not-announced" | "closed" | "not-confirmed";
+
+export const STATUS_LABEL: Record<Status, string> = {
+  open: "Open",
+  "opening-soon": "Opening soon",
+  "not-announced": "Not open yet",
+  closed: "Closed",
+  "not-confirmed": "Not confirmed",
+};
+
+const isFullDate = (s: string) => /^\d{4}-\d{2}-\d{2}$/.test(s);
+const firstOfMonth = (s: string) => new Date(`${s}-01T00:00:00Z`);
+const startOf = (s: string) => (isFullDate(s) ? new Date(`${s}T00:00:00Z`) : firstOfMonth(s));
+
+/** Status of one window on a given day. Dates move the status on their own; a stated state is used when no date applies. */
+export function statusOf(w: WindowEntry | undefined, today: Date): Status {
+  if (!w) return "not-confirmed";
+  if (w.closes && isFullDate(w.closes) && new Date(`${w.closes}T23:59:59Z`) < today) return "closed";
+  if (w.opens) {
+    return startOf(w.opens) <= today ? "open" : "opening-soon";
+  }
+  return w.state === "open" ? "open" : w.state === "closed" ? "closed" : w.state === "not-announced" ? "not-announced" : "not-confirmed";
+}
+
+const MONTHS = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+/** "2026-10-05" to "5 Oct 2026"; "2027-02" to "Feb 2027". */
+export function formatWhen(s: string): string {
+  const [y, m, d] = s.split("-");
+  const month = MONTHS[Number(m) - 1];
+  return d ? `${Number(d)} ${month} ${y}` : `${month} ${y}`;
+}
+
+export type OpportunityRow = {
+  name: string;
+  slug: string;
+  sectors: SectorId[];
+  status: Status;
+  opens: string;
+  closes: string;
+  rolling: boolean;
+  note?: string;
+  providers: string[];
+  confidence?: Confidence;
+  checked?: string;
+  verified: string;
+  template?: TrackerTemplate;
+};
+
+const ORDER: Record<Status, number> = { open: 0, "opening-soon": 1, "not-announced": 2, closed: 3, "not-confirmed": 4 };
+
+/** One row per employer with a researched guide, soonest-to-act first. */
+export function opportunityRows(today = new Date()): OpportunityRow[] {
+  const byName = new Map<string, DirectoryEntry>(directory().filter((e) => e.slug).map((e) => [e.slug!, e]));
+  const rows = FIRMS.filter((f) => byName.has(f.slug)).map((f): OpportunityRow => {
+    const e = byName.get(f.slug)!;
+    const w = WINDOWS.find((x) => x.slug === f.slug);
+    const status = statusOf(w, today);
+    const providers = [...new Set(f.stages.map((s) => s.provider).filter((p): p is string => Boolean(p)).map((p) => p.replace(/\s*\(.*\)\s*$/, "")))].slice(0, 3);
+    return {
+      name: f.name,
+      slug: f.slug,
+      sectors: e.sectors,
+      status,
+      opens: w ? (w.opens ? formatWhen(w.opens) : w.opensLabel ?? "") : "",
+      closes: w ? (w.closes ? formatWhen(w.closes) : w.closesLabel ?? "") : "",
+      rolling: Boolean(w?.rolling),
+      note: w?.note,
+      providers,
+      confidence: w?.confidence,
+      checked: w?.checked,
+      verified: f.lastVerified,
+      template: e.template,
+    };
+  });
+  const key = (r: OpportunityRow) => {
+    const w = WINDOWS.find((x) => x.slug === r.slug);
+    const date = w?.closes && isFullDate(w.closes) ? w.closes : w?.opens ?? "9999";
+    return `${ORDER[r.status]}|${date}|${r.name}`;
+  };
+  return rows.sort((a, b) => key(a).localeCompare(key(b)));
+}

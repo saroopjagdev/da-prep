@@ -9,6 +9,7 @@ export const NAV_GROUPS: NavGroup[] = [
     href: "/interview",
     links: [
       { href: "/interview", label: "Mock interview", blurb: "Questions built from a real advert, with marked feedback" },
+      { href: "/opportunities", label: "Opportunities", blurb: "Who is open now, opening soon or closed, across every sector" },
       { href: "/practice", label: "Practice tests", blurb: "General practice with explanations, plus employer-style replicas with real formats and timings" },
       { href: "/mock", label: "Firm mock processes", blurb: "Run a firm's stages in its real order" },
       { href: "/review", label: "Written feedback", blurb: "Your personal statement, application answers or CV" },
@@ -31,7 +32,6 @@ export const NAV_GROUPS: NavGroup[] = [
       { href: "/guide", label: "Process guide", blurb: "What happens at each stage" },
       { href: "/tips", label: "Tips", blurb: "Tests, video interviews and assessment centres" },
       { href: "/timeline", label: "Timeline", blurb: "When to do what" },
-      { href: "/calendar", label: "Application calendar", blurb: "When each employer opens and closes, across every sector" },
       { href: "/employers", label: "Employers", blurb: "A starting list of who recruits" },
       { href: "/faq", label: "FAQ", blurb: "Common questions answered" },
     ],

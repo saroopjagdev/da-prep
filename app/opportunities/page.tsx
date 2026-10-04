@@ -1,0 +1,33 @@
+import JsonLd from "@/components/JsonLd";
+import OpportunityList from "@/components/OpportunityList";
+import { opportunityRows } from "@/lib/opportunities";
+import { breadcrumbLd } from "@/lib/seo";
+import { pageMeta } from "@/lib/site";
+
+export const metadata = pageMeta({
+  title: "Degree apprenticeship opportunities: who is open now",
+  description:
+    "Which employers have degree apprenticeship applications open, opening soon or closed, with dates, the assessments they use and a process guide for each, checked against the employer's own pages.",
+  path: "/opportunities",
+});
+
+// Status follows the calendar (an opening date passing flips a row to Open), so rebuild the page hourly.
+export const revalidate = 3600;
+
+export default function Opportunities() {
+  const rows = opportunityRows(new Date());
+  return (
+    <div className="mx-auto max-w-3xl space-y-6">
+      <JsonLd data={breadcrumbLd([{ name: "Home", path: "/" }, { name: "Opportunities", path: "/opportunities" }])} />
+      <div className="space-y-2">
+        <h1 className="page-title">Opportunities</h1>
+        <p className="lead">
+          Who is open, opening soon or closed for this cycle. We read each employer&apos;s own page, show when we checked,
+          and say so when we haven&apos;t confirmed dates. Dates move and many employers close early once they have enough
+          applicants, so always confirm on the employer&apos;s page.
+        </p>
+      </div>
+      <OpportunityList rows={rows} />
+    </div>
+  );
+}

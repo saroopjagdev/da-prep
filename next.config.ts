@@ -36,6 +36,7 @@ const nextConfig: NextConfig = {
   // Finance used to be its own section; it is now one sector among the others. Keep old links working.
   async redirects() {
     return [
+      { source: "/calendar", destination: "/opportunities", permanent: true },
       { source: "/finance", destination: "/sectors/finance", permanent: true },
       { source: "/finance/calendar", destination: "/sectors/finance/calendar", permanent: true },
       { source: "/finance/myths", destination: "/sectors/finance/myths", permanent: true },
