@@ -4,6 +4,7 @@ import SignInNotice from "@/components/SignInNotice";
 import Link from "next/link";
 import { useState } from "react";
 import AreaTabs from "@/components/AreaTabs";
+import FileTextPicker from "@/components/FileTextPicker";
 import { postJson } from "@/lib/api";
 import { AI_RULES, COMMON_QUESTIONS, countWords, type AppQuestion } from "@/lib/application-questions";
 import { FIRM_GROUPS, type FirmOption } from "@/lib/firms/groups";
@@ -25,7 +26,7 @@ type ReviewFirm = FirmOption & { questions: AppQuestion[] };
 const OWN = "__own__";
 
 export default function ReviewApp({ firms }: { firms: ReviewFirm[] }) {
-  const [kind, setKind] = useState<"statement" | "answer">("statement");
+  const [kind, setKind] = useState<"statement" | "answer" | "cover">("statement");
   const [text, setText] = useState("");
   const [jobAd, setJobAd] = useState("");
   const [firmSlug, setFirmSlug] = useState("");
@@ -82,8 +83,9 @@ export default function ReviewApp({ firms }: { firms: ReviewFirm[] }) {
       </p>
       <label className="block text-sm font-medium">
         What are you reviewing?
-        <select className="input mt-2.5 block !w-auto font-normal" value={kind} onChange={(e) => setKind(e.target.value as "statement" | "answer")}>
+        <select className="input mt-2.5 block !w-auto font-normal" value={kind} onChange={(e) => setKind(e.target.value as "statement" | "answer" | "cover")}>
           <option value="statement">Personal statement</option>
+          <option value="cover">Cover letter</option>
           <option value="answer">Application form answer</option>
         </select>
       </label>
@@ -174,6 +176,7 @@ export default function ReviewApp({ firms }: { firms: ReviewFirm[] }) {
         </div>
       )}
 
+      <FileTextPicker what="document" onText={setText} maxChars={6000} />
       <label className="block text-sm font-medium">
         Your text
         <textarea className="mt-2.5 h-48 w-full input font-normal" value={text} onChange={(e) => setText(e.target.value)} maxLength={6000} />
@@ -219,7 +222,7 @@ export default function ReviewApp({ firms }: { firms: ReviewFirm[] }) {
 
       {review && (
         <div className="space-y-4 border-t border-line pt-4">
-          <h2 className="text-xl font-semibold">Score: {review.score}/10</h2>
+          <h2 className="text-xl font-semibold">Score: {review.score}/100</h2>
           <p>{review.summary}</p>
           <p className={`text-sm ${review.wordLimit && review.wordCount > review.wordLimit ? "text-coral-600" : "text-muted"}`}>
             {review.wordCount} words{review.wordLimit ? ` (limit ${review.wordLimit})` : ""}

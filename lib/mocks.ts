@@ -34,7 +34,7 @@ export const mockStar = () => ({
 });
 
 export const mockReview = () => ({
-  score: 6,
+  score: 60,
   summary: "Enthusiastic and readable, but it reads generally. Tie your experience to this specific role and employer.",
   strengths: ["Genuine motivation", "Clear structure"],
   improvements: ["Name the employer and role", "Replace claims like 'hard-working' with an example", "Finish with what you will contribute"],
