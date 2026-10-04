@@ -61,7 +61,7 @@ export default function Home() {
 
   return (
     <div>
-      {/* Returning users and signed-in users get the dashboard instead of everything below (see lib/home-gate.ts). */}
+      {/* Signed-in people get the dashboard instead of everything below (see lib/home-gate.ts). */}
       <HomeSwitch open={open} />
 
       <div className="landing">
