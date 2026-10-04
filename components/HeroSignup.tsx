@@ -3,6 +3,8 @@
 import { useState } from "react";
 import Link from "next/link";
 import { useAuth } from "@/components/AuthProvider";
+import EmailCodeEntry from "@/components/EmailCodeEntry";
+import { track } from "@/lib/funnel";
 
 /**
  * One-field signup for the landing page: the lowest-friction form we can offer, because sign-in is passwordless.
@@ -30,6 +32,7 @@ export default function HeroSignup({ dark = false }: { dark?: boolean }) {
         <p className={`text-sm ${muted}`}>
           We sent a sign-in link to <strong>{email}</strong>. It can take a minute, and it may land in spam. No password to remember.
         </p>
+        <EmailCodeEntry email={email} dark={dark} />
       </div>
     );
   }
@@ -42,11 +45,15 @@ export default function HeroSignup({ dark = false }: { dark?: boolean }) {
           e.preventDefault();
           setError("");
           setState("sending");
+          track("hero_signup_submit");
           const err = await signInEmail(email.trim());
           if (err) {
             setError(err);
             setState("idle");
-          } else setState("sent");
+          } else {
+            track("link_sent");
+            setState("sent");
+          }
         }}
       >
         <label className="sr-only" htmlFor={dark ? "hero-email-dark" : "hero-email"}>

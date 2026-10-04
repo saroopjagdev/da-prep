@@ -101,3 +101,12 @@ Copy `.env.example` to `.env.local`. `MOCK_AI=1` serves canned AI output so ever
 The sliding employer banner on the home page (`components/FirmMarquee.tsx`, list in `app/page.tsx`) shows each employer's name as a wordmark. To show a logo instead, add `public/logos/<slug>.svg` (or `.png`), for example `public/logos/barclays.svg`. Only add logos you are licensed or otherwise permitted to use: they are the employers' trademarks, and the banner must not suggest the employer endorses Level6.
 
 Banner logos and where they came from: see `docs/logo-sources.md`.
+
+## Signup funnel counters and the email code
+**Counters.** The home page and sign-in steps add one to an anonymous daily total (table `funnel_daily`; events in `lib/funnel.ts`; endpoint `app/api/event/route.ts`). No user id, IP, cookie or per-visit row is stored, and nothing is kept in the browser. Apply `supabase/migrations/20261004000000_funnel.sql` once (Supabase SQL editor). Read it with `node scripts/funnel.mjs [days]`. There is no A/B variant storage on purpose (it would need cookie-style consent), so judge a change by comparing the days before and after it. The privacy notice says this in plain words.
+
+**8-digit email code.** The sign-in form can also take the code from the email, so a phone user does not have to leave their browser. It stays hidden until you do both of these:
+1. In Supabase (Authentication, Email templates, Magic link) make the body include the code, for example:
+   `<h2>Your Level6 sign-in</h2><p>Your code: <strong>{{ .Token }}</strong></p><p>Or <a href="{{ .ConfirmationURL }}">sign in with this link</a>.</p>`
+2. Set `NEXT_PUBLIC_EMAIL_CODE=true` in Vercel (Production) and redeploy.
+The code length is 8 and it lasts an hour (Supabase Authentication settings).

@@ -4,6 +4,7 @@ import path from "node:path";
 import FirmMarquee, { type MarqueeFirm } from "@/components/FirmMarquee";
 import HeroSignup from "@/components/HeroSignup";
 import HomeSwitch from "@/components/HomeSwitch";
+import TrackedLink from "@/components/TrackedLink";
 import Icon from "@/components/Icon";
 import ScoreRing from "@/components/ScoreRing";
 import { FIRMS } from "@/lib/firms";
@@ -74,9 +75,9 @@ export default function Home() {
             </p>
             <HeroSignup />
             <p className="text-sm">
-              <Link href="/practice" className="font-semibold text-brand-700 underline underline-offset-4">
+              <TrackedLink event="hero_try_practice" href="/practice" className="font-semibold text-brand-700 underline underline-offset-4">
                 Or try a free practice test now
-              </Link>{" "}
+              </TrackedLink>{" "}
               <span className="text-muted">(no account needed)</span>
             </p>
           </div>
