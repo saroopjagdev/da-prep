@@ -1,11 +1,10 @@
 import Link from "next/link";
-import ConfidenceBadge from "@/components/ConfidenceBadge";
 import { FINANCE_CALENDAR } from "@/lib/finance";
 import { pageMeta } from "@/lib/site";
 
 export const metadata = pageMeta({
   title: "Finance degree apprenticeship calendar",
-  description: "When banks, accountancy firms and regulators open and close degree apprenticeship applications, month by month, with sources.",
+  description: "When banks, accountancy firms and regulators open and close degree apprenticeship applications, month by month.",
   path: "/sectors/finance/calendar",
 });
 
@@ -36,12 +35,6 @@ export default function FinanceCalendar() {
                 <li key={e.firm + e.text} className="space-y-1">
                   <p>
                     <strong>{e.slug ? <Link href={`/employers/${e.slug}`} className="underline">{e.firm}</Link> : e.firm}:</strong> {e.text}
-                  </p>
-                  <p className="flex items-center gap-2">
-                    <ConfidenceBadge c={e.confidence} />
-                    <a className="text-xs underline" href={e.source} target="_blank" rel="noreferrer">
-                      source
-                    </a>
                   </p>
                 </li>
               ))}

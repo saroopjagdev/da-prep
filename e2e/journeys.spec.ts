@@ -116,14 +116,14 @@ for (const path of PAGES) {
   });
 }
 
-test("home search opens opportunities prefilled, with a status and a check date", async ({ page }) => {
+test("home search opens opportunities prefilled, with a status", async ({ page }) => {
   await page.goto("/");
   await page.getByRole("search").getByRole("textbox").fill("natwest");
   await page.getByRole("search").getByRole("button", { name: "Search" }).click();
   await expect(page).toHaveURL(/\/opportunities\?q=natwest/);
   await expect(page.getByLabel("Search employers or programmes")).toHaveValue("natwest");
   await expect(page.getByText("NatWest Group").first()).toBeVisible();
-  await expect(page.getByText(/(Checked|Researched) 20\d\d-\d\d-\d\d/).first()).toBeVisible();
+  await expect(page.locator("main li").filter({ hasText: "NatWest Group" }).getByText(/Open|Opening soon|Not open yet|Closed|Not confirmed/).first()).toBeVisible();
 });
 
 test("related pages share tabs: tests and feedback", async ({ page }) => {

@@ -7,7 +7,7 @@ import CvApp from "./CvApp";
 export const metadata = pageMeta({
   title: "Free CV checker for degree apprenticeship applications",
   description:
-    "Paste your CV and get feedback built for school leavers: grades, evidence, bullet rewrites and a checklist, optionally checked against an employer. Contact details are removed before anything is analysed.",
+    "Paste your CV and get feedback built for school leavers: grades, evidence, bullet rewrites and a checklist, optionally tailored to an employer. Contact details are removed before anything is analysed.",
   path: "/cv",
 });
 

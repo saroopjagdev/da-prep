@@ -15,7 +15,6 @@ export default function Login() {
   const [email, setEmail] = useState("");
   const [msg, setMsg] = useState("");
   const [error, setError] = useState("");
-  const [over16, setOver16] = useState(false);
 
   if (enabled && !ready) return <p className="text-muted">Loading...</p>;
 
@@ -71,7 +70,6 @@ export default function Login() {
             onSubmit={async (e) => {
               e.preventDefault();
               setError("");
-              if (!over16) return setError("Please confirm you're 16 or over.");
               const err = await signInEmail(email);
               if (err) setError(err);
               else setMsg("Check your email for a sign-in link.");
@@ -86,15 +84,11 @@ export default function Login() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
-            <label className="flex items-start gap-2 text-sm">
-              <input type="checkbox" className="mt-1 accent-brand-600" checked={over16} onChange={(e) => setOver16(e.target.checked)} required />
-              <span>I&apos;m 16 or over</span>
-            </label>
             <button className="btn btn-primary w-full">Email me a link</button>
           </form>
           {GOOGLE_SIGN_IN && (
             <button
-              onClick={async () => (over16 ? setError((await signInGoogle()) ?? "") : setError("Please confirm you're 16 or over."))}
+              onClick={async () => setError((await signInGoogle()) ?? "")}
               className="btn btn-secondary w-full"
             >
               Continue with Google
@@ -103,7 +97,7 @@ export default function Login() {
           {msg && <p className="text-sm text-mint-600">{msg}</p>}
           {error && <p className="text-sm text-coral-600">{error}</p>}
           <p className="text-xs text-muted">
-            By signing in you agree to our{" "}
+            By signing in you confirm you are 16 or over and agree to our{" "}
             <Link className="underline" href="/terms">
               terms
             </Link>{" "}
