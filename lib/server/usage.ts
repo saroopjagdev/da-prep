@@ -1,8 +1,8 @@
 import { admin, userFromRequest } from "@/lib/server/auth";
+import { FREE_INTERVIEWS, FREE_REVIEWS } from "@/lib/plans";
 import { limitsEnforced } from "@/lib/server/guard";
 
-export const FREE_INTERVIEWS = 2;
-export const FREE_REVIEWS = 2;
+export { FREE_INTERVIEWS, FREE_REVIEWS };
 
 type Result = { ok: true } | { ok: false; status: number; error: string };
 

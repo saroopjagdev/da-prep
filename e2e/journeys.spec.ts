@@ -127,16 +127,6 @@ for (const path of PAGES) {
   });
 }
 
-test("home search opens opportunities prefilled, with a status", async ({ page }) => {
-  await page.goto("/");
-  await page.getByRole("search").getByRole("textbox").fill("natwest");
-  await page.getByRole("search").getByRole("button", { name: "Search" }).click();
-  await expect(page).toHaveURL(/\/opportunities\?q=natwest/);
-  await expect(page.getByLabel("Search employers or programmes")).toHaveValue("natwest");
-  await expect(page.getByText("NatWest Group").first()).toBeVisible();
-  await expect(page.locator("tbody tr").filter({ hasText: "NatWest Group" }).getByText("Not open yet", { exact: true })).toBeVisible();
-});
-
 test("related pages share tabs: tests and feedback", async ({ page }) => {
   await page.goto("/practice");
   await page.getByRole("navigation", { name: "Practice tests" }).getByRole("link", { name: "Employer replicas" }).click();
@@ -159,4 +149,37 @@ test("opportunities are grouped by sector, and the guides link shows only resear
   const total = await rows.count();
   expect(total).toBeGreaterThan(30);
   expect(await rows.filter({ has: page.getByRole("link", { name: "Guide" }) }).count()).toBe(total);
+});
+
+test("a new visitor sees the pitch with a way to start, and opportunities still follows ?q=", async ({ page }) => {
+  await page.goto("/");
+  await expect(page.getByRole("heading", { level: 1, name: /Practise the real stages/ })).toBeVisible();
+  await expect(page.getByRole("link", { name: /Or try a free practice test/ })).toBeVisible();
+  await expect(page.getByText("Your dashboard")).toBeHidden();
+  await page.goto("/opportunities?q=natwest");
+  await expect(page.getByLabel("Search employers or programmes")).toHaveValue("natwest");
+  await expect(page.locator("tbody tr").filter({ hasText: "NatWest Group" }).getByText("Not open yet", { exact: true })).toBeVisible();
+});
+
+const withActivity = (page: Page) =>
+  page.addInitScript(() => localStorage.setItem("da-prep:practice", JSON.stringify([{ id: "p1", date: new Date().toISOString(), category: "numerical", score: 7, total: 10 }])));
+
+test("someone with saved activity gets the dashboard instead of the pitch, and /?pitch=1 shows the pitch", async ({ page }) => {
+  await withActivity(page);
+  await page.goto("/");
+  await expect(page.getByRole("heading", { level: 1, name: "Your dashboard" })).toBeVisible();
+  await expect(page.getByRole("heading", { name: /Practise the real stages/ })).toBeHidden();
+  await expect(page.getByLabel("Open now").first()).toBeVisible();
+  await page.goto("/?pitch=1");
+  await expect(page.getByRole("heading", { level: 1, name: /Practise the real stages/ })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Your dashboard" })).toBeHidden();
+});
+
+test("the dashboard has no accessibility problems", async ({ page }) => {
+  await withActivity(page);
+  await page.goto("/");
+  await expect(page.getByRole("heading", { level: 1, name: "Your dashboard" })).toBeVisible();
+  const result = await new AxeBuilder({ page }).analyze();
+  expect(result.violations.map((v) => v.id)).toEqual([]);
+  expect(await page.evaluate(() => document.documentElement.scrollWidth > window.innerWidth)).toBe(false);
 });

@@ -4,12 +4,12 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useAuth } from "@/components/AuthProvider";
 import { postJson } from "@/lib/api";
-import { CONTACT, OPERATOR, PRO_PLAN } from "@/lib/plans";
+import { CONTACT, FREE_INTERVIEWS, FREE_REVIEWS, OPERATOR, PRO_PLAN } from "@/lib/plans";
 import { supabase } from "@/lib/supabase";
 
 const FREE = [
-  "2 AI mock interviews a month",
-  "2 statement or answer reviews a week",
+  `${FREE_INTERVIEWS} AI mock interviews a month`,
+  `${FREE_REVIEWS} statement, answer or CV reviews a week`,
   "Unlimited practice tests, tracker, stories bank, guides",
   "Progress history",
 ];

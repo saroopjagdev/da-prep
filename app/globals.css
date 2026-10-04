@@ -270,3 +270,12 @@ body {
     animation: none !important;
   }
 }
+
+/* Home page: returning and signed-in visitors see the dashboard, new visitors the pitch. The head script sets data-returning
+   before first paint so neither flashes. Crawlers have no storage, so they always get the pitch. */
+html[data-returning="1"] .landing {
+  display: none;
+}
+html:not([data-returning="1"]) .home-dashboard {
+  display: none;
+}
