@@ -12,7 +12,7 @@ function Tile({ f, hidden }: { f: MarqueeFirm; hidden?: boolean }) {
     >
       {f.logo && (
         // eslint-disable-next-line @next/next/no-img-element -- small static brand marks served from /public
-        <img src={f.logo} alt="" className="h-6 w-6 shrink-0 object-contain opacity-80" width={24} height={24} />
+        <img src={f.logo} alt="" className="h-7 w-auto max-w-24 shrink-0 object-contain" height={28} />
       )}
       <span className="text-sm font-bold tracking-tight text-ink">{f.name}</span>
     </Link>
