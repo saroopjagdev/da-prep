@@ -82,7 +82,7 @@ export default function ReviewApp({ firms }: { firms: ReviewFirm[] }) {
       </p>
       <label className="block text-sm font-medium">
         What are you reviewing?
-        <select className="input mt-2.5 !w-auto font-normal" value={kind} onChange={(e) => setKind(e.target.value as "statement" | "answer")}>
+        <select className="input mt-2.5 block !w-auto font-normal" value={kind} onChange={(e) => setKind(e.target.value as "statement" | "answer")}>
           <option value="statement">Personal statement</option>
           <option value="answer">Application form answer</option>
         </select>
