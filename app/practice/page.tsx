@@ -5,6 +5,8 @@ import AreaTabs from "@/components/AreaTabs";
 import Progress from "@/components/Progress";
 import ScoreRing from "@/components/ScoreRing";
 import { useSector } from "@/lib/prefs";
+import SaveScorePrompt from "@/components/SaveScorePrompt";
+import { track } from "@/lib/funnel";
 import { CATEGORY_INFO, questionsFor, type Category, type Question } from "@/lib/questions";
 import { SECTOR_BY_ID } from "@/lib/sectors";
 import { useCollection } from "@/lib/store";
@@ -54,6 +56,7 @@ export default function Practice() {
     if (picked === null) setLog((l) => [...l, { q, picked: null }]);
     if (i + 1 >= total) {
       setDone(true);
+      if (results.items.length === 0) track("first_practice");
       results.update((p) => [
         { id: crypto.randomUUID(), date: new Date().toISOString(), category: category!, score: finalScore, total },
         ...p,
@@ -143,6 +146,7 @@ export default function Practice() {
                 ? "Good start. Review the ones you missed below and try again."
                 : "Keep practising. Every attempt helps."}
           </p>
+          <SaveScorePrompt />
           <div className="flex justify-center gap-3">
             <button onClick={() => begin(category)} className="btn btn-primary">
               Try again

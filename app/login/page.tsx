@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useState } from "react";
 import { useAuth } from "@/components/AuthProvider";
+import EmailCodeEntry from "@/components/EmailCodeEntry";
 import DataTools from "@/components/DataTools";
 import { postJson } from "@/lib/api";
 import { clearLocalData } from "@/lib/store";
@@ -86,6 +87,7 @@ export default function Login() {
             />
             <button className="btn btn-primary w-full">Email me a link</button>
           </form>
+          {msg && <EmailCodeEntry email={email} />}
           {GOOGLE_SIGN_IN && (
             <button
               onClick={async () => setError((await signInGoogle()) ?? "")}

@@ -13,6 +13,7 @@ import MicPicker from "@/components/MicPicker";
 import MutedNotice from "@/components/MutedNotice";
 import { micSupportProblem, SILENCE_PEAK, useRecorder } from "@/components/useRecorder";
 import { postJson, transcribeBlob } from "@/lib/api";
+import { track } from "@/lib/funnel";
 import { diag } from "@/lib/diag";
 import { VIDEO_PRESETS, getPreset, mmss, spoken } from "@/lib/hirevue";
 import { FIRM_GROUPS, type FirmOption } from "@/lib/firms/groups";
@@ -218,6 +219,7 @@ export default function InterviewApp({
         const r = await postJson<ScoreResult>("/api/interview/score", { jobAd, stage, turns: h, ...firmFields });
         setResult(r);
         setHistory(h);
+        if (sessions.items.length === 0) track("first_mock");
         sessions.update((prev) => [
           {
             id: crypto.randomUUID(),

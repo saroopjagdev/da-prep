@@ -3,6 +3,8 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import SaveScorePrompt from "@/components/SaveScorePrompt";
+import { track } from "@/lib/funnel";
 import Runner from "@/components/assess/Runner";
 import StimulusView from "@/components/assess/StimulusView";
 import { describeKey, describeResponse } from "@/lib/assess/describe";
@@ -133,6 +135,7 @@ function Results({ test, result, onRetry }: { test: Test; result: TestResult; on
         <p className="callout bg-mint-50 text-center font-medium text-mint-600">Full marks on every question you reached.</p>
       )}
 
+      <SaveScorePrompt />
       <div className="flex justify-center gap-3">
         <button className="btn btn-primary" onClick={onRetry}>
           Try again
@@ -154,6 +157,7 @@ export default function TestPlayer({ test }: { test: Test }) {
   function done(r: TestResult) {
     setResult(r);
     if (test.kind === "ability") {
+      if (practice.items.length === 0) track("first_practice");
       practice.update((p) => [
         { id: crypto.randomUUID(), date: r.finishedAt, category: test.name, score: Math.round(r.points * 10) / 10, total: r.max },
         ...p,

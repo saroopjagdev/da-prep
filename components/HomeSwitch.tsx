@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { useAuth } from "@/components/AuthProvider";
 import HomeDashboard from "@/components/HomeDashboard";
 import type { OpenNow } from "@/lib/home";
+import { track } from "@/lib/funnel";
 import { hasLocalActivity, shouldShowDashboard } from "@/lib/home-gate";
 
 /**
@@ -31,6 +32,7 @@ export default function HomeSwitch({ open }: { open: OpenNow[] }) {
     else root.removeAttribute("data-returning");
     // eslint-disable-next-line react-hooks/set-state-in-effect -- the answer depends on browser storage, known only after mount
     setShow(dash);
+    if (!dash && !wantsPitch) track("landing_view", { oncePerLoad: true });
   }, [ready, user]);
 
   return (
