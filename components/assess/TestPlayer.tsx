@@ -3,7 +3,9 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import PracticeLimitCard from "@/components/PracticeLimitCard";
 import SaveScorePrompt from "@/components/SaveScorePrompt";
+import { usePracticeAllowance } from "@/components/usePracticeAllowance";
 import { track } from "@/lib/funnel";
 import Runner from "@/components/assess/Runner";
 import StimulusView from "@/components/assess/StimulusView";
@@ -153,9 +155,11 @@ export default function TestPlayer({ test }: { test: Test }) {
   const [run, setRun] = useState(0);
   const practice = useCollection<PracticeRecord>("practice");
   const router = useRouter();
+  const allow = usePracticeAllowance();
 
   function done(r: TestResult) {
     setResult(r);
+    allow.record();
     if (test.kind === "ability") {
       if (practice.items.length === 0) track("first_practice");
       practice.update((p) => [
@@ -177,5 +181,6 @@ export default function TestPlayer({ test }: { test: Test }) {
       />
     );
   }
+  if (allow.blocked) return <PracticeLimitCard limit={allow.limit} />;
   return <Runner key={run} test={test} onComplete={done} onExit={() => router.push("/tests")} />;
 }

@@ -1,5 +1,6 @@
 import AxeBuilder from "@axe-core/playwright";
 import { expect, test, type Page } from "@playwright/test";
+import { isoWeek } from "../lib/week";
 
 const clearRuns = (page: Page) => page.evaluate(() => localStorage.clear());
 
@@ -199,4 +200,20 @@ test("the dashboard has no accessibility problems", async ({ page }) => {
   const result = await new AxeBuilder({ page }).analyze();
   expect(result.violations.map((v) => v.id)).toEqual([]);
   expect(await page.evaluate(() => document.documentElement.scrollWidth > window.innerWidth)).toBe(false);
+});
+
+test("free practice stops after the weekly number and says why; a new week starts fresh", async ({ page }) => {
+  await page.addInitScript((week) => localStorage.setItem("da-prep:practice-week", JSON.stringify({ week, n: 3 })), isoWeek());
+  await page.goto("/practice");
+  await expect(page.getByRole("heading", { name: /used your 3 free practice tests this week/ })).toBeVisible();
+  await expect(page.getByRole("button", { name: /Numerical/ }).first()).toBeDisabled();
+  await page.goto("/tests/shl-numerical");
+  await expect(page.getByRole("heading", { name: /used your 3 free practice tests this week/ })).toBeVisible();
+});
+
+test("free practice shows what is left", async ({ page }) => {
+  await page.addInitScript((week) => localStorage.setItem("da-prep:practice-week", JSON.stringify({ week, n: 1 })), isoWeek());
+  await page.goto("/practice");
+  await expect(page.getByText("2 of 3 free practice tests left this week")).toBeVisible();
+  await expect(page.getByRole("button", { name: /Numerical/ }).first()).toBeEnabled();
 });

@@ -1,11 +1,10 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import Link from "next/link";
-import { useAuth } from "@/components/AuthProvider";
 import Icon from "@/components/Icon";
 import Progress from "@/components/Progress";
-import { postJson } from "@/lib/api";
+import { usePracticeAllowance } from "@/components/usePracticeAllowance";
+import { useUsage } from "@/components/useUsage";
 import type { OpenNow } from "@/lib/home";
 import { useSector } from "@/lib/prefs";
 import { SECTOR_BY_ID } from "@/lib/sectors";
@@ -26,8 +25,6 @@ export function streak(dates: string[]) {
   }
   return n;
 }
-
-type Usage = { plan: "free" | "pro"; enforced: boolean; interviews?: { used: number; limit: number }; reviews?: { used: number; limit: number } };
 
 const TILES = [
   { href: "/interview", title: "Mock interview", body: "Questions from a real advert, marked" },
@@ -51,24 +48,13 @@ function Card({ title, children, href, cta }: { title: string; children: React.R
 }
 
 export default function HomeDashboard({ open }: { open: OpenNow[] }) {
-  const { user, enabled } = useAuth();
   const { sector } = useSector();
   const sessions = useCollection<SessionRecord>("sessions");
   const practice = useCollection<PracticeRecord>("practice");
   const apps = useCollection<Application>("applications");
   const stories = useCollection<Story>("stories");
-  const [usage, setUsage] = useState<Usage | null>(null);
-
-  useEffect(() => {
-    if (!enabled || !user) return;
-    let alive = true;
-    postJson<Usage>("/api/usage", undefined, "GET")
-      .then((u) => alive && setUsage(u))
-      .catch(() => {});
-    return () => {
-      alive = false;
-    };
-  }, [enabled, user]);
+  const usage = useUsage();
+  const cap = usePracticeAllowance();
 
   const s = streak([...sessions.items.map((x) => x.date), ...practice.items.map((x) => x.date)]);
   const today = day(new Date());
@@ -134,24 +120,33 @@ export default function HomeDashboard({ open }: { open: OpenNow[] }) {
           </Link>
         </section>
 
-        <Card title="Your allowance" href={usage?.plan !== "pro" ? "/pricing" : undefined} cta="See Pro">
+        <Card title="Your plan" href={usage?.plan !== "pro" ? "/pricing" : undefined} cta="See Pro">
           {!usage ? (
             <p className="text-muted">Checking...</p>
           ) : usage.plan === "pro" ? (
             <p>
-              <strong>Pro.</strong> AI mock interviews and reviews run on fair-use limits.
+              <strong>Pro.</strong> Unlimited practice, and AI mock interviews and reviews on fair-use limits.
             </p>
-          ) : usage.interviews && usage.reviews ? (
+          ) : (
             <>
               <p>
-                <strong>{Math.max(0, usage.interviews.limit - usage.interviews.used)}</strong> of {usage.interviews.limit} AI mock interviews left this month
+                <strong>{cap.left}</strong> of {cap.limit} free practice tests left this week
               </p>
-              <p>
-                <strong>{Math.max(0, usage.reviews.limit - usage.reviews.used)}</strong> of {usage.reviews.limit} reviews left this week
-              </p>
+              {usage.reviews && (
+                <p>
+                  <strong>{Math.max(0, usage.reviews.limit - usage.reviews.used)}</strong> of {usage.reviews.limit} written feedback reviews left this week
+                </p>
+              )}
+              {usage.interviews && usage.interviews.limit === 0 ? (
+                <p className="text-muted">AI mock interviews and firm mock processes are part of Pro.</p>
+              ) : (
+                usage.interviews && (
+                  <p>
+                    <strong>{Math.max(0, usage.interviews.limit - usage.interviews.used)}</strong> of {usage.interviews.limit} AI mock interviews left this month
+                  </p>
+                )
+              )}
             </>
-          ) : (
-            <p className="text-muted">Free plan.</p>
           )}
         </Card>
       </div>

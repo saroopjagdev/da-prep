@@ -1,5 +1,6 @@
 "use client";
 
+import ProInterviewNotice from "@/components/ProInterviewNotice";
 import SignInNotice from "@/components/SignInNotice";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
@@ -374,7 +375,7 @@ export default function InterviewApp({
   const errorBox = error && (
     <div role="alert" className="space-y-1 callout bg-coral-50 text-coral-600">
       <p>{error}</p>
-      {/free interviews/.test(error) && (
+      {/part of Pro|free interviews/.test(error) && (
         <Link href="/pricing" className="underline">
           See Pro
         </Link>
@@ -395,6 +396,7 @@ export default function InterviewApp({
           <p className="lead">Pick an employer from our guides or paste a real advert, and get questions built around that role.</p>
         </div>
         <SignInNotice what="the mock interview" />
+        <ProInterviewNotice />
         <div className="card space-y-5 p-6">
           <div className="space-y-2">
             <p className="label">
