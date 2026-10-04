@@ -235,10 +235,15 @@ export default function OpportunitiesApp({ rows }: { rows: OpportunityRow[] }) {
                   </Link>
                 ) : (
                   <a href={r.vacancyUrl} target="_blank" rel="noreferrer" className="btn btn-secondary">
-                    Find vacancies
+                    Find their careers page
                   </a>
                 )}
                 {r.confidence && <ConfidenceBadge c={r.confidence} />}
+                {r.source && (
+                  <a href={r.source} target="_blank" rel="noreferrer" className="text-xs underline">
+                    source
+                  </a>
+                )}
                 {(r.checked || r.verified) && <span className="text-xs text-muted">{r.checked ? `Checked ${r.checked}` : `Researched ${r.verified}`}</span>}
               </div>
 

@@ -22,7 +22,7 @@ describe("listed employers", () => {
     expect(normName("Forvis Mazars")).toBe(normName("Forvis Mazars UK"));
   });
 
-  it("builds an official vacancy search link without guessing a careers page", () => {
-    expect(vacancySearchUrl("Procter & Gamble")).toBe("https://www.findapprenticeship.service.gov.uk/apprenticeships?searchTerm=Procter%20%26%20Gamble");
+  it("builds a careers-page search link without guessing a careers page", () => {
+    expect(vacancySearchUrl("Procter & Gamble")).toBe("https://www.google.com/search?q=Procter%20%26%20Gamble%20apprenticeships%20careers%202027");
   });
 });

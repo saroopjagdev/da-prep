@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { FIRMS } from "@/lib/firms";
+import { LISTED, normName } from "@/lib/listings";
 import { WINDOWS, formatWhen, opportunityRows, statusOf, type WindowEntry } from "@/lib/opportunities";
 
 const w = (over: Partial<WindowEntry>): WindowEntry => ({ slug: "x", confidence: "official", checked: "2026-10-03", ...over });
@@ -38,21 +39,29 @@ describe("formatWhen", () => {
 });
 
 describe("opportunity data", () => {
-  it("only names employers that have a researched profile", () => {
+  it("only names employers we know, and gives a source to any without a profile", () => {
     const slugs = new Set(FIRMS.map((f) => f.slug));
-    for (const e of WINDOWS) expect(slugs.has(e.slug), e.slug).toBe(true);
+    const listed = new Set(LISTED.map((l) => normName(l.name)));
+    for (const e of WINDOWS) {
+      if (e.slug) expect(slugs.has(e.slug), e.slug).toBe(true);
+      else {
+        expect(e.name && listed.has(normName(e.name)), String(e.name)).toBe(true);
+        expect(e.source, `${e.name} needs the page it was read from`).toMatch(/^https:\/\//);
+      }
+    }
   });
 
   it("has valid ISO dates and a check date for every entry", () => {
     for (const e of WINDOWS) {
-      for (const d of [e.opens, e.closes].filter(Boolean) as string[]) expect(d, e.slug).toMatch(/^\d{4}-\d{2}(-\d{2})?$/);
-      expect(e.checked, e.slug).toMatch(/^\d{4}-\d{2}-\d{2}$/);
-      expect(e.opens || e.opensLabel || e.state, `${e.slug} says nothing about when it opens`).toBeTruthy();
+      const id = e.slug ?? e.name;
+      for (const d of [e.opens, e.closes].filter(Boolean) as string[]) expect(d, id).toMatch(/^\d{4}-\d{2}(-\d{2})?$/);
+      expect(e.checked, id).toMatch(/^\d{4}-\d{2}-\d{2}$/);
+      expect(e.opens || e.opensLabel || e.state, `${id} says nothing about when it opens`).toBeTruthy();
     }
   });
 
   it("has one entry per employer", () => {
-    const slugs = WINDOWS.map((e) => e.slug);
+    const slugs = WINDOWS.map((e) => e.slug ?? normName(e.name ?? ""));
     expect(new Set(slugs).size).toBe(slugs.length);
   });
 

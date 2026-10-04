@@ -12,7 +12,12 @@ import type { SectorId } from "@/lib/sectors";
 import type { TrackerTemplate } from "@/lib/tracker-item";
 
 export type WindowEntry = {
-  slug: string;
+  /** A researched profile's slug. Use `name` instead for an employer we list but have not profiled. */
+  slug?: string;
+  /** Listed employer name (as in lib/listings.ts) when there is no profile. */
+  name?: string;
+  /** Page the dates were read from. Required for entries without a profile (profiles carry their own source). */
+  source?: string;
   /** Full ISO date, or "YYYY-MM" when only the month is published. */
   opens?: string;
   closes?: string;
@@ -183,7 +188,9 @@ export type OpportunityRow = {
   checked?: string;
   verified?: string;
   template?: TrackerTemplate;
-  /** Official search for this employer's live vacancies, for employers without a guide. */
+  /** Page the dates were read from (employers without a guide). */
+  source?: string;
+  /** Web search for this employer's own careers page, for employers without a guide. */
   vacancyUrl?: string;
 };
 
@@ -239,20 +246,26 @@ export function opportunityRows(today = new Date()): OpportunityRow[] {
   profiled.sort((a, b) => key(a).localeCompare(key(b)));
 
   const others = LISTED.filter((l) => !used.has(normName(l.name)))
-    .map(
-      (l): OpportunityRow => ({
+    .map((l): OpportunityRow => {
+      const w = WINDOWS.find((x) => x.name && normName(x.name) === normName(l.name));
+      return {
         name: l.name,
         sectors: l.sectors,
         programmes: l.programmes,
-        status: "not-confirmed",
-        opens: "",
-        closes: "",
-        rolling: false,
+        status: statusOf(w, today),
+        opens: w ? (w.opens ? formatWhen(w.opens) : w.opensLabel ?? "") : "",
+        closes: w ? (w.closes ? formatWhen(w.closes) : w.closesLabel ?? "") : "",
+        closesIso: w?.closes && isFullDate(w.closes) ? w.closes : undefined,
+        rolling: Boolean(w?.rolling),
+        note: w?.note,
         providers: [],
+        confidence: w?.confidence,
+        checked: w?.checked,
+        source: w?.source,
         vacancyUrl: vacancySearchUrl(l.name),
-      }),
-    )
-    .sort((a, b) => a.name.localeCompare(b.name));
+      };
+    })
+    .sort((a, b) => (ORDER[a.status] - ORDER[b.status]) || a.name.localeCompare(b.name));
 
   return [...profiled, ...others];
 }

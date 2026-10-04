@@ -226,6 +226,5 @@ export const normName = (s: string) =>
     .replace(/\b(uk|ltd|plc|group|global|international|company|the|co)\b/g, "")
     .replace(/\s+/g, "");
 
-/** Public, official search for an employer's live vacancies (we do not guess careers-page links). */
-export const vacancySearchUrl = (name: string) =>
-  `https://www.findapprenticeship.service.gov.uk/apprenticeships?searchTerm=${encodeURIComponent(name)}`;
+/** A web search for the employer's own apprenticeship careers page. We do not guess careers-page links. */
+export const vacancySearchUrl = (name: string) => `https://www.google.com/search?q=${encodeURIComponent(`${name} apprenticeships careers 2027`)}`;
