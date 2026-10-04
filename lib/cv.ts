@@ -27,7 +27,7 @@ export const CV_CHECKLIST = [
 ] as const;
 
 export const cvOutput = z.object({
-  score: z.number().min(0).max(10),
+  score: z.number().min(0).max(100),
   summary: z.string(),
   strengths: z.array(z.string()),
   improvements: z.array(z.string()),
@@ -44,7 +44,7 @@ export const cvSystem = (ctx: { hasProfile?: boolean; hasAdvert?: boolean } = {}
   const tailor = ctx.hasProfile || ctx.hasAdvert
     ? ` Check tailoring against ${[ctx.hasProfile && "the employer profile", ctx.hasAdvert && "the job advert"].filter(Boolean).join(" and ")}.`
     : " No employer or advert was given, so say the tailoring item cannot be assessed.";
-  return `${COMMON} Review the candidate's CV against UK conventions for school leavers: reverse chronological order, education with grades near the top, evidence not claims, outcomes and numbers where they exist, one page ideally and two at most, plain formatting, no photo, age or marital status.${tailor} Contact details were removed before you saw the text, so you will see placeholders such as [email removed]: do not criticise them and do not comment on whether contact details are present. Do not make claims about applicant tracking systems. Score 0-10 (5 is typical for a teenager). Give 3 to 6 "sections" (for example Profile, Education, Experience, Skills and interests, Presentation), each with feedback and one concrete suggestion. Give up to 4 "bulletRewrites": take real lines from the CV and improve them using only facts already given, marking missing facts with [add detail]. "checklist" must contain exactly these items in this order, each with pass true or false and a short note: ${CV_CHECKLIST.map((c) => `"${c}"`).join("; ")}. JSON shape: {"score": number, "summary": string, "strengths": string[], "improvements": string[], "sections": [{"name": string, "feedback": string, "suggestion": string}], "bulletRewrites": [{"original": string, "improved": string}], "checklist": [{"item": string, "pass": boolean, "note": string}]}`;
+  return `${COMMON} Review the candidate's CV against UK conventions for school leavers: reverse chronological order, education with grades near the top, evidence not claims, outcomes and numbers where they exist, one page ideally and two at most, plain formatting, no photo, age or marital status.${tailor} Contact details were removed before you saw the text, so you will see placeholders such as [email removed]: do not criticise them and do not comment on whether contact details are present. Do not make claims about applicant tracking systems. Score 0-100 (50 is typical for a teenager, 80 or more is excellent). Give 3 to 6 "sections" (for example Profile, Education, Experience, Skills and interests, Presentation), each with feedback and one concrete suggestion. Give up to 4 "bulletRewrites": take real lines from the CV and improve them using only facts already given, marking missing facts with [add detail]. "checklist" must contain exactly these items in this order, each with pass true or false and a short note: ${CV_CHECKLIST.map((c) => `"${c}"`).join("; ")}. JSON shape: {"score": number, "summary": string, "strengths": string[], "improvements": string[], "sections": [{"name": string, "feedback": string, "suggestion": string}], "bulletRewrites": [{"original": string, "improved": string}], "checklist": [{"item": string, "pass": boolean, "note": string}]}`;
 };
 
 export const cvUser = (text: string, jobAd?: string, profile?: string) =>
@@ -52,7 +52,7 @@ export const cvUser = (text: string, jobAd?: string, profile?: string) =>
 
 /** Canned response for MOCK_AI=1 development. */
 export const mockCv = (): CvOutput => ({
-  score: 5,
+  score: 50,
   summary: "A solid start with relevant education, but the experience section describes duties rather than results.",
   strengths: ["Education and predicted grades are easy to find", "Clear, simple layout"],
   improvements: ["Add a result or number to each experience bullet", "Move the strongest project higher up"],

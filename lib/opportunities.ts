@@ -136,6 +136,41 @@ export const WINDOWS: WindowEntry[] = [
     confidence: "official",
     checked: "2026-10-03",
   },
+  {
+    name: "Schroders",
+    source: "https://www.schroders.com/en-gb/uk/individual/about-us/careers/apprenticeships/",
+    state: "not-announced",
+    opensLabel: "January (apply in January to start in September)",
+    note: "Two-year school-leaver apprenticeship with Level 3 and 4 qualifications, not a degree. No 2027 dates on the page.",
+    confidence: "official",
+    checked: "2026-10-04",
+  },
+  {
+    name: "Aon",
+    source: "https://www.aon.com/careers/early-careers/uk/apprenticeships",
+    state: "not-announced",
+    opensLabel: "October each year",
+    note: "No 2027 dates or closing dates on the page; deadlines vary by role, so check each posting.",
+    confidence: "official",
+    checked: "2026-10-04",
+  },
+  {
+    name: "M&G",
+    source: "https://group.mandg.com/careers/routes-into-mandg/faqs",
+    opens: "2027-02",
+    note: "Applications open from February 2027; no closing date is given and applicants are assessed from submission, so apply early. Level not stated.",
+    confidence: "official",
+    checked: "2026-10-04",
+  },
+  {
+    name: "Visa",
+    source: "https://uk.review.visa.com/careers/next-gen-careers/application-process-apprenticeship.html",
+    state: "not-announced",
+    opensLabel: "Advertised by the end of October",
+    note: "Four-year degree apprenticeships (BSc Hons). No fixed opening date; roles are aimed to be advertised by the end of October.",
+    confidence: "official",
+    checked: "2026-10-04",
+  },
 ];
 
 export type Status = "open" | "opening-soon" | "not-announced" | "closed" | "not-confirmed";

@@ -3,6 +3,7 @@
 import SignInNotice from "@/components/SignInNotice";
 import { useState } from "react";
 import AreaTabs from "@/components/AreaTabs";
+import FileTextPicker from "@/components/FileTextPicker";
 import { postJson } from "@/lib/api";
 import type { CvOutput } from "@/lib/cv";
 
@@ -39,13 +40,14 @@ export default function CvApp({ firms }: { firms: { slug: string; name: string }
         want your own words.
       </p>
 
+      <FileTextPicker what="CV" onText={setText} maxChars={8000} />
       <label className="block text-sm font-medium">
-        Your CV (paste the text)
+        Your CV (upload above, or paste the text here)
         <textarea className="mt-2.5 h-64 w-full input font-normal" value={text} onChange={(e) => setText(e.target.value)} maxLength={8000} />
       </label>
       <label className="block text-sm font-medium">
         Employer (optional, to check tailoring)
-        <select className="input mt-2.5 !w-auto font-normal" value={firm} onChange={(e) => setFirm(e.target.value)}>
+        <select className="input mt-2.5 block !w-auto font-normal" value={firm} onChange={(e) => setFirm(e.target.value)}>
           <option value="">No specific employer</option>
           {firms.map((f) => (
             <option key={f.slug} value={f.slug}>
@@ -81,7 +83,7 @@ export default function CvApp({ firms }: { firms: { slug: string; name: string }
       {result && (
         <div className="space-y-5 border-t border-line pt-4" aria-live="polite">
           <div>
-            <h2 className="text-xl font-semibold">Score: {result.score}/10</h2>
+            <h2 className="text-xl font-semibold">Score: {result.score}/100</h2>
             <p className="mt-1">{result.summary}</p>
             {result.removed > 0 && (
               <p className="mt-1 text-xs text-muted">

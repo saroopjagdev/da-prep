@@ -5,7 +5,7 @@ import { generateMetadata as sectorMeta } from "@/app/sectors/[slug]/page";
 import { generateMetadata as testMeta } from "@/app/tests/[id]/page";
 import { TESTS } from "@/lib/assess/tests";
 import { FIRMS } from "@/lib/firms";
-import { MOCKS } from "@/lib/mockprocess/definitions";
+import { ALL_MOCKS } from "@/lib/mockprocess/definitions";
 import { SECTOR_IDS } from "@/lib/sectors";
 import { pageMeta } from "@/lib/site";
 
@@ -26,7 +26,7 @@ describe("page metadata", () => {
     ["employers", () => collect(FIRMS.map((f) => f.slug), (slug) => employerMeta({ params: Promise.resolve({ slug }) }))],
     ["tests", () => collect(TESTS.map((t) => t.id), (id) => testMeta({ params: Promise.resolve({ id }) }))],
     ["sectors", () => collect([...SECTOR_IDS], (slug) => sectorMeta({ params: Promise.resolve({ slug }) }))],
-    ["mocks", () => collect(MOCKS.map((m) => m.firm), (firm) => mockMeta({ params: Promise.resolve({ firm }) }))],
+    ["mocks", () => collect(ALL_MOCKS.map((m) => m.firm), (firm) => mockMeta({ params: Promise.resolve({ firm }) }))],
   ])("every %s page has its own title, description and canonical URL", async (_name, run) => {
     const metas = await run();
     const titles = metas.map((m) => String(m.title));

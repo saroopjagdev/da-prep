@@ -72,7 +72,7 @@ describe("opportunity data", () => {
     const researched = rows.filter((r) => r.slug);
     expect(researched.length).toBeGreaterThanOrEqual(FIRMS.length - 2); // hidden profiles aside
     const firstUnresearched = rows.findIndex((r) => !r.slug);
-    expect(rows.slice(firstUnresearched).every((r) => !r.slug && r.status === "not-confirmed" && r.vacancyUrl)).toBe(true);
+    expect(rows.slice(firstUnresearched).every((r) => !r.slug && r.vacancyUrl)).toBe(true);
     // Researched rows lead, open ones before the rest.
     expect(rows.slice(0, firstUnresearched).map((r) => r.status).lastIndexOf("open")).toBeLessThan(
       rows.slice(0, firstUnresearched).findIndex((r) => r.status === "closed" || r.status === "not-confirmed") + 1 || 1e9,
