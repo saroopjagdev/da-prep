@@ -5,7 +5,7 @@ import { homeStats, openNow } from "@/lib/home";
 import { RETURNING_HINT_SCRIPT, shouldShowDashboard } from "@/lib/home-gate";
 import { ALL_MOCKS } from "@/lib/mockprocess/definitions";
 import { opportunityRows } from "@/lib/opportunities";
-import { FREE_INTERVIEWS, FREE_REVIEWS } from "@/lib/plans";
+import { FREE_INTERVIEWS, FREE_PRACTICE_PER_WEEK, FREE_REVIEWS } from "@/lib/plans";
 import { streak } from "@/components/HomeDashboard";
 
 describe("who gets the dashboard", () => {
@@ -66,7 +66,9 @@ describe("home numbers are counted, not typed", () => {
   });
 
   it("has one definition of the free allowance", () => {
-    expect(FREE_INTERVIEWS).toBe(2);
+    // Free has no AI mock interviews, a few practice tests a week, and two written-feedback reviews a week.
+    expect(FREE_INTERVIEWS).toBe(0);
+    expect(FREE_PRACTICE_PER_WEEK).toBe(3);
     expect(FREE_REVIEWS).toBe(2);
   });
 });

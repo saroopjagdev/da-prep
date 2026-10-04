@@ -6,6 +6,8 @@ import Progress from "@/components/Progress";
 import ScoreRing from "@/components/ScoreRing";
 import { useSector } from "@/lib/prefs";
 import SaveScorePrompt from "@/components/SaveScorePrompt";
+import PracticeLimitCard from "@/components/PracticeLimitCard";
+import { usePracticeAllowance } from "@/components/usePracticeAllowance";
 import { track } from "@/lib/funnel";
 import { CATEGORY_INFO, questionsFor, type Category, type Question } from "@/lib/questions";
 import { SECTOR_BY_ID } from "@/lib/sectors";
@@ -25,6 +27,7 @@ function shuffle<T>(a: T[]) {
 
 export default function Practice() {
   const results = useCollection<PracticeRecord>("practice");
+  const allow = usePracticeAllowance();
   const { sector } = useSector();
   const [category, setCategory] = useState<Category | null>(null);
   const [qs, setQs] = useState<Question[]>([]);
@@ -41,6 +44,7 @@ export default function Practice() {
   const total = qs.length;
 
   function begin(c: Category) {
+    if (allow.blocked) return;
     setCategory(c);
     setQs(shuffle(questionsFor(c)));
     setI(0);
@@ -56,6 +60,7 @@ export default function Practice() {
     if (picked === null) setLog((l) => [...l, { q, picked: null }]);
     if (i + 1 >= total) {
       setDone(true);
+      allow.record();
       if (results.items.length === 0) track("first_practice");
       results.update((p) => [
         { id: crypto.randomUUID(), date: new Date().toISOString(), category: category!, score: finalScore, total },
@@ -100,6 +105,12 @@ export default function Practice() {
             skills carry over.
           </p>
         </div>
+        {allow.blocked && <PracticeLimitCard limit={allow.limit} />}
+        {allow.loaded && !allow.unlimited && !allow.blocked && (
+          <p className="text-sm text-muted">
+            {allow.left} of {allow.limit} free practice tests left this week. Pro is unlimited.
+          </p>
+        )}
         <label className="inline-flex items-center gap-2 text-sm font-medium">
           <input type="checkbox" className="accent-brand-600" checked={timed} onChange={(e) => setTimed(e.target.checked)} />
           Timed (per question)
@@ -109,7 +120,8 @@ export default function Practice() {
             <button
               key={c}
               onClick={() => begin(c)}
-              className="card card-hover animate-fade-up p-5 text-left"
+              disabled={allow.blocked}
+              className="card card-hover animate-fade-up p-5 text-left disabled:pointer-events-none disabled:opacity-50"
             >
               <span className="flex items-center gap-2 font-bold">
                 {CATEGORY_INFO[c].label}

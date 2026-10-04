@@ -40,7 +40,7 @@ describe("GET /api/usage", () => {
     rows.usage = { interviews: 1, reviews: 2 };
     rows.profiles = { plan: "free" };
     const body = await (await call()).json();
-    expect(body).toMatchObject({ plan: "free", enforced: true, interviews: { used: 1, limit: 2 }, reviews: { used: 2, limit: 2 } });
+    expect(body).toMatchObject({ plan: "free", enforced: true, interviews: { used: 1, limit: 0 }, reviews: { used: 2, limit: 2 } });
   });
 
   it("gives Pro no fixed allowance", async () => {

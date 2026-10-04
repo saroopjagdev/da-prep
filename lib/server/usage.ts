@@ -1,19 +1,11 @@
 import { admin, userFromRequest } from "@/lib/server/auth";
 import { FREE_INTERVIEWS, FREE_REVIEWS } from "@/lib/plans";
+import { isoWeek } from "@/lib/week";
 import { limitsEnforced } from "@/lib/server/guard";
 
-export { FREE_INTERVIEWS, FREE_REVIEWS };
+export { FREE_INTERVIEWS, FREE_REVIEWS, isoWeek };
 
 type Result = { ok: true } | { ok: false; status: number; error: string };
-
-/** ISO week key such as "2026-W40": free review allowance resets every Monday. */
-export function isoWeek(d = new Date()): string {
-  const t = new Date(Date.UTC(d.getUTCFullYear(), d.getUTCMonth(), d.getUTCDate()));
-  const day = t.getUTCDay() || 7;
-  t.setUTCDate(t.getUTCDate() + 4 - day); // Thursday of this week decides the year
-  const week = Math.ceil(((t.getTime() - Date.UTC(t.getUTCFullYear(), 0, 1)) / 86_400_000 + 1) / 7);
-  return `${t.getUTCFullYear()}-W${String(week).padStart(2, "0")}`;
-}
 
 /** Count one use against a free allowance. Only enforced when limits are enforced (see limitsEnforced); otherwise always allowed. */
 async function consume(
@@ -46,7 +38,9 @@ export const consumeInterview = (req: Request) =>
     new Date().toISOString().slice(0, 7),
     FREE_INTERVIEWS,
     "Sign in to start an interview.",
-    `You've used your ${FREE_INTERVIEWS} free interviews this month. Upgrade to Pro to keep practising (fair-use limits apply).`,
+    FREE_INTERVIEWS === 0
+      ? "AI mock interviews are part of Pro (£9.99 a month). Upgrade to start one."
+      : `You've used your ${FREE_INTERVIEWS} free interviews this month. Upgrade to Pro to keep practising (fair-use limits apply).`,
   );
 
 /** Count one statement or answer review against the caller's weekly free allowance. */

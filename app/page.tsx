@@ -9,7 +9,7 @@ import Icon from "@/components/Icon";
 import ScoreRing from "@/components/ScoreRing";
 import { FIRMS } from "@/lib/firms";
 import { homeStats, openNow } from "@/lib/home";
-import { FREE_INTERVIEWS, FREE_REVIEWS, PRO_PLAN } from "@/lib/plans";
+import { FREE_PRACTICE_PER_WEEK, FREE_REVIEWS, PRO_PLAN } from "@/lib/plans";
 
 // Rebuilt hourly so the "open now" row follows the dates (an opening date passing flips an employer to open).
 export const revalidate = 3600;
@@ -187,12 +187,12 @@ export default function Home() {
             <div className="card space-y-2 p-6">
               <h3 className="text-lg font-bold">Free</h3>
               <p className="text-sm text-muted">
-                Unlimited practice tests, the tracker and all guides, plus {FREE_INTERVIEWS} AI mock interviews a month and {FREE_REVIEWS} written reviews a week.
+                The Opportunities list, your tracker and all employer guides, {FREE_PRACTICE_PER_WEEK} practice tests a week and {FREE_REVIEWS} written feedback reviews a week (CV, cover letter, statement).
               </p>
             </div>
             <div className="card space-y-2 p-6">
               <h3 className="text-lg font-bold">Pro: {PRO_PLAN.price}</h3>
-              <p className="text-sm text-muted">Much higher limits on AI mock interviews, firm mock processes and written feedback. Cancel any time.</p>
+              <p className="text-sm text-muted">Unlimited practice tests, AI mock interviews and firm mock processes, and much higher written-feedback limits. Cancel any time.</p>
               <Link href="/pricing" className="btn btn-secondary mt-2">
                 See plans
               </Link>
