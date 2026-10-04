@@ -89,7 +89,7 @@ export default function Privacy() {
         yourself or anyone else in what you type or say. As a safety net, we automatically remove email addresses,
         UK phone numbers, postcodes and National Insurance numbers from text before it is sent, but this can&apos;t
         catch everything (for example names or street addresses). The CV checker also removes links and dates of birth,
-        tells you how many details it removed, and does not keep your CV.
+        tells you how many details it removed, and does not keep your CV. If you upload a PDF or Word file, it is read in memory to get the text and is not stored.
       </p>
 
       <h2 className="text-base font-semibold">Voice, speech and camera</h2>

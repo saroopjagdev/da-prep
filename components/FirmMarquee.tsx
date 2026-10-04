@@ -8,13 +8,14 @@ function Tile({ f, hidden }: { f: MarqueeFirm; hidden?: boolean }) {
       href={`/employers/${f.slug}`}
       aria-hidden={hidden || undefined}
       tabIndex={hidden ? -1 : undefined}
-      className="mr-8 flex h-12 shrink-0 items-center justify-center gap-2.5 text-center opacity-80 transition hover:opacity-100"
+      className="mr-8 flex h-12 shrink-0 items-center justify-center text-center opacity-80 transition hover:opacity-100"
     >
-      {f.logo && (
+      {f.logo ? (
         // eslint-disable-next-line @next/next/no-img-element -- small static brand marks served from /public
-        <img src={f.logo} alt="" className="h-7 w-auto max-w-24 shrink-0 object-contain" height={28} />
+        <img src={f.logo} alt={hidden ? "" : f.name} className="h-9 w-auto max-w-36 shrink-0 object-contain" height={36} />
+      ) : (
+        <span className="text-sm font-bold tracking-tight text-ink">{f.name}</span>
       )}
-      <span className="text-sm font-bold tracking-tight text-ink">{f.name}</span>
     </Link>
   );
 }
