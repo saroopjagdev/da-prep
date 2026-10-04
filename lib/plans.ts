@@ -19,3 +19,7 @@ export const checkoutInput = z.object({
 });
 
 export { CONTACT_EMAIL as CONTACT, OPERATOR_NAME as OPERATOR } from "@/lib/legal";
+
+/** What the free plan includes each period. The pricing page, the home page and the server limits all read these. */
+export const FREE_INTERVIEWS = 2; // marked mock interviews a month
+export const FREE_REVIEWS = 2; // statement, answer or CV reviews a week

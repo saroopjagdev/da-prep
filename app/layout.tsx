@@ -3,6 +3,7 @@ import AuthProvider from "@/components/AuthProvider";
 import BottomNav from "@/components/BottomNav";
 import Footer from "@/components/Footer";
 import JsonLd from "@/components/JsonLd";
+import { RETURNING_HINT_SCRIPT } from "@/lib/home-gate";
 import Nav from "@/components/Nav";
 import { organizationLd, websiteLd } from "@/lib/seo";
 import { SITE_DESCRIPTION, SITE_NAME, SITE_URL } from "@/lib/site";
@@ -32,7 +33,11 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="en" className={`${body.variable} h-full antialiased`}>
+    // suppressHydrationWarning: the head script may set data-returning on <html> before React hydrates.
+    <html lang="en" className={`${body.variable} h-full antialiased`} suppressHydrationWarning>
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: RETURNING_HINT_SCRIPT }} />
+      </head>
       <body className="min-h-full flex flex-col pb-16 text-ink sm:pb-0">
         <JsonLd data={[organizationLd(), websiteLd()]} />
         <a

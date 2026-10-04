@@ -1,35 +1,19 @@
 import Link from "next/link";
 import fs from "node:fs";
 import path from "node:path";
-import Dashboard from "@/components/Dashboard";
 import FirmMarquee, { type MarqueeFirm } from "@/components/FirmMarquee";
+import HeroSignup from "@/components/HeroSignup";
+import HomeSwitch from "@/components/HomeSwitch";
 import Icon from "@/components/Icon";
 import ScoreRing from "@/components/ScoreRing";
-import ToolkitSection from "@/components/ToolkitSection";
-import { PRO_PLAN } from "@/lib/plans";
 import { FIRMS } from "@/lib/firms";
-import { QUESTIONS } from "@/lib/questions";
-import { SECTORS } from "@/lib/sectors";
+import { homeStats, openNow } from "@/lib/home";
+import { FREE_INTERVIEWS, FREE_REVIEWS, PRO_PLAN } from "@/lib/plans";
 
-const stages = [
-  ["Application", "An online form, often with a CV or short answers"],
-  ["Online tests", "Situational judgement and reasoning tests"],
-  ["Video interview", "Recorded answers, with limits that vary by employer"],
-  ["Assessment centre", "Group exercise, role-play and a further interview"],
-  ["Offer", "Usually conditional on your final grades"],
-];
+// Rebuilt hourly so the "open now" row follows the dates (an opening date passing flips an employer to open).
+export const revalidate = 3600;
 
-const resources = [
-  { tag: "Start here", title: "How degree apprenticeship applications work", href: "/guide" },
-  { tag: "Tips", title: "Tips for tests, video interviews and assessment centres", href: "/tips" },
-  { tag: "Planning", title: "A suggested timeline from Year 12 to your offer", href: "/timeline" },
-  { tag: "Sectors", title: "One process, many sectors: what changes where", href: "/sectors" },
-  { tag: "Opportunities", title: "Who is open, opening soon or closed, and your own list", href: "/opportunities" },
-  { tag: "Finance", title: "Finance degree apprenticeships: who, when and myths checked", href: "/sectors/finance" },
-  { tag: "FAQ", title: "Pay, fees, grades and what happens if you're rejected", href: "/faq" },
-];
-
-// Well-known employers we have a guide for. A logo shows if a file named <slug>.svg (or .png) is in public/logos,
+// Well-known employers we have a guide for. A logo shows if a file named <slug>.svg (or .png, .jpg) is in public/logos,
 // otherwise the name is shown as a wordmark. Add only logos you are licensed or permitted to use.
 const FIRST = ["barclays", "goldman-sachs", "jp-morgan", "morgan-stanley", "hsbc", "lloyds", "natwest", "santander", "ubs", "deutsche-bank", "bank-of-america", "citi", "deloitte", "pwc", "kpmg", "ey", "grant-thornton", "bdo", "rolls-royce", "bae-systems", "airbus", "jlr", "amazon", "google", "microsoft", "ibm", "bt", "capgemini", "cisco", "arup", "atkinsrealis", "bmw-group", "experian", "aviva"];
 
@@ -45,314 +29,208 @@ function bannerFirms(): MarqueeFirm[] {
     });
 }
 
+const STEPS = [
+  ["1", "Pick an employer", "See who is open now and how its process works, stage by stage.", "/opportunities"],
+  ["2", "Practise the real stages", "Employer-style tests, video interviews and case studies, in the employer's own order.", "/mock"],
+  ["3", "Get marked, then apply", "Feedback out of 100 on interviews, CVs and statements, and a list to track every application.", "/opportunities?mine=1"],
+] as const;
+
+const OUTCOMES = [
+  { href: "/mock", title: "Practise like the real thing", body: "Tests that copy real formats and timings, and a mock process for each of our employers: video interview, case study, final interview." },
+  { href: "/interview", title: "Know exactly what to fix", body: "Paste the advert, answer, and get a mark out of 100 with a stronger version of each answer. Written feedback on your CV, cover letter and statement too." },
+  { href: "/opportunities", title: "Never miss a window", body: "Who is open, opening soon or closed, by sector. Track each application and get warned before a closing date." },
+];
+
+const ANSWERS = [
+  ["Is a degree apprenticeship really a degree?", "Most lead to a full degree (BA, BSc or BEng) while you work and are paid. Some, such as NatWest's Level 6 route, give a degree-level qualification without a degree, so check each programme."],
+  ["Do I pay tuition fees?", "No. Your employer and the government cover training costs, and you earn a salary."],
+  ["When should I apply?", "Many large employers open in autumn and some close once they have enough applicants. Check each employer's page."],
+  ["Are these the real tests?", "No. They are original practice items in the same format and timing. We say where a detail is approximated."],
+];
+
 export default function Home() {
-  const stats = [
-    [String(QUESTIONS.length), "original practice questions"],
-    [String(SECTORS.length), "sector guides"],
-    ["2", "interview formats: text or timed video"],
-    ["Free", "to start: tests, tracker and guides need no account"],
+  const stats = homeStats();
+  const open = openNow();
+  const depth = [
+    [String(stats.guides), "employer guides", "/opportunities?guides=1"],
+    [String(stats.mocks), "mock processes", "/mock"],
+    [String(stats.tests), "test replicas", "/tests"],
+    [String(stats.employers), "employers tracked", "/opportunities"],
   ];
 
   return (
     <div>
-      {/* Hero */}
-      <section className="mx-auto grid max-w-6xl items-center gap-12 px-4 py-14 lg:grid-cols-[1fr_1.05fr] lg:py-20">
-        <div className="space-y-6">
-          <p className="text-sm font-bold text-brand-700">For UK degree apprenticeship applicants</p>
-          <h1 className="text-4xl font-bold leading-[1.1] tracking-tight sm:text-5xl">
-            Prepare for every stage of your degree apprenticeship application
-          </h1>
-          <p className="lead max-w-lg text-lg">
-            Applications often run like graduate recruitment: online tests, a recorded interview, an assessment centre.
-            Rehearse each one, with questions built from the real job advert in front of you.
-          </p>
-          <div className="flex flex-wrap gap-3">
-            <Link href="/interview" className="btn btn-primary !px-7 !py-3">
-              Start a mock interview
-              <Icon name="arrow" className="h-4 w-4" />
-            </Link>
-            <Link href="#toolkit" className="btn btn-secondary !px-7 !py-3">
-              Explore the toolkit
-            </Link>
-          </div>
-          <form action="/opportunities" method="get" role="search" className="flex max-w-lg gap-2">
-            <input
-              name="q"
-              className="input w-full text-sm"
-              placeholder="Search employers, e.g. Barclays or Airbus"
-              aria-label="Search employers"
-              maxLength={80}
-            />
-            <button type="submit" className="btn btn-secondary whitespace-nowrap">
-              Search
-            </button>
-          </form>
-        </div>
+      {/* Returning users and signed-in users get the dashboard instead of everything below (see lib/home-gate.ts). */}
+      <HomeSwitch open={open} />
 
-        {/* Product preview in a tinted frame */}
-        <div className="rounded-2xl bg-brand-50 p-3 ring-1 ring-brand-100 sm:p-4">
-          <div className="overflow-hidden rounded-xl border border-line bg-white shadow-[0_18px_40px_-20px_rgba(27,40,41,0.35)]">
-            <div className="flex items-center justify-between border-b border-line bg-soft px-4 py-2.5 text-xs font-semibold text-muted">
-              <span>Mock interview · Motivation</span>
-              <span>Question 2 of 5</span>
-            </div>
-            <div className="space-y-4 p-5">
-              <p className="text-[17px] font-bold leading-snug">Tell us about a time you worked in a team.</p>
-              <p className="rounded-md border border-line bg-soft p-3 text-sm leading-relaxed">
-                In Year 11 I led a four-person robotics group. We were behind on the build, so I split the jobs by who
-                was strongest at each, and we finished two days early.
-              </p>
-              <div className="flex items-center gap-5 border-t border-line pt-4">
-                <ScoreRing value={64} size={84} label="of 100" />
-                <div className="space-y-2 text-xs font-semibold">
-                  <div className="flex flex-wrap gap-1.5">
-                    <span className="rounded bg-mint-50 px-2 py-1 text-mint-600">✓ Situation</span>
-                    <span className="rounded bg-mint-50 px-2 py-1 text-mint-600">✓ Action</span>
-                    <span className="rounded bg-coral-50 px-2 py-1 text-coral-600">✗ Result</span>
+      <div className="landing">
+        {/* Hero */}
+        <section className="mx-auto grid max-w-6xl items-center gap-12 px-4 py-14 lg:grid-cols-[1fr_1.05fr] lg:py-20">
+          <div className="space-y-6">
+            <p className="text-sm font-bold text-brand-700">For UK degree apprenticeship applicants</p>
+            <h1 className="text-4xl font-bold leading-[1.1] tracking-tight sm:text-5xl">Practise the real stages of a degree apprenticeship application</h1>
+            <p className="lead max-w-lg text-lg">
+              Employer-style tests, mock interviews marked out of 100, and a live list of who is open now. Free to start.
+            </p>
+            <HeroSignup />
+            <p className="text-sm">
+              <Link href="/practice" className="font-semibold text-brand-700 underline underline-offset-4">
+                Or try a free practice test now
+              </Link>{" "}
+              <span className="text-muted">(no account needed)</span>
+            </p>
+          </div>
+
+          {/* Product preview in a tinted frame */}
+          <div className="rounded-2xl bg-brand-50 p-3 ring-1 ring-brand-100 sm:p-4">
+            <div className="overflow-hidden rounded-xl border border-line bg-white shadow-[0_18px_40px_-20px_rgba(27,40,41,0.35)]">
+              <div className="flex items-center justify-between border-b border-line bg-soft px-4 py-2.5 text-xs font-semibold text-muted">
+                <span>Mock interview · Motivation</span>
+                <span>Question 2 of 5</span>
+              </div>
+              <div className="space-y-4 p-5">
+                <p className="text-[17px] font-bold leading-snug">Tell us about a time you worked in a team.</p>
+                <p className="rounded-md border border-line bg-soft p-3 text-sm leading-relaxed">
+                  In Year 11 I led a four-person robotics group. We were behind on the build, so I split the jobs by who was strongest at each, and we finished two
+                  days early.
+                </p>
+                <div className="flex items-center gap-5 border-t border-line pt-4">
+                  <ScoreRing value={64} size={84} label="of 100" />
+                  <div className="space-y-2 text-xs font-semibold">
+                    <div className="flex flex-wrap gap-1.5">
+                      <span className="rounded bg-mint-50 px-2 py-1 text-mint-600">✓ Situation</span>
+                      <span className="rounded bg-mint-50 px-2 py-1 text-mint-600">✓ Action</span>
+                      <span className="rounded bg-coral-50 px-2 py-1 text-coral-600">✗ Result</span>
+                    </div>
+                    <p className="text-sm font-normal text-muted">Add a number: how did you measure &quot;early&quot;?</p>
                   </div>
-                  <p className="text-sm font-normal text-muted">Add a number: how did you measure &quot;early&quot;?</p>
                 </div>
               </div>
             </div>
+            <p className="px-1 pt-3 text-center text-xs text-muted">Example of the marked feedback you get</p>
           </div>
-          <p className="px-1 pt-3 text-center text-xs text-muted">Example of the marked feedback you get</p>
-        </div>
-      </section>
+        </section>
 
-      <FirmMarquee firms={bannerFirms()} />
+        <FirmMarquee firms={bannerFirms()} />
 
-      {/* Returning-user progress (renders nothing until local data loads) */}
-      <div className="mx-auto max-w-6xl px-4 pb-10">
-        <Dashboard />
-      </div>
+        {/* Live proof: who is open right now */}
+        {open.length > 0 && (
+          <section className="mx-auto max-w-6xl px-4 pb-12" aria-label="Open now">
+            <div className="flex flex-wrap items-center gap-2 rounded-2xl border border-line bg-white p-4">
+              <span className="rounded-full bg-mint-50 px-3 py-1 text-xs font-bold text-mint-700 ring-1 ring-mint-200">Open now</span>
+              {open.slice(0, 6).map((o) => (
+                <Link key={o.slug} href={`/employers/${o.slug}`} className="chip">
+                  {o.name}
+                </Link>
+              ))}
+              <Link href="/opportunities" className="ml-auto text-sm font-semibold text-brand-700 underline underline-offset-4">
+                See every employer
+              </Link>
+            </div>
+          </section>
+        )}
 
-      {/* Timing */}
-      <section className="mx-auto max-w-6xl px-4 pb-14">
-        <div className="grid gap-6 rounded-2xl border border-line bg-white p-6 lg:grid-cols-[1fr_1.4fr] lg:p-8">
-          <div className="space-y-2">
-            <p className="text-sm font-bold text-brand-700">Timing matters</p>
-            <h2 className="text-2xl font-bold tracking-tight">Many employers open early and fill fast</h2>
-            <p className="text-sm text-muted">
-              Large employers often open in the autumn and close once they have enough applicants. Check each employer&apos;s dates,
-              then rehearse their real process: tests, a recorded interview and an assessment centre.
-            </p>
-            <Link href="/opportunities" className="btn btn-primary mt-2">
-              Browse employers
-              <Icon name="arrow" className="h-4 w-4" />
-            </Link>
+        {/* How it works */}
+        <section className="band border-y border-line">
+          <div className="mx-auto max-w-6xl space-y-8 px-4 py-14">
+            <h2 className="text-3xl font-bold tracking-tight">How it works</h2>
+            <ol className="grid gap-5 md:grid-cols-3">
+              {STEPS.map(([n, title, body, href]) => (
+                <li key={n}>
+                  <Link href={href} className="card card-hover flex h-full flex-col gap-2 p-6">
+                    <span className="text-sm font-bold text-brand-700">Step {n}</span>
+                    <span className="text-lg font-bold">{title}</span>
+                    <span className="text-sm leading-relaxed text-muted">{body}</span>
+                  </Link>
+                </li>
+              ))}
+            </ol>
           </div>
-          <ul className="grid gap-3 sm:grid-cols-2">
-            {[
-              ["/opportunities", "Opportunities", "Who is open now, opening soon or closed"],
-              ["/mock", "Firm mock processes", "Run an employer's stages in their real order"],
-              ["/interview", "Firm-specific interviews", "Questions built around the employer and role"],
-              ["/sectors/finance/myths", "Finance myths, checked", "Grades, fees, pay and AI rules"],
-            ].map(([href, title, body]) => (
-              <li key={href}>
-                <Link href={href} className="block h-full rounded-lg border border-line p-4 hover:border-brand-500">
-                  <span className="font-semibold">{title}</span>
-                  <span className="block text-sm text-muted">{body}</span>
+        </section>
+
+        {/* What you get */}
+        <section className="mx-auto max-w-6xl space-y-8 px-4 py-16">
+          <h2 className="text-3xl font-bold tracking-tight">What you get</h2>
+          <ul className="grid gap-5 md:grid-cols-3">
+            {OUTCOMES.map((o) => (
+              <li key={o.title}>
+                <Link href={o.href} className="card card-hover flex h-full flex-col gap-2 p-6">
+                  <span className="text-lg font-bold">{o.title}</span>
+                  <span className="text-sm leading-relaxed text-muted">{o.body}</span>
                 </Link>
               </li>
             ))}
           </ul>
-        </div>
-      </section>
+        </section>
 
-      {/* The process */}
-      <section className="band border-y border-line">
-        <div className="mx-auto max-w-6xl space-y-8 px-4 py-14">
-          <div className="max-w-2xl space-y-2">
-            <h2 className="text-3xl font-bold tracking-tight">The process you are preparing for</h2>
-            <p className="lead">
-              There is no single national deadline or central system. You usually apply to each employer directly, and each one runs
-              some or all of these stages. A few, such as PwC&apos;s Flying Start, also involve a UCAS application.
-            </p>
-          </div>
-          <ol className="grid gap-px overflow-hidden rounded-xl border border-line bg-line sm:grid-cols-2 lg:grid-cols-5">
-            {stages.map(([name, body], i) => (
-              <li key={name} className="space-y-2 bg-white p-5">
-                <span className="text-sm font-bold text-brand-700">0{i + 1}</span>
-                <h3 className="font-bold">{name}</h3>
-                <p className="text-sm leading-relaxed text-muted">{body}</p>
-              </li>
+        {/* Depth */}
+        <section className="border-y border-line bg-white" aria-label="What is inside">
+          <dl className="mx-auto grid max-w-6xl gap-8 px-4 py-12 sm:grid-cols-2 lg:grid-cols-4">
+            {depth.map(([n, label, href]) => (
+              <div key={label} className="space-y-1">
+                <dt className="text-4xl font-bold tracking-tight text-brand-700">{n}</dt>
+                <dd>
+                  <Link href={href} className="text-sm text-muted underline-offset-4 hover:underline">
+                    {label}
+                  </Link>
+                </dd>
+              </div>
             ))}
-          </ol>
-        </div>
-      </section>
+          </dl>
+        </section>
 
-      {/* Toolkit */}
-      <section id="toolkit" className="mx-auto max-w-6xl scroll-mt-20 space-y-8 px-4 py-16">
-        <div className="max-w-2xl space-y-2">
-          <h2 className="text-3xl font-bold tracking-tight">Everything you need in one toolkit</h2>
-          <p className="lead">Practise, track your applications and learn the process, all in one place.</p>
-        </div>
-
-        <ToolkitSection
-          title="Interview prep"
-          fact="Text or timed video, marked with STAR feedback"
-          items={[
-            {
-              href: "/interview",
-              title: "Mock interview",
-              body: "Paste the advert you are applying for and pick your sector. Get questions built around the role, then a marked answer sheet with a stronger version of each answer.",
-            },
-            {
-              href: "/practice",
-              title: "Practice tests",
-              body: "Situational judgement, numerical, verbal and logical reasoning, each with a worked explanation and a review of the ones you missed.",
-            },
-            {
-              href: "/review",
-              title: "Statement review",
-              body: "Write your own personal statement or application answer, then get specific feedback on evidence, tailoring and structure.",
-            },
-          ]}
-        />
-
-        <ToolkitSection
-          title="Your applications"
-          tone="navy"
-          fact="Saved on your device, sync optional"
-          items={[
-            {
-              href: "/opportunities",
-              title: "Opportunities and my list",
-              body: "See who is open, opening soon or closed, then track each application, stage and closing date, with warnings for deadlines coming up and a calendar export.",
-            },
-            {
-              href: "/stories",
-              title: "Stories bank",
-              body: "Write your STAR examples once, tag them by skill and reuse them across applications. An AI helper can structure rough notes for you.",
-            },
-            {
-              href: "/progress",
-              title: "Progress",
-              body: "See your score trend, which part of STAR you most often miss, and every past interview with full feedback.",
-            },
-          ]}
-        />
-
-        <ToolkitSection
-          title="Sector guides"
-          fact={`${SECTORS.length} sector groups`}
-          items={[
-            {
-              href: "/sectors",
-              title: "What is the same, what differs",
-              body: "Most of the process is shared by every degree apprenticeship. See what changes for each sector, so you prepare for the right things.",
-            },
-            {
-              href: "/opportunities",
-              title: "Opportunities",
-              body: "Every employer we know of that runs degree apprenticeships, by sector and status, with a process guide where we have researched it.",
-            },
-            {
-              href: "/timeline",
-              title: "Timeline",
-              body: "What to do and when, from Year 12 to your offer. Some employers close as soon as they have enough applicants.",
-            },
-          ]}
-          footer={
-            <div className="flex flex-wrap items-center gap-2">
-              <span className="text-sm font-semibold">Jump to a sector:</span>
-              {SECTORS.map((s) => (
-                <Link key={s.id} href={`/sectors/${s.id}`} className="chip">
-                  {s.name}
-                </Link>
-              ))}
+        {/* Plans */}
+        <section className="mx-auto max-w-6xl space-y-6 px-4 py-16" aria-labelledby="plans">
+          <h2 id="plans" className="text-3xl font-bold tracking-tight">Free to start. Pro if you want more.</h2>
+          <div className="grid gap-5 sm:grid-cols-2">
+            <div className="card space-y-2 p-6">
+              <h3 className="text-lg font-bold">Free</h3>
+              <p className="text-sm text-muted">
+                Unlimited practice tests, the tracker and all guides, plus {FREE_INTERVIEWS} AI mock interviews a month and {FREE_REVIEWS} written reviews a week.
+              </p>
             </div>
-          }
-        />
-      </section>
-
-      {/* Facts */}
-      <section className="border-y border-line bg-white">
-        <dl className="mx-auto grid max-w-6xl gap-8 px-4 py-12 sm:grid-cols-2 lg:grid-cols-4">
-          {stats.map(([n, label]) => (
-            <div key={label} className="space-y-1">
-              <dt className="text-4xl font-bold tracking-tight text-brand-700">{n}</dt>
-              <dd className="text-sm text-muted">{label}</dd>
-            </div>
-          ))}
-        </dl>
-      </section>
-
-      {/* Free resources */}
-      <section className="mx-auto max-w-6xl space-y-8 px-4 py-16">
-        <div className="flex flex-wrap items-end justify-between gap-3">
-          <div className="space-y-2">
-            <h2 className="text-3xl font-bold tracking-tight">New to degree apprenticeships?</h2>
-            <p className="lead">Start with these free guides.</p>
-          </div>
-          <Link href="/learn" className="text-sm font-semibold text-brand-700 underline underline-offset-4">
-            View all resources
-          </Link>
-        </div>
-        <ul className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-          {resources.map((r) => (
-            <li key={r.href}>
-              <Link href={r.href} className="card card-hover flex h-full flex-col gap-3 p-6">
-                <span className="text-xs font-bold uppercase tracking-wider text-brand-700">{r.tag}</span>
-                <span className="text-lg font-bold leading-snug tracking-tight">{r.title}</span>
+            <div className="card space-y-2 p-6">
+              <h3 className="text-lg font-bold">Pro: {PRO_PLAN.price}</h3>
+              <p className="text-sm text-muted">Much higher limits on AI mock interviews, firm mock processes and written feedback. Cancel any time.</p>
+              <Link href="/pricing" className="btn btn-secondary mt-2">
+                See plans
               </Link>
-            </li>
-          ))}
-        </ul>
-      </section>
-
-      {/* Plans */}
-      <section className="mx-auto max-w-6xl space-y-6 px-4 pb-16" aria-labelledby="plans">
-        <h2 id="plans" className="text-3xl font-bold tracking-tight">Free to start. Pro if you want more.</h2>
-        <div className="grid gap-5 sm:grid-cols-2">
-          <div className="card space-y-2 p-6">
-            <h3 className="text-lg font-bold">Free</h3>
-            <p className="text-sm text-muted">Practice tests, assessment replicas, the tracker, stories bank, all guides and a couple of AI mock interviews and reviews each week.</p>
-          </div>
-          <div className="card space-y-2 p-6">
-            <h3 className="text-lg font-bold">Pro: {PRO_PLAN.price}</h3>
-            <p className="text-sm text-muted">Higher limits on AI mock interviews and written feedback. Cancel any time.</p>
-            <Link href="/pricing" className="btn btn-secondary mt-2">
-              See plans
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      {/* Quick answers (plain content, no FAQ markup) */}
-      <section className="mx-auto max-w-6xl space-y-4 px-4 pb-16" aria-labelledby="quick">
-        <h2 id="quick" className="text-3xl font-bold tracking-tight">Quick answers</h2>
-        <dl className="grid gap-5 sm:grid-cols-2">
-          {[
-            ["Is a degree apprenticeship really a degree?", "Most lead to a full degree (BA, BSc or BEng) while you work and are paid. Some, such as NatWest's Level 6 route, give a degree-level qualification without a degree, so check each programme."],
-            ["Do I pay tuition fees?", "No. Your employer and the government cover training costs, and you earn a salary."],
-            ["When should I apply?", "Many large employers open in autumn and some close once they have enough applicants. Check each employer's page."],
-            ["Are these the real tests?", "No. They are original practice items in the same format and timing. We say where a detail is approximated."],
-          ].map(([q, a]) => (
-            <div key={q} className="space-y-1">
-              <dt className="font-semibold">{q}</dt>
-              <dd className="text-sm text-muted">{a}</dd>
             </div>
-          ))}
-        </dl>
-        <Link href="/faq" className="text-sm font-semibold text-brand-700 underline underline-offset-4">
-          More questions
-        </Link>
-      </section>
-
-      {/* Closing call to action */}
-      <section className="bg-navy">
-        <div className="mx-auto flex max-w-6xl flex-col items-start justify-between gap-6 px-4 py-14 md:flex-row md:items-center">
-          <div className="max-w-xl space-y-2">
-            <h2 className="text-3xl font-bold tracking-tight text-white">Run your first mock interview today</h2>
-            <p className="text-white/75">It takes about ten minutes. You sign in so the AI feedback stays within fair-use limits.</p>
           </div>
-          <Link href="/interview" className="btn btn-light !px-8 !py-3">
-            Start a mock interview
-            <Icon name="arrow" className="h-4 w-4" />
+        </section>
+
+        {/* Quick answers (plain content, no FAQ markup) */}
+        <section className="mx-auto max-w-6xl space-y-4 px-4 pb-16" aria-labelledby="quick">
+          <h2 id="quick" className="text-3xl font-bold tracking-tight">Quick answers</h2>
+          <dl className="grid gap-5 sm:grid-cols-2">
+            {ANSWERS.map(([q, a]) => (
+              <div key={q} className="space-y-1">
+                <dt className="font-semibold">{q}</dt>
+                <dd className="text-sm text-muted">{a}</dd>
+              </div>
+            ))}
+          </dl>
+          <Link href="/faq" className="text-sm font-semibold text-brand-700 underline underline-offset-4">
+            More questions
           </Link>
-        </div>
-      </section>
+        </section>
+
+        {/* Closing call to action */}
+        <section className="bg-navy">
+          <div className="mx-auto flex max-w-6xl flex-col items-start justify-between gap-6 px-4 py-14 md:flex-row md:items-center">
+            <div className="max-w-md space-y-2">
+              <h2 className="text-3xl font-bold tracking-tight text-white">Start with a free account</h2>
+              <p className="flex items-center gap-2 text-white/75">
+                <Icon name="arrow" className="h-4 w-4" />
+                Your first marked mock interview takes about ten minutes.
+              </p>
+            </div>
+            <div className="w-full max-w-lg">
+              <HeroSignup dark />
+            </div>
+          </div>
+        </section>
+      </div>
     </div>
   );
 }

@@ -11,6 +11,9 @@ export default function Footer() {
           <p className="max-w-xs text-sm leading-relaxed text-white/70">
             Practice interviews, tests and tracking for UK degree apprenticeship applicants.
           </p>
+          <Link href="/?pitch=1" className="text-sm text-white/85 underline underline-offset-4 hover:text-white">
+            What is Level6?
+          </Link>
         </div>
         {NAV_GROUPS.map((g) => (
           <nav key={g.label} aria-label={g.label}>
