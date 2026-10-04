@@ -34,9 +34,6 @@ export default function FirmMarquee({ firms }: { firms: MarqueeFirm[] }) {
           ))}
         </div>
       </div>
-      <p className="mt-3 text-center text-xs text-muted">
-        Names and logos belong to their owners. Level6 is independent and is not affiliated with or endorsed by any employer shown.
-      </p>
     </section>
   );
 }

@@ -513,8 +513,8 @@ export default function InterviewApp({
             <div className="grid gap-3 sm:grid-cols-2">
               {(
                 [
-                  ["text", "Text", "Take your time and edit as you go."],
-                  ["video", "Video style", "Speak your answers with timed thinking and answer time, like a real recorded (HireVue-style) interview."],
+                  ["text", "Typed answers", "No microphone needed. Write and edit your answers: good for first drafts and interviews that are not recorded."],
+                  ["video", "Recorded video interview", "Speak your answers with timed thinking and answer time, like a real HireVue-style interview."],
                 ] as const
               ).map(([m, title, blurb]) => (
                 <button

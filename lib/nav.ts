@@ -19,11 +19,12 @@ export const NAV_GROUPS: NavGroup[] = [
     href: "/opportunities",
     links: [
       { href: "/opportunities", label: "All opportunities", blurb: "Who is open now, opening soon or closed, across every sector" },
+      { href: "/opportunities?guides=1", label: "Employer guides", blurb: "Process, tests and interview for each employer we have researched" },
       { href: "/opportunities?mine=1", label: "My list", blurb: "Track where you have applied, your stage, notes and closing dates" },
     ],
   },
   {
-    label: "My applications",
+    label: "My prep",
     href: "/stories",
     links: [
       { href: "/stories", label: "Stories bank", blurb: "Reusable STAR examples" },

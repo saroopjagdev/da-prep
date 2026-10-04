@@ -38,9 +38,9 @@ Barnett Waddingham|f|Pension Administrator - Apprentice
 University Schools Trust|f|Finance Apprentice
 Armstrong Watson|f|Trainee Accountant/Tax Adviser
 Bank of America|f|Global Payment Solutions Apprentice 2027; Global Markets Apprenticeship 2027
-MBDA|fe|Finance Level 4 Higher Apprenticeship 2027
+MBDA|ef|Finance Level 4 Higher Apprenticeship 2027
 Azets|f|Audit Trainee, September 2027
-Balfour Beatty|fc|Finance Apprentice (Level 6)
+Balfour Beatty|cf|Finance Apprentice (Level 6)
 VWFS|f|Treasury Apprentice
 Tradeweb|f|Apprenticeship - EMEA Client Operations
 Lloyds Banking Group|fd|Degree Apprenticeship
@@ -50,31 +50,31 @@ DPC|f|Tax Apprentice
 HW Fisher|f|AAT Apprentice
 UBS|f|2027 Apprenticeship Program
 BNY Mellon|f|EMEA 2026 Apprenticeship Program
-Boeing|fe|Finance Apprenticeship Programme - September 2027
+Boeing|ef|Finance Apprenticeship Programme - September 2027
 Howden|f|Apprenticeship 2027
 Allianz Insurance|f|Apprenticeship Programme 2027
 Lockton|f|Insurance Apprentice
 Aon|f|Apprenticeship Programme 2027
 TrinityBridge|f|Wealth Planning School Leaver Programme
 Morgan Stanley|fd|2027 Apprenticeship Program; Graduate Degree Apprenticeships
-bp|fe|2026 Apprenticeship Programme
+bp|ef|2026 Apprenticeship Programme
 St James's Place|f|Apprenticeship Programme
-Accenture|fd|Degree Apprenticeship 2027
+Accenture|df|Degree Apprenticeship 2027
 Frontier Economics|fb|2027 Economic Apprentice Analyst
 State Street|f|Corporate Audit Data Analytics Apprentice
 Britannia Global Markets|f|Apprentice Metals Broker
-Amazon|fd|Finance Apprentice; Data Analyst Apprentice
+Amazon|df|Finance Apprentice; Data Analyst Apprentice
 Sky|f|Finance Apprenticeship
 Bank of England|f|Degree Apprenticeship; Level 4 Apprenticeships and Degree Apprenticeships
-CBRE|fc|2027 Apprenticeship Scheme
+CBRE|cf|2027 Apprenticeship Scheme
 Deutsche Bank|fd|Apprenticeship Programme 2027; 2027 TDI Apprenticeship Programme
 Man Group|f|Investment Services Apprentice
 Menzies|f|AAT Trainee Apprenticeship
-Government Economic Service|fp|Degree Level Apprenticeship
+Government Economic Service|pf|Degree Level Apprenticeship
 Warner Bros. Discovery|f|Finance Apprentice, ITVP
 Commerzbank|f|2027 Sponsored Degree Programme
 Wilmington Trust|f|GCM Apprentice
-E.ON|fe|Degree Apprenticeship
+E.ON|ef|Degree Apprenticeship
 Liberty Mutual|f|School Leaver Programme 2027
 Markel|f|Apprenticeship Programme
 Visa|fb|Business Management (Chartered Manager) Degree Apprenticeship
@@ -84,11 +84,11 @@ Capco|f|Graduate Analyst - Investment Banking
 Johnston Carmichael|f|Accounting Apprenticeship
 Schroders|f|2027 Apprenticeship Programme
 BlackRock|f|2027 Apprenticeship Programme
-Savills|fc|Apprentice
+Savills|cf|Apprentice
 Standard Chartered|f|Financial Markets Apprenticeship 2027
 Interpath Advisory|f|Apprentice Analyst
 Zurich Insurance|f|2027 Apprenticeship Programme
-RWE|fe|Level 4 Business Analyst Apprenticeship 2027; Engineering Technician Apprenticeship 2027
+RWE|ef|Level 4 Business Analyst Apprenticeship 2027; Engineering Technician Apprenticeship 2027
 TUI|f|2027 Finance Apprenticeship Programme
 BNP Paribas|f|Apprenticeship Program 2027
 M&G|f|2027 Apprentice
@@ -96,7 +96,7 @@ London Stock Exchange Group|f|Apprenticeship Business Analyst - Level 4
 Legal & General|f|Apprenticeship Programme 2027
 Peel Hunt|f|Trainee Trading Programme 2027
 Santander|f|Corporate and Commercial Banking Apprenticeship
-JLR|fe|Level 7 Finance Apprenticeship
+JLR|ef|Level 7 Finance Apprenticeship
 Citi|f|Investment Operations Apprentice | L4 Investment Operations
 Blick Rothenberg|f|Accountancy Apprenticeship (AAT) - London, September 2027
 Insight Investment|f|Investment Operations Specialist Apprenticeship
@@ -107,40 +107,40 @@ Financial Conduct Authority|fp|Level 4 Apprenticeship
 Goodman Jones|f|CFAB School Leaver Accounting Apprenticeship
 Fidelity International|f|2027 Apprenticeship Programme
 NatWest Markets|fd|Degree Level Apprenticeships; IT Support Apprentice
-AVEVA|fd|Finance Apprentice - UK
+AVEVA|df|Finance Apprentice - UK
 Arbuthnot Latham|f|Apprenticeship 2027 - Commercial Banking Executive
-BAE Systems|fe|Advanced/Degree Apprentice Finance
-BMW|fe|Level 3 Accounting Apprenticeship
-Babcock International|fe|Finance Apprenticeship
+BAE Systems|ef|Advanced/Degree Apprentice Finance
+BMW|ef|Level 3 Accounting Apprenticeship
+Babcock International|ef|Finance Apprenticeship
 Bloomberg|fd|2027 Bloomberg Apprenticeship
-Cushman & Wakefield|fc|Real Estate Apprenticeship Programme - 2027
+Cushman & Wakefield|cf|Real Estate Apprenticeship Programme - 2027
 Evelyn Partners|f|School Leaver Programme
-IBM|fd|Apprenticeship - 2027 Start
+IBM|df|Apprenticeship - 2027 Start
 Isio|f|Apprenticeship - 2027 Intake
 MFS|f|2027 Apprentice UK
 Nomura|f|Apprenticeship Programme
 PKF Smith Cooper|f|Audit Associate - Apprenticeship
-Rolls-Royce|fe|Finance Professional Degree Apprenticeship
+Rolls-Royce|ef|Finance Professional Degree Apprenticeship
 Rothschild & Co.|f|2027 Wealth Management Apprenticeship Programme
 SEI|f|Investment Operations Apprentice
 StoneX|f|Apprenticeship Programme - Operations
 Tesco|f|Finance Apprenticeship
 Tokio Marine HCC|f|2027 Apprenticeship Programme
-UK Atomic Energy Authority|fe|L2 Finance Apprentice 2027; Engineering Technician Apprenticeship 2027
+UK Atomic Energy Authority|ef|L2 Finance Apprentice 2027; Engineering Technician Apprenticeship 2027
 Barclays|fd|2027 Degree Apprentice Programme; 2027 Technology Apprenticeship Programme
 Bishop Fleming|f|School Leaver Trainee Accountant 2027
 Neptune North|d|2027 Digital and Technology Solutions Degree Apprenticeship
 Dole|d|Apprentice Software Developer
 American Express|d|Technology Software Engineering Apprenticeship
-Airbus|de|Computing Engineering Degree Apprenticeship
+Airbus|ed|Computing Engineering Degree Apprenticeship
 BBC|d|Data Scientist Apprenticeship - Level 6
 BT|d|2027 Apprenticeship
 Capgemini|d|Digital and Technology Solutions Degree Apprenticeship 2027
 Google|d|Software Development Apprenticeship, Engineering
-Laing O'Rourke|dc|Degree Apprenticeships 2027; Professional Apprenticeship Programme 2027
-Leonardo|de|Apprenticeships Programme 2027
-Siemens|de|Degree Apprentice (Level 6)
-Unilever|de|Apprenticeship 2027; Engineering & Manufacturing Apprenticeship 2027
+Laing O'Rourke|cd|Degree Apprenticeships 2027; Professional Apprenticeship Programme 2027
+Leonardo|ed|Apprenticeships Programme 2027
+Siemens|ed|Degree Apprentice (Level 6)
+Unilever|ed|Apprenticeship 2027; Engineering & Manufacturing Apprenticeship 2027
 Vodafone|de|Network Engineering Apprentice Programme (Level 6) 2027
 Martin-Baker|e|Apprentice Scheme 2027
 Fluor|e|Engineering Degree Apprenticeship 2027
