@@ -8,7 +8,7 @@ function Tile({ f, hidden }: { f: MarqueeFirm; hidden?: boolean }) {
       href={`/employers/${f.slug}`}
       aria-hidden={hidden || undefined}
       tabIndex={hidden ? -1 : undefined}
-      className="mr-3 flex h-14 min-w-36 shrink-0 items-center justify-center gap-2.5 rounded-xl border border-line bg-white px-5 text-center transition hover:border-brand-500"
+      className="mr-8 flex h-12 shrink-0 items-center justify-center gap-2.5 text-center opacity-80 transition hover:opacity-100"
     >
       {f.logo && (
         // eslint-disable-next-line @next/next/no-img-element -- small static brand marks served from /public
