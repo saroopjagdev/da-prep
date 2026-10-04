@@ -93,8 +93,8 @@ export default async function SectorPage({ params }: { params: Promise<{ slug: s
             We haven&apos;t listed employers for this sector yet. Search on Find an Apprenticeship.
           </p>
         )}
-        <Link href="/employers" className="text-sm font-semibold text-brand-600">
-          See all employers →
+        <Link href="/opportunities" className="text-sm font-semibold text-brand-600">
+          See all opportunities →
         </Link>
       </section>
 

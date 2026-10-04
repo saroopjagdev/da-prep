@@ -24,6 +24,19 @@ See `docs/LAUNCH.md` (launch blockers and set-up steps). In short:
 5. **Lawyer review of `/privacy` and `/terms`**, ICO registration, and a short DPIA (users are under 18). Do not launch publicly without this.
 6. Revoke any Supabase access token used during setup.
 
+### 1b. Opportunities research backlog (started 4 Oct 2026)
+`/opportunities` lists 196 employers: 41 with a researched guide, and about 155 that are only **listed** (name and programme names in `lib/listings.ts`, status "Not confirmed"). The listed names come from public listings; they carry no dates, stages or providers on purpose.
+
+To research an employer and move it up:
+1. Find its own apprenticeship page (not a third-party summary). Read the dates and stages. If a page only describes last year's cycle, say so.
+2. Add an entry to `WINDOWS` in `lib/opportunities.ts`: `name` (as in listings.ts) or `slug`, `opens`/`closes` as ISO dates (or month, or a label), `confidence`, `checked` (today), and `source` (required when there is no profile). Never infer a date.
+3. For employers worth a full guide (stages, tests, reported questions), add `lib/firms/<slug>.ts` and register it in `lib/firms/index.ts`. The same `WINDOWS` entry then uses `slug`.
+4. `npm test` checks every entry has a source, valid dates and a check date.
+
+What we learned: large employers mostly advertise on their own sites (the government's Find an Apprenticeship search returned 0 results for Barclays), many publish no dates until they open (September to November), and search-engine summaries mix in previous cycles. Expect 2 to 4 page reads per employer. Re-check open rows every week or two in the application season.
+
+Do not copy another tracker's dates, stages or assessment providers. Those are their compiled research and cannot be traced to a source we can cite.
+
 ### 2. Content (the biggest quality lever)
 - **Wave 2 firms.** Ten were re-researched on 2 Oct 2026 (Aviva, Cisco, Google, JP Morgan, IBM, HSBC, BMW, Experian, Microsoft, Santander); see `docs/research/04-firm-processes-wave2.md`. The result was mostly corrections, because the official pages and candidate sites are blocked to plain fetches. The other 14 profiles (Airbus, Amazon, Arup, AtkinsRéalis, BDO, BT, Capgemini, Civil Service Fast Track (closed scheme), Goldman Sachs, Grant Thornton, JLR, Forvis Mazars, Metropolitan Police, NatWest) have not been re-verified. Method: official page first, record source and confidence, never invent.
 - **Reported past questions are thin.** Several firms have none (BMW, Cisco, Experian, Microsoft, Santander, Google). Glassdoor, TheStudentRoom and Reddit return 403 to plain fetches: use browser automation or a person with a browser. Only record a question if you have a real source URL; paraphrase, tag confidence.

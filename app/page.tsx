@@ -20,7 +20,7 @@ const resources = [
   { tag: "Tips", title: "Tips for tests, video interviews and assessment centres", href: "/tips" },
   { tag: "Planning", title: "A suggested timeline from Year 12 to your offer", href: "/timeline" },
   { tag: "Sectors", title: "One process, many sectors: what changes where", href: "/sectors" },
-  { tag: "Employers", title: "A starting list of employers that recruit", href: "/employers" },
+  { tag: "Opportunities", title: "Who is open, opening soon or closed, and your own list", href: "/opportunities" },
   { tag: "Finance", title: "Finance degree apprenticeships: who, when and myths checked", href: "/sectors/finance" },
   { tag: "FAQ", title: "Pay, fees, grades and what happens if you're rejected", href: "/faq" },
 ];
@@ -55,7 +55,7 @@ export default function Home() {
               Explore the toolkit
             </Link>
           </div>
-          <form action="/employers" method="get" role="search" className="flex max-w-lg gap-2">
+          <form action="/opportunities" method="get" role="search" className="flex max-w-lg gap-2">
             <input
               name="q"
               className="input w-full text-sm"
@@ -114,14 +114,14 @@ export default function Home() {
               Large employers often open in the autumn and close once they have enough applicants. Check each employer&apos;s dates,
               then rehearse their real process: tests, a recorded interview and an assessment centre.
             </p>
-            <Link href="/employers" className="btn btn-primary mt-2">
+            <Link href="/opportunities" className="btn btn-primary mt-2">
               Browse employers
               <Icon name="arrow" className="h-4 w-4" />
             </Link>
           </div>
           <ul className="grid gap-3 sm:grid-cols-2">
             {[
-              ["/calendar", "Application calendar", "When each employer opens and closes, across every sector"],
+              ["/opportunities", "Opportunities", "Who is open now, opening soon or closed"],
               ["/mock", "Firm mock processes", "Run an employer's stages in their real order"],
               ["/interview", "Firm-specific interviews", "Questions built around the employer and role"],
               ["/sectors/finance/myths", "Finance myths, checked", "Grades, fees, pay and AI rules"],
@@ -194,9 +194,9 @@ export default function Home() {
           fact="Saved on your device, sync optional"
           items={[
             {
-              href: "/tracker",
-              title: "Application tracker",
-              body: "Keep every employer, stage and closing date in one list, with warnings for deadlines coming up and a calendar export.",
+              href: "/opportunities",
+              title: "Opportunities and my list",
+              body: "See who is open, opening soon or closed, then track each application, stage and closing date, with warnings for deadlines coming up and a calendar export.",
             },
             {
               href: "/stories",
@@ -221,9 +221,9 @@ export default function Home() {
               body: "Most of the process is shared by every degree apprenticeship. See what changes for each sector, so you prepare for the right things.",
             },
             {
-              href: "/employers",
-              title: "Employers",
-              body: "A starting list of employers that have offered degree apprenticeships, filterable by sector, with links to their own pages.",
+              href: "/opportunities",
+              title: "Opportunities",
+              body: "Every employer we know of that runs degree apprenticeships, by sector and status, with a process guide where we have researched it.",
             },
             {
               href: "/timeline",

@@ -60,15 +60,26 @@ test("a bank mock process runs to its report", async ({ page }) => {
   await expect(page.getByText(/: report/)).toBeVisible();
 });
 
-test("the tracker adds a programme from a guide with its stages", async ({ page }) => {
-  await page.goto("/tracker");
+test("opportunities: track an employer, set my status, and it survives a reload", async ({ page }) => {
+  await page.goto("/opportunities");
   await clearRuns(page);
   await page.reload();
-  await page.getByLabel("Employer guide", { exact: true }).selectOption("ubs");
-  await page.getByRole("button", { name: "Add", exact: true }).first().click();
-  await expect(page.getByText(/Stages: 0 of \d+ done/)).toBeVisible();
+  await page.getByLabel("Search employers or programmes").fill("ubs");
+  const card = page.locator("main li").filter({ hasText: "UBS" }).first();
+  await card.getByRole("button", { name: "Track" }).click();
+  await card.getByLabel("My status for UBS").selectOption("Applied");
+  await card.getByText("My notes, dates and stages").click();
+  await expect(card.getByText(/Stages: 0 of \d+ done/)).toBeVisible();
   await page.reload();
-  await expect(page.locator("main li").filter({ hasText: "Stages:" }).filter({ hasText: "UBS" })).toBeVisible();
+  await page.getByRole("button", { name: /My list/ }).click();
+  await expect(page.locator("main li").filter({ hasText: "UBS" }).getByLabel("My status for UBS")).toHaveValue("Applied");
+});
+
+test("old tracker and employer list links go to opportunities", async ({ page }) => {
+  await page.goto("/tracker");
+  await expect(page).toHaveURL(/\/opportunities\?mine=1/);
+  await page.goto("/employers");
+  await expect(page).toHaveURL(/\/opportunities$/);
 });
 
 test("employer pages link to matching practice", async ({ page }) => {
@@ -93,7 +104,7 @@ test("unknown pages show a friendly 404", async ({ page }) => {
   await expect(page.getByRole("heading", { level: 1 })).toBeVisible();
 });
 
-const PAGES = ["/", "/calendar", "/sectors/finance", "/sectors/finance/calendar", "/sectors/finance/myths", "/employers", "/employers/ubs", "/interview", "/tests", "/mock", "/tracker", "/review", "/cv", "/pricing", "/privacy", "/terms", "/accessibility"];
+const PAGES = ["/", "/opportunities", "/sectors/finance", "/sectors/finance/calendar", "/sectors/finance/myths", "/employers/ubs", "/interview", "/tests", "/mock", "/tracker", "/review", "/cv", "/pricing", "/privacy", "/terms", "/accessibility"];
 
 for (const path of PAGES) {
   test(`no automatically detectable accessibility problems on ${path}`, async ({ page }) => {
@@ -105,14 +116,14 @@ for (const path of PAGES) {
   });
 }
 
-test("home search opens the employers list prefilled, with timing and a research date", async ({ page }) => {
+test("home search opens opportunities prefilled, with a status and a check date", async ({ page }) => {
   await page.goto("/");
   await page.getByRole("search").getByRole("textbox").fill("natwest");
   await page.getByRole("search").getByRole("button", { name: "Search" }).click();
-  await expect(page).toHaveURL(/\/employers\?q=natwest/);
-  await expect(page.getByLabel("Search employers")).toHaveValue("natwest");
+  await expect(page).toHaveURL(/\/opportunities\?q=natwest/);
+  await expect(page.getByLabel("Search employers or programmes")).toHaveValue("natwest");
   await expect(page.getByText("NatWest Group").first()).toBeVisible();
-  await expect(page.getByText(/researched 20\d\d-\d\d-\d\d/).first()).toBeVisible();
+  await expect(page.getByText(/(Checked|Researched) 20\d\d-\d\d-\d\d/).first()).toBeVisible();
 });
 
 test("related pages share tabs: tests and feedback", async ({ page }) => {

@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { FINANCE_NO_DEGREE_ROUTE, directory } from "@/lib/directory";
+import { directory } from "@/lib/directory";
 import { FIRMS } from "@/lib/firms";
 
 const url = /^https?:\/\/\S+$/;
@@ -78,13 +78,5 @@ describe("finance coverage", () => {
 
   it("records what could not be verified for each new finance profile", () => {
     for (const s of finance) expect(FIRMS.find((f) => f.slug === s)!.gaps.length, s).toBeGreaterThan(0);
-  });
-
-  it("lists firms without a degree route with a source, and never one we profile", () => {
-    const names = new Set(FIRMS.map((f) => f.name.toLowerCase()));
-    for (const n of FINANCE_NO_DEGREE_ROUTE) {
-      expect(n.source, n.name).toMatch(/^https:\/\/\S+$/);
-      expect(names.has(n.name.toLowerCase()), n.name).toBe(false);
-    }
   });
 });

@@ -15,10 +15,17 @@ export const NAV_GROUPS: NavGroup[] = [
     ],
   },
   {
-    label: "My applications",
-    href: "/tracker",
+    label: "Opportunities",
+    href: "/opportunities",
     links: [
-      { href: "/tracker", label: "Application tracker", blurb: "Employers, stages and closing dates" },
+      { href: "/opportunities", label: "All opportunities", blurb: "Who is open now, opening soon or closed, across every sector" },
+      { href: "/opportunities?mine=1", label: "My list", blurb: "Track where you have applied, your stage, notes and closing dates" },
+    ],
+  },
+  {
+    label: "My applications",
+    href: "/stories",
+    links: [
       { href: "/stories", label: "Stories bank", blurb: "Reusable STAR examples" },
       { href: "/progress", label: "Progress", blurb: "Scores, STAR coverage and past interviews" },
     ],
@@ -31,8 +38,6 @@ export const NAV_GROUPS: NavGroup[] = [
       { href: "/guide", label: "Process guide", blurb: "What happens at each stage" },
       { href: "/tips", label: "Tips", blurb: "Tests, video interviews and assessment centres" },
       { href: "/timeline", label: "Timeline", blurb: "When to do what" },
-      { href: "/calendar", label: "Application calendar", blurb: "When each employer opens and closes, across every sector" },
-      { href: "/employers", label: "Employers", blurb: "A starting list of who recruits" },
       { href: "/faq", label: "FAQ", blurb: "Common questions answered" },
     ],
   },
