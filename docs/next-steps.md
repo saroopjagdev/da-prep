@@ -99,3 +99,6 @@ Copy `.env.example` to `.env.local`. `MOCK_AI=1` serves canned AI output so ever
 
 ## Home banner logos
 The sliding employer banner on the home page (`components/FirmMarquee.tsx`, list in `app/page.tsx`) shows each employer's name as a wordmark. To show a logo instead, add `public/logos/<slug>.svg` (or `.png`), for example `public/logos/barclays.svg`. Only add logos you are licensed or otherwise permitted to use: they are the employers' trademarks, and the banner must not suggest the employer endorses Level6.
+
+### Logo sources
+The logos in `public/logos/` (Barclays, HSBC, Goldman Sachs, Deutsche Bank, Bank of America, Rolls-Royce, Airbus, Google, BT, Cisco, BMW) come from the Simple Icons set (CC0 for the artwork). The marks themselves are the employers' trademarks; the home banner carries a no-affiliation notice. Other employers (Lloyds, NatWest, Santander, UBS, Deloitte, PwC, KPMG, EY and others) are not in that set and show as names. To add one, drop a file named `<slug>.svg` or `.png` into `public/logos/` from a source you are permitted to use (for example the employer's own brand or press page).

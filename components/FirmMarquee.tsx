@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-export type MarqueeFirm = { slug: string; name: string; /** Path under /logos when a licensed logo file exists. */ logo?: string };
+export type MarqueeFirm = { slug: string; name: string; /** Path under /logos when a logo file exists. */ logo?: string };
 
 function Tile({ f, hidden }: { f: MarqueeFirm; hidden?: boolean }) {
   return (
@@ -8,14 +8,13 @@ function Tile({ f, hidden }: { f: MarqueeFirm; hidden?: boolean }) {
       href={`/employers/${f.slug}`}
       aria-hidden={hidden || undefined}
       tabIndex={hidden ? -1 : undefined}
-      className="mr-3 flex h-14 min-w-36 shrink-0 items-center justify-center rounded-xl border border-line bg-white px-5 text-center transition hover:border-brand-500"
+      className="mr-3 flex h-14 min-w-36 shrink-0 items-center justify-center gap-2.5 rounded-xl border border-line bg-white px-5 text-center transition hover:border-brand-500"
     >
-      {f.logo ? (
+      {f.logo && (
         // eslint-disable-next-line @next/next/no-img-element -- small static brand marks served from /public
-        <img src={f.logo} alt={f.name} className="max-h-8 w-auto max-w-32 object-contain" loading="lazy" />
-      ) : (
-        <span className="text-sm font-bold tracking-tight text-ink">{f.name}</span>
+        <img src={f.logo} alt="" className="h-6 w-6 shrink-0 object-contain opacity-80" width={24} height={24} />
       )}
+      <span className="text-sm font-bold tracking-tight text-ink">{f.name}</span>
     </Link>
   );
 }
@@ -35,6 +34,9 @@ export default function FirmMarquee({ firms }: { firms: MarqueeFirm[] }) {
           ))}
         </div>
       </div>
+      <p className="mt-3 text-center text-xs text-muted">
+        Names and logos belong to their owners. Level6 is independent and is not affiliated with or endorsed by any employer shown.
+      </p>
     </section>
   );
 }
