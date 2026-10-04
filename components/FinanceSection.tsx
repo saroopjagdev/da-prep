@@ -57,14 +57,6 @@ export default function FinanceSection() {
           <ul className="card px-4">{accountancy.map(row)}</ul>
         </section>
 
-        <p className="text-sm">
-          Some well-known names (such as BlackRock, BNP Paribas, Lazard and Nomura) don&apos;t run a UK degree-level
-          apprenticeship. See the{" "}
-          <Link href="/employers#no-degree" className="underline">
-            list of finance firms without a degree route
-          </Link>
-          .
-        </p>
     </section>
   );
 }
