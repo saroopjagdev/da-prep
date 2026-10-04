@@ -19,6 +19,7 @@ import {
   RR_PRESENTATION,
   SETTLEMENT_CASE,
 } from "./cases";
+import { autoMock } from "./auto";
 import type { MockProcess, MockStage, QaPrompt } from "./types";
 
 const firm = (slug: string) => {
@@ -834,5 +835,16 @@ export const MOCKS: MockProcess[] = [
   },
 ];
 
-export const getMock = (firmSlug: string) => MOCKS.find((m) => m.firm === firmSlug);
+// Profiles that stay reachable by URL but are not a current programme (see lib/directory.ts).
+const NO_AUTO_MOCK = new Set(["civil-service-fast-track"]);
+
+/** The hand-built mock processes first, then one generated from the profile's own stages for every other researched firm. */
+export const ALL_MOCKS: MockProcess[] = [
+  ...MOCKS,
+  ...FIRMS.filter((f) => !NO_AUTO_MOCK.has(f.slug) && !MOCKS.some((m) => m.firm === f.slug))
+    .map((f) => autoMock(f))
+    .filter((m): m is MockProcess => m !== null),
+];
+
+export const getMock = (firmSlug: string) => ALL_MOCKS.find((m) => m.firm === firmSlug);
 

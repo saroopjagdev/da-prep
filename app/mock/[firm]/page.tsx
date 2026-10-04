@@ -6,10 +6,10 @@ import { breadcrumbLd } from "@/lib/seo";
 import { getFirm } from "@/lib/firms";
 import { getTest } from "@/lib/assess/tests";
 import type { Test } from "@/lib/assess/types";
-import { MOCKS, getMock } from "@/lib/mockprocess/definitions";
+import { ALL_MOCKS, getMock } from "@/lib/mockprocess/definitions";
 import { pageMeta } from "@/lib/site";
 
-export const generateStaticParams = () => MOCKS.map((m) => ({ firm: m.firm }));
+export const generateStaticParams = () => ALL_MOCKS.map((m) => ({ firm: m.firm }));
 
 export async function generateMetadata({ params }: { params: Promise<{ firm: string }> }): Promise<Metadata> {
   const slug = (await params).firm;
