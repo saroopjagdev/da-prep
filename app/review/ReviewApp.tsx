@@ -4,7 +4,6 @@ import SignInNotice from "@/components/SignInNotice";
 import Link from "next/link";
 import { useState } from "react";
 import AreaTabs from "@/components/AreaTabs";
-import ConfidenceBadge from "@/components/ConfidenceBadge";
 import { postJson } from "@/lib/api";
 import { AI_RULES, COMMON_QUESTIONS, countWords, type AppQuestion } from "@/lib/application-questions";
 import { FIRM_GROUPS, type FirmOption } from "@/lib/firms/groups";
@@ -172,14 +171,6 @@ export default function ReviewApp({ firms }: { firms: ReviewFirm[] }) {
               <input className="input mt-2.5 font-normal" maxLength={500} value={ownQuestion} onChange={(e) => setOwnQuestion(e.target.value)} />
             </label>
           )}
-          {picked?.source && (
-            <p className="flex items-center gap-2 text-xs text-muted sm:col-span-2">
-              Reported question <ConfidenceBadge c={picked.confidence ?? "single-report"} />
-              <a className="underline" href={picked.source} target="_blank" rel="noreferrer">
-                source
-              </a>
-            </p>
-          )}
         </div>
       )}
 
@@ -210,10 +201,7 @@ export default function ReviewApp({ firms }: { firms: ReviewFirm[] }) {
                 <Link href={`/employers/${r.slug}`} className="font-semibold underline">
                   {r.firm}
                 </Link>
-                : {r.rule} <ConfidenceBadge c={r.confidence} />{" "}
-                <a className="text-xs underline" href={r.source} target="_blank" rel="noreferrer">
-                  source
-                </a>
+                : {r.rule}
               </li>
             ))}
           </ul>

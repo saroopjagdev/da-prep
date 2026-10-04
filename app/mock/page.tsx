@@ -34,7 +34,6 @@ export default function MockIndex() {
                 <Link href={`/mock/${m.firm}`} className="btn btn-primary">
                   Open
                 </Link>
-                {m.confidence !== "official" && <span className="chip text-xs">Lower confidence</span>}
               </div>
             </li>
           );

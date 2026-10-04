@@ -3,7 +3,6 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useAuth } from "@/components/AuthProvider";
-import ConfidenceBadge from "@/components/ConfidenceBadge";
 import { applicationsToIcs, hasDeadlines } from "@/lib/ics";
 import type { OpportunityRow, Status as OppStatus } from "@/lib/opportunities";
 import { STATUS_LABEL } from "@/lib/opportunities";
@@ -202,8 +201,8 @@ export default function OpportunitiesApp({ rows }: { rows: OpportunityRow[] }) {
               {r.status === "not-confirmed" && (
                 <p className="text-sm text-muted">
                   {r.slug
-                    ? "We have not confirmed this cycle's dates yet. The guide has the usual timing and its source."
-                    : "Dates not confirmed yet. We have not researched this employer, so check its own careers page."}
+                    ? "This cycle's dates are not confirmed yet. The guide has the usual timing."
+                    : "Dates not confirmed yet. Check the employer's own careers page."}
                 </p>
               )}
               {r.note && <p className="text-sm text-muted">{r.note}</p>}
@@ -238,13 +237,6 @@ export default function OpportunitiesApp({ rows }: { rows: OpportunityRow[] }) {
                     Find their careers page
                   </a>
                 )}
-                {r.confidence && <ConfidenceBadge c={r.confidence} />}
-                {r.source && (
-                  <a href={r.source} target="_blank" rel="noreferrer" className="text-xs underline">
-                    source
-                  </a>
-                )}
-                {(r.checked || r.verified) && <span className="text-xs text-muted">{r.checked ? `Checked ${r.checked}` : `Researched ${r.verified}`}</span>}
               </div>
 
               {a && (

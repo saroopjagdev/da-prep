@@ -550,12 +550,8 @@ export default function InterviewApp({
               <p className="text-sm text-muted">
                 {preset.note}{" "}
                 {preset.retakes > 0 ? `${preset.retakes} re-record${preset.retakes > 1 ? "s" : ""} per question.` : "No re-records on the marked questions."}{" "}
-                You start with an unmarked practice question you can repeat as often as you like.{" "}
-                <a href={preset.source} target="_blank" rel="noreferrer" className="underline">
-                  Source
-                </a>{" "}
-                ({preset.confidence === "official" ? "official" : preset.confidence === "single-report" ? "single report" : "candidate reports"}). Employers set
-                these themselves, so check your own invitation.
+                You start with an unmarked practice question you can repeat as often as you like. Employers set these
+                themselves, so check your own invitation.
               </p>
               <p className="label">Microphone check</p>
               <p className="text-sm text-muted">
