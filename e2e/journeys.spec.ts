@@ -196,6 +196,7 @@ test("the dashboard has no accessibility problems", async ({ page }) => {
   await signedIn(page);
   await page.goto("/");
   await expect(page.getByRole("heading", { level: 1, name: "Your dashboard" })).toBeVisible();
+  await page.waitForTimeout(800); // let the fade-in finish, or axe reads blended colours
   const result = await new AxeBuilder({ page }).analyze();
   expect(result.violations.map((v) => v.id)).toEqual([]);
   expect(await page.evaluate(() => document.documentElement.scrollWidth > window.innerWidth)).toBe(false);
