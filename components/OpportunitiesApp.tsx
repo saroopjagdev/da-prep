@@ -168,7 +168,7 @@ export default function OpportunitiesApp({ rows }: { rows: OpportunityRow[] }) {
         </p>
       )}
 
-      <div className="overflow-x-auto rounded-xl border border-line bg-white">
+      <div role="region" aria-label="Opportunities table" tabIndex={0} className="overflow-x-auto rounded-xl border border-line bg-white">
         <table className="w-full min-w-[34rem] text-left text-sm">
           <caption className="sr-only">Employers with your status, the application status, and opening and closing dates</caption>
           <thead className="bg-soft text-xs uppercase tracking-wide text-muted">
