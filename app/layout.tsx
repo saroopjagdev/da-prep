@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Analytics } from "@vercel/analytics/next";
 import AuthProvider from "@/components/AuthProvider";
 import BottomNav from "@/components/BottomNav";
 import Footer from "@/components/Footer";
@@ -54,6 +55,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           <Footer />
           <BottomNav />
         </AuthProvider>
+        <Analytics />
       </body>
     </html>
   );
