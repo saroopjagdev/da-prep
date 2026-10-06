@@ -156,15 +156,15 @@ export default function HomeDashboard({ open }: { open: OpenNow[] }) {
           {openList.length === 0 ? (
             <p className="text-muted">Nothing confirmed open yet. Opening soon are listed in Opportunities.</p>
           ) : (
-            <ul className="space-y-1.5">
+            <ul className="space-y-2">
               {openList.map((o) => (
-                <li key={o.slug} className="flex items-baseline justify-between gap-2">
+                <li key={o.slug}>
                   <Link href={`/employers/${o.slug}`} className="font-semibold hover:underline">
                     {o.name}
                   </Link>
-                  <span className="truncate text-xs text-muted" title={o.closes}>
+                  <p className="line-clamp-2 text-xs text-muted" title={o.closes}>
                     {o.closes}
-                  </span>
+                  </p>
                 </li>
               ))}
             </ul>
