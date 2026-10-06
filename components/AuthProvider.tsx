@@ -14,7 +14,14 @@ type AuthState = {
   enabled: boolean;
   ready: boolean;
   user: User | null;
+  /** True when the person arrived from a password-reset email and must now choose a new password. */
+  recovery: boolean;
   signInEmail: (email: string) => Promise<string | null>;
+  /** Create an account. `confirm` is true when Supabase wants the email address confirmed before signing in. */
+  signUpPassword: (email: string, password: string) => Promise<{ error: string | null; confirm: boolean }>;
+  signInPassword: (email: string, password: string) => Promise<string | null>;
+  resetPassword: (email: string) => Promise<string | null>;
+  updatePassword: (password: string) => Promise<string | null>;
   signInGoogle: () => Promise<string | null>;
   /** Sign in with the 8-digit code from the sign-in email. Returns an error message, or null on success. */
   verifyEmailCode: (email: string, code: string) => Promise<string | null>;
@@ -25,7 +32,12 @@ const Ctx = createContext<AuthState>({
   enabled: false,
   ready: true,
   user: null,
+  recovery: false,
   signInEmail: async () => "Accounts are not configured",
+  signUpPassword: async () => ({ error: "Accounts are not configured", confirm: false }),
+  signInPassword: async () => "Accounts are not configured",
+  resetPassword: async () => "Accounts are not configured",
+  updatePassword: async () => "Accounts are not configured",
   signInGoogle: async () => "Accounts are not configured",
   verifyEmailCode: async () => "Accounts are not configured",
   signOut: async () => {},
@@ -36,6 +48,7 @@ export const useAuth = () => useContext(Ctx);
 export default function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
   const [ready, setReady] = useState(!cloudEnabled);
+  const [recovery, setRecovery] = useState(false);
 
   useEffect(() => {
     const sb = supabase();
@@ -48,7 +61,10 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
       setUser(data.session?.user ?? null);
       setReady(true);
     });
-    const { data } = sb.auth.onAuthStateChange((_e, s) => setUser(s?.user ?? null));
+    const { data } = sb.auth.onAuthStateChange((e, s) => {
+      if (e === "PASSWORD_RECOVERY") setRecovery(true);
+      setUser(s?.user ?? null);
+    });
     return () => data.subscription.unsubscribe();
   }, []);
 
@@ -57,6 +73,35 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
       enabled: cloudEnabled,
       ready,
       user,
+      recovery,
+      async signUpPassword(email, password) {
+        const { data, error } = await supabase()!.auth.signUp({
+          email,
+          password,
+          options: { emailRedirectTo: window.location.origin },
+        });
+        if (error) return { error: error.message, confirm: false };
+        // An address that already has an account comes back without an error and without any identities.
+        if (data.user && data.user.identities?.length === 0) {
+          return { error: "That email already has an account. Sign in instead, or reset your password.", confirm: false };
+        }
+        if (data.session) track("signed_in");
+        return { error: null, confirm: !data.session };
+      },
+      async signInPassword(email, password) {
+        const { data, error } = await supabase()!.auth.signInWithPassword({ email, password });
+        if (!error && data.session) track("signed_in");
+        return error?.message ?? null;
+      },
+      async resetPassword(email) {
+        const { error } = await supabase()!.auth.resetPasswordForEmail(email, { redirectTo: `${window.location.origin}/login` });
+        return error?.message ?? null;
+      },
+      async updatePassword(password) {
+        const { error } = await supabase()!.auth.updateUser({ password });
+        if (!error) setRecovery(false);
+        return error?.message ?? null;
+      },
       async signInEmail(email) {
         const { error } = await supabase()!.auth.signInWithOtp({
           email,
@@ -80,7 +125,7 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
         await supabase()?.auth.signOut();
       },
     }),
-    [ready, user],
+    [ready, user, recovery],
   );
 
   return <Ctx.Provider value={value}>{children}</Ctx.Provider>;
