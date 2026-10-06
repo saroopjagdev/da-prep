@@ -1,6 +1,6 @@
 // Weekly watcher for the Opportunities list. Re-reads the employer's own careers pages we already cite, pulls out the
 // sentences that talk about opening, closing and deadlines, and reports what changed since last time. It does NOT edit
-// any dates: a person (or Claude) reads the flagged page and updates lib/opportunities.ts or lib/firms/*.ts.
+// any dates: a person reads the flagged page and updates lib/opportunities.ts or lib/firms/*.ts.
 //
 // Run: node scripts/watch-employers.mjs [--state path] [--report path] [--only text]
 // Writes the state file (default data/watch/state.json) and a markdown report (default data/watch/report.md).
