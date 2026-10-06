@@ -11,6 +11,7 @@ import { INDUCTIVE } from "@/lib/assess/banks/inductive";
 import { NUMERICAL } from "@/lib/assess/banks/numerical";
 import { NUMERICAL_TF } from "@/lib/assess/banks/numerical-tf";
 import { SJT } from "@/lib/assess/banks/sjt";
+import { SJT_HARD } from "@/lib/assess/banks/sjt-hard";
 import { SWITCH } from "@/lib/assess/banks/switch";
 import { TRAIT_BANK } from "@/lib/assess/banks/traits";
 import { VERBAL_TF, VERBAL_TF_STIMULI } from "@/lib/assess/banks/verbal-tf";
@@ -251,7 +252,7 @@ export const TESTS: Test[] = [
     approximate: true,
     formatNotes: [
       "Reported format: about 14 untimed workplace scenarios where you judge which responses are most and least effective (prep-site reports of NatWest's Work Scenarios assessment, run by SHL; NatWest's own page says about 20 to 25 minutes).",
-      "Each attempt serves 14 of our 24 scenarios, including banking ones.",
+      "Each attempt serves 14 of our 24 stretch scenarios. Every option is plausible and the key turns on a trade-off, as in the real assessment; the key follows published employer behaviours, not SHL's own (unpublished) scoring key.",
     ],
     sources: ["https://www.graduatesfirst.com/rbs-natwest-work-scenarios-assessment", "https://jobs.natwestgroup.com/pages/degree-apprenticeships"],
     sections: [
@@ -259,7 +260,7 @@ export const TESTS: Test[] = [
         id: "ws",
         title: "Work scenarios",
         instructions: "For each scenario, choose the MOST effective and the LEAST effective response. There is no time limit, but the real assessment takes about 20 to 25 minutes.",
-        items: SJT.mostLeast,
+        items: SJT_HARD.mostLeast,
         timing: { mode: "untimed" },
         allowBack: true,
         sample: { count: 14 },
@@ -268,7 +269,7 @@ export const TESTS: Test[] = [
   },
   {
     id: "sjt-most-least",
-    name: "Situational judgement: most and least effective",
+    name: "Situational judgement: most and least effective (foundation)",
     replicates: "SHL-style situational judgement test",
     kind: "ability",
     confidence: "multiple-candidate-reports",
@@ -292,7 +293,7 @@ export const TESTS: Test[] = [
   },
   {
     id: "sjt-rate-each",
-    name: "Situational judgement: rate every action (Civil Service style)",
+    name: "Situational judgement: rate every action (Civil Service style, foundation)",
     replicates: "Civil Service Judgement Test, part 2",
     kind: "ability",
     confidence: "official",
@@ -316,7 +317,7 @@ export const TESTS: Test[] = [
   },
   {
     id: "sjt-ranking",
-    name: "Situational judgement: ranking responses",
+    name: "Situational judgement: ranking responses (foundation)",
     replicates: "Ranking-style situational judgement items",
     kind: "ability",
     confidence: "multiple-candidate-reports",
@@ -335,6 +336,78 @@ export const TESTS: Test[] = [
         timing: { mode: "untimed" },
         allowBack: true,
         sample: { count: 4 },
+      }),
+    ],
+  },
+  {
+    id: "sjt-most-least-stretch",
+    name: "Situational judgement: most and least effective (stretch)",
+    replicates: "SHL-style situational judgement test, at employer difficulty",
+    kind: "ability",
+    confidence: "multiple-candidate-reports",
+    approximate: true,
+    formatNotes: [
+      "Same format as the foundation test, but every option is something a sensible person might do and the best answer is settled by a trade-off (speed against process, honesty against loyalty, helpfulness against authority). Prep sites describe real tests the same way: plausible options, and the marks sit in telling a good response from a nearly-good one.",
+      "The key follows published employer behaviours (ownership, honesty, telling the right person early, safety, confidentiality, staying within your authority). Real tests are scored against each employer's own expert key, which is not public, so a high score here does not guarantee the same on the real thing. Serves 12 scenarios from 24, across finance, audit, engineering, tech, construction and public service.",
+    ],
+    sources: [PAT_SJT],
+    sections: [
+      section({
+        id: "mls",
+        title: "Most and least effective",
+        instructions: "For each scenario, choose the response you think is the MOST effective and the one you think is the LEAST effective. Several responses will look reasonable: pick the one that best fits the behaviours employers look for.",
+        items: SJT_HARD.mostLeast,
+        timing: { mode: "untimed" },
+        allowBack: true,
+        sample: { count: 12 },
+      }),
+    ],
+  },
+  {
+    id: "sjt-rate-each-stretch",
+    name: "Situational judgement: rate every action (Civil Service style, stretch)",
+    replicates: "Civil Service Judgement Test, part 2, at employer difficulty",
+    kind: "ability",
+    confidence: "official",
+    approximate: true,
+    formatNotes: [
+      "Official format: each scenario has 4 actions and you rate each as Counterproductive, Ineffective, Fairly effective or Effective, independently of the others (Civil Service guidance).",
+      "Here the actions are close together in quality, so you have to separate a good response from a nearly-good one. Serves 8 scenarios from 12. The Civil Service does not publish its keys or pass marks (scores are reported against a representative group), so treat the percentage as practice only. The real test's self-assessment part is not included.",
+    ],
+    sources: [CS_SJT],
+    sections: [
+      section({
+        id: "res",
+        title: "Rate each action",
+        instructions: "For each scenario, rate how effective each action would be. You can rate several actions the same way.",
+        items: SJT_HARD.rateEach,
+        timing: { mode: "untimed" },
+        allowBack: true,
+        sample: { count: 8 },
+      }),
+    ],
+  },
+  {
+    id: "sjt-ranking-stretch",
+    name: "Situational judgement: ranking responses (stretch)",
+    replicates: "Ranking-style situational judgement items, at employer difficulty",
+    kind: "ability",
+    confidence: "multiple-candidate-reports",
+    approximate: true,
+    formatNotes: [
+      "Rank four responses from most to least effective. In real ranking items the marks sit in the middle positions, so the options here are all defensible and the order depends on how each one compares with the others.",
+      "Scored as the fraction of pairs in the right order. Untimed; serves 6 scenarios from 10.",
+    ],
+    sources: ["https://www.deloitte.com/uk/en/careers/early-careers/early-careers-assessment.html"],
+    sections: [
+      section({
+        id: "rks",
+        title: "Rank the responses",
+        instructions: "Put the options in order, best first. Use the arrows to move an option up or down.",
+        items: SJT_HARD.rank,
+        timing: { mode: "untimed" },
+        allowBack: true,
+        sample: { count: 6 },
       }),
     ],
   },
