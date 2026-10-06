@@ -1,6 +1,7 @@
 "use client";
 
 import SignInNotice from "@/components/SignInNotice";
+import RequireAccount from "@/components/RequireAccount";
 import Link from "next/link";
 import { useState } from "react";
 import AreaTabs from "@/components/AreaTabs";
@@ -25,7 +26,7 @@ type ReviewFirm = FirmOption & { questions: AppQuestion[] };
 
 const OWN = "__own__";
 
-export default function ReviewApp({ firms }: { firms: ReviewFirm[] }) {
+function ReviewInner({ firms }: { firms: ReviewFirm[] }) {
   const [kind, setKind] = useState<"statement" | "answer" | "cover">("statement");
   const [text, setText] = useState("");
   const [jobAd, setJobAd] = useState("");
@@ -270,5 +271,13 @@ export default function ReviewApp({ firms }: { firms: ReviewFirm[] }) {
         </div>
       )}
     </div>
+  );
+}
+
+export default function ReviewApp(props: React.ComponentProps<typeof ReviewInner>) {
+  return (
+    <RequireAccount what="get written feedback">
+      <ReviewInner {...props} />
+    </RequireAccount>
   );
 }

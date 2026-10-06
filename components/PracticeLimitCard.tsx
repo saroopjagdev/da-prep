@@ -5,7 +5,7 @@ export default function PracticeLimitCard({ limit }: { limit: number }) {
   return (
     <section className="card mx-auto max-w-xl space-y-3 p-6 text-center" aria-label="Free practice used">
       <h2 className="text-xl font-bold tracking-tight">You have used your {limit} free practice tests this week</h2>
-      <p className="text-sm text-muted">They reset on Monday. Pro gives unlimited practice tests, AI mock interviews and firm mock processes.</p>
+      <p className="text-sm text-muted">They reset on Monday. Pro gives unlimited practice tests, AI mock interviews marked out of 100 and every firm mock process.</p>
       <div className="flex flex-wrap justify-center gap-3">
         <Link href="/pricing" className="btn btn-primary">
           See Pro

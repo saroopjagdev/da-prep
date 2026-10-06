@@ -1,4 +1,4 @@
-import { FREE_INTERVIEWS, FREE_REVIEWS } from "@/lib/plans";
+import { FREE_INTERVIEWS, FREE_PRACTICE_PER_WEEK, FREE_REVIEWS } from "@/lib/plans";
 import { admin, userFromRequest } from "@/lib/server/auth";
 import { limitsEnforced } from "@/lib/server/guard";
 import { isoWeek } from "@/lib/server/usage";
@@ -16,7 +16,7 @@ export async function GET(req: Request) {
   const [{ data: profile }, { data: month }, { data: week }] = await Promise.all([
     a.from("profiles").select("plan").eq("id", user.id).maybeSingle(),
     a.from("usage").select("interviews").eq("user_id", user.id).eq("period", new Date().toISOString().slice(0, 7)).maybeSingle(),
-    a.from("usage").select("reviews").eq("user_id", user.id).eq("period", isoWeek()).maybeSingle(),
+    a.from("usage").select("reviews, practice").eq("user_id", user.id).eq("period", isoWeek()).maybeSingle(),
   ]);
   if (profile?.plan === "pro") return Response.json({ plan: "pro", enforced: true });
   return Response.json({
@@ -24,5 +24,6 @@ export async function GET(req: Request) {
     enforced: true,
     interviews: { used: month?.interviews ?? 0, limit: FREE_INTERVIEWS },
     reviews: { used: week?.reviews ?? 0, limit: FREE_REVIEWS },
+    practice: { used: week?.practice ?? 0, limit: FREE_PRACTICE_PER_WEEK },
   });
 }

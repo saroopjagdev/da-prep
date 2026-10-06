@@ -26,8 +26,7 @@ export default function Privacy() {
           The short version
         </h2>
         <ul className="list-disc space-y-1 pl-5">
-          <li>You don&apos;t need an account. Without one, everything you save stays on your device and we never see it.</li>
-          <li>If you make an account (16 and over), we keep your email and your saved work so it syncs. You can delete it all yourself, any time.</li>
+          <li>You can browse the employer list, guides and pricing without an account, and we never see what you browse. The practice tests, tracker and AI tools need a free account (16 and over), where we keep your email and your saved work so it syncs. You can delete it all yourself, any time.</li>
           <li>What you type or say into the AI tools is sent to OpenAI to make questions and feedback. We don&apos;t keep it. Please leave out names, phone numbers and addresses.</li>
           <li>No adverts and no tracking. We keep anonymous daily totals, such as how many people visited the home page or signed up, and use Vercel&apos;s privacy-friendly page-view counts (no cookies, no advertising, nothing that identifies you or follows you across sites). We never share your data with employers.</li>
           <li>The feedback is written by AI, so it can be wrong. You decide what to use.</li>
@@ -56,12 +55,11 @@ export default function Privacy() {
       <h2 className="text-base font-semibold">What we store, and why</h2>
       <ul className="list-disc space-y-1 pl-5">
         <li>
-          <strong>In your browser only (no account):</strong> your tracker, stories, practice scores and interview
-          history. We never receive this.
+          <strong>In your browser only (no account):</strong> small settings such as your chosen sector and filters, and anything you saved before accounts were required. We never receive this.
         </li>
         <li>
-          <strong>If you create an account:</strong> your email address, and the same tracker, stories, practice and
-          interview data so it syncs between devices. We use this to provide the service you asked for (contract).
+          <strong>If you create an account:</strong> your email address, and your tracker, stories, practice scores and
+          interview data so it syncs between devices, plus a count of your practice tests, interviews and reviews each week so the free limits can apply. We use this to provide the service you asked for (contract).
         </li>
         <li>
           <strong>If you buy Pro:</strong> a Stripe customer ID and your plan. When you pay we also record, with the payment, that you confirmed the payer is 18 or over, that you

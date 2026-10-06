@@ -130,7 +130,7 @@ export default function HomeDashboard({ open }: { open: OpenNow[] }) {
           ) : (
             <>
               <p>
-                <strong>{cap.left}</strong> of {cap.limit} free practice tests left this week
+                <strong>{cap.known ? cap.left : cap.limit}</strong> of {cap.limit} free practice tests left this week
               </p>
               {usage.reviews && (
                 <p>

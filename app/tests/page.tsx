@@ -1,3 +1,4 @@
+import AccountNote from "@/components/AccountNote";
 import AreaTabs from "@/components/AreaTabs";
 import { servedCount } from "@/lib/assess/sample";
 import type { Metadata } from "next";
@@ -29,6 +30,7 @@ export default function Tests() {
           a detail, we say so on the test.
         </p>
       </div>
+      <AccountNote>Taking a test needs a free account: you get 2 practice tests a week, and Pro is unlimited.</AccountNote>
       <ul className="grid gap-4 sm:grid-cols-2">
         {TESTS.map((t) => (
           <li key={t.id} className="card flex flex-col gap-2 p-5">

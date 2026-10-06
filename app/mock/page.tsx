@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import AccountNote from "@/components/AccountNote";
 import { FIRMS } from "@/lib/firms";
 import { ALL_MOCKS } from "@/lib/mockprocess/definitions";
 
@@ -19,6 +20,7 @@ export default function MockIndex() {
           verify a stage, we say so.
         </p>
       </div>
+      <AccountNote>Mock processes need a free account, and the marked interview stages are part of Pro (£9.99 a month).</AccountNote>
       <ul className="grid gap-4 sm:grid-cols-2">
         {ALL_MOCKS.map((m) => {
           const firm = FIRMS.find((f) => f.slug === m.firm)!;

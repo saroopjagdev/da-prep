@@ -7,6 +7,7 @@ import ScoreRing from "@/components/ScoreRing";
 import { useSector } from "@/lib/prefs";
 import SaveScorePrompt from "@/components/SaveScorePrompt";
 import PracticeLimitCard from "@/components/PracticeLimitCard";
+import RequireAccount from "@/components/RequireAccount";
 import { usePracticeAllowance } from "@/components/usePracticeAllowance";
 import { track } from "@/lib/funnel";
 import { CATEGORY_INFO, questionsFor, type Category, type Question } from "@/lib/questions";
@@ -25,7 +26,7 @@ function shuffle<T>(a: T[]) {
   return b;
 }
 
-export default function Practice() {
+function PracticeInner() {
   const results = useCollection<PracticeRecord>("practice");
   const allow = usePracticeAllowance();
   const { sector } = useSector();
@@ -43,8 +44,13 @@ export default function Practice() {
   const q = qs[i];
   const total = qs.length;
 
-  function begin(c: Category) {
+  const [beginError, setBeginError] = useState<string | null>(null);
+
+  async function begin(c: Category) {
     if (allow.blocked) return;
+    setBeginError(null);
+    const r = await allow.begin();
+    if (!r.ok) return setBeginError(r.message);
     setCategory(c);
     setQs(shuffle(questionsFor(c)));
     setI(0);
@@ -60,7 +66,6 @@ export default function Practice() {
     if (picked === null) setLog((l) => [...l, { q, picked: null }]);
     if (i + 1 >= total) {
       setDone(true);
-      allow.record();
       if (results.items.length === 0) track("first_practice");
       results.update((p) => [
         { id: crypto.randomUUID(), date: new Date().toISOString(), category: category!, score: finalScore, total },
@@ -106,7 +111,12 @@ export default function Practice() {
           </p>
         </div>
         {allow.blocked && <PracticeLimitCard limit={allow.limit} />}
-        {allow.loaded && !allow.unlimited && !allow.blocked && (
+        {beginError && (
+          <p role="alert" className="callout bg-coral-50 text-sm">
+            {beginError}
+          </p>
+        )}
+        {allow.known && !allow.unlimited && !allow.blocked && (
           <p className="text-sm text-muted">
             {allow.left} of {allow.limit} free practice tests left this week. Pro is unlimited.
           </p>
@@ -265,5 +275,13 @@ export default function Practice() {
         </div>
       )}
     </div>
+  );
+}
+
+export default function Practice() {
+  return (
+    <RequireAccount what="take practice tests">
+      <PracticeInner />
+    </RequireAccount>
   );
 }

@@ -2,6 +2,7 @@
 
 import ProInterviewNotice from "@/components/ProInterviewNotice";
 import SignInNotice from "@/components/SignInNotice";
+import RequireAccount from "@/components/RequireAccount";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import CameraPreview from "@/components/CameraPreview";
@@ -34,7 +35,7 @@ type VState = "idle" | "thinking" | "starting" | "recording" | "transcribing" | 
 // Not marked and never sent anywhere: the recording is played back in the browser only.
 const PRACTICE_QUESTION = "Practice question: tell us about something you enjoy doing outside school, and why.";
 
-export default function InterviewApp({
+function InterviewInner({
   firms,
   initialFirm,
   initialMode = "text",
@@ -1038,5 +1039,13 @@ export default function InterviewApp({
         </>
       )}
     </div>
+  );
+}
+
+export default function InterviewApp(props: React.ComponentProps<typeof InterviewInner>) {
+  return (
+    <RequireAccount what="practise a mock interview">
+      <InterviewInner {...props} />
+    </RequireAccount>
   );
 }

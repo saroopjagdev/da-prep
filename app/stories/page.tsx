@@ -1,5 +1,6 @@
 "use client";
 
+import RequireAccount from "@/components/RequireAccount";
 import { useState } from "react";
 import { postJson } from "@/lib/api";
 import { useCollection } from "@/lib/store";
@@ -8,7 +9,7 @@ import { COMPETENCIES, type Story } from "@/lib/types";
 type Draft = Omit<Story, "id">;
 const EMPTY: Draft = { title: "", competencies: [], situation: "", task: "", action: "", result: "" };
 
-export default function Stories() {
+function StoriesInner() {
   const { items: stories, loaded, update } = useCollection<Story>("stories");
   const [draft, setDraft] = useState<Draft>(EMPTY);
   const [notes, setNotes] = useState("");
@@ -160,5 +161,13 @@ export default function Stories() {
         ))}
       </section>
     </div>
+  );
+}
+
+export default function Stories() {
+  return (
+    <RequireAccount what="build your stories bank">
+      <StoriesInner />
+    </RequireAccount>
   );
 }

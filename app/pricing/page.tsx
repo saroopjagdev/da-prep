@@ -8,9 +8,10 @@ import { CONTACT, FREE_PRACTICE_PER_WEEK, FREE_REVIEWS, OPERATOR, PRO_PLAN } fro
 import { supabase } from "@/lib/supabase";
 
 const FREE = [
-  `${FREE_REVIEWS} written feedback reviews a week (CV, cover letter, statement or answer)`,
   `${FREE_PRACTICE_PER_WEEK} practice tests a week`,
-  "Opportunities list, tracker and employer guides",
+  `${FREE_REVIEWS} written feedback reviews a week (CV, cover letter, statement or answer)`,
+  "Your own tracker, saved and synced",
+  "Your scores and progress, kept for you",
 ];
 const PRO = [
   "Unlimited practice tests",
@@ -81,8 +82,9 @@ export default function Pricing() {
 
       <div className="grid gap-4 sm:grid-cols-2">
         <section className="card space-y-2 p-4">
-          <h2 className="font-semibold">Free</h2>
+          <h2 className="font-semibold">Free account</h2>
           <p className="text-2xl font-bold">£0</p>
+          <p className="text-sm text-muted">Needs an email address, no card. The Opportunities list and employer guides need no account.</p>
           <ul className="list-disc pl-5 text-sm">
             {FREE.map((f) => (
               <li key={f}>{f}</li>
