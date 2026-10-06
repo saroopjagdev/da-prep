@@ -110,3 +110,9 @@ Banner logos and where they came from: see `docs/logo-sources.md`.
    `<h2>Your Level6 sign-in</h2><p>Your code: <strong>{{ .Token }}</strong></p><p>Or <a href="{{ .ConfirmationURL }}">sign in with this link</a>.</p>`
 2. Set `NEXT_PUBLIC_EMAIL_CODE=true` in Vercel (Production) and redeploy.
 The code length is 8 and it lasts an hour (Supabase Authentication settings).
+
+## Keeping Opportunities up to date
+
+- `scripts/watch-employers.mjs` re-reads the employer pages we cite (about 160, one request a second, honours robots.txt, skips sites that block us) and reports which ones changed their opening or closing wording. The `watch-employers` workflow runs it every Monday (and on demand from the Actions tab), keeps its snapshot on a `watch-data` branch, and opens a GitHub issue listing changes. Nothing is edited automatically: read each flagged page, then update `lib/opportunities.ts` or `lib/firms/*.ts` with the source and check date.
+- Pages that return 403 or 500 (several large banks and PwC) cannot be watched this way; check those by hand each month.
+- Finding programmes we do not list yet: the government's Find an Apprenticeship service has an official vacancies API (request a key through the Apprenticeship service developer portal). A weekly job on it would list employers advertising degree apprenticeships that are missing from `lib/listings.ts`. Needs a key from the account owner.
