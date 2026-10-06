@@ -19,7 +19,6 @@ export const NAV_GROUPS: NavGroup[] = [
     href: "/opportunities",
     links: [
       { href: "/opportunities", label: "Opportunities tracker", blurb: "Who is open now, opening soon or closed, across every sector" },
-      { href: "/opportunities?guides=1", label: "Firm guides", blurb: "Process, tests and interview for each employer we have researched" },
       { href: "/opportunities?mine=1", label: "My tracker", blurb: "Track where you have applied, your stage, notes and closing dates" },
     ],
   },
