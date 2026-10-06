@@ -11,6 +11,7 @@ import Runner from "@/components/assess/Runner";
 import StimulusView from "@/components/assess/StimulusView";
 import { describeKey, describeResponse } from "@/lib/assess/describe";
 import { percent, scoreItem, traitProfile } from "@/lib/assess/score";
+import { recordFor } from "@/lib/progress";
 import type { Test, TestResult } from "@/lib/assess/types";
 import { useCollection } from "@/lib/store";
 import type { PracticeRecord } from "@/lib/types";
@@ -161,10 +162,7 @@ function Player({ test }: { test: Test }) {
     setResult(r);
     if (test.kind === "ability") {
       if (practice.items.length === 0) track("first_practice");
-      practice.update((p) => [
-        { id: crypto.randomUUID(), date: r.finishedAt, category: test.name, score: Math.round(r.points * 10) / 10, total: r.max },
-        ...p,
-      ]);
+      practice.update((p) => [recordFor(test, r), ...p]);
     }
   }
 

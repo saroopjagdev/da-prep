@@ -265,3 +265,63 @@ test("without an account the opportunities list is view-only", async ({ page }) 
   await expect(page.getByRole("link", { name: "Sign up to track" }).first()).toBeVisible();
   await expect(page.getByRole("button", { name: /My list/ })).toHaveCount(0);
 });
+
+const seedPractice = (page: Page) =>
+  page.addInitScript(() => {
+    const d = (n: number) => new Date(Date.now() - n * 864e5).toISOString();
+    localStorage.setItem(
+      "da-prep:practice",
+      JSON.stringify([
+        { id: "p3", date: d(1), category: "Numerical reasoning (SHL Verify Interactive style)", testId: "shl-numerical", score: 8, total: 10, seconds: 600 },
+        { id: "p2", date: d(3), category: "Numerical reasoning (SHL Verify Interactive style)", testId: "shl-numerical", score: 6, total: 10, seconds: 700 },
+        { id: "p1", date: d(6), category: "Numerical reasoning (SHL Verify Interactive style)", testId: "shl-numerical", score: 4, total: 10, seconds: 800 },
+        { id: "v1", date: d(2), category: "Verbal reasoning (Cappfinity)", testId: "capp-verbal", score: 5, total: 12, seconds: 900 },
+        { id: "old", date: d(5), category: "sjt", score: 3, total: 5 },
+      ]),
+    );
+  });
+
+test("progress shows each practice test over time, by skill, and what to practise next", async ({ page }) => {
+  await signedIn(page);
+  await seedPractice(page);
+  await page.goto("/progress");
+  await expect(page.getByRole("heading", { name: "Practice tests" })).toBeVisible();
+  await expect(page.getByText("Tests taken").locator("..").getByText("5", { exact: true })).toBeVisible();
+  // Weakest skill first, and it is what to practise next.
+  await expect(page.getByText("Practise next").locator("..").getByText("Verbal reasoning")).toBeVisible();
+  await expect(page.getByRole("img", { name: /scores over time: 3 attempts, from 40% .* to 80%/ })).toBeVisible();
+  await expect(page.getByText("Up 40 points since your first attempt.")).toBeVisible();
+  await page.getByText("All attempts").first().click();
+  await expect(page.getByText("8/10 (80%)").first()).toBeVisible();
+  // An older result saved before tests were tracked by id still shows, as a quick quiz.
+  await expect(page.getByRole("heading", { name: "Quick quiz: Situational judgement" })).toBeVisible();
+});
+
+test("the progress page has no accessibility problems with history", async ({ page }) => {
+  await signedIn(page);
+  await seedPractice(page);
+  await page.goto("/progress");
+  await expect(page.getByRole("heading", { name: "Practice tests" })).toBeVisible();
+  await page.waitForTimeout(800);
+  const result = await new AxeBuilder({ page }).analyze();
+  expect(result.violations.map((v) => v.id)).toEqual([]);
+  expect(await page.evaluate(() => document.documentElement.scrollWidth > window.innerWidth)).toBe(false);
+});
+
+test("finishing a practice test adds it to progress", async ({ page }) => {
+  await signedIn(page);
+  await page.goto("/tests/capp-critical");
+  await page.evaluate(() => localStorage.clear());
+  await page.reload();
+  await page.getByRole("button", { name: /^start/i }).first().click();
+  await expect(page.getByRole("heading", { name: /question \d+ of/ })).toBeVisible();
+  for (let i = 0; i < 20; i++) {
+    if (!(await page.getByRole("heading", { name: /question \d+ of/ }).count())) break;
+    await page.locator("main input[type=radio]").first().click();
+    await page.getByRole("button", { name: /^(next|finish|submit)/i }).last().click();
+  }
+  await expect(page.getByText(/% correct/)).toBeVisible();
+  await page.goto("/progress");
+  await expect(page.getByRole("heading", { name: "Practice tests" })).toBeVisible();
+  await expect(page.getByText("1 attempt").first()).toBeVisible();
+});
