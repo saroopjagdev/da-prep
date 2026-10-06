@@ -180,7 +180,7 @@ export default function OpportunitiesApp({ rows }: { rows: OpportunityRow[] }) {
         </button>
         )}
         <button onClick={() => setOnlyGuides((v) => !v)} aria-pressed={onlyGuides} className={`chip ${onlyGuides ? "chip-active" : ""}`}>
-          With a guide ({rows.filter((r) => r.slug).length})
+          Employer guides ({rows.filter((r) => r.slug).length})
         </button>
         {hasDeadlines(apps) && (
           <button onClick={downloadCalendar} className="chip">

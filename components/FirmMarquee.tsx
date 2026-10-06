@@ -35,6 +35,11 @@ export default function FirmMarquee({ firms }: { firms: MarqueeFirm[] }) {
           ))}
         </div>
       </div>
+      <p className="mt-3 text-center text-sm">
+        <Link href="/opportunities?guides=1" className="font-semibold underline underline-offset-2">
+          See all {firms.length} employer guides
+        </Link>
+      </p>
     </section>
   );
 }

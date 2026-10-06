@@ -161,7 +161,7 @@ test("opportunities are grouped by sector, and the guides link shows only resear
   await page.getByLabel("Filter by sector").selectOption({ label: "Engineering" });
   await expect(page.locator("tbody th[scope='colgroup']").first()).toContainText("Engineering");
   await page.goto("/opportunities?guides=1");
-  await expect(page.getByRole("button", { name: /With a guide/ })).toHaveAttribute("aria-pressed", "true");
+  await expect(page.getByRole("button", { name: /Employer guides/ })).toHaveAttribute("aria-pressed", "true");
   // Every row has a Guide link when only researched employers are shown.
   const rows = page.locator("tbody tr").filter({ has: page.getByLabel(/My status for/) });
   const total = await rows.count();
