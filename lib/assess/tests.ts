@@ -6,6 +6,7 @@ import { CAPP_NUMERICAL } from "@/lib/assess/banks/capp-numerical";
 import { CAPP_CRITICAL, CAPP_CRITICAL_STIMULI, CAPP_VERBAL, CAPP_VERBAL_STIMULI } from "@/lib/assess/banks/capp-verbal";
 import { DEDUCTIVE } from "@/lib/assess/banks/deductive";
 import { AUDIT_SIM, BANKING_SIM } from "@/lib/assess/banks/job-sim";
+import { HSBC_SIMULATE } from "@/lib/assess/banks/hsbc-simulate";
 import { INDUCTIVE } from "@/lib/assess/banks/inductive";
 import { NUMERICAL } from "@/lib/assess/banks/numerical";
 import { NUMERICAL_TF } from "@/lib/assess/banks/numerical-tf";
@@ -432,6 +433,34 @@ export const TESTS: Test[] = [
         calculator: true,
       }),
     ],
+  },
+  {
+    id: "hsbc-simulate",
+    name: "HSBC Simulate-style assessment: five tiles in a working day",
+    replicates: "HSBC Simulate immersive assessment (built by Cappfinity), banking and Wealth routes",
+    kind: "ability",
+    mixedWorkStyle: true,
+    confidence: "single-report",
+    approximate: true,
+    formatNotes: [
+      "Reported structure (prep-site reports, not HSBC): five tiles done in order, Project Kick-Off, Global Engagement, Data Monitoring, Navigating Competing Commitments and Pause and Reflect, with about 38 questions in total.",
+      "Reported question counts by tile: 4, 4, 10, 9 and 11. About 16 questions in all are cognitive (data interpretation, verbal, inductive) and about 22 are situational judgement or work-style. How these split across tiles 3 and 4 is not published, so that split is our estimate.",
+      "Reported response styles: tables, graphs and text for the cognitive questions, and ranking or rating several actions for the judgement questions. The final tile also includes work-style statements with no right answer.",
+      "HSBC does not say the simulation is timed. Here your time is recorded, you cannot go back, and a calculator is offered on the two data tiles only.",
+      "The real simulation also includes video, audio and voicemail clips, which this replica does not. Every scenario, figure and statement here is original and the company and people are invented.",
+    ],
+    sources: [GF_HSBC_SIM, "https://www.jobtestprep.co.uk/hsbc-online-immersive-assessment"],
+    sections: HSBC_SIMULATE.map((t) =>
+      section({
+        id: t.id,
+        title: t.title,
+        instructions: t.instructions,
+        items: t.tile.items,
+        stimuli: t.tile.stimuli,
+        timing: { mode: "recorded" },
+        calculator: t.calculator,
+      }),
+    ),
   },
   {
     id: "job-sim-audit",

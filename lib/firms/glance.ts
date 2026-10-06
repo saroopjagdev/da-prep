@@ -67,6 +67,7 @@ export function practiceLinks(f: FirmProfile): PracticeLink[] {
   const text = [f.oa?.provider, f.oa?.styleNotes, ...(f.oa?.tests.map((t) => `${t.name} ${t.format}`) ?? []), ...f.stages.map((s) => `${s.name} ${s.provider ?? ""} ${s.format}`)].join(" ");
   const ids: string[] = [];
   // Firms reported to use an immersive job simulation get the matching day-in-the-job replica first.
+  if (f.slug === "hsbc") ids.push("hsbc-simulate");
   if (/job simulation|simulate|immersive/i.test(text)) ids.push(/professional services/i.test(f.sector) ? "job-sim-audit" : "job-sim-banking");
   for (const [re, tests] of TEST_RULES) if (re.test(text)) for (const t of tests) if (!ids.includes(t)) ids.push(t);
   const links: PracticeLink[] = [];

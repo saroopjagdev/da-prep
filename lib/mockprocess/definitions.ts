@@ -769,8 +769,7 @@ export const MOCKS: MockProcess[] = [
       APPLICATION(1, "About 10 to 15 minutes: eligibility questions and possibly a CV. Applicants report one application per cycle.", [
         "Pick your division deliberately: Commercial Banking, Wealth or Digital.",
       ]),
-      { kind: "test", name: "Simulate: a day in the job", testId: "job-sim-banking", stageOrder: 2, note: "HSBC's Simulate assessment (built with Cappfinity) is a fictional working day with emails, data and ranked responses. This replica uses an original commercial-banking inbox; the real one also uses videos." },
-      { kind: "test", name: "Simulate: data interpretation", testId: "capp-numerical", stageOrder: 2, note: "Prep sites describe data-monitoring tasks with tables and graphs in HSBC's Cappfinity simulation; this uses a Cappfinity-style, time-recorded replica." },
+      { kind: "test", name: "Simulate: the five tiles", testId: "hsbc-simulate", stageOrder: 2, note: "Candidates report HSBC's Simulate as five tiles done in order (Project Kick-Off, Global Engagement, Data Monitoring, Navigating Competing Commitments, Pause and Reflect) with about 38 questions. This replica follows that structure with original questions; the real one also uses video and audio clips." },
       {
         kind: "qa",
         name: "Simulate: recorded video responses",
