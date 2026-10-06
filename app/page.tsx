@@ -34,7 +34,7 @@ const STEPS = [
 
 const OUTCOMES = [
   { href: "/mock", title: "Practise like the real thing", body: "Tests that copy real formats and timings, and a mock process for each of our employers: video interview, case study, final interview." },
-  { href: "/interview", title: "Know exactly what to fix", body: "Paste the advert, answer, and get a mark out of 100 with a stronger version of each answer. Written feedback on your CV, cover letter and statement too." },
+  { href: "/interview", title: "Know exactly what to fix", body: "Paste the advert, answer, and get a mark out of 100 with a stronger version of each answer. Marked feedback on your CV, cover letter and statement too." },
   { href: "/opportunities", title: "Never miss a window", body: "Who is open, opening soon or closed, by sector. Track each application and get warned before a closing date." },
 ];
 
@@ -187,7 +187,7 @@ export default function Home() {
             <div className="card space-y-2 border-brand-600 p-6">
               <h3 className="text-lg font-bold">Free account</h3>
               <p className="text-sm text-muted">
-                Everything above, plus your own tracker, {FREE_PRACTICE_PER_WEEK} practice tests a week and {FREE_REVIEWS} written feedback reviews a week (CV, cover letter, statement), with your scores kept for you. No card.
+                Everything above, plus your own tracker, {FREE_PRACTICE_PER_WEEK} practice tests a week and {FREE_REVIEWS} CV and statement reviews a week (CV, cover letter, statement), with your scores kept for you. No card.
               </p>
             </div>
             <div className="card space-y-2 p-6">

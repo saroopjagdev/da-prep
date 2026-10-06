@@ -105,7 +105,7 @@ export default function Login() {
       {enabled && !user && (
         <section className="card max-w-sm space-y-4 p-6">
           <p className="text-sm text-muted">
-            An account is needed for practice tests, mock processes and the AI features (mock interviews, written feedback and the CV checker), and it syncs your progress across devices. It is free, and you stay signed in on this device.
+            An account is needed for practice tests, mock processes and the AI features (mock interviews, CV and statement review), and it syncs your progress across devices. It is free, and you stay signed in on this device.
           </p>
           <PasswordAuthForm initialMode="signin" />
           {GOOGLE_SIGN_IN && (

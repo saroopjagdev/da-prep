@@ -14,7 +14,7 @@ export const AREAS = {
 
 export default function AreaTabs({ area, current }: { area: keyof typeof AREAS; current: string }) {
   return (
-    <nav aria-label={area === "tests" ? "Practice tests" : "Written feedback"} className="flex gap-2">
+    <nav aria-label={area === "tests" ? "Practice tests" : "CV and statement review"} className="flex gap-2">
       {AREAS[area].map((t) => (
         <Link
           key={t.href}

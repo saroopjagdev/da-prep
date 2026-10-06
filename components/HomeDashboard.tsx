@@ -134,7 +134,7 @@ export default function HomeDashboard({ open }: { open: OpenNow[] }) {
               </p>
               {usage.reviews && (
                 <p>
-                  <strong>{Math.max(0, usage.reviews.limit - usage.reviews.used)}</strong> of {usage.reviews.limit} written feedback reviews left this week
+                  <strong>{Math.max(0, usage.reviews.limit - usage.reviews.used)}</strong> of {usage.reviews.limit} CV and statement reviews left this week
                 </p>
               )}
               {usage.interviews && usage.interviews.limit === 0 ? (

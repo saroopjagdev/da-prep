@@ -8,7 +8,7 @@ import { FREE_PRACTICE_PER_WEEK, FREE_REVIEWS } from "@/lib/plans";
 
 const PERKS = [
   `${FREE_PRACTICE_PER_WEEK} practice tests a week`,
-  `${FREE_REVIEWS} written feedback reviews a week (CV, cover letter, statement)`,
+  `${FREE_REVIEWS} CV and statement reviews a week (CV, cover letter, statement)`,
   "Your tracker, saved and synced across devices",
   "Your scores and progress, kept for you",
 ];

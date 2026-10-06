@@ -9,14 +9,14 @@ import { supabase } from "@/lib/supabase";
 
 const FREE = [
   `${FREE_PRACTICE_PER_WEEK} practice tests a week`,
-  `${FREE_REVIEWS} written feedback reviews a week (CV, cover letter, statement or answer)`,
+  `${FREE_REVIEWS} CV and statement reviews a week (CV, cover letter, statement or answer)`,
   "Your own tracker, saved and synced",
   "Your scores and progress, kept for you",
 ];
 const PRO = [
   "Unlimited practice tests",
   "AI mock interviews and firm mock processes, within fair-use limits (up to 25 marked interviews a day)",
-  "Written feedback, within fair-use limits (up to 40 a day)",
+  "CV and statement review, within fair-use limits (up to 40 a day)",
   "Everything in Free",
 ];
 
