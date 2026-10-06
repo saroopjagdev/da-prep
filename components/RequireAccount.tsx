@@ -31,7 +31,7 @@ export default function RequireAccount({ what, children, preview, heading: Headi
     <section className="card mx-auto max-w-xl space-y-4 p-6" aria-label="Create a free account">
       <div className="space-y-1">
         <Heading className="text-xl font-bold tracking-tight">Create a free account to {what}</Heading>
-        <p className="text-sm text-muted">It takes a minute, with no password and no card: we email you a link. You must be 16 or over.</p>
+        <p className="text-sm text-muted">It takes a minute and needs no card: an email and a password. You must be 16 or over.</p>
       </div>
       <ul className="list-disc space-y-1 pl-5 text-sm">
         {PERKS.map((p) => (

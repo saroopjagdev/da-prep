@@ -205,7 +205,7 @@ export default function OpportunitiesApp({ rows }: { rows: OpportunityRow[] }) {
           <caption className="sr-only">Employers with your status, the application status, and opening and closing dates</caption>
           <thead className="bg-soft text-xs uppercase tracking-wide text-muted">
             <tr>
-              <th scope="col" className="px-3 py-2 font-semibold">
+              <th scope="col" className="min-w-32 px-3 py-2 font-semibold">
                 My status
               </th>
               <th scope="col" className="px-3 py-2 font-semibold">
@@ -247,7 +247,7 @@ export default function OpportunitiesApp({ rows }: { rows: OpportunityRow[] }) {
                   <tr className="border-t border-line align-top hover:bg-soft/60">
                     <td className="px-3 py-2">
                       {!canTrack ? (
-                        <Link href="/login" className="text-xs font-semibold text-brand-700 underline-offset-2 hover:underline">
+                        <Link href="/login" className="whitespace-nowrap text-xs font-semibold text-brand-700 underline-offset-2 hover:underline">
                           Sign up to track
                         </Link>
                       ) : (

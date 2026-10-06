@@ -266,6 +266,24 @@ test("without an account the opportunities list is view-only", async ({ page }) 
   await expect(page.getByRole("button", { name: /My list/ })).toHaveCount(0);
 });
 
+test("the sign up to track link stays on one line", async ({ page }) => {
+  await page.goto("/opportunities");
+  const box = await page.getByRole("link", { name: "Sign up to track" }).first().boundingBox();
+  expect(box!.height).toBeLessThan(24);
+});
+
+test("sign in uses an email and password, with a way to create an account or reset", async ({ page }) => {
+  await page.goto("/login");
+  await expect(page.getByLabel("Email address")).toBeVisible();
+  await expect(page.getByLabel("Password")).toBeVisible();
+  await page.getByRole("button", { name: "Create an account" }).click();
+  await expect(page.getByRole("button", { name: "Create free account" })).toBeVisible();
+  await page.getByRole("button", { name: "Sign in" }).first().click();
+  await page.getByRole("button", { name: "Forgot password?" }).click();
+  await expect(page.getByRole("button", { name: "Email me a reset link" })).toBeVisible();
+  await expect(page.getByLabel("Password")).toHaveCount(0);
+});
+
 const seedPractice = (page: Page) =>
   page.addInitScript(() => {
     const d = (n: number) => new Date(Date.now() - n * 864e5).toISOString();
