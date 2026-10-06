@@ -29,7 +29,7 @@ export default function Privacy() {
           <li>You don&apos;t need an account. Without one, everything you save stays on your device and we never see it.</li>
           <li>If you make an account (16 and over), we keep your email and your saved work so it syncs. You can delete it all yourself, any time.</li>
           <li>What you type or say into the AI tools is sent to OpenAI to make questions and feedback. We don&apos;t keep it. Please leave out names, phone numbers and addresses.</li>
-          <li>No adverts and no tracking. We keep anonymous daily totals, such as how many people visited the home page or signed up, with no cookies and nothing that identifies you. We never share your data with employers.</li>
+          <li>No adverts and no tracking. We keep anonymous daily totals, such as how many people visited the home page or signed up, and use Vercel&apos;s privacy-friendly page-view counts (no cookies, no advertising, nothing that identifies you or follows you across sites). We never share your data with employers.</li>
           <li>The feedback is written by AI, so it can be wrong. You decide what to use.</li>
         </ul>
         <p>The full details are below.</p>
@@ -104,7 +104,7 @@ export default function Privacy() {
       <h2 className="text-base font-semibold">Cookies and local storage</h2>
       <p>
         We use only what is strictly necessary: browser storage that keeps you signed in and holds your data on your
-        device. We do not use advertising or analytics cookies, and the anonymous daily totals need no cookie or stored identifier, so there is no cookie banner. You can clear this in
+        device. We do not use advertising or analytics cookies, and the anonymous daily totals and page-view counts need no cookie or stored identifier, so there is no cookie banner. You can clear this in
         your browser settings, which signs you out and removes local copies.
       </p>
 
