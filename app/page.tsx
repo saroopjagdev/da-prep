@@ -1,6 +1,4 @@
 import Link from "next/link";
-import fs from "node:fs";
-import path from "node:path";
 import FirmMarquee, { type MarqueeFirm } from "@/components/FirmMarquee";
 import HeroSignup from "@/components/HeroSignup";
 import HomeSwitch from "@/components/HomeSwitch";
@@ -8,6 +6,7 @@ import Icon from "@/components/Icon";
 import ScoreRing from "@/components/ScoreRing";
 import { FIRMS } from "@/lib/firms";
 import { homeStats, openNow } from "@/lib/home";
+import { logoPath } from "@/lib/logos";
 import { FREE_PRACTICE_PER_WEEK, FREE_REVIEWS, PRO_PLAN } from "@/lib/plans";
 
 // Rebuilt hourly so the "open now" row follows the dates (an opening date passing flips an employer to open).
@@ -20,12 +19,10 @@ const FIRST = ["barclays", "goldman-sachs", "jp-morgan", "morgan-stanley", "hsbc
 // Every researched firm: the best known first, then the rest A to Z. The closed Civil Service scheme is left out.
 function bannerFirms(): MarqueeFirm[] {
   const BANNER = [...FIRST, ...FIRMS.map((f) => f.slug).filter((s) => !FIRST.includes(s) && s !== "civil-service-fast-track")];
-  const logoFile = (slug: string) => ["svg", "png", "jpg", "webp"].map((ext) => `${slug}.${ext}`).find((f) => fs.existsSync(path.join(process.cwd(), "public", "logos", f)));
   return BANNER.map((slug) => FIRMS.find((f) => f.slug === slug))
     .filter((f): f is (typeof FIRMS)[number] => Boolean(f))
     .map((f) => {
-      const file = logoFile(f.slug);
-      return { slug: f.slug, name: f.name.replace(/\s*\(.*\)\s*$/, "").replace(/ UK&I| UK$/, ""), logo: file ? `/logos/${file}` : undefined };
+      return { slug: f.slug, name: f.name.replace(/\s*\(.*\)\s*$/, "").replace(/ UK&I| UK$/, ""), logo: logoPath(f.slug) };
     });
 }
 

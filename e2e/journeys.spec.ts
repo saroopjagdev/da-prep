@@ -266,6 +266,13 @@ test("without an account the opportunities list is view-only", async ({ page }) 
   await expect(page.getByRole("button", { name: /My list/ })).toHaveCount(0);
 });
 
+test("employer pages show the firm's logo beside its name", async ({ page }) => {
+  await page.goto("/employers/ubs");
+  const logo = page.getByRole("img", { name: "UBS logo" });
+  await expect(logo).toBeVisible();
+  expect(await logo.evaluate((i: HTMLImageElement) => i.naturalWidth)).toBeGreaterThan(0);
+});
+
 test("the sign up to track link stays on one line", async ({ page }) => {
   await page.goto("/opportunities");
   const box = await page.getByRole("link", { name: "Sign up to track" }).first().boundingBox();
