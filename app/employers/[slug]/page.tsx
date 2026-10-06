@@ -5,6 +5,7 @@ import { FIRMS, getFirm } from "@/lib/firms";
 import { extraAdvice, extraBlocks, extraOaTests } from "@/lib/firms/dedupe";
 import { glance, practiceLinks } from "@/lib/firms/glance";
 import JsonLd from "@/components/JsonLd";
+import { logoPath } from "@/lib/logos";
 import { articleLd, breadcrumbLd } from "@/lib/seo";
 import { pageMeta } from "@/lib/site";
 
@@ -26,6 +27,7 @@ export default async function FirmPage({ params }: { params: Promise<{ slug: str
   const firm = getFirm(slug);
   if (!firm) notFound();
 
+  const logo = logoPath(firm.slug);
   const sourced = extraBlocks(firm);
   const oaTests = extraOaTests(firm);
   const advice = extraAdvice(firm);
@@ -51,7 +53,15 @@ export default async function FirmPage({ params }: { params: Promise<{ slug: str
         <Link className="text-sm underline" href="/opportunities">
           All opportunities
         </Link>
-        <h1 className="page-title">{firm.name}</h1>
+        <div className="mt-2 flex items-center gap-4">
+          {logo && (
+            <span className="flex h-16 w-28 shrink-0 items-center justify-center rounded-lg border border-line bg-white p-2">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src={logo} alt={`${firm.name} logo`} className="max-h-full max-w-full object-contain" height={48} />
+            </span>
+          )}
+          <h1 className="page-title !mt-0">{firm.name}</h1>
+        </div>
         <p className="text-muted">
           {firm.sector}. Processes change every year, so confirm on the employer&apos;s
           own page.
