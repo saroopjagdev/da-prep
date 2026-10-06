@@ -152,9 +152,9 @@ export default function HomeDashboard({ open }: { open: OpenNow[] }) {
       </div>
 
       <div className="grid gap-4 md:grid-cols-3">
-        <Card title="Open now" href="/opportunities" cta="All opportunities">
+        <Card title="Open now" href="/opportunities" cta="Opportunities tracker">
           {openList.length === 0 ? (
-            <p className="text-muted">Nothing confirmed open yet. Opening soon are listed in Opportunities.</p>
+            <p className="text-muted">Nothing confirmed open yet. Opening soon are listed in the opportunities tracker.</p>
           ) : (
             <ul className="space-y-2">
               {openList.map((o) => (
@@ -171,7 +171,7 @@ export default function HomeDashboard({ open }: { open: OpenNow[] }) {
           )}
         </Card>
 
-        <Card title="My list" href="/opportunities?mine=1" cta="Open my list">
+        <Card title="My tracker" href="/opportunities?mine=1" cta="Open my tracker">
           {apps.items.length === 0 ? (
             <p className="text-muted">Nothing tracked yet. Set a status on any employer to start.</p>
           ) : (

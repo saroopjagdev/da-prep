@@ -84,7 +84,7 @@ export default function Pricing() {
         <section className="card space-y-2 p-4">
           <h2 className="font-semibold">Free account</h2>
           <p className="text-2xl font-bold">£0</p>
-          <p className="text-sm text-muted">Needs an email address, no card. The Opportunities list and employer guides need no account.</p>
+          <p className="text-sm text-muted">Needs an email address, no card. The opportunities tracker and firm guides need no account.</p>
           <ul className="list-disc pl-5 text-sm">
             {FREE.map((f) => (
               <li key={f}>{f}</li>

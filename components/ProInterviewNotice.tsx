@@ -13,7 +13,7 @@ export default function ProInterviewNotice() {
       <Link href="/pricing" className="font-semibold underline">
         See Pro
       </Link>
-      . Practice tests, the Opportunities list, employer guides and CV and statement review are on the free plan.
+      . Practice tests, the opportunities tracker, firm guides and CV and statement review are on the free plan.
     </p>
   );
 }
