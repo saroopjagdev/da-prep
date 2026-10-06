@@ -178,9 +178,52 @@ const MOST_LEAST: ML[] = [
     worst: "Guess your way through and submit without checking.",
     why: "Trying first and then asking for targeted help is how apprentices learn quickly. Submitting unchecked work risks errors.",
   },
+  // Added scenarios.
+  {
+    scenario: "You are asked to enter customer data into a system you have not been trained on.",
+    best: "Say you have not used it yet and ask for a short walkthrough before you start.",
+    others: ["Work through the screens carefully and fix mistakes as you find them.", "Ask a colleague to do the first few so you can watch."],
+    worst: "Enter the data anyway and hope any errors are spotted later.",
+    why: "Asking for training before you handle real customer data prevents errors. Hoping others catch mistakes puts customers at risk.",
+  },
+  {
+    scenario: "A colleague asks to borrow your login because theirs has stopped working and they have an urgent deadline.",
+    best: "Decline politely and help them contact IT support to get their access fixed.",
+    others: ["Ask your manager whether it would be acceptable this once.", "Log in for them and stay beside them while they work."],
+    worst: "Give them your password and change it later.",
+    why: "Logins are personal and tied to your name. Helping them reach IT solves the real problem; sharing a password breaks security rules.",
+  },
+  {
+    scenario: "You are on a video call and realise you have forgotten about a meeting that started ten minutes ago.",
+    best: "Message the organiser to apologise, join if it is still useful, and ask for the notes.",
+    others: ["Join late without saying anything and catch up quietly.", "Wait until the end of the day and then apologise by email."],
+    worst: "Say nothing and hope nobody noticed.",
+    why: "A quick apology and a plan to catch up shows responsibility. Ignoring it leaves others wondering and misses what was agreed.",
+  },
+  {
+    scenario: "A teammate is struggling with their share of a task and the deadline is tomorrow. You have finished your part.",
+    best: "Offer help with their task, and tell your manager so the work is shared fairly.",
+    others: ["Offer to help but keep it between the two of you.", "Mention to your manager that your teammate is behind."],
+    worst: "Leave them to it because your part is done.",
+    why: "Offering help and keeping your manager informed protects the team's deadline. Doing nothing leaves the team exposed.",
+  },
+  {
+    scenario: "A client asks you in front of others for a figure you do not have to hand.",
+    best: "Say you want to give them the right number and will confirm it by the end of the day.",
+    others: ["Give your best estimate and say you will check it later.", "Ask a colleague in the room if they know it."],
+    worst: "Give a figure you think is about right without saying it is a guess.",
+    why: "Being honest about what you do not know and committing to follow up builds trust. An unflagged guess may be wrong and hard to correct.",
+  },
+  {
+    scenario: "You are given feedback that you often interrupt others in team meetings. You had not realised.",
+    best: "Thank them, and ask them to point it out when it happens so you can change.",
+    others: ["Think about it privately and try to talk less in meetings.", "Ask a trusted colleague whether they have noticed it too."],
+    worst: "Tell them that other people interrupt just as much.",
+    why: "Accepting feedback and asking for help to improve shows maturity. Deflecting to what others do avoids the issue.",
+  },
 ];
 
-type RE = { scenario: string; actions: [text: string, rating: number][]; why: string };
+type RE ={ scenario: string; actions: [text: string, rating: number][]; why: string };
 
 const RATE_EACH: RE[] = [
   {
@@ -304,9 +347,50 @@ const RATE_EACH: RE[] = [
     ],
     why: "Possible money laundering must be reported through the proper channel. Asking the customer could alert them, which can itself be an offence.",
   },
+  // Added scenarios.
+  {
+    scenario: "You are asked to take notes at a meeting and you miss an important decision while writing.",
+    actions: [
+      ["Ask the person who led the meeting to confirm the decision, then update your notes.", 3],
+      ["Check with a colleague who was there and update your notes.", 2],
+      ["Leave that part out of the notes.", 1],
+      ["Write down what you think was decided.", 0],
+    ],
+    why: "Confirming with the person who made the decision gives you an accurate record. A guess in the notes can mislead everyone who reads them.",
+  },
+  {
+    scenario: "Your workload is manageable and you finish your tasks early on a quiet afternoon.",
+    actions: [
+      ["Ask your manager or team if there is anything you can help with.", 3],
+      ["Use the time to work on your college study.", 2],
+      ["Tidy your files and wait for new work to arrive.", 1],
+      ["Spend the time on personal browsing.", 0],
+    ],
+    why: "Offering help shows initiative. Studying is useful, if your employer allows it, but offering help adds value to the team.",
+  },
+  {
+    scenario: "A customer says a colleague was rude to them earlier. The colleague is not there.",
+    actions: [
+      ["Apologise, deal with their request, and tell your manager what the customer said.", 3],
+      ["Apologise and deal with their request.", 2],
+      ["Tell them you are sure it was a misunderstanding.", 1],
+      ["Say that your colleague has been under stress.", 0],
+    ],
+    why: "Helping the customer and telling your manager lets the issue be handled properly. Making excuses for a colleague to a customer does not help either of them.",
+  },
+  {
+    scenario: "You have two managers who each give you an urgent task that cannot both be done today.",
+    actions: [
+      ["Tell both managers about the clash and ask them to agree the priority.", 3],
+      ["Ask one manager if the task can wait until tomorrow.", 2],
+      ["Do the task from the manager you know better first.", 1],
+      ["Do both badly so that you finish them on time.", 0],
+    ],
+    why: "Letting the two managers agree priorities puts the decision with the people who own it. Rushing both tasks risks poor quality on both.",
+  },
 ];
 
-type RK = { scenario: string; best_first: string[]; why: string };
+type RK ={ scenario: string; best_first: string[]; why: string };
 
 const RANK: RK[] = [
   {
@@ -409,6 +493,47 @@ const RANK: RK[] = [
       "Reply with your password so you keep access.",
     ],
     why: "Reporting lets security block it for everyone. Deleting protects only you, forwarding spreads the risky link, and replying hands over your account.",
+  },
+  // Added scenarios.
+  {
+    scenario: "You think a colleague has made an error in a document that goes to a client tomorrow. Rank your responses from best to worst.",
+    best_first: [
+      "Point out what you have noticed to your colleague, with your reasoning, and ask them to check.",
+      "Tell your manager what you noticed and let them decide.",
+      "Correct the document yourself without telling anyone.",
+      "Say nothing because it is not your document.",
+    ],
+    why: "Raising it with the author lets them check and fix it. Going to your manager first or editing in secret skips that. Staying silent risks the client seeing the error.",
+  },
+  {
+    scenario: "You are asked to work on a Saturday and you have a planned family event. Rank your responses from best to worst.",
+    best_first: [
+      "Explain the clash to your manager and offer to cover the work another time.",
+      "Ask whether someone else can cover, and offer to help prepare in advance.",
+      "Agree to work and then ask to leave early.",
+      "Say yes, then do not turn up.",
+    ],
+    why: "Being open about the clash and offering a solution is respectful and constructive. Agreeing and then not turning up lets the team down.",
+  },
+  {
+    scenario: "Your manager gives you a new task and says it must be done by Thursday. Rank your next steps from best to worst.",
+    best_first: [
+      "Check that you understand what is needed, then plan the time you need and flag any risks early.",
+      "Start straight away and ask questions as they arise.",
+      "Finish your current work first and start the new task on Wednesday.",
+      "Say it is too much and refuse it.",
+    ],
+    why: "Clarifying and planning up front avoids rework. Starting at once is good but unplanned, and leaving it late risks the deadline.",
+  },
+  {
+    scenario: "You overhear colleagues criticising a team member who is not there. Rank your responses from best to worst.",
+    best_first: [
+      "Say that you would rather not discuss them when they are not there, and change the subject.",
+      "Walk away without joining in.",
+      "Listen but do not add anything.",
+      "Join in with a story of your own.",
+    ],
+    why: "Politely stepping out of the conversation shows respect for others. Joining in damages trust in the team.",
   },
 ];
 

@@ -1,13 +1,13 @@
-import { describe, expect, it } from "vitest";
+﻿import { describe, expect, it } from "vitest";
 import { SJT, buildSjt } from "@/lib/assess/banks/sjt";
 import { TRAITS, TRAIT_BANK, buildTraits } from "@/lib/assess/banks/traits";
 import { VERBAL_TF, VERBAL_TF_STIMULI } from "@/lib/assess/banks/verbal-tf";
 import { validateItem } from "@/lib/assess/validate";
 
 describe("verbal true/false/cannot say bank", () => {
-  it("has 48 valid statements over 8 passages", () => {
-    expect(VERBAL_TF).toHaveLength(48);
-    expect(Object.keys(VERBAL_TF_STIMULI)).toHaveLength(8);
+  it("has 72 valid statements over 12 passages", () => {
+    expect(VERBAL_TF).toHaveLength(72);
+    expect(Object.keys(VERBAL_TF_STIMULI)).toHaveLength(12);
     for (const item of VERBAL_TF) {
       expect(validateItem(item), item.id).toEqual([]);
       expect(VERBAL_TF_STIMULI[item.stimulus!], item.id).toBeDefined();
@@ -31,10 +31,10 @@ describe("verbal true/false/cannot say bank", () => {
 });
 
 describe("situational judgement bank", () => {
-  it("has 24 most/least, 12 rate-each and 10 ranking items, all valid", () => {
-    expect(SJT.mostLeast).toHaveLength(24);
-    expect(SJT.rateEach).toHaveLength(12);
-    expect(SJT.rank).toHaveLength(10);
+  it("has 30 most/least, 16 rate-each and 14 ranking items, all valid", () => {
+    expect(SJT.mostLeast).toHaveLength(30);
+    expect(SJT.rateEach).toHaveLength(16);
+    expect(SJT.rank).toHaveLength(14);
     for (const item of [...SJT.mostLeast, ...SJT.rateEach, ...SJT.rank]) expect(validateItem(item), item.id).toEqual([]);
   });
 

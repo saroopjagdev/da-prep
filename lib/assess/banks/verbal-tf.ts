@@ -118,6 +118,62 @@ const GROUPS: { id: string; title: string; body: string; statements: Statement[]
       ["Commercial banks in Avaria lowered their savings rates after the May meeting.", 2, "The passage does not say what banks did after the meeting."],
     ],
   },
+  {
+    id: "vtf-g9",
+    title: "Harlow Rail Services",
+    body:
+      "Harlow Rail Services maintains track and signalling on three regional lines. Last year it replaced 40 kilometres of track, about a fifth more than the year before, and completed all of the work during planned overnight closures. The company says safety inspections now take place every two weeks rather than monthly. Three minor incidents were reported, none involving passengers. Harlow has begun trialling sensors that detect track faults early, but a decision on fitting them across all three lines will not be made until the trial ends next spring.",
+    statements: [
+      ["Harlow replaced more track last year than the year before.", 0, "40 kilometres is about a fifth more than the year before."],
+      ["Safety inspections are now carried out more often than they used to be.", 0, "Every two weeks instead of monthly."],
+      ["Some track work took place during the daytime.", 1, "All of the work was completed during planned overnight closures."],
+      ["Passengers were involved in the incidents reported last year.", 1, "None of the three minor incidents involved passengers."],
+      ["The fault-detecting sensors will be fitted on every line.", 2, "A decision will not be made until the trial ends."],
+      ["Harlow's maintenance costs fell last year.", 2, "The passage gives no information about costs."],
+    ],
+  },
+  {
+    id: "vtf-g10",
+    title: "Remote working review",
+    body:
+      "A review of 2,000 employees at a UK insurer found that staff who worked from home two or three days a week reported higher job satisfaction than those who worked entirely in the office. Staff who worked from home five days a week reported the lowest sense of connection with colleagues. Managers rated the output of all three groups as similar. The authors caution that employees chose their own arrangements, so the results may reflect differences between the people involved rather than the effect of the arrangement itself.",
+    statements: [
+      ["Part-time home workers reported higher satisfaction than full-time office workers.", 0, "Staff working from home two or three days a week reported higher satisfaction than those entirely in the office."],
+      ["Managers saw little difference in output between the groups.", 0, "Managers rated the output of all three groups as similar."],
+      ["Employees working from home five days a week felt the most connected to colleagues.", 1, "They reported the lowest sense of connection."],
+      ["The employees were assigned to their working arrangements by the researchers.", 1, "Employees chose their own arrangements."],
+      ["Working from home causes higher job satisfaction.", 2, "The authors warn the results may reflect differences between people, so cause cannot be concluded."],
+      ["Staff who work in the office are more likely to be promoted.", 2, "Promotion is not mentioned."],
+    ],
+  },
+  {
+    id: "vtf-g11",
+    title: "Tamsin Energy trial",
+    body:
+      "Tamsin Energy offered 5,000 households a tariff that charges less for electricity used overnight. After six months, 38 per cent of participating households had moved some use, such as running washing machines, to the night-time period. Households with electric vehicles were the most likely to shift. Tamsin says the shift reduced demand at peak times by an amount equal to about 600 homes. Customer complaints about the tariff were lower than for the company's standard tariff, although Tamsin accepts that people who volunteer for a trial may be more positive than average.",
+    statements: [
+      ["Fewer than half of the participating households shifted any of their electricity use.", 0, "38 per cent is fewer than half."],
+      ["Households with electric vehicles were the most likely to shift use to night-time.", 0, "The passage says they were the most likely to shift."],
+      ["Every participating household moved some of its electricity use to the night-time period.", 1, "Only 38 per cent of households shifted any use."],
+      ["The trial lasted for a year.", 1, "Results are given after six months."],
+      ["The tariff will be offered to all of Tamsin's customers.", 2, "No plans for wider roll-out are mentioned."],
+      ["Households with solar panels were the least likely to shift use.", 2, "The passage does not mention solar panels."],
+    ],
+  },
+  {
+    id: "vtf-g12",
+    title: "Whitcombe Library",
+    body:
+      "Whitcombe Library extended its opening hours in January, adding Sunday afternoons and two late evenings a week. Visits rose by 22 per cent over the following six months. The library says most of the extra visits were from people aged under 25, many of whom use the study spaces. The extension is paid for by a council grant that ends in December. The council has said it will review the library's funding in the autumn, and has not committed to continuing the longer hours after the grant ends.",
+    statements: [
+      ["Visits to Whitcombe Library increased after the opening hours were extended.", 0, "Visits rose by 22 per cent."],
+      ["The longer opening hours are currently funded by a council grant.", 0, "The extension is paid for by a council grant that ends in December."],
+      ["Visits rose by less than ten per cent over the six months.", 1, "They rose by 22 per cent."],
+      ["The council has promised to keep the longer hours after December.", 1, "The council has not committed to continuing them."],
+      ["Most of the new visitors are students at the local college.", 2, "The passage says people aged under 25 but not whether they are students."],
+      ["Visits fell in the first month after the change.", 2, "Only the six-month total is given."],
+    ],
+  },
 ];
 
 export const VERBAL_TF_STIMULI: Record<string, Stimulus> = Object.fromEntries(
