@@ -12,7 +12,8 @@ import type { Test, TestResult } from "@/lib/assess/types";
 import type { MockProcess, MockStage } from "@/lib/mockprocess/types";
 import type { MockScoreOutput } from "@/lib/mockprocess/score";
 import { useCollection } from "@/lib/store";
-import type { MockRunRecord } from "@/lib/types";
+import { recordFor } from "@/lib/progress";
+import type { MockRunRecord, PracticeRecord } from "@/lib/types";
 
 type StageResult =
   | { kind: "info" }
@@ -39,6 +40,7 @@ export default function MockRunner({ mock, firmName, tests }: { mock: MockProces
   const scoredOnce = useRef(false);
   const savedRecord = useRef(false);
   const records = useCollection<MockRunRecord>("mocks");
+  const practice = useCollection<PracticeRecord>("practice");
 
   useEffect(() => {
     let s: Saved | null = null;
@@ -91,6 +93,7 @@ export default function MockRunner({ mock, firmName, tests }: { mock: MockProces
 
   function onTest(idx: number, stage: Extract<MockStage, { kind: "test" }>, r: TestResult) {
     const test = tests[stage.testId];
+    if (test.kind === "ability" && r.max > 0) practice.update((p) => [recordFor(test, r, `${firmName} mock process`), ...p]);
     const next = [...results.slice(0, idx), { kind: "test", name: stage.name, ability: test.kind === "ability", points: r.points, max: r.max, profile: test.kind === "trait" ? traitProfile(test, r) : [] } as StageResult];
     advance(idx, next);
   }

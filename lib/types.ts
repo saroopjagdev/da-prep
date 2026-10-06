@@ -91,4 +91,12 @@ export type PracticeRecord = {
   category: string;
   score: number;
   total: number;
+  /** The test taken: an assessment replica's id, or "quiz:<category>" for the quick quiz. Absent on older records. */
+  testId?: string;
+  /** Score per section (tile, scale), so weak areas show up. Only sections that are marked. */
+  sections?: { id: string; title: string; points: number; max: number }[];
+  /** Seconds used in total. */
+  seconds?: number;
+  /** Where it was taken when it was a stage of a firm mock process, for example "Barclays mock process". */
+  via?: string;
 };

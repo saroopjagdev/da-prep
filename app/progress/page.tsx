@@ -1,10 +1,10 @@
 "use client";
 
+import PracticeHistory from "@/components/PracticeHistory";
 import RequireAccount from "@/components/RequireAccount";
 import Link from "next/link";
 import ProgressBar from "@/components/Progress";
 import { STAGE_LABEL } from "@/lib/interview";
-import { CATEGORY_INFO, type Category } from "@/lib/questions";
 import { useCollection } from "@/lib/store";
 import type { PracticeRecord, SessionRecord } from "@/lib/types";
 
@@ -29,9 +29,6 @@ function ProgressInner() {
     pct: answers.length ? Math.round((answers.filter((t) => t.star![k]).length / answers.length) * 100) : 0,
   }));
   const weakest = answers.length >= 3 ? [...coverage].sort((a, b) => a.pct - b.pct)[0] : null;
-
-  const byCategory = new Map<string, PracticeRecord[]>();
-  practice.items.forEach((r) => byCategory.set(r.category, [...(byCategory.get(r.category) ?? []), r]));
 
   const empty = sessions.loaded && practice.loaded && !list.length && !practice.items.length;
 
@@ -197,26 +194,7 @@ function ProgressInner() {
         </>
       )}
 
-      {byCategory.size > 0 && (
-        <section className="space-y-3">
-          <h2 className="font-bold">Practice tests</h2>
-          <ul className="space-y-2 text-sm">
-            {[...byCategory.entries()].map(([cat, rs]) => {
-              const bestPct = Math.max(...rs.map((r) => r.score / r.total));
-              const last = rs[0];
-              return (
-                <li key={cat} className="card flex flex-wrap justify-between gap-2 p-3">
-                  <span className="font-medium">{CATEGORY_INFO[cat as Category]?.label ?? cat}</span>
-                  <span className="text-muted">
-                    Last {last.score}/{last.total} · best {Math.round(bestPct * 100)}% · {rs.length} attempt
-                    {rs.length === 1 ? "" : "s"}
-                  </span>
-                </li>
-              );
-            })}
-          </ul>
-        </section>
-      )}
+      <PracticeHistory items={practice.items} />
     </div>
   );
 }

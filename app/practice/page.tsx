@@ -68,7 +68,7 @@ function PracticeInner() {
       setDone(true);
       if (results.items.length === 0) track("first_practice");
       results.update((p) => [
-        { id: crypto.randomUUID(), date: new Date().toISOString(), category: category!, score: finalScore, total },
+        { id: crypto.randomUUID(), date: new Date().toISOString(), category: category!, score: finalScore, total, testId: `quiz:${category}` },
         ...p,
       ]);
     } else {
