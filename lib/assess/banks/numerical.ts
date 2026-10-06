@@ -373,7 +373,7 @@ const TEMPLATES: [string, Gen][] = [
   ["weighted", weighted],
 ];
 
-export function buildNumerical(perTemplate = 4): NumericalBank {
+export function buildNumerical(perTemplate = 8): NumericalBank {
   const items: Item[] = [];
   const stimuli: Record<string, Stimulus> = {};
   const checks: NumericalBank["checks"] = {};

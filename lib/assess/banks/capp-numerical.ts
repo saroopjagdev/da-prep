@@ -114,7 +114,7 @@ function group(r: Rng, t: Theme, g: number) {
 }
 
 /** 8 tables with 4 items each; the test serves 3 tables (12 items) per attempt. */
-export function buildCappNumerical(groups = 8): CappNumericalBank {
+export function buildCappNumerical(groups = 16): CappNumericalBank {
   const out: CappNumericalBank = { items: [], stimuli: {}, checks: {} };
   for (let g = 1; g <= groups; g++) {
     const { stimId, stimulus, items, checks } = group(rng(41000 + g), THEMES[(g - 1) % THEMES.length], g);

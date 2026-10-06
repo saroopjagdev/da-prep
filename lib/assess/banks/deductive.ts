@@ -95,7 +95,7 @@ function candidateConstraint(r: Rng, sol: number[], tasks: string[], usedOnDay: 
 
 export type DeductiveBank = { items: Item[]; meta: Record<string, DeductiveMeta> };
 
-export function buildDeductive(count = 16): DeductiveBank {
+export function buildDeductive(count = 32): DeductiveBank {
   const items: Item[] = [];
   const meta: Record<string, DeductiveMeta> = {};
   // Spread the bank across difficulty 2-5 so the adaptive runner has easier and harder puzzles to move between.

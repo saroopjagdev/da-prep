@@ -3,8 +3,8 @@ import { NUMERICAL, buildNumerical } from "@/lib/assess/banks/numerical";
 import { validateItem } from "@/lib/assess/validate";
 
 describe("numerical bank", () => {
-  it("has 32 valid items", () => {
-    expect(NUMERICAL.items).toHaveLength(32);
+  it("has 64 valid items", () => {
+    expect(NUMERICAL.items).toHaveLength(64);
     for (const item of NUMERICAL.items) expect(validateItem(item), item.id).toEqual([]);
   });
 
