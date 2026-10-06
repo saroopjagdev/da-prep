@@ -5,9 +5,9 @@ import { NUMERICAL_TF, buildNumericalTf } from "@/lib/assess/banks/numerical-tf"
 import { validateItem } from "@/lib/assess/validate";
 
 describe("numerical true/false/cannot say bank", () => {
-  it("has 96 valid statements in 16 groups sharing a table, across four themes", () => {
-    expect(NUMERICAL_TF.items).toHaveLength(96);
-    expect(Object.keys(NUMERICAL_TF.stimuli)).toHaveLength(16);
+  it("has 192 valid statements in 32 groups sharing a table, across four themes", () => {
+    expect(NUMERICAL_TF.items).toHaveLength(192);
+    expect(Object.keys(NUMERICAL_TF.stimuli)).toHaveLength(32);
     const titles = new Set(Object.values(NUMERICAL_TF.stimuli).map((s) => (s.type === "table" ? s.title : "")));
     expect(titles.size).toBe(4);
     for (const item of NUMERICAL_TF.items) {
@@ -107,8 +107,8 @@ describe("inductive bank", () => {
 });
 
 describe("deductive bank", () => {
-  it("has 16 valid scheduling puzzles", () => {
-    expect(DEDUCTIVE.items).toHaveLength(16);
+  it("has 32 valid scheduling puzzles", () => {
+    expect(DEDUCTIVE.items).toHaveLength(32);
     for (const item of DEDUCTIVE.items) expect(validateItem(item), item.id).toEqual([]);
   });
 
@@ -172,7 +172,7 @@ describe("no repeated questions", () => {
 describe("switch puzzles", () => {
   it("have exactly one code that produces the output", async () => {
     const { SWITCH, applySwitch } = await import("@/lib/assess/banks/switch");
-    expect(SWITCH).toHaveLength(24);
+    expect(SWITCH).toHaveLength(48);
     for (const item of SWITCH) {
       if (item.kind !== "mcq") throw new Error("expected mcq");
       expect(validateItem(item), item.id).toEqual([]);

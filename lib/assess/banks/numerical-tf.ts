@@ -157,7 +157,7 @@ function group(r: Rng, t: Theme): { stimulus: Stimulus; specs: Spec[] } {
 }
 
 /** 16 groups of 6 statements; the short test serves 3 groups (18) and the full-length test 37 statements. */
-export function buildNumericalTf(groups = 16): NumericalTfBank {
+export function buildNumericalTf(groups = 32): NumericalTfBank {
   const items: Item[] = [];
   const stimuli: Record<string, Stimulus> = {};
   const checks: NumericalTfBank["checks"] = {};

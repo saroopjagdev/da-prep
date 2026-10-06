@@ -163,5 +163,5 @@ describe("job simulations", () => {
     const { getFirm } = await import("@/lib/firms");
     expect(practiceLinks(getFirm("hsbc")!).map((l) => l.href)).toContain("/tests/hsbc-simulate");
     expect(practiceLinks(getFirm("deloitte")!).map((l) => l.href)).toContain("/tests/job-sim-audit");
-  });
+  }, 30_000);
 });

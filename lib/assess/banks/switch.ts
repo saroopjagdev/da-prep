@@ -40,10 +40,10 @@ function item(r: Rng, n: number, twoStep: boolean): Item {
   };
 }
 
-/** 12 one-switch items, then 12 two-switch items. */
+/** 24 one-switch items, then 24 two-switch items. */
 export function buildSwitch(): Item[] {
   const r = rng(52000);
-  return Array.from({ length: 24 }, (_, i) => item(r, i + 1, i >= 12));
+  return Array.from({ length: 48 }, (_, i) => item(r, i + 1, i >= 24));
 }
 
 export const SWITCH = buildSwitch();
