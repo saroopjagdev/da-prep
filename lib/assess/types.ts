@@ -97,6 +97,8 @@ export type Test = {
   replicates: string;
   /** "ability" tests are marked right/wrong; "trait" tests produce a profile with no pass or fail. */
   kind: "ability" | "trait";
+  /** An ability test that also holds work-style statements (no right answer). They add nothing to the score. */
+  mixedWorkStyle?: boolean;
   sections: Section[];
   /** How sure we are of the published format, and what could not be verified. */
   confidence: Confidence;

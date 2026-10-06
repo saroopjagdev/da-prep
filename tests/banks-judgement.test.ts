@@ -161,7 +161,7 @@ describe("job simulations", () => {
   it("is linked from firms reported to use simulations", async () => {
     const { practiceLinks } = await import("@/lib/firms/glance");
     const { getFirm } = await import("@/lib/firms");
-    expect(practiceLinks(getFirm("hsbc")!).map((l) => l.href)).toContain("/tests/job-sim-banking");
+    expect(practiceLinks(getFirm("hsbc")!).map((l) => l.href)).toContain("/tests/hsbc-simulate");
     expect(practiceLinks(getFirm("deloitte")!).map((l) => l.href)).toContain("/tests/job-sim-audit");
   });
 });

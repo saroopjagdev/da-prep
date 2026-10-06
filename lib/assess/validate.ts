@@ -94,7 +94,7 @@ export function validateTest(test: Test): string[] {
     p.push(...validateSection(s));
     for (const i of s.items) {
       const isTrait = TRAIT_KINDS.has(i.kind);
-      if (test.kind === "ability" && isTrait) p.push(`item ${i.id}: trait item in an ability test`);
+      if (test.kind === "ability" && isTrait && !test.mixedWorkStyle) p.push(`item ${i.id}: trait item in an ability test`);
       if (test.kind === "trait" && !isTrait) p.push(`item ${i.id}: ability item in a trait test`);
     }
   }

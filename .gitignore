@@ -50,3 +50,6 @@ next-env.d.ts
 /test-results/
 /playwright-report/
 data/watch/
+
+# Draft social posts saved here by hand; never publish
+public/logos/Claude outputs/
