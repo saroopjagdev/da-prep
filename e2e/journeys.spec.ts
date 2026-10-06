@@ -144,6 +144,7 @@ for (const path of PAGES) {
 }
 
 test("related pages share tabs: tests and feedback", async ({ page }) => {
+  await signedIn(page);
   await page.goto("/practice");
   await page.getByRole("navigation", { name: "Practice tests" }).getByRole("link", { name: "Employer replicas" }).click();
   await expect(page).toHaveURL(/\/tests$/);
@@ -153,6 +154,7 @@ test("related pages share tabs: tests and feedback", async ({ page }) => {
 });
 
 test("opportunities are grouped by sector, and the guides link shows only researched employers", async ({ page }) => {
+  await signedIn(page);
   await page.goto("/opportunities");
   const groups = page.locator("tbody th[scope='colgroup']");
   await expect(groups.first()).toContainText("Finance and accountancy");
@@ -170,7 +172,7 @@ test("opportunities are grouped by sector, and the guides link shows only resear
 test("a new visitor sees the pitch with a way to start, and opportunities still follows ?q=", async ({ page }) => {
   await page.goto("/");
   await expect(page.getByRole("heading", { level: 1, name: /Practise the real stages/ })).toBeVisible();
-  await expect(page.getByRole("link", { name: /Or try a free practice test/ })).toBeVisible();
+  await expect(page.getByRole("link", { name: /Or see who is open now/ })).toBeVisible();
   await expect(page.getByText("Your dashboard")).toBeHidden();
   await page.goto("/opportunities?q=natwest");
   await expect(page.getByLabel("Search employers or programmes")).toHaveValue("natwest");

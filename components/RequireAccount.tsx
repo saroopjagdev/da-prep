@@ -18,7 +18,7 @@ const PERKS = [
  * When accounts are not configured (local development, self-hosting) the tool is simply shown. The page around it stays
  * server-rendered, so search engines still read what the tool is.
  */
-export default function RequireAccount({ what, children, preview }: { what: string; children: React.ReactNode; /** Server-rendered text shown with the sign-up card, so the page still describes itself to search engines. */ preview?: React.ReactNode }) {
+export default function RequireAccount({ what, children, preview, heading: Heading = "h1" }: { what: string; children: React.ReactNode; /** The page's main heading is the sign-up prompt unless the preview brings its own. */ heading?: "h1" | "h2"; /** Server-rendered text shown with the sign-up card, so the page still describes itself to search engines. */ preview?: React.ReactNode }) {
   const { enabled, ready, user } = useAuth();
   const gated = enabled && ready && !user;
   useEffect(() => {
@@ -30,7 +30,7 @@ export default function RequireAccount({ what, children, preview }: { what: stri
     <div className="space-y-6">
     <section className="card mx-auto max-w-xl space-y-4 p-6" aria-label="Create a free account">
       <div className="space-y-1">
-        <h2 className="text-xl font-bold tracking-tight">Create a free account to {what}</h2>
+        <Heading className="text-xl font-bold tracking-tight">Create a free account to {what}</Heading>
         <p className="text-sm text-muted">It takes a minute, with no password and no card: we email you a link. You must be 16 or over.</p>
       </div>
       <ul className="list-disc space-y-1 pl-5 text-sm">

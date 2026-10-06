@@ -35,6 +35,7 @@ export default async function MockPage({ params }: { params: Promise<{ firm: str
     <>
       <JsonLd data={breadcrumbLd([{ name: "Home", path: "/" }, { name: "Mock processes", path: "/mock" }, { name: `${firm.name} mock process`, path: `/mock/${slug}` }])} />
       <RequireAccount
+        heading="h2"
         what={`practise the ${firm.name} mock process`}
         preview={
           <section className="mx-auto max-w-xl space-y-2">
