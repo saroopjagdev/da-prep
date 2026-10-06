@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import PracticeLimitCard from "@/components/PracticeLimitCard";
-import SaveScorePrompt from "@/components/SaveScorePrompt";
+import RequireAccount from "@/components/RequireAccount";
 import { usePracticeAllowance } from "@/components/usePracticeAllowance";
 import { track } from "@/lib/funnel";
 import Runner from "@/components/assess/Runner";
@@ -17,7 +17,7 @@ import type { PracticeRecord } from "@/lib/types";
 
 const mmss = (s: number) => `${Math.floor(s / 60)}:${String(s % 60).padStart(2, "0")}`;
 
-function Results({ test, result, onRetry }: { test: Test; result: TestResult; onRetry: () => void }) {
+function Results({ test, result, onRetry, after }: { test: Test; result: TestResult; onRetry: () => void; after?: React.ReactNode }) {
   const pct = percent(result.points, result.max);
   const profile = test.kind === "trait" ? traitProfile(test, result) : [];
   const missed = test.sections.flatMap((s) =>
@@ -137,7 +137,7 @@ function Results({ test, result, onRetry }: { test: Test; result: TestResult; on
         <p className="callout bg-mint-50 text-center font-medium text-mint-600">Full marks on every question you reached.</p>
       )}
 
-      <SaveScorePrompt />
+      {after}
       <div className="flex justify-center gap-3">
         <button className="btn btn-primary" onClick={onRetry}>
           Try again
@@ -150,7 +150,7 @@ function Results({ test, result, onRetry }: { test: Test; result: TestResult; on
   );
 }
 
-export default function TestPlayer({ test }: { test: Test }) {
+function Player({ test }: { test: Test }) {
   const [result, setResult] = useState<TestResult | null>(null);
   const [run, setRun] = useState(0);
   const practice = useCollection<PracticeRecord>("practice");
@@ -159,7 +159,6 @@ export default function TestPlayer({ test }: { test: Test }) {
 
   function done(r: TestResult) {
     setResult(r);
-    allow.record();
     if (test.kind === "ability") {
       if (practice.items.length === 0) track("first_practice");
       practice.update((p) => [
@@ -178,9 +177,32 @@ export default function TestPlayer({ test }: { test: Test }) {
           setResult(null);
           setRun((n) => n + 1);
         }}
+        after={
+          allow.known && !allow.unlimited ? (
+            <aside className="callout bg-brand-50 text-sm" aria-label="Your free practice tests">
+              <p className="font-semibold">
+                {allow.left > 0
+                  ? `${allow.left} free practice test${allow.left === 1 ? "" : "s"} left this week.`
+                  : "You have used this week's free practice tests. They reset on Monday."}
+              </p>
+              <p className="mt-1 text-muted">Pro gives unlimited practice tests, AI mock interviews marked out of 100, and every firm mock process.</p>
+              <Link href="/pricing" className="btn btn-primary mt-3">
+                See Pro
+              </Link>
+            </aside>
+          ) : null
+        }
       />
     );
   }
   if (allow.blocked) return <PracticeLimitCard limit={allow.limit} />;
-  return <Runner key={run} test={test} onComplete={done} onExit={() => router.push("/tests")} />;
+  return <Runner key={run} test={test} onComplete={done} onExit={() => router.push("/tests")} onBegin={allow.begin} />;
+}
+
+export default function TestPlayer({ test }: { test: Test }) {
+  return (
+    <RequireAccount what="take this practice test">
+      <Player test={test} />
+    </RequireAccount>
+  );
 }

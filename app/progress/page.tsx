@@ -1,5 +1,6 @@
 "use client";
 
+import RequireAccount from "@/components/RequireAccount";
 import Link from "next/link";
 import ProgressBar from "@/components/Progress";
 import { STAGE_LABEL } from "@/lib/interview";
@@ -10,7 +11,7 @@ import type { PracticeRecord, SessionRecord } from "@/lib/types";
 const fmt = (iso: string) => new Date(iso).toLocaleDateString("en-GB", { day: "numeric", month: "short" });
 const STAR_KEYS = ["situation", "task", "action", "result"] as const;
 
-export default function Progress() {
+function ProgressInner() {
   const sessions = useCollection<SessionRecord>("sessions");
   const practice = useCollection<PracticeRecord>("practice");
 
@@ -217,5 +218,13 @@ export default function Progress() {
         </section>
       )}
     </div>
+  );
+}
+
+export default function Progress() {
+  return (
+    <RequireAccount what="see your progress">
+      <ProgressInner />
+    </RequireAccount>
   );
 }

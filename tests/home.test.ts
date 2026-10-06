@@ -68,7 +68,7 @@ describe("home numbers are counted, not typed", () => {
   it("has one definition of the free allowance", () => {
     // Free has no AI mock interviews, a few practice tests a week, and two written-feedback reviews a week.
     expect(FREE_INTERVIEWS).toBe(0);
-    expect(FREE_PRACTICE_PER_WEEK).toBe(3);
+    expect(FREE_PRACTICE_PER_WEEK).toBe(2);
     expect(FREE_REVIEWS).toBe(2);
   });
 });

@@ -1,6 +1,7 @@
 "use client";
 
 import SignInNotice from "@/components/SignInNotice";
+import RequireAccount from "@/components/RequireAccount";
 import { useState } from "react";
 import AreaTabs from "@/components/AreaTabs";
 import FileTextPicker from "@/components/FileTextPicker";
@@ -9,7 +10,7 @@ import type { CvOutput } from "@/lib/cv";
 
 type Result = CvOutput & { removed: number };
 
-export default function CvApp({ firms }: { firms: { slug: string; name: string }[] }) {
+function CvInner({ firms }: { firms: { slug: string; name: string }[] }) {
   const [text, setText] = useState("");
   const [jobAd, setJobAd] = useState("");
   const [firm, setFirm] = useState("");
@@ -160,5 +161,13 @@ export default function CvApp({ firms }: { firms: { slug: string; name: string }
         </div>
       )}
     </div>
+  );
+}
+
+export default function CvApp(props: React.ComponentProps<typeof CvInner>) {
+  return (
+    <RequireAccount what="check your CV">
+      <CvInner {...props} />
+    </RequireAccount>
   );
 }

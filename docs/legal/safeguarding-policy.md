@@ -39,7 +39,7 @@ Keep a short, factual, dated record of each concern: what was received, what was
 - No messaging between users, no public profiles, no user-generated public content.
 - No advertising, tracking, notifications or pressure messages.
 - Feedback stays encouraging and honest; AI prompts tell the model it is speaking to a school leaver aged 16 to 19.
-- Accounts are 16+; under-16s can use everything without an account.
+- Accounts are 16+; without an account, anyone can browse the public pages (employer list and guides) but cannot use the practice, tracker or AI tools.
 
 ## 7. Review
 Review this policy every 12 months, after any serious incident, or when the product changes (for example if a chat or community feature is added).

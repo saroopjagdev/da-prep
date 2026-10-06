@@ -13,7 +13,7 @@ export default function SignInNotice({ what = "this feature" }: { what?: string 
       <Link href="/login" className="font-semibold underline">
         Sign in or create an account
       </Link>
-      . Practice tests, the tracker and the guides need no account.
+      .
     </p>
   );
 }

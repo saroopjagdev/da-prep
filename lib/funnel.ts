@@ -4,7 +4,8 @@
 export const FUNNEL_EVENTS = [
   "landing_view", // a new visitor was shown the landing page
   "hero_signup_submit", // they pressed Get started free
-  "hero_try_practice", // they chose the no-account practice test instead
+  "hero_try_practice", // retired: the practice test now needs an account
+  "gate_view", // someone without an account reached a tool that needs one
   "link_sent", // we sent a sign-in email
   "signed_in", // they arrived back from the email and are signed in
   "first_practice", // first practice test completed on a device

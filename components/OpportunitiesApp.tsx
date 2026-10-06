@@ -37,7 +37,9 @@ const mine = (apps: Application[], r: OpportunityRow) => apps.find((a) => (a.fir
 const pristine = (a: Application) => !a.notes.trim() && !(a.checklist ?? []).some((c) => c.done);
 
 export default function OpportunitiesApp({ rows }: { rows: OpportunityRow[] }) {
-  const { user, enabled } = useAuth();
+  const { user, enabled, ready } = useAuth();
+  // Without an account the list is view-only: tracking needs one (it is saved and synced to the account).
+  const canTrack = !enabled || !ready || Boolean(user);
   const { items: apps, loaded, update } = useCollection<Application>("applications");
   const params = useSearchParams();
   const [query, setQuery] = useState("");
@@ -90,7 +92,7 @@ export default function OpportunitiesApp({ rows }: { rows: OpportunityRow[] }) {
   const unlisted = apps.filter((a) => !listed.has(a.id));
   const filtered = rows.filter(
     (r) =>
-      (!onlyMine || mine(apps, r)) &&
+      (!(onlyMine && canTrack) || mine(apps, r)) &&
       (!onlyGuides || r.slug) &&
       (sector === "all" || r.sectors.includes(sector)) &&
       (status === "all" || r.status === status) &&
@@ -121,6 +123,14 @@ export default function OpportunitiesApp({ rows }: { rows: OpportunityRow[] }) {
 
   return (
     <div className="space-y-3">
+      {!canTrack && (
+        <p role="note" className="callout bg-brand-50 text-sm">
+          You are viewing the list. Create a free account to track your applications, set reminders for closing dates and keep notes, saved and synced across devices.{" "}
+          <Link href="/login" className="font-semibold underline">
+            Create a free account
+          </Link>
+        </p>
+      )}
       <div className="flex flex-wrap items-center gap-2">
         <input
           className="input !w-auto min-w-48 flex-1 text-sm"
@@ -164,9 +174,11 @@ export default function OpportunitiesApp({ rows }: { rows: OpportunityRow[] }) {
             </option>
           ))}
         </select>
+        {canTrack && (
         <button onClick={() => setOnlyMine((v) => !v)} aria-pressed={onlyMine} className={`chip ${onlyMine ? "chip-active" : ""}`}>
           My list ({apps.length})
         </button>
+        )}
         <button onClick={() => setOnlyGuides((v) => !v)} aria-pressed={onlyGuides} className={`chip ${onlyGuides ? "chip-active" : ""}`}>
           With a guide ({rows.filter((r) => r.slug).length})
         </button>
@@ -234,6 +246,11 @@ export default function OpportunitiesApp({ rows }: { rows: OpportunityRow[] }) {
                   )}
                   <tr className="border-t border-line align-top hover:bg-soft/60">
                     <td className="px-3 py-2">
+                      {!canTrack ? (
+                        <Link href="/login" className="text-xs font-semibold text-brand-700 underline-offset-2 hover:underline">
+                          Sign up to track
+                        </Link>
+                      ) : (
                       <select
                         className={`input !w-36 !py-1 text-sm ${a ? `font-semibold ${MINE_COLOUR[a.status] ?? "text-brand-700"}` : "text-muted"}`}
                         aria-label={`My status for ${r.name}`}
@@ -245,6 +262,7 @@ export default function OpportunitiesApp({ rows }: { rows: OpportunityRow[] }) {
                           <option key={s}>{s}</option>
                         ))}
                       </select>
+                      )}
                     </td>
                     <td className="px-3 py-2">
                       {r.slug ? (
@@ -414,6 +432,7 @@ export default function OpportunitiesApp({ rows }: { rows: OpportunityRow[] }) {
         </section>
       )}
 
+      {canTrack && (
       <details className="rounded-lg border border-line bg-white p-3">
         <summary className="cursor-pointer text-sm font-semibold">Add an employer that is not listed</summary>
         <form
@@ -434,6 +453,7 @@ export default function OpportunitiesApp({ rows }: { rows: OpportunityRow[] }) {
           </button>
         </form>
       </details>
+      )}
     </div>
   );
 }

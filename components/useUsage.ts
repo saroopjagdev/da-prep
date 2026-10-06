@@ -9,6 +9,7 @@ export type Usage = {
   enforced: boolean;
   interviews?: { used: number; limit: number };
   reviews?: { used: number; limit: number };
+  practice?: { used: number; limit: number };
 };
 
 /** What the signed-in person has left of the free allowances, from GET /api/usage. null while loading or when signed out. */

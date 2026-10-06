@@ -66,8 +66,12 @@ function startSection(st: RunState, section: Section, now: number): RunState {
   };
 }
 
-export default function Runner({ test, onComplete, onExit }: { test: Test; onComplete: (r: TestResult) => void; onExit?: () => void }) {
+type Begin = () => Promise<{ ok: true } | { ok: false; message: string }>;
+
+export default function Runner({ test, onComplete, onExit, onBegin }: { test: Test; onComplete: (r: TestResult) => void; onExit?: () => void; onBegin?: Begin }) {
   const [st, setSt] = useState<RunState | null>(null);
+  const [beginning, setBeginning] = useState(false);
+  const [beginError, setBeginError] = useState<string | null>(null);
   const [now, setNow] = useState(() => Date.now());
   const [calcOpen, setCalcOpen] = useState(false);
   const finished = useRef(false);
@@ -199,7 +203,22 @@ export default function Runner({ test, onComplete, onExit }: { test: Test; onCom
           <li>{section.calculator ? "A calculator is provided" : "No calculator"}</li>
         </ul>
         <div className="flex gap-3">
-          <button className="btn btn-primary" disabled={!st} onClick={() => st && setSt(startSection(st, section, Date.now()))}>
+          <button
+            className="btn btn-primary"
+            disabled={!st || beginning}
+            onClick={async () => {
+              if (!st) return;
+              // The first section of a fresh run is where a free practice test is counted against the weekly allowance.
+              if (onBegin && idx === 0) {
+                setBeginning(true);
+                setBeginError(null);
+                const r = await onBegin();
+                setBeginning(false);
+                if (!r.ok) return setBeginError(r.message);
+              }
+              setSt(startSection(st, section, Date.now()));
+            }}
+          >
             Start
           </button>
           {onExit && (
@@ -208,6 +227,11 @@ export default function Runner({ test, onComplete, onExit }: { test: Test; onCom
             </button>
           )}
         </div>
+        {beginError && (
+          <p role="alert" className="callout bg-coral-50 text-sm">
+            {beginError}
+          </p>
+        )}
       </div>
     );
   }

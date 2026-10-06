@@ -1,6 +1,15 @@
 import AxeBuilder from "@axe-core/playwright";
 import { expect, test, type Page } from "@playwright/test";
-import { isoWeek } from "../lib/week";
+
+// A signed-in browser without a real Supabase: supabase-js reads this session from local storage (key sb-<host>-auth-token).
+const signedIn = (page: Page) =>
+  page.addInitScript(() => {
+    const b64 = (o: object) => btoa(JSON.stringify(o)).replace(/=+$/, "").replace(/\+/g, "-").replace(/\//g, "_");
+    const exp = Math.floor(Date.now() / 1000) + 24 * 3600;
+    const user = { id: "00000000-0000-0000-0000-000000000001", aud: "authenticated", role: "authenticated", email: "e2e@example.com", app_metadata: {}, user_metadata: {}, created_at: new Date().toISOString() };
+    const jwt = `${b64({ alg: "HS256", typ: "JWT" })}.${b64({ sub: user.id, exp, role: "authenticated" })}.sig`;
+    localStorage.setItem("sb-localhost-auth-token", JSON.stringify({ access_token: jwt, refresh_token: "e2e-refresh", token_type: "bearer", expires_in: 86400, expires_at: exp, user }));
+  });
 
 const clearRuns = (page: Page) => page.evaluate(() => localStorage.clear());
 
@@ -15,6 +24,7 @@ test("finance is a sector page with its calendar, and old finance links redirect
 });
 
 test("a firm-specific text interview reaches marked feedback", async ({ page }) => {
+  await signedIn(page);
   await page.goto("/interview?firm=morgan-stanley");
   await expect(page.getByLabel(/^Employer/)).toHaveValue("morgan-stanley");
   await page.getByRole("button", { name: "Commercial awareness" }).click();
@@ -35,10 +45,12 @@ test("a firm-specific text interview reaches marked feedback", async ({ page }) 
 });
 
 test("a practice test can be completed and reviewed", async ({ page }) => {
+  await signedIn(page);
   await page.goto("/tests/capp-critical");
   await clearRuns(page);
   await page.reload();
   await page.getByRole("button", { name: /^start/i }).first().click();
+  await expect(page.getByRole("heading", { name: /question \d+ of/ })).toBeVisible();
   for (let i = 0; i < 20; i++) {
     if (!(await page.getByRole("heading", { name: /question \d+ of/ }).count())) break;
     await page.locator("main input[type=radio]").first().click();
@@ -48,6 +60,7 @@ test("a practice test can be completed and reviewed", async ({ page }) => {
 });
 
 test("a bank mock process runs to its report", async ({ page }) => {
+  await signedIn(page);
   await page.goto("/mock/bank-of-america");
   await clearRuns(page);
   await page.reload();
@@ -62,6 +75,7 @@ test("a bank mock process runs to its report", async ({ page }) => {
 });
 
 test("opportunities: set my status from the row dropdown, add notes, and it survives a reload", async ({ page }) => {
+  await signedIn(page);
   await page.goto("/opportunities");
   await clearRuns(page);
   await page.reload();
@@ -77,6 +91,7 @@ test("opportunities: set my status from the row dropdown, add notes, and it surv
 
 test("the My list menu link works from the page you are already on", async ({ page, isMobile }) => {
   test.skip(isMobile, "the dropdown menu is the desktop navigation");
+  await signedIn(page);
   await page.goto("/opportunities");
   await clearRuns(page);
   await page.reload();
@@ -129,6 +144,7 @@ for (const path of PAGES) {
 }
 
 test("related pages share tabs: tests and feedback", async ({ page }) => {
+  await signedIn(page);
   await page.goto("/practice");
   await page.getByRole("navigation", { name: "Practice tests" }).getByRole("link", { name: "Employer replicas" }).click();
   await expect(page).toHaveURL(/\/tests$/);
@@ -138,6 +154,7 @@ test("related pages share tabs: tests and feedback", async ({ page }) => {
 });
 
 test("opportunities are grouped by sector, and the guides link shows only researched employers", async ({ page }) => {
+  await signedIn(page);
   await page.goto("/opportunities");
   const groups = page.locator("tbody th[scope='colgroup']");
   await expect(groups.first()).toContainText("Finance and accountancy");
@@ -155,22 +172,13 @@ test("opportunities are grouped by sector, and the guides link shows only resear
 test("a new visitor sees the pitch with a way to start, and opportunities still follows ?q=", async ({ page }) => {
   await page.goto("/");
   await expect(page.getByRole("heading", { level: 1, name: /Practise the real stages/ })).toBeVisible();
-  await expect(page.getByRole("link", { name: /Or try a free practice test/ })).toBeVisible();
+  await expect(page.getByRole("link", { name: /Or see who is open now/ })).toBeVisible();
   await expect(page.getByText("Your dashboard")).toBeHidden();
   await page.goto("/opportunities?q=natwest");
   await expect(page.getByLabel("Search employers or programmes")).toHaveValue("natwest");
   await expect(page.locator("tbody tr").filter({ hasText: "NatWest Group" }).getByText("Not open yet", { exact: true })).toBeVisible();
 });
 
-// A signed-in browser without a real Supabase: supabase-js reads this session from local storage (key sb-<host>-auth-token).
-const signedIn = (page: Page) =>
-  page.addInitScript(() => {
-    const b64 = (o: object) => btoa(JSON.stringify(o)).replace(/=+$/, "").replace(/\+/g, "-").replace(/\//g, "_");
-    const exp = Math.floor(Date.now() / 1000) + 24 * 3600;
-    const user = { id: "00000000-0000-0000-0000-000000000001", aud: "authenticated", role: "authenticated", email: "e2e@example.com", app_metadata: {}, user_metadata: {}, created_at: new Date().toISOString() };
-    const jwt = `${b64({ alg: "HS256", typ: "JWT" })}.${b64({ sub: user.id, exp, role: "authenticated" })}.sig`;
-    localStorage.setItem("sb-localhost-auth-token", JSON.stringify({ access_token: jwt, refresh_token: "e2e-refresh", token_type: "bearer", expires_in: 86400, expires_at: exp, user }));
-  });
 const withActivity = (page: Page) =>
   page.addInitScript(() => localStorage.setItem("da-prep:practice", JSON.stringify([{ id: "p1", date: new Date().toISOString(), category: "numerical", score: 7, total: 10 }])));
 
@@ -202,18 +210,58 @@ test("the dashboard has no accessibility problems", async ({ page }) => {
   expect(await page.evaluate(() => document.documentElement.scrollWidth > window.innerWidth)).toBe(false);
 });
 
-test("free practice stops after the weekly number and says why; a new week starts fresh", async ({ page }) => {
-  await page.addInitScript((week) => localStorage.setItem("da-prep:practice-week", JSON.stringify({ week, n: 3 })), isoWeek());
+const usage = (page: Page, practice: { used: number; limit: number }) =>
+  page.route("**/api/usage", (route) => route.fulfill({ json: { plan: "free", enforced: true, interviews: { used: 0, limit: 0 }, reviews: { used: 0, limit: 2 }, practice } }));
+
+test("free practice stops when the week's tests are used, and says why", async ({ page }) => {
+  await signedIn(page);
+  await usage(page, { used: 2, limit: 2 });
   await page.goto("/practice");
-  await expect(page.getByRole("heading", { name: /used your 3 free practice tests this week/ })).toBeVisible();
+  await expect(page.getByRole("heading", { name: /used your 2 free practice tests this week/ })).toBeVisible();
   await expect(page.getByRole("button", { name: /Numerical/ }).first()).toBeDisabled();
   await page.goto("/tests/shl-numerical");
-  await expect(page.getByRole("heading", { name: /used your 3 free practice tests this week/ })).toBeVisible();
+  await expect(page.getByRole("heading", { name: /used your 2 free practice tests this week/ })).toBeVisible();
 });
 
 test("free practice shows what is left", async ({ page }) => {
-  await page.addInitScript((week) => localStorage.setItem("da-prep:practice-week", JSON.stringify({ week, n: 1 })), isoWeek());
+  await signedIn(page);
+  await usage(page, { used: 1, limit: 2 });
   await page.goto("/practice");
-  await expect(page.getByText("2 of 3 free practice tests left this week")).toBeVisible();
+  await expect(page.getByText("1 of 2 free practice tests left this week")).toBeVisible();
   await expect(page.getByRole("button", { name: /Numerical/ }).first()).toBeEnabled();
+});
+
+test("starting a test the server refuses shows its reason and does not start", async ({ page }) => {
+  await signedIn(page);
+  await usage(page, { used: 1, limit: 2 });
+  await page.route("**/api/practice/start", (route) => route.fulfill({ status: 402, json: { error: "You've used your 2 free practice tests this week." } }));
+  await page.goto("/tests/capp-critical");
+  await page.evaluate(() => localStorage.removeItem("da-prep:assess-run:capp-critical"));
+  await page.getByRole("button", { name: /^start/i }).first().click();
+  await expect(page.locator("p[role=alert]")).toContainText("used your 2 free practice tests");
+});
+
+for (const [path, what] of [
+  ["/practice", /take practice tests/],
+  ["/tests/capp-critical", /take this practice test/],
+  ["/mock/bank-of-america", /practise the Bank of America mock process/i],
+  ["/interview", /practise a mock interview/],
+  ["/review", /get written feedback/],
+  ["/cv", /check your CV/],
+  ["/stories", /build your stories bank/],
+  ["/progress", /see your progress/],
+] as const) {
+  test(`without an account, ${path} asks for one instead of opening the tool`, async ({ page }) => {
+    await page.goto(path);
+    await expect(page.getByRole("heading", { name: /create a free account to/i })).toContainText(what);
+    await expect(page.getByRole("link", { name: "Create a free account" }).first()).toHaveAttribute("href", "/login");
+  });
+}
+
+test("without an account the opportunities list is view-only", async ({ page }) => {
+  await page.goto("/opportunities");
+  await expect(page.locator("tbody tr").first()).toBeVisible();
+  await expect(page.getByLabel(/My status for/)).toHaveCount(0);
+  await expect(page.getByRole("link", { name: "Sign up to track" }).first()).toBeVisible();
+  await expect(page.getByRole("button", { name: /My list/ })).toHaveCount(0);
 });

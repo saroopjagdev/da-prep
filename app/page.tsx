@@ -4,7 +4,6 @@ import path from "node:path";
 import FirmMarquee, { type MarqueeFirm } from "@/components/FirmMarquee";
 import HeroSignup from "@/components/HeroSignup";
 import HomeSwitch from "@/components/HomeSwitch";
-import TrackedLink from "@/components/TrackedLink";
 import Icon from "@/components/Icon";
 import ScoreRing from "@/components/ScoreRing";
 import { FIRMS } from "@/lib/firms";
@@ -75,9 +74,9 @@ export default function Home() {
             </p>
             <HeroSignup />
             <p className="text-sm">
-              <TrackedLink event="hero_try_practice" href="/practice" className="font-semibold text-brand-700 underline underline-offset-4">
-                Or try a free practice test now
-              </TrackedLink>{" "}
+              <Link href="/opportunities" className="font-semibold text-brand-700 underline underline-offset-4">
+                Or see who is open now
+              </Link>{" "}
               <span className="text-muted">(no account needed)</span>
             </p>
           </div>
@@ -183,11 +182,15 @@ export default function Home() {
         {/* Plans */}
         <section className="mx-auto max-w-6xl space-y-6 px-4 py-16" aria-labelledby="plans">
           <h2 id="plans" className="text-3xl font-bold tracking-tight">Free to start. Pro if you want more.</h2>
-          <div className="grid gap-5 sm:grid-cols-2">
+          <div className="grid gap-5 md:grid-cols-3">
             <div className="card space-y-2 p-6">
-              <h3 className="text-lg font-bold">Free</h3>
+              <h3 className="text-lg font-bold">No account</h3>
+              <p className="text-sm text-muted">Browse the Opportunities list, every employer guide and the advice guides.</p>
+            </div>
+            <div className="card space-y-2 border-brand-600 p-6">
+              <h3 className="text-lg font-bold">Free account</h3>
               <p className="text-sm text-muted">
-                The Opportunities list, your tracker and all employer guides, {FREE_PRACTICE_PER_WEEK} practice tests a week and {FREE_REVIEWS} written feedback reviews a week (CV, cover letter, statement).
+                Everything above, plus your own tracker, {FREE_PRACTICE_PER_WEEK} practice tests a week and {FREE_REVIEWS} written feedback reviews a week (CV, cover letter, statement), with your scores kept for you. No card.
               </p>
             </div>
             <div className="card space-y-2 p-6">

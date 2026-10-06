@@ -1,5 +1,5 @@
 import { admin, userFromRequest } from "@/lib/server/auth";
-import { FREE_INTERVIEWS, FREE_REVIEWS } from "@/lib/plans";
+import { FREE_INTERVIEWS, FREE_PRACTICE_PER_WEEK, FREE_REVIEWS } from "@/lib/plans";
 import { isoWeek } from "@/lib/week";
 import { limitsEnforced } from "@/lib/server/guard";
 
@@ -10,7 +10,7 @@ type Result = { ok: true } | { ok: false; status: number; error: string };
 /** Count one use against a free allowance. Only enforced when limits are enforced (see limitsEnforced); otherwise always allowed. */
 async function consume(
   req: Request,
-  rpc: "consume_interview" | "consume_review",
+  rpc: "consume_interview" | "consume_review" | "consume_practice",
   period: string,
   limit: number,
   signIn: string,
@@ -41,6 +41,17 @@ export const consumeInterview = (req: Request) =>
     FREE_INTERVIEWS === 0
       ? "AI mock interviews are part of Pro (£9.99 a month). Upgrade to start one."
       : `You've used your ${FREE_INTERVIEWS} free interviews this month. Upgrade to Pro to keep practising (fair-use limits apply).`,
+  );
+
+/** Count one practice test against the caller's weekly free allowance. */
+export const consumePractice = (req: Request) =>
+  consume(
+    req,
+    "consume_practice",
+    isoWeek(),
+    FREE_PRACTICE_PER_WEEK,
+    "Create a free account to take practice tests.",
+    `You've used your ${FREE_PRACTICE_PER_WEEK} free practice tests this week. They reset on Monday, or upgrade to Pro for unlimited practice.`,
   );
 
 /** Count one statement or answer review against the caller's weekly free allowance. */

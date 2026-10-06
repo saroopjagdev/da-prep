@@ -14,7 +14,7 @@ Practice tools for UK degree apprenticeship applications: AI mock interviews (te
 
 | Data | Source | Where it's held | Purpose | Lawful basis (to confirm) | Kept for |
 |---|---|---|---|---|---|
-| Tracker, stories, practice scores, interview history | User | **The user's browser only**, unless they sign in | The tools the user asked for | Not received by us without an account | Until the user clears it |
+| Tracker, stories, practice scores, interview history | User | An account is needed to use these tools; the data is saved in the browser and synced to the account | The tools the user asked for | Not received by us without an account | Until the user clears it |
 | Email address | User (sign-in) | Supabase (EU, Ireland) | Account and sign-in | Contract [lawyer: confirm for 16 to 17-year-olds] | Until account deletion |
 | Synced copies of the data above | User (signed in) | Supabase (EU) | Sync between devices | Contract | Until the user deletes it or the account |
 | Plan, pass end date, Stripe customer ID | Stripe webhook | Supabase (EU) | Provide Pro | Contract | Account life; payment records as the law requires |
@@ -33,11 +33,11 @@ Practice tools for UK degree apprenticeship applications: AI mock interviews (te
 |---|---|---|
 | 1 Best interests | Free tier with no ads; tools support a real goal (getting an apprenticeship); support signposting in the safety filter | — |
 | 2 DPIA | This document | Finish and sign off |
-| 3 Age-appropriate application | Accounts are 16+ with a confirmation at sign-up; under-16s can use everything without an account (data stays on their device); payers must confirm they're 18+ | Age is self-declared; [decide whether that's proportionate] |
+| 3 Age-appropriate application | Accounts are 16+ with a confirmation at sign-up; under-16s cannot create an account, so without one they can only browse the public pages (the employer list and guides); payers must confirm they're 18+ | Age is self-declared; [decide whether that's proportionate] |
 | 4 Transparency | Privacy notice with a short plain-English summary at the top; "just in time" notices before AI processing and voice recording | Lawyer to review the summary |
 | 5 Detrimental use | No ads, no infinite feeds, no notifications, no dark patterns. The home page "streak" counts practice days only, with no pressure messages, rewards or reminders | Justify the streak here (below) |
 | 6 Policies and community standards | Terms explain acceptable use and AI rules | — |
-| 7 Default settings | Highest privacy by default: no account needed; data local by default | — |
+| 7 Default settings | Highest privacy by default: public pages need no account; the tools need one (16+) | — |
 | 8 Data minimisation | Only an email for accounts; content isn't stored on our servers | — |
 | 9 Data sharing | Not shared or sold; never shared with employers | — |
 | 10 Geolocation | Not collected | — |

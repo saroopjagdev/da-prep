@@ -37,10 +37,10 @@ describe("GET /api/usage", () => {
 
   it("returns what the free plan has used and its limits", async () => {
     // The route reads usage twice (the month, then the week): both fakes answer from the same table here.
-    rows.usage = { interviews: 1, reviews: 2 };
+    rows.usage = { interviews: 1, reviews: 2, practice: 1 };
     rows.profiles = { plan: "free" };
     const body = await (await call()).json();
-    expect(body).toMatchObject({ plan: "free", enforced: true, interviews: { used: 1, limit: 0 }, reviews: { used: 2, limit: 2 } });
+    expect(body).toMatchObject({ plan: "free", enforced: true, interviews: { used: 1, limit: 0 }, reviews: { used: 2, limit: 2 }, practice: { used: 1, limit: 2 } });
   });
 
   it("gives Pro no fixed allowance", async () => {
