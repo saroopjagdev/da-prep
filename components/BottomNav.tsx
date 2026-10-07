@@ -8,7 +8,7 @@ const items: { href: string; label: string; icon: IconName }[] = [
   { href: "/", label: "Home", icon: "home" },
   { href: "/interview", label: "Interview", icon: "chat" },
   { href: "/practice", label: "Tests", icon: "test" },
-  { href: "/opportunities", label: "Opportunities", icon: "board" },
+  { href: "/opportunities", label: "Tracker", icon: "board" },
   { href: "/progress", label: "Progress", icon: "chart" },
 ];
 

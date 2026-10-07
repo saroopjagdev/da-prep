@@ -30,7 +30,7 @@ const TILES = [
   { href: "/interview", title: "Mock interview", body: "Questions from a real advert, marked" },
   { href: "/practice", title: "Practice tests", body: "Reasoning and judgement, explained" },
   { href: "/mock", title: "Firm mock process", body: "An employer's stages, in order" },
-  { href: "/cv", title: "CV and statements", body: "Written feedback out of 100" },
+  { href: "/cv", title: "CV and statements", body: "Marked feedback out of 100" },
 ];
 
 function Card({ title, children, href, cta }: { title: string; children: React.ReactNode; href?: string; cta?: string }) {
@@ -134,7 +134,7 @@ export default function HomeDashboard({ open }: { open: OpenNow[] }) {
               </p>
               {usage.reviews && (
                 <p>
-                  <strong>{Math.max(0, usage.reviews.limit - usage.reviews.used)}</strong> of {usage.reviews.limit} written feedback reviews left this week
+                  <strong>{Math.max(0, usage.reviews.limit - usage.reviews.used)}</strong> of {usage.reviews.limit} CV and statement reviews left this week
                 </p>
               )}
               {usage.interviews && usage.interviews.limit === 0 ? (
@@ -152,9 +152,9 @@ export default function HomeDashboard({ open }: { open: OpenNow[] }) {
       </div>
 
       <div className="grid gap-4 md:grid-cols-3">
-        <Card title="Open now" href="/opportunities" cta="All opportunities">
+        <Card title="Open now" href="/opportunities" cta="Opportunities tracker">
           {openList.length === 0 ? (
-            <p className="text-muted">Nothing confirmed open yet. Opening soon are listed in Opportunities.</p>
+            <p className="text-muted">Nothing confirmed open yet. Opening soon are listed in the opportunities tracker.</p>
           ) : (
             <ul className="space-y-2">
               {openList.map((o) => (
@@ -171,7 +171,7 @@ export default function HomeDashboard({ open }: { open: OpenNow[] }) {
           )}
         </Card>
 
-        <Card title="My list" href="/opportunities?mine=1" cta="Open my list">
+        <Card title="My tracker" href="/opportunities?mine=1" cta="Open my tracker">
           {apps.items.length === 0 ? (
             <p className="text-muted">Nothing tracked yet. Set a status on any employer to start.</p>
           ) : (

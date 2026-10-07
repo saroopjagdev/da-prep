@@ -11,16 +11,15 @@ export const NAV_GROUPS: NavGroup[] = [
       { href: "/interview", label: "Mock interview", blurb: "Questions built from a real advert, with marked feedback" },
       { href: "/practice", label: "Practice tests", blurb: "General practice with explanations, plus employer-style replicas with real formats and timings" },
       { href: "/mock", label: "Firm mock processes", blurb: "Run a firm's stages in its real order" },
-      { href: "/review", label: "Written feedback", blurb: "Your personal statement, application answers or CV" },
+      { href: "/review", label: "CV and statement review", blurb: "Marked feedback on your CV, personal statement or application answers" },
     ],
   },
   {
-    label: "Opportunities",
+    label: "Tracker",
     href: "/opportunities",
     links: [
-      { href: "/opportunities", label: "All opportunities", blurb: "Who is open now, opening soon or closed, across every sector" },
-      { href: "/opportunities?guides=1", label: "Employer guides", blurb: "Process, tests and interview for each employer we have researched" },
-      { href: "/opportunities?mine=1", label: "My list", blurb: "Track where you have applied, your stage, notes and closing dates" },
+      { href: "/opportunities", label: "Opportunities tracker", blurb: "Who is open now, opening soon or closed, across every sector" },
+      { href: "/opportunities?mine=1", label: "My tracker", blurb: "Track where you have applied, your stage, notes and closing dates" },
     ],
   },
   {

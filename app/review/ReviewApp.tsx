@@ -77,7 +77,7 @@ function ReviewInner({ firms }: { firms: ReviewFirm[] }) {
     <div className="space-y-4">
       <AreaTabs area="feedback" current="/review" />
       <h1 className="page-title">Statement and answer review</h1>
-      <SignInNotice what="written feedback" />
+      <SignInNotice what="CV and statement review" />
       <p className="text-muted">
         Get feedback on a personal statement or application form answer. Write it yourself and use the feedback to
         improve it. Employers want your own words.
@@ -276,7 +276,7 @@ function ReviewInner({ firms }: { firms: ReviewFirm[] }) {
 
 export default function ReviewApp(props: React.ComponentProps<typeof ReviewInner>) {
   return (
-    <RequireAccount what="get written feedback">
+    <RequireAccount what="get CV and statement review">
       <ReviewInner {...props} />
     </RequireAccount>
   );

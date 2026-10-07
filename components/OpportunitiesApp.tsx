@@ -176,11 +176,11 @@ export default function OpportunitiesApp({ rows }: { rows: OpportunityRow[] }) {
         </select>
         {canTrack && (
         <button onClick={() => setOnlyMine((v) => !v)} aria-pressed={onlyMine} className={`chip ${onlyMine ? "chip-active" : ""}`}>
-          My list ({apps.length})
+          My tracker ({apps.length})
         </button>
         )}
         <button onClick={() => setOnlyGuides((v) => !v)} aria-pressed={onlyGuides} className={`chip ${onlyGuides ? "chip-active" : ""}`}>
-          With a guide ({rows.filter((r) => r.slug).length})
+          Employer guides ({rows.filter((r) => r.slug).length})
         </button>
         {hasDeadlines(apps) && (
           <button onClick={downloadCalendar} className="chip">
@@ -200,7 +200,7 @@ export default function OpportunitiesApp({ rows }: { rows: OpportunityRow[] }) {
         </p>
       )}
 
-      <div role="region" aria-label="Opportunities table" tabIndex={0} className="overflow-x-auto rounded-xl border border-line bg-white">
+      <div role="region" aria-label="Opportunities tracker table" tabIndex={0} className="overflow-x-auto rounded-xl border border-line bg-white">
         <table className="w-full min-w-[34rem] text-left text-sm">
           <caption className="sr-only">Employers with your status, the application status, and opening and closing dates</caption>
           <thead className="bg-soft text-xs uppercase tracking-wide text-muted">
@@ -381,7 +381,7 @@ export default function OpportunitiesApp({ rows }: { rows: OpportunityRow[] }) {
                             setOpen(null);
                           }}
                         >
-                          Remove from my list
+                          Remove from my tracker
                         </button>
                       </td>
                     </tr>

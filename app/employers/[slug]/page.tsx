@@ -38,7 +38,7 @@ export default async function FirmPage({ params }: { params: Promise<{ slug: str
         data={[
           breadcrumbLd([
             { name: "Home", path: "/" },
-            { name: "Opportunities", path: "/opportunities" },
+            { name: "Opportunities tracker", path: "/opportunities" },
             { name: firm.name, path: `/employers/${firm.slug}` },
           ]),
           articleLd({
@@ -51,7 +51,7 @@ export default async function FirmPage({ params }: { params: Promise<{ slug: str
       />
       <div>
         <Link className="text-sm underline" href="/opportunities">
-          All opportunities
+          Opportunities tracker
         </Link>
         <div className="mt-2 flex items-center gap-4">
           {logo && (

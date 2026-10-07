@@ -19,9 +19,9 @@ export default function Opportunities() {
   const rows = opportunityRows(new Date());
   return (
     <div className="mx-auto max-w-6xl space-y-4">
-      <JsonLd data={breadcrumbLd([{ name: "Home", path: "/" }, { name: "Opportunities", path: "/opportunities" }])} />
+      <JsonLd data={breadcrumbLd([{ name: "Home", path: "/" }, { name: "Opportunities tracker", path: "/opportunities" }])} />
       <div className="space-y-2">
-        <h1 className="page-title">Opportunities</h1>
+        <h1 className="page-title">Opportunities tracker</h1>
         <p className="text-muted">
           Who is open, opening soon or closed. Set your status on any employer to track it. Dates move, so confirm on the employer&apos;s own page.
         </p>

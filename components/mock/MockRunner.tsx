@@ -371,7 +371,7 @@ export default function MockRunner({ mock, firmName, tests }: { mock: MockProces
           Run it again
         </button>
         <Link href="/opportunities" className="btn btn-secondary">
-          All opportunities
+          Opportunities tracker
         </Link>
       </div>
     </div>

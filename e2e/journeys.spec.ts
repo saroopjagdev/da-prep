@@ -85,20 +85,20 @@ test("opportunities: set my status from the row dropdown, add notes, and it surv
   await row.getByRole("button", { name: /Notes and stages for UBS/ }).click();
   await expect(page.getByText(/Stages: 0 of \d+ done/)).toBeVisible();
   await page.reload();
-  await page.getByRole("button", { name: /My list/ }).click();
+  await page.getByRole("button", { name: /My tracker/ }).click();
   await expect(page.locator("tbody tr").filter({ hasText: "UBS" }).getByLabel("My status for UBS")).toHaveValue("Applied");
 });
 
-test("the My list menu link works from the page you are already on", async ({ page, isMobile }) => {
+test("the My tracker menu link works from the page you are already on", async ({ page, isMobile }) => {
   test.skip(isMobile, "the dropdown menu is the desktop navigation");
   await signedIn(page);
   await page.goto("/opportunities");
   await clearRuns(page);
   await page.reload();
   await page.locator("tbody tr").filter({ hasText: "Barclays" }).first().getByLabel("My status for Barclays").selectOption("Interested");
-  await page.getByRole("navigation").getByRole("link", { name: "Opportunities" }).first().hover();
-  await page.getByRole("link", { name: /My list/ }).first().click();
-  await expect(page.getByRole("button", { name: /My list/ })).toHaveAttribute("aria-pressed", "true");
+  await page.getByRole("navigation").getByRole("link", { name: "Tracker" }).first().hover();
+  await page.getByRole("link", { name: /My tracker/ }).first().click();
+  await expect(page.getByRole("button", { name: /My tracker/ })).toHaveAttribute("aria-pressed", "true");
   await expect(page.getByLabel(/My status for/)).toHaveCount(1);
 });
 
@@ -149,7 +149,7 @@ test("related pages share tabs: tests and feedback", async ({ page }) => {
   await page.getByRole("navigation", { name: "Practice tests" }).getByRole("link", { name: "Employer replicas" }).click();
   await expect(page).toHaveURL(/\/tests$/);
   await page.goto("/cv");
-  await page.getByRole("navigation", { name: "Written feedback" }).getByRole("link", { name: "Statement and answers" }).click();
+  await page.getByRole("navigation", { name: "CV and statement review" }).getByRole("link", { name: "Statement and answers" }).click();
   await expect(page).toHaveURL(/\/review$/);
 });
 
@@ -161,7 +161,7 @@ test("opportunities are grouped by sector, and the guides link shows only resear
   await page.getByLabel("Filter by sector").selectOption({ label: "Engineering" });
   await expect(page.locator("tbody th[scope='colgroup']").first()).toContainText("Engineering");
   await page.goto("/opportunities?guides=1");
-  await expect(page.getByRole("button", { name: /With a guide/ })).toHaveAttribute("aria-pressed", "true");
+  await expect(page.getByRole("button", { name: /Employer guides/ })).toHaveAttribute("aria-pressed", "true");
   // Every row has a Guide link when only researched employers are shown.
   const rows = page.locator("tbody tr").filter({ has: page.getByLabel(/My status for/) });
   const total = await rows.count();
@@ -246,7 +246,7 @@ for (const [path, what] of [
   ["/tests/capp-critical", /take this practice test/],
   ["/mock/bank-of-america", /practise the Bank of America mock process/i],
   ["/interview", /practise a mock interview/],
-  ["/review", /get written feedback/],
+  ["/review", /get CV and statement review/],
   ["/cv", /check your CV/],
   ["/stories", /build your stories bank/],
   ["/progress", /see your progress/],
@@ -263,7 +263,7 @@ test("without an account the opportunities list is view-only", async ({ page }) 
   await expect(page.locator("tbody tr").first()).toBeVisible();
   await expect(page.getByLabel(/My status for/)).toHaveCount(0);
   await expect(page.getByRole("link", { name: "Sign up to track" }).first()).toBeVisible();
-  await expect(page.getByRole("button", { name: /My list/ })).toHaveCount(0);
+  await expect(page.getByRole("button", { name: /My tracker/ })).toHaveCount(0);
 });
 
 test("employer pages show the firm's logo beside its name", async ({ page }) => {
