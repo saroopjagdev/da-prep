@@ -149,7 +149,7 @@ test("related pages share tabs: tests and feedback", async ({ page }) => {
   await page.getByRole("navigation", { name: "Practice tests" }).getByRole("link", { name: "Employer replicas" }).click();
   await expect(page).toHaveURL(/\/tests$/);
   await page.goto("/cv");
-  await page.getByRole("navigation", { name: "Written feedback" }).getByRole("link", { name: "Statement and answers" }).click();
+  await page.getByRole("navigation", { name: "CV and statement review" }).getByRole("link", { name: "Statement and answers" }).click();
   await expect(page).toHaveURL(/\/review$/);
 });
 
@@ -246,7 +246,7 @@ for (const [path, what] of [
   ["/tests/capp-critical", /take this practice test/],
   ["/mock/bank-of-america", /practise the Bank of America mock process/i],
   ["/interview", /practise a mock interview/],
-  ["/review", /get written feedback/],
+  ["/review", /get CV and statement review/],
   ["/cv", /check your CV/],
   ["/stories", /build your stories bank/],
   ["/progress", /see your progress/],
