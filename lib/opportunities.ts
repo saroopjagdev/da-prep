@@ -225,6 +225,15 @@ export const WINDOWS: WindowEntry[] = [
     checked: "2026-10-06",
   },
   {
+    name: "AWE",
+    source: "https://higherin.com/jobs/44163/awe/register-your-interest-level-6-degree-apprenticeships-2027",
+    opens: "2026-10-12",
+    closesLabel: "Ongoing; no closing date given",
+    note: "AWE's advert for Level 6 Degree Apprenticeships says applications for the 2027 intake open on 12 October 2026. AWE's own apprenticeships page currently says applications are closed and gives no date, so confirm there. British citizens only.",
+    confidence: "single-report",
+    checked: "2026-10-07",
+  },
+  {
     name: "Saffery",
     source: "https://saffery.kallidusrecruit.com/Search.aspx",
     state: "open",
