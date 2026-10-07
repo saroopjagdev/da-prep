@@ -2,7 +2,7 @@
 
 import { Fragment, useEffect, useState } from "react";
 import Link from "next/link";
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useAuth } from "@/components/AuthProvider";
 import { applicationsToIcs, hasDeadlines } from "@/lib/ics";
 import type { OpportunityRow, Status as OppStatus } from "@/lib/opportunities";
@@ -42,11 +42,11 @@ export default function OpportunitiesApp({ rows }: { rows: OpportunityRow[] }) {
   const canTrack = !enabled || !ready || Boolean(user);
   const { items: apps, loaded, update } = useCollection<Application>("applications");
   const params = useSearchParams();
+  const router = useRouter();
   const [query, setQuery] = useState("");
   const [sector, setSector] = useState<SectorId | "all">("all");
   const [status, setStatus] = useState<OppStatus | "all">("all");
   const [onlyMine, setOnlyMine] = useState(false);
-  const [onlyGuides, setOnlyGuides] = useState(false);
   const [shown, setShown] = useState(PAGE);
   const [open, setOpen] = useState<string | null>(null);
   const [kept, setKept] = useState("");
@@ -57,11 +57,12 @@ export default function OpportunitiesApp({ rows }: { rows: OpportunityRow[] }) {
   useEffect(() => {
     /* eslint-disable react-hooks/set-state-in-effect -- the URL is the source for these controls and only the browser knows it */
     setOnlyMine(Boolean(params.get("mine")));
-    setOnlyGuides(Boolean(params.get("guides")));
+    // The guides filter moved to its own page.
+    if (params.get("guides")) router.replace("/employers");
     const q = params.get("q");
     if (q !== null) setQuery(q.slice(0, 80));
     /* eslint-enable react-hooks/set-state-in-effect */
-  }, [params]);
+  }, [params, router]);
 
   const today = new Date().toLocaleDateString("en-CA"); // local YYYY-MM-DD
   const patch = (id: string, p: Partial<Application>) => update((prev) => prev.map((a) => (a.id === id ? { ...a, ...p } : a)));
@@ -93,7 +94,6 @@ export default function OpportunitiesApp({ rows }: { rows: OpportunityRow[] }) {
   const filtered = rows.filter(
     (r) =>
       (!(onlyMine && canTrack) || mine(apps, r)) &&
-      (!onlyGuides || r.slug) &&
       (sector === "all" || r.sectors.includes(sector)) &&
       (status === "all" || r.status === status) &&
       `${r.name} ${r.programmes.join(" ")}`.toLowerCase().includes(query.toLowerCase()),
@@ -179,9 +179,6 @@ export default function OpportunitiesApp({ rows }: { rows: OpportunityRow[] }) {
           My tracker ({apps.length})
         </button>
         )}
-        <button onClick={() => setOnlyGuides((v) => !v)} aria-pressed={onlyGuides} className={`chip ${onlyGuides ? "chip-active" : ""}`}>
-          Employer guides ({rows.filter((r) => r.slug).length})
-        </button>
         {hasDeadlines(apps) && (
           <button onClick={downloadCalendar} className="chip">
             Add deadlines to calendar

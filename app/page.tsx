@@ -28,12 +28,12 @@ function bannerFirms(): MarqueeFirm[] {
 
 const STEPS = [
   ["1", "Pick an employer", "See who is open now and how its process works, stage by stage.", "/opportunities"],
-  ["2", "Practise the real stages", "Employer-style tests, video interviews and case studies, in the employer's own order.", "/mock"],
+  ["2", "Practise the real stages", "Employer-style tests, video interviews and case studies, in the employer's own order.", "/employers"],
   ["3", "Get marked, then apply", "Feedback out of 100 on interviews, CVs and statements, and a list to track every application.", "/opportunities?mine=1"],
 ] as const;
 
 const OUTCOMES = [
-  { href: "/mock", title: "Practise like the real thing", body: "Tests that copy real formats and timings, and a mock process for each of our employers: video interview, case study, final interview." },
+  { href: "/employers", title: "Practise like the real thing", body: "Tests that copy real formats and timings, and a mock process for each of our employers: video interview, case study, final interview." },
   { href: "/interview", title: "Know exactly what to fix", body: "Paste the advert, answer, and get a mark out of 100 with a stronger version of each answer. Marked feedback on your CV, cover letter and statement too." },
   { href: "/opportunities", title: "Never miss a window", body: "Who is open, opening soon or closed, by sector. Track each application and get warned before a closing date." },
 ];
@@ -49,8 +49,8 @@ export default function Home() {
   const stats = homeStats();
   const open = openNow();
   const depth = [
-    [String(stats.guides), "employer guides", "/opportunities?guides=1"],
-    [String(stats.mocks), "mock processes", "/mock"],
+    [String(stats.guides), "employer guides", "/employers"],
+    [String(stats.mocks), "mock processes", "/employers"],
     [String(stats.tests), "test replicas", "/tests"],
     [String(stats.employers), "employers tracked", "/opportunities"],
   ];
