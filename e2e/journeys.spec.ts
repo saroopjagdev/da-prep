@@ -102,11 +102,9 @@ test("the My tracker menu link works from the page you are already on", async ({
   await expect(page.getByLabel(/My status for/)).toHaveCount(1);
 });
 
-test("old tracker and employer list links go to opportunities", async ({ page }) => {
+test("the old tracker link goes to your list on opportunities", async ({ page }) => {
   await page.goto("/tracker");
   await expect(page).toHaveURL(/\/opportunities\?mine=1/);
-  await page.goto("/employers");
-  await expect(page).toHaveURL(/\/opportunities$/);
 });
 
 test("employer pages link to matching practice", async ({ page }) => {
@@ -131,7 +129,7 @@ test("unknown pages show a friendly 404", async ({ page }) => {
   await expect(page.getByRole("heading", { level: 1 })).toBeVisible();
 });
 
-const PAGES = ["/", "/opportunities", "/sectors/finance", "/sectors/finance/calendar", "/sectors/finance/myths", "/employers/ubs", "/learn", "/learn/degree-apprenticeship-vs-university", "/tests/hsbc-simulate", "/mock/natwest", "/mock/santander", "/interview", "/tests", "/mock", "/tracker", "/review", "/cv", "/pricing", "/privacy", "/terms", "/accessibility"];
+const PAGES = ["/", "/opportunities", "/sectors/finance", "/sectors/finance/calendar", "/sectors/finance/myths", "/employers/ubs", "/learn", "/learn/degree-apprenticeship-vs-university", "/tests/hsbc-simulate", "/mock/natwest", "/mock/santander", "/interview", "/tests", "/employers", "/tracker", "/review", "/cv", "/pricing", "/privacy", "/terms", "/accessibility"];
 
 for (const path of PAGES) {
   test(`no automatically detectable accessibility problems on ${path}`, async ({ page }) => {
@@ -153,20 +151,35 @@ test("related pages share tabs: tests and feedback", async ({ page }) => {
   await expect(page).toHaveURL(/\/review$/);
 });
 
-test("opportunities are grouped by sector, and the guides link shows only researched employers", async ({ page }) => {
+test("opportunities are grouped by sector", async ({ page }) => {
   await signedIn(page);
   await page.goto("/opportunities");
   const groups = page.locator("tbody th[scope='colgroup']");
   await expect(groups.first()).toContainText("Finance and accountancy");
   await page.getByLabel("Filter by sector").selectOption({ label: "Engineering" });
   await expect(page.locator("tbody th[scope='colgroup']").first()).toContainText("Engineering");
+});
+
+test("employer guides and mock processes live together on one page, grouped by sector with a search box", async ({ page }) => {
+  await page.goto("/employers");
+  await expect(page.getByRole("heading", { level: 1, name: "Employer guides" })).toBeVisible();
+  expect(await page.getByRole("link", { name: "Read the guide" }).count()).toBeGreaterThan(30);
+  expect(await page.getByRole("link", { name: "Run the mock" }).count()).toBeGreaterThan(5);
+  await page.getByLabel("Search employers").fill("natwest");
+  await expect(page.getByRole("link", { name: "Read the guide" })).toHaveCount(1);
+  await expect(page.getByRole("link", { name: "Run the mock" })).toHaveAttribute("href", "/mock/natwest");
+  await page.getByRole("link", { name: "Read the guide" }).click();
+  await expect(page).toHaveURL(/\/employers\/natwest/);
+  await page.getByRole("link", { name: /Run the NatWest.* mock process/ }).first().click();
+  await expect(page).toHaveURL(/\/mock\/natwest/);
+  await expect(page.getByRole("link", { name: /Read the NatWest.* guide/ })).toBeVisible();
+});
+
+test("the old mock index and guides filter links go to the employer guides page", async ({ page }) => {
+  await page.goto("/mock");
+  await expect(page).toHaveURL(/\/employers$/);
   await page.goto("/opportunities?guides=1");
-  await expect(page.getByRole("button", { name: /Employer guides/ })).toHaveAttribute("aria-pressed", "true");
-  // Every row has a Guide link when only researched employers are shown.
-  const rows = page.locator("tbody tr").filter({ has: page.getByLabel(/My status for/) });
-  const total = await rows.count();
-  expect(total).toBeGreaterThan(30);
-  expect(await rows.filter({ has: page.getByRole("link", { name: "Guide" }) }).count()).toBe(total);
+  await expect(page).toHaveURL(/\/employers$/);
 });
 
 test("a new visitor sees the pitch with a way to start, and opportunities still follows ?q=", async ({ page }) => {

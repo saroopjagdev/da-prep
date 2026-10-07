@@ -29,7 +29,7 @@ export function streak(dates: string[]) {
 const TILES = [
   { href: "/interview", title: "Mock interview", body: "Questions from a real advert, marked" },
   { href: "/practice", title: "Practice tests", body: "Reasoning and judgement, explained" },
-  { href: "/mock", title: "Firm mock process", body: "An employer's stages, in order" },
+  { href: "/employers", title: "Employer guides and mocks", body: "Each employer's process, with a mock to run" },
   { href: "/cv", title: "CV and statements", body: "Marked feedback out of 100" },
 ];
 

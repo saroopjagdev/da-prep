@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import Link from "next/link";
 import JsonLd from "@/components/JsonLd";
 import MockRunner from "@/components/mock/MockRunner";
 import RequireAccount from "@/components/RequireAccount";
@@ -33,7 +34,12 @@ export default async function MockPage({ params }: { params: Promise<{ firm: str
   for (const s of mock.stages) if (s.kind === "test") tests[s.testId] = getTest(s.testId)!;
   return (
     <>
-      <JsonLd data={breadcrumbLd([{ name: "Home", path: "/" }, { name: "Mock processes", path: "/mock" }, { name: `${firm.name} mock process`, path: `/mock/${slug}` }])} />
+      <JsonLd data={breadcrumbLd([{ name: "Home", path: "/" }, { name: "Employer guides", path: "/employers" }, { name: `${firm.name} mock process`, path: `/mock/${slug}` }])} />
+      <p className="mx-auto mb-3 max-w-xl text-sm">
+        <Link href={`/employers/${slug}`} className="underline">
+          Read the {firm.name} guide
+        </Link>
+      </p>
       <RequireAccount
         heading="h2"
         what={`practise the ${firm.name} mock process`}

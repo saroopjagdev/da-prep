@@ -330,7 +330,7 @@ export const GUIDES: Guide[] = [
         ],
       },
     ],
-    cta: { href: "/mock", label: "Practise a mock process", blurb: "Employer-style stages in order: tests, video interview, case study and final interview." },
+    cta: { href: "/employers", label: "Practise a mock process", blurb: "Employer-style stages in order: tests, video interview, case study and final interview." },
     related: ["degree-apprenticeship-interview-questions", "numerical-verbal-reasoning-tests"],
     updated: "2026-10-06",
   },

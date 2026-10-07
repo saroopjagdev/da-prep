@@ -38,7 +38,6 @@ const nextConfig: NextConfig = {
     return [
       { source: "/calendar", destination: "/opportunities", permanent: true },
       { source: "/tracker", destination: "/opportunities?mine=1", permanent: true },
-      { source: "/employers", destination: "/opportunities", permanent: true },
       { source: "/finance", destination: "/sectors/finance", permanent: true },
       { source: "/finance/calendar", destination: "/sectors/finance/calendar", permanent: true },
       { source: "/finance/myths", destination: "/sectors/finance/myths", permanent: true },

@@ -10,7 +10,7 @@ export const NAV_GROUPS: NavGroup[] = [
     links: [
       { href: "/interview", label: "Mock interview", blurb: "Questions built from a real advert, with marked feedback" },
       { href: "/practice", label: "Practice tests", blurb: "General practice with explanations, plus employer-style replicas with real formats and timings" },
-      { href: "/mock", label: "Firm mock processes", blurb: "Run a firm's stages in its real order" },
+      { href: "/employers", label: "Employer guides and mocks", blurb: "Every employer's process, tests and interview, with a mock process to run where we have one" },
       { href: "/review", label: "CV and statement review", blurb: "Marked feedback on your CV, personal statement or application answers" },
     ],
   },
