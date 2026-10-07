@@ -13,16 +13,15 @@ export async function GET(req: Request) {
   const user = await userFromRequest(req);
   if (!a || !user) return Response.json({ error: "Sign in to see your allowance." }, { status: 401 });
 
-  const [{ data: profile }, { data: month }, { data: week }] = await Promise.all([
+  const [{ data: profile }, { data: week }] = await Promise.all([
     a.from("profiles").select("plan").eq("id", user.id).maybeSingle(),
-    a.from("usage").select("interviews").eq("user_id", user.id).eq("period", new Date().toISOString().slice(0, 7)).maybeSingle(),
-    a.from("usage").select("reviews, practice").eq("user_id", user.id).eq("period", isoWeek()).maybeSingle(),
+    a.from("usage").select("interviews, reviews, practice").eq("user_id", user.id).eq("period", isoWeek()).maybeSingle(),
   ]);
   if (profile?.plan === "pro") return Response.json({ plan: "pro", enforced: true });
   return Response.json({
     plan: "free",
     enforced: true,
-    interviews: { used: month?.interviews ?? 0, limit: FREE_INTERVIEWS },
+    interviews: { used: week?.interviews ?? 0, limit: FREE_INTERVIEWS },
     reviews: { used: week?.reviews ?? 0, limit: FREE_REVIEWS },
     practice: { used: week?.practice ?? 0, limit: FREE_PRACTICE_PER_WEEK },
   });

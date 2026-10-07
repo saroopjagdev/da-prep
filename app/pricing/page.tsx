@@ -4,18 +4,20 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useAuth } from "@/components/AuthProvider";
 import { postJson } from "@/lib/api";
-import { CONTACT, FREE_PRACTICE_PER_WEEK, FREE_REVIEWS, OPERATOR, PRO_PLAN } from "@/lib/plans";
+import { CONTACT, FREE_INTERVIEWS, FREE_PRACTICE_PER_WEEK, FREE_REVIEWS, OPERATOR, PRO_PLAN } from "@/lib/plans";
 import { supabase } from "@/lib/supabase";
 
 const FREE = [
   `${FREE_PRACTICE_PER_WEEK} practice tests a week`,
   `${FREE_REVIEWS} CV, cover letter and statement reviews a week`,
+  `${FREE_INTERVIEWS} AI mock interview a week, marked out of 100 with feedback`,
   "Your own tracker, saved and synced",
   "Your scores and progress, kept for you",
 ];
 const PRO = [
   "Unlimited practice tests",
-  "AI mock interviews and firm mock processes, within fair-use limits (up to 25 marked interviews a day)",
+  "Unlimited AI mock interviews, within fair-use limits (up to 25 marked interviews a day)",
+  "Every firm mock process, stage by stage",
   "CV and statement review, within fair-use limits (up to 40 a day)",
   "Everything in Free",
 ];

@@ -5,6 +5,7 @@ import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useAuth } from "@/components/AuthProvider";
 import Logo from "@/components/Logo";
+import { useUsage } from "@/components/useUsage";
 import { NAV_GROUPS } from "@/lib/nav";
 
 const isActive = (path: string, href: string) => path === href || path.startsWith(`${href}/`);
@@ -20,8 +21,19 @@ export default function Nav() {
     setOpen(false);
   }, [path]);
 
+  const usage = useUsage();
   const account = enabled && (
     <>
+      {!user && (
+        <Link href="/pricing" className="px-2 text-sm font-semibold text-muted hover:text-ink">
+          Plans
+        </Link>
+      )}
+      {user && usage && usage.plan !== "pro" && (
+        <Link href="/pricing" className="btn btn-primary !px-4 !py-1.5">
+          Go Pro
+        </Link>
+      )}
       <Link href="/login" className="btn btn-secondary !px-4 !py-1.5">
         {user ? "Account" : "Log in"}
       </Link>
@@ -119,7 +131,7 @@ export default function Nav() {
               </ul>
             </div>
           ))}
-          {enabled && <div className="flex gap-2 pt-2">{account}</div>}
+          {enabled && <div className="flex flex-wrap items-center gap-2 pt-2">{account}</div>}
         </div>
       )}
     </header>

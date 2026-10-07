@@ -1,5 +1,5 @@
 import { admin, userFromRequest } from "@/lib/server/auth";
-import { FREE_INTERVIEWS, FREE_PRACTICE_PER_WEEK, FREE_REVIEWS } from "@/lib/plans";
+import { FREE_INTERVIEWS, FREE_MOCK_PROCESSES, FREE_PRACTICE_PER_WEEK, FREE_REVIEWS } from "@/lib/plans";
 import { isoWeek } from "@/lib/week";
 import { limitsEnforced } from "@/lib/server/guard";
 
@@ -30,17 +30,26 @@ async function consume(
   return { ok: true };
 }
 
-/** Count one interview against the caller's monthly free allowance. */
+/** Count one AI mock interview against the caller's weekly free allowance. */
 export const consumeInterview = (req: Request) =>
   consume(
     req,
     "consume_interview",
-    new Date().toISOString().slice(0, 7),
+    isoWeek(),
     FREE_INTERVIEWS,
     "Sign in to start an interview.",
-    FREE_INTERVIEWS === 0
-      ? "AI mock interviews are part of Pro (£9.99 a month). Upgrade to start one."
-      : `You've used your ${FREE_INTERVIEWS} free interviews this month. Upgrade to Pro to keep practising (fair-use limits apply).`,
+    `You've used your ${FREE_INTERVIEWS} free mock interview this week. It resets on Monday, or upgrade to Pro for unlimited mock interviews (fair-use limits apply).`,
+  );
+
+/** Count one whole firm mock process against the caller's weekly free allowance (none: mock processes are part of Pro). */
+export const consumeMockProcess = (req: Request) =>
+  consume(
+    req,
+    "consume_interview",
+    isoWeek(),
+    FREE_MOCK_PROCESSES,
+    "Sign in to run a mock process.",
+    "Firm mock processes are part of Pro (£9.99 a month). Upgrade to run one. A free mock interview is included each week.",
   );
 
 /** Count one practice test against the caller's weekly free allowance. */

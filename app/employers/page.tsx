@@ -38,7 +38,7 @@ export default function Employers() {
           How each employer&apos;s process works, the tests and interviews it uses, and a mock process to run stage by stage where we have one. Processes change every year, so confirm on the employer&apos;s own page.
         </p>
       </div>
-      <AccountNote>Guides are free to read. Mock processes need a free account, and the marked interview stages are part of Pro (£9.99 a month).</AccountNote>
+      <AccountNote>Guides are free to read. Firm mock processes are part of Pro (£9.99 a month); a free account gets one marked AI mock interview a week.</AccountNote>
       <EmployerDirectory cards={cards} />
       <p className="text-xs text-muted">
         Independent practice, not affiliated with or endorsed by any employer named. Answers are scored by AI, which can be wrong, and a mock does not predict an employer&apos;s decision.

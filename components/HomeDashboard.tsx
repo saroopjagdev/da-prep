@@ -125,7 +125,7 @@ export default function HomeDashboard({ open }: { open: OpenNow[] }) {
             <p className="text-muted">Checking...</p>
           ) : usage.plan === "pro" ? (
             <p>
-              <strong>Pro.</strong> Unlimited practice, and AI mock interviews and reviews on fair-use limits.
+              <strong>Pro.</strong> Unlimited practice and mock interviews, every firm mock process, and reviews on fair-use limits.
             </p>
           ) : (
             <>
@@ -142,10 +142,11 @@ export default function HomeDashboard({ open }: { open: OpenNow[] }) {
               ) : (
                 usage.interviews && (
                   <p>
-                    <strong>{Math.max(0, usage.interviews.limit - usage.interviews.used)}</strong> of {usage.interviews.limit} AI mock interviews left this month
+                    <strong>{Math.max(0, usage.interviews.limit - usage.interviews.used)}</strong> of {usage.interviews.limit} free AI mock interview{usage.interviews.limit === 1 ? "" : "s"} left this week
                   </p>
                 )
               )}
+              <p className="text-muted">Firm mock processes are part of Pro.</p>
             </>
           )}
         </Card>

@@ -77,7 +77,7 @@ export default function EmployerDirectory({ cards }: { cards: DirectoryCard[] })
                 </div>
                 <div className="flex flex-wrap items-center gap-2 text-xs">
                   <span className={`rounded-full px-2 py-0.5 font-semibold ${STATUS_STYLE[c.status]}`}>{STATUS_LABEL[c.status]}</span>
-                  {c.hasMock && <span className="rounded-full bg-brand-50 px-2 py-0.5 font-semibold text-brand-700">Mock process</span>}
+                  {c.hasMock && <span className="rounded-full bg-brand-50 px-2 py-0.5 font-semibold text-brand-700">Mock process · Pro</span>}
                 </div>
                 <div className="mt-auto flex flex-wrap gap-3 text-sm">
                   <Link href={`/employers/${c.slug}`} className="font-semibold text-brand-700 underline-offset-2 hover:underline">

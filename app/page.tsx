@@ -7,7 +7,7 @@ import ScoreRing from "@/components/ScoreRing";
 import { FIRMS } from "@/lib/firms";
 import { homeStats, openNow } from "@/lib/home";
 import { logoPath } from "@/lib/logos";
-import { FREE_PRACTICE_PER_WEEK, FREE_REVIEWS, PRO_PLAN } from "@/lib/plans";
+import { FREE_INTERVIEWS, FREE_PRACTICE_PER_WEEK, FREE_REVIEWS, PRO_PLAN } from "@/lib/plans";
 
 // Rebuilt hourly so the "open now" row follows the dates (an opening date passing flips an employer to open).
 export const revalidate = 3600;
@@ -187,12 +187,12 @@ export default function Home() {
             <div className="card space-y-2 border-brand-600 p-6">
               <h3 className="text-lg font-bold">Free account</h3>
               <p className="text-sm text-muted">
-                Everything above, plus your own tracker, {FREE_PRACTICE_PER_WEEK} practice tests a week and {FREE_REVIEWS} CV and statement reviews a week, with your scores kept for you. No card.
+                Everything above, plus your own tracker, {FREE_PRACTICE_PER_WEEK} practice tests, {FREE_INTERVIEWS} marked AI mock interview and {FREE_REVIEWS} CV and statement reviews a week, with your scores kept for you. No card.
               </p>
             </div>
             <div className="card space-y-2 p-6">
               <h3 className="text-lg font-bold">Pro: {PRO_PLAN.price}</h3>
-              <p className="text-sm text-muted">Unlimited practice tests, AI mock interviews and firm mock processes, and much higher written-feedback limits. Cancel any time.</p>
+              <p className="text-sm text-muted">Unlimited practice tests and AI mock interviews, every firm mock process, and much higher CV and statement review limits. Cancel any time.</p>
               <Link href="/pricing" className="btn btn-secondary mt-2">
                 See plans
               </Link>

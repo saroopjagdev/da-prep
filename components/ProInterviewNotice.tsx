@@ -2,18 +2,58 @@
 
 import Link from "next/link";
 import { useUsage } from "@/components/useUsage";
+import { PRO_PLAN } from "@/lib/plans";
 
-/** Up-front notice for a signed-in free member on a page that needs an AI mock interview, so they learn it is Pro before they try. */
-export default function ProInterviewNotice() {
+/**
+ * Up-front notice for a signed-in free member, so they learn what is free before they start.
+ * "interview": the weekly free mock interview and what is left of it. "mock": firm mock processes are part of Pro.
+ */
+export default function ProInterviewNotice({ kind = "interview" }: { kind?: "interview" | "mock" }) {
   const usage = useUsage();
-  if (!usage || usage.plan !== "free" || !usage.enforced || !usage.interviews || usage.interviews.limit > 0) return null;
+  if (!usage || usage.plan !== "free" || !usage.enforced || !usage.interviews) return null;
+  const { used, limit } = usage.interviews;
+  const left = Math.max(0, limit - used);
+
+  if (kind === "mock") {
+    return (
+      <p role="note" className="callout bg-sun-50 text-sm">
+        Firm mock processes are part of Pro ({PRO_PLAN.price}).{" "}
+        <Link href="/pricing" className="font-semibold underline">
+          See Pro
+        </Link>
+        . You can still read every guide, take practice tests and use{" "}
+        {limit > 0 ? (
+          <>
+            your free mock interview each week (<Link href="/interview" className="underline">start one</Link>).
+          </>
+        ) : (
+          "the free plan's tools."
+        )}
+      </p>
+    );
+  }
+
+  if (limit === 0) {
+    return (
+      <p role="note" className="callout bg-sun-50 text-sm">
+        AI mock interviews are part of Pro ({PRO_PLAN.price}).{" "}
+        <Link href="/pricing" className="font-semibold underline">
+          See Pro
+        </Link>
+        .
+      </p>
+    );
+  }
   return (
-    <p role="note" className="callout bg-sun-50 text-sm">
-      AI mock interviews and firm mock processes are part of Pro (£9.99 a month).{" "}
+    <p role="note" className={`callout text-sm ${left > 0 ? "bg-brand-50" : "bg-sun-50"}`}>
+      {left > 0
+        ? `You have ${left} free marked mock interview left this week, with feedback out of 100. `
+        : "You've used this week's free mock interview. It resets on Monday. "}
+      Pro gives unlimited mock interviews and every firm mock process.{" "}
       <Link href="/pricing" className="font-semibold underline">
         See Pro
       </Link>
-      . Practice tests, the opportunities tracker, employer guides and CV and statement review are on the free plan.
+      .
     </p>
   );
 }

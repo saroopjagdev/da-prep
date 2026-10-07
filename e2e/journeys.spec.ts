@@ -224,7 +224,34 @@ test("the dashboard has no accessibility problems", async ({ page }) => {
 });
 
 const usage = (page: Page, practice: { used: number; limit: number }) =>
-  page.route("**/api/usage", (route) => route.fulfill({ json: { plan: "free", enforced: true, interviews: { used: 0, limit: 0 }, reviews: { used: 0, limit: 2 }, practice } }));
+  page.route("**/api/usage", (route) => route.fulfill({ json: { plan: "free", enforced: true, interviews: { used: 0, limit: 1 }, reviews: { used: 0, limit: 2 }, practice } }));
+
+test("the header offers Plans to visitors and Go Pro to free members, and nothing to Pro members", async ({ page }) => {
+  const main = page.getByRole("navigation", { name: "Main" });
+  await page.goto("/");
+  await expect(main.getByRole("link", { name: "Plans" }).first()).toHaveAttribute("href", "/pricing");
+  await signedIn(page);
+  await usage(page, { used: 0, limit: 2 });
+  await page.goto("/opportunities");
+  await expect(main.getByRole("link", { name: "Go Pro" }).first()).toHaveAttribute("href", "/pricing");
+});
+
+test("a Pro member sees no Go Pro prompt", async ({ page }) => {
+  await signedIn(page);
+  await page.route("**/api/usage", (route) => route.fulfill({ json: { plan: "pro", enforced: true } }));
+  await page.goto("/opportunities");
+  await expect(page.getByRole("navigation", { name: "Main" }).getByRole("link", { name: "Account" }).first()).toBeVisible();
+  await expect(page.getByRole("link", { name: "Go Pro" })).toHaveCount(0);
+});
+
+test("free members are told about their weekly mock interview, and that firm mock processes are Pro", async ({ page }) => {
+  await signedIn(page);
+  await usage(page, { used: 0, limit: 2 });
+  await page.goto("/interview");
+  await expect(page.getByText(/1 free marked mock interview left this week/)).toBeVisible();
+  await page.goto("/mock/bank-of-america");
+  await expect(page.getByText(/Firm mock processes are part of Pro/).first()).toBeVisible();
+});
 
 test("free practice stops when the week's tests are used, and says why", async ({ page }) => {
   await signedIn(page);

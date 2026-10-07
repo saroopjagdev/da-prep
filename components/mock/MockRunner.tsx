@@ -161,7 +161,7 @@ export default function MockRunner({ mock, firmName, tests }: { mock: MockProces
       <div className="mx-auto max-w-2xl space-y-4">
         <h1 className="page-title">{mock.title}</h1>
         <SignInNotice what="the interview stages of this mock process" />
-        <ProInterviewNotice />
+        <ProInterviewNotice kind="mock" />
         {mock.notes.map((n) => (
           <p key={n} className="callout bg-brand-50 text-sm">{n}</p>
         ))}
@@ -309,7 +309,7 @@ export default function MockRunner({ mock, firmName, tests }: { mock: MockProces
                   {r.error && (
                     <p role="alert" className="text-coral-600">
                       {r.error}
-                      {!/part of Pro|free interviews|practice limit/.test(r.error) && (
+                      {!/part of Pro|free mock interview|practice limit/.test(r.error) && (
                         <>
                           {" "}
                           <button
