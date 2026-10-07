@@ -73,6 +73,15 @@ describe("stretch situational judgement bank", () => {
     expect(longest / SJT_HARD.rateEach.length).toBeGreaterThanOrEqual(0.1);
   });
 
+  it("the best-ranked option is not usually the longest", () => {
+    const longest = SJT_HARD.rank.filter((i) => {
+      if (i.kind !== "rank") throw new Error("expected rank");
+      const lens = i.options.map((o) => o.length);
+      return lens[i.order[0]] === Math.max(...lens);
+    }).length;
+    expect(longest / SJT_HARD.rank.length).toBeLessThanOrEqual(0.5);
+  });
+
   it("ranking items have four distinct options and never show the right order", () => {
     for (const i of SJT_HARD.rank) {
       if (i.kind !== "rank") throw new Error("expected rank");

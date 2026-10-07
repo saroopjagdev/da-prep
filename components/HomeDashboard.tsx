@@ -30,7 +30,7 @@ const TILES = [
   { href: "/interview", title: "Mock interview", body: "Questions from a real advert, marked" },
   { href: "/practice", title: "Practice tests", body: "Reasoning and judgement, explained" },
   { href: "/mock", title: "Firm mock process", body: "An employer's stages, in order" },
-  { href: "/cv", title: "CV and statements", body: "Written feedback out of 100" },
+  { href: "/cv", title: "CV and statements", body: "Marked feedback out of 100" },
 ];
 
 function Card({ title, children, href, cta }: { title: string; children: React.ReactNode; href?: string; cta?: string }) {

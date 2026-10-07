@@ -381,7 +381,7 @@ export default function OpportunitiesApp({ rows }: { rows: OpportunityRow[] }) {
                             setOpen(null);
                           }}
                         >
-                          Remove from my list
+                          Remove from my tracker
                         </button>
                       </td>
                     </tr>

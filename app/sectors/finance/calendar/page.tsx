@@ -43,7 +43,7 @@ export default function FinanceCalendar() {
         ))}
       </ol>
       <p className="text-sm text-muted">
-        Track your own dates in the <Link href="/opportunities?mine=1" className="underline">my list</Link>, which can
+        Track your own dates in the <Link href="/opportunities?mine=1" className="underline">my tracker</Link>, which can
         export them to your calendar.
       </p>
     </div>

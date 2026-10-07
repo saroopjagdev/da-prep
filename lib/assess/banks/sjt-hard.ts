@@ -420,8 +420,8 @@ const RANK: RK[] = [
     scenario:
       "You are preparing a client report and notice that another team's figures conflict with yours. Rank the actions from most to least effective.",
     best_first: [
-      "Check your own working, then raise the discrepancy with the other team's owner with both sets of figures.",
-      "Ask your manager which source to use and note the difference in the report.",
+      "Check your working, then take both sets of figures to the other team's owner.",
+      "Ask your manager which source to use, and note the difference in the report so readers can see it.",
       "Use the other team's figures because theirs is the official source.",
       "Use your own figures because you know how you built them.",
     ],
@@ -431,10 +431,10 @@ const RANK: RK[] = [
     scenario:
       "Your manager is on leave and a client rings with a complaint you could settle with a small goodwill gesture that is beyond your authority. Rank the actions.",
     best_first: [
-      "Acknowledge the complaint, explain you will get authority, give a time to come back, and contact the deputy manager.",
-      "Give the client the manager's out-of-office contact details.",
-      "Tell the client the manager will call them back when they return.",
-      "Offer the goodwill gesture and ask for approval afterwards.",
+      "Acknowledge the complaint, give a time to come back, and contact the deputy manager.",
+      "Give the client the manager's out-of-office contact details and explain that they are the person who can approve it.",
+      "Tell the client the manager will call them back when they return from leave.",
+      "Offer the goodwill gesture now and ask for approval afterwards.",
     ],
     why: "Staying within your authority while still moving the complaint forward is best. Passing on contact details and telling the client to wait are passive but safe. Making an offer you cannot authorise commits the firm without permission.",
   },
@@ -442,8 +442,8 @@ const RANK: RK[] = [
     scenario:
       "You think a process step in your team is unnecessary and slows everyone down. Rank the actions.",
     best_first: [
-      "Find out why the step exists, then propose a change with evidence if it still looks unnecessary.",
-      "Propose removing it to your manager with figures on the time it costs.",
+      "Find out why the step exists, then propose a change with evidence.",
+      "Propose removing it straight away, with figures on the time it costs the team each week.",
       "Complain about it to teammates.",
       "Skip it when you are busy.",
     ],
@@ -453,8 +453,8 @@ const RANK: RK[] = [
     scenario:
       "A bug that affects customers has gone live, introduced by a teammate who is offline. Rank the actions.",
     best_first: [
-      "Tell your lead and follow the incident process, including a rollback if that is the agreed first step.",
-      "Try to reach your teammate while you gather logs for the lead.",
+      "Tell your lead and follow the incident process, rolling back if that is the agreed step.",
+      "Try to reach your teammate to ask what changed, while you gather the logs your lead will need.",
       "Investigate alone until you understand the cause fully.",
       "Wait until your teammate is back online.",
     ],
@@ -475,8 +475,8 @@ const RANK: RK[] = [
     scenario:
       "Your manager asks for volunteers to work on Saturday, but you have a college assignment due on Monday. Rank the actions.",
     best_first: [
-      "Tell your manager about the college deadline and offer an alternative, such as extra time on Friday or help after you have submitted.",
-      "Tell your manager you cannot because of college.",
+      "Tell your manager about the clash and offer an alternative, such as extra time on Friday.",
+      "Tell your manager you cannot do Saturday because of college, since the assignment counts towards your qualification.",
       "Volunteer and finish the assignment late at night.",
       "Do not reply and hope you are not picked.",
     ],
@@ -497,7 +497,7 @@ const RANK: RK[] = [
     scenario:
       "You are asked to test a prototype using equipment you have not been trained on. Rank the actions.",
     best_first: [
-      "Say you have not had training and ask for it, or for supervision, before you start.",
+      "Say you are untrained and ask for training or supervision first.",
       "Ask a colleague to show you informally and watch you first.",
       "Read the manual and start with low-risk tests.",
       "Use it because the tests need doing.",
@@ -509,7 +509,7 @@ const RANK: RK[] = [
       "You made a mistake that cost the firm £500 and your manager has not noticed. Rank the actions.",
     best_first: [
       "Tell your manager what happened and how you will prevent it happening again.",
-      "Quietly fix the process so that it cannot happen again.",
+      "Fix the process quietly so that it cannot happen again, and mention it in your next review.",
       "Wait and see if anyone notices.",
       "Say the system caused it.",
     ],
@@ -520,7 +520,7 @@ const RANK: RK[] = [
       "Your team leader asks for honest feedback on a new process you think is flawed, in front of the whole team. Rank the actions.",
     best_first: [
       "Give specific, constructive points and a suggestion for improvement.",
-      "Say it is fine and raise your concerns privately afterwards.",
+      "Say it is fine in the meeting and raise your concerns with your team leader privately afterwards.",
       "Say you have no feedback.",
       "Criticise the process in general terms.",
     ],
