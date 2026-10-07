@@ -110,6 +110,7 @@ NatWest Markets|fd|Degree Level Apprenticeships; IT Support Apprentice
 AVEVA|df|Finance Apprentice - UK
 Arbuthnot Latham|f|Apprenticeship 2027 - Commercial Banking Executive
 BAE Systems|ef|Advanced/Degree Apprentice Finance
+AWE|e|Level 6 Degree Apprenticeships 2027
 BMW|ef|Level 3 Accounting Apprenticeship
 Babcock International|ef|Finance Apprenticeship
 Bloomberg|fd|2027 Bloomberg Apprenticeship
