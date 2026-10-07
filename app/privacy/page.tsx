@@ -58,7 +58,7 @@ export default function Privacy() {
           <strong>In your browser only (no account):</strong> small settings such as your chosen sector and filters, and anything you saved before accounts were required. We never receive this.
         </li>
         <li>
-          <strong>If you create an account:</strong> your email address, and your tracker, stories, practice scores and
+          <strong>If you create an account:</strong> your email address and a password (our sign-in provider, Supabase, keeps only a scrambled version of it; we never see or store it in readable form), and your tracker, stories, practice scores and
           interview data so it syncs between devices, plus a count of your practice tests, interviews and reviews each week so the free limits can apply. We use this to provide the service you asked for (contract).
         </li>
         <li>
