@@ -63,7 +63,7 @@ export default function Terms() {
 
       <h2 className="text-base font-semibold">Free and Pro plans</h2>
       <p>
-        You can browse the employer list and guides without an account. The practice tests, tracker and written-feedback tools need a free account, which you must be 16 or over to create. Free use is limited as shown on the Plans page: a small number of written-feedback reviews and practice tests each week, and no AI mock interviews. Pro removes the practice limit and includes AI mock interviews, subject to fair-use limits. We may change what each plan includes, but not for a period you have already paid for. Pro is a monthly subscription (£9.99 a month)
+        You can browse the employer list and guides without an account. The practice tests, mock processes, tracker and CV and statement review tools need a free account, which you must be 16 or over to create. Free use is limited as shown on the Plans page: a small number of CV and statement reviews and practice tests each week, and one AI mock interview each week. Firm mock processes are not part of the free plan. Pro removes the practice and mock interview limits and includes every firm mock process, subject to fair-use limits. We may change what each plan includes, but not for a period you have already paid for. Pro is a monthly subscription (£9.99 a month)
         that renews automatically until you cancel, and the price is shown before you pay. You can cancel at any time
         from the Plans page (Manage or cancel subscription) and keep Pro until the end of the month you have paid for.
         The person paying must be 18 or over. Because Pro is a digital service

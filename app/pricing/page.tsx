@@ -130,7 +130,7 @@ export default function Pricing() {
               {PRO_PLAN.name}: {PRO_PLAN.price}. Prices are in pounds sterling.
             </dd>
             <dt className="font-semibold">What you get</dt>
-            <dd>{PRO.slice(0, 2).join(". ")}.</dd>
+            <dd>{PRO.slice(0, 3).join(". ")}.</dd>
             <dt className="font-semibold">How billing works</dt>
             <dd>{PRO_PLAN.summary}</dd>
             <dt className="font-semibold">Starting and cancelling</dt>

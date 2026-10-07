@@ -2,12 +2,19 @@
 
 What the Plans page (`app/pricing/page.tsx`) shows before payment, as built on 2 October 2026. Prices are set in `lib/plans.ts` and must match the Stripe prices.
 
+Changes since the version the lawyer last saw (7 October 2026): the free plan now includes one marked AI mock interview a week (it was none); firm mock processes are stated as Pro-only; "written feedback" is now called "CV and statement review". Terms (Free and Pro plans) were updated to match, and the "What you get" summary now lists the first three Pro items so it includes mock processes.
+
 ## Plans
 - **Pro monthly, £9.99 a month.** "Renews every month until you cancel. Cancel any time from your account; Pro stays on until the end of the month you've paid for."
 
 ## "Before you pay" summary
 - **You're buying:** [plan]: [price]. Prices are in pounds sterling.
-- **What you get:** AI mock interviews and firm mock processes, within fair-use limits (up to 25 marked interviews a day). Statement and answer reviews, within fair-use limits (up to 40 a day).
+- **What you get:** Unlimited practice tests. Unlimited AI mock interviews, within fair-use limits (up to 25 marked interviews a day). Every firm mock process, stage by stage. (CV and statement review, within fair-use limits of up to 40 a day, is listed on the plan card; the summary shows the first three items.)
+
+## Free plan (as shown on the Plans page and in the Terms)
+- Free account, no card, 16 or over. Each week: 2 practice tests, 2 CV and statement reviews and 1 marked AI mock interview (text or video, with feedback out of 100). Allowances reset on Monday.
+- Firm mock processes are not part of the free plan; they are part of Pro.
+- Browsing the opportunities tracker, employer guides and advice guides needs no account.
 - **How billing works:** [plan summary above].
 - **Starting and cancelling:** "Pro starts as soon as payment goes through. You have 14 days to cancel. Because you're asking Pro to start straight away, if you cancel within those 14 days we'll refund you minus a fair amount for the time you've already had Pro."
 - **Who you're buying from:** [operator name] · [contact email]. "Payments are handled securely by Stripe; we never see your card details."
