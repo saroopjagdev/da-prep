@@ -46,6 +46,7 @@ export default async function MockPage({ params }: { params: Promise<{ firm: str
         preview={
           <section className="mx-auto max-w-xl space-y-2">
             <h1 className="page-title">{firm.name} mock application process</h1>
+            <p className="callout bg-sun-50 text-sm">Firm mock processes are part of Pro (£9.99 a month). A free account includes one marked AI mock interview a week.</p>
             <p className="text-sm text-muted">Stages, in the order candidates report them:</p>
             <ol className="list-decimal space-y-1 pl-5 text-sm">
               {mock.stages.map((s) => (

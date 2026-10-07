@@ -2,7 +2,7 @@ import { askJson } from "@/lib/ai";
 import { mockMockScore, mockScoreInput, mockScoreOutput, mockScoreSystem, mockScoreUser } from "@/lib/mockprocess/score";
 import { guardAi } from "@/lib/server/guard";
 import { screenText } from "@/lib/server/safety";
-import { consumeInterview } from "@/lib/server/usage";
+import { consumeMockProcess } from "@/lib/server/usage";
 import { issuePass, requirePass } from "@/lib/server/pass";
 
 export const maxDuration = 120;
@@ -20,10 +20,10 @@ export async function POST(req: Request) {
   }
   const blocked = await screenText(...input.turns.map((t) => t.answer));
   if (blocked) return blocked;
-  // A whole mock process counts as one interview against the free allowance, charged on its first scored stage.
+  // A whole mock process is charged once, on its first scored stage. It has no free allowance: it is part of Pro.
   let pass: ReturnType<typeof issuePass> = null;
   if (input.first) {
-    const usage = await consumeInterview(req);
+    const usage = await consumeMockProcess(req);
     if (!usage.ok) return Response.json({ error: usage.error }, { status: usage.status });
     if (gate.userId) pass = issuePass(gate.userId, "mock");
   }

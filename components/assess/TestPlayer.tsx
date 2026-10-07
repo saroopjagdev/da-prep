@@ -167,6 +167,10 @@ function Player({ test }: { test: Test }) {
   }
 
   if (result) {
+    // The section with the lowest share of marks, when the test has more than one to compare.
+    const scored = result.sections.filter((s) => s.max > 0);
+    const weakest = scored.length > 1 ? scored.reduce((a, b) => (a.points / a.max <= b.points / b.max ? a : b)) : null;
+    const weakestTitle = weakest ? test.sections.find((x) => x.id === weakest.sectionId)?.title : undefined;
     return (
       <Results
         test={test}
@@ -183,6 +187,11 @@ function Player({ test }: { test: Test }) {
                   ? `${allow.left} free practice test${allow.left === 1 ? "" : "s"} left this week.`
                   : "You have used this week's free practice tests. They reset on Monday."}
               </p>
+              {weakest && weakestTitle && (
+                <p className="mt-1">
+                  Your weakest section was <strong>{weakestTitle}</strong> ({percent(weakest.points, weakest.max)}%). Retaking this kind of test is the quickest way to improve it.
+                </p>
+              )}
               <p className="mt-1 text-muted">Pro gives unlimited practice tests, AI mock interviews marked out of 100, and every firm mock process.</p>
               <Link href="/pricing" className="btn btn-primary mt-3">
                 See Pro

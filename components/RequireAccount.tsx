@@ -4,11 +4,12 @@ import Link from "next/link";
 import { useEffect } from "react";
 import { useAuth } from "@/components/AuthProvider";
 import { track } from "@/lib/funnel";
-import { FREE_PRACTICE_PER_WEEK, FREE_REVIEWS } from "@/lib/plans";
+import { FREE_INTERVIEWS, FREE_PRACTICE_PER_WEEK, FREE_REVIEWS } from "@/lib/plans";
 
 const PERKS = [
   `${FREE_PRACTICE_PER_WEEK} practice tests a week`,
   `${FREE_REVIEWS} CV and statement reviews a week`,
+  `${FREE_INTERVIEWS} AI mock interview a week, marked out of 100`,
   "Your tracker, saved and synced across devices",
   "Your scores and progress, kept for you",
 ];

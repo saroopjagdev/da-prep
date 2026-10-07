@@ -1,9 +1,9 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
 const askJson = vi.fn();
-const consumeInterview = vi.fn();
+const consumeMockProcess = vi.fn();
 vi.mock("@/lib/ai", () => ({ askJson: (...a: unknown[]) => askJson(...a), mockEnabled: () => false }));
-vi.mock("@/lib/server/usage", () => ({ consumeInterview: (...a: unknown[]) => consumeInterview(...a), consumeReview: async () => ({ ok: true }) }));
+vi.mock("@/lib/server/usage", () => ({ consumeMockProcess: (...a: unknown[]) => consumeMockProcess(...a), consumeReview: async () => ({ ok: true }) }));
 
 import { POST as score } from "@/app/api/mock/score/route";
 import { mockScoreSystem, mockScoreUser, type MockScoreInput } from "@/lib/mockprocess/score";
@@ -20,8 +20,8 @@ const output = { overall: 60, summary: "s", strengths: ["a"], improvements: ["b"
 
 beforeEach(() => {
   askJson.mockReset();
-  consumeInterview.mockReset();
-  consumeInterview.mockResolvedValue({ ok: true });
+  consumeMockProcess.mockReset();
+  consumeMockProcess.mockResolvedValue({ ok: true });
 });
 
 describe("POST /api/mock/score", () => {
@@ -34,13 +34,13 @@ describe("POST /api/mock/score", () => {
   it("scores a stage and does not charge the allowance unless it is the first", async () => {
     askJson.mockResolvedValue(output);
     expect((await score(req(body))).status).toBe(200);
-    expect(consumeInterview).not.toHaveBeenCalled();
+    expect(consumeMockProcess).not.toHaveBeenCalled();
     await score(req({ ...body, first: true }));
-    expect(consumeInterview).toHaveBeenCalledTimes(1);
+    expect(consumeMockProcess).toHaveBeenCalledTimes(1);
   });
 
   it("stops when the free allowance is used", async () => {
-    consumeInterview.mockResolvedValue({ ok: false, status: 402, error: "Used up." });
+    consumeMockProcess.mockResolvedValue({ ok: false, status: 402, error: "Used up." });
     const res = await score(req({ ...body, first: true }));
     expect(res.status).toBe(402);
     expect(askJson).not.toHaveBeenCalled();

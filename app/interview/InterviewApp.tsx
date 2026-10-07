@@ -376,7 +376,7 @@ function InterviewInner({
   const errorBox = error && (
     <div role="alert" className="space-y-1 callout bg-coral-50 text-coral-600">
       <p>{error}</p>
-      {/part of Pro|free interviews/.test(error) && (
+      {/part of Pro|free mock interview/.test(error) && (
         <Link href="/pricing" className="underline">
           See Pro
         </Link>
