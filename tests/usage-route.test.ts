@@ -43,6 +43,23 @@ describe("GET /api/usage", () => {
     expect(body).toMatchObject({ plan: "free", enforced: true, interviews: { used: 1, limit: 1 }, reviews: { used: 2, limit: 2 }, practice: { used: 1, limit: 2 } });
   });
 
+  it("offers the free trial once: only to accounts that never had one or subscribed", async () => {
+    rows.profiles = { plan: "free" };
+    expect((await (await call()).json()).trial).toEqual({ eligible: true, used: false });
+    rows.profiles = { plan: "free", trial_used: true };
+    expect((await (await call()).json()).trial).toEqual({ eligible: false, used: true });
+    rows.profiles = { plan: "free", stripe_customer_id: "cus_1" };
+    expect((await (await call()).json()).trial.eligible).toBe(false);
+  });
+
+  it("reports when a running trial ends, and nothing once it is over", async () => {
+    const ends = new Date(Date.now() + 3_600_000).toISOString();
+    rows.profiles = { plan: "pro", trial_used: true, trial_ends_at: ends };
+    expect(await (await call()).json()).toEqual({ plan: "pro", enforced: true, trial: { eligible: false, used: true, endsAt: ends } });
+    rows.profiles = { plan: "pro", trial_used: true, trial_ends_at: new Date(Date.now() - 1000).toISOString() };
+    expect(await (await call()).json()).toEqual({ plan: "pro", enforced: true });
+  });
+
   it("gives Pro no fixed allowance", async () => {
     rows.profiles = { plan: "pro" };
     expect(await (await call()).json()).toEqual({ plan: "pro", enforced: true });

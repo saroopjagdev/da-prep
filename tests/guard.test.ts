@@ -2,7 +2,10 @@ import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
 const rpc = vi.fn();
 const userFromRequest = vi.fn();
-vi.mock("@/lib/server/auth", () => ({ admin: () => ({ rpc }), userFromRequest: (...a: unknown[]) => userFromRequest(...a) }));
+let trialEndsAt: string | null = null;
+vi.mock("@/lib/server/auth", () => ({
+  admin: () => ({ rpc, from: () => ({ select: () => ({ eq: () => ({ maybeSingle: async () => ({ data: { trial_ends_at: trialEndsAt } }) }) }) }) }),
+  userFromRequest: (...a: unknown[]) => userFromRequest(...a) }));
 
 import { clientIp, guardAi } from "@/lib/server/guard";
 
@@ -51,6 +54,45 @@ describe("guardAi", () => {
     expect((await guardAi(req(), "t-rl", 1)).ok).toBe(true);
     const second = await guardAi(req(), "t-rl", 1);
     expect(second.ok).toBe(false);
+  });
+});
+
+describe("guardAi during the free trial of Pro", () => {
+  beforeEach(() => {
+    rpc.mockReset().mockResolvedValue({ data: true, error: null });
+    userFromRequest.mockReset().mockResolvedValue({ id: "trial-user" });
+    vi.stubEnv("ENFORCE_LIMITS", "true");
+  });
+  afterEach(() => {
+    trialEndsAt = null;
+    vi.unstubAllEnvs();
+  });
+  const future = () => new Date(Date.now() + 3_600_000).toISOString();
+
+  it("uses the lower daily total on a trial and the normal total otherwise", async () => {
+    trialEndsAt = future();
+    await guardAi(req(), "t-trial-total");
+    expect(rpc).toHaveBeenLastCalledWith("consume_ai_call", expect.objectContaining({ p_limit: 60 }));
+    trialEndsAt = new Date(Date.now() - 1000).toISOString(); // trial over: back to normal Pro fair use
+    await guardAi(req(), "t-trial-total");
+    expect(rpc).toHaveBeenLastCalledWith("consume_ai_call", expect.objectContaining({ p_limit: 150 }));
+    trialEndsAt = null;
+    await guardAi(req(), "t-trial-total");
+    expect(rpc).toHaveBeenLastCalledWith("consume_ai_call", expect.objectContaining({ p_limit: 150 }));
+  });
+
+  it("caps marked interviews at 5 a day on a trial, below the normal 25", async () => {
+    trialEndsAt = future();
+    userFromRequest.mockResolvedValue({ id: "trial-cap-user" });
+    for (let i = 0; i < 5; i++) expect((await guardAi(req(), "score", 100, 25)).ok).toBe(true);
+    const sixth = await guardAi(req(), "score", 100, 25);
+    expect(sixth.ok).toBe(false);
+    if (!sixth.ok) expect(sixth.response.status).toBe(429);
+  });
+
+  it("leaves the normal 25 a day for Pro members who are not on a trial", async () => {
+    userFromRequest.mockResolvedValue({ id: "pro-cap-user" });
+    for (let i = 0; i < 6; i++) expect((await guardAi(req(), "score", 100, 25)).ok).toBe(true);
   });
 });
 

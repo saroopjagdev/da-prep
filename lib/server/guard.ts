@@ -1,3 +1,4 @@
+import { TRIAL_DAILY_CAPS } from "@/lib/plans";
 import { rateLimit } from "@/lib/rateLimit";
 import { admin, userFromRequest } from "@/lib/server/auth";
 
@@ -30,6 +31,16 @@ export function limitsEnforced(): boolean {
 
 const DAY_MS = 86_400_000;
 
+/** True while the account is inside its free trial of Pro (tighter daily caps apply). A lookup failure counts as not on trial. */
+async function onTrial(userId: string): Promise<boolean> {
+  try {
+    const { data } = await admin()!.from("profiles").select("trial_ends_at").eq("id", userId).maybeSingle();
+    return Boolean(data?.trial_ends_at && Date.parse(data.trial_ends_at) > Date.now());
+  } catch {
+    return false;
+  }
+}
+
 /**
  * Front door for every route that spends OpenAI money.
  * When limits are enforced the caller must be signed in and is held to a daily budget across all AI routes, plus an
@@ -46,17 +57,19 @@ export async function guardAi(req: Request, name: string, perMinute = 20, perDay
     const user = await userFromRequest(req);
     if (!user) return deny("Sign in to use this feature.", 401);
     who = userId = user.id;
+    const trial = await onTrial(user.id);
     const { data, error } = await a.rpc("consume_ai_call", {
       p_uid: user.id,
       p_day: new Date().toISOString().slice(0, 10),
-      p_limit: DAILY_AI_CALLS,
+      p_limit: trial ? TRIAL_DAILY_CAPS.total : DAILY_AI_CALLS,
     });
     if (error) {
       console.error(error);
       return deny("Could not check your allowance.", 500);
     }
     if (!data) return deny("You've reached today's practice limit. Try again tomorrow.", 429);
-    if (perDay && !(await rateLimit(`day:${name}:${who}`, perDay, DAY_MS))) {
+    const dayCap = trial ? Math.min(perDay ?? Infinity, TRIAL_DAILY_CAPS.routes[name] ?? Infinity) : perDay;
+    if (dayCap && Number.isFinite(dayCap) && !(await rateLimit(`day:${name}:${who}`, dayCap, DAY_MS))) {
       return deny("You've reached today's limit for this feature. Try again tomorrow.", 429);
     }
   }

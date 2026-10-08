@@ -3,8 +3,11 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useAuth } from "@/components/AuthProvider";
+import { chargeDate, timeLeft } from "@/components/TrialOffer";
+import { useUsage } from "@/components/useUsage";
 import { postJson } from "@/lib/api";
-import { CONTACT, FREE_INTERVIEWS, FREE_PRACTICE_PER_WEEK, FREE_REVIEWS, OPERATOR, PRO_PLAN } from "@/lib/plans";
+import { track } from "@/lib/funnel";
+import { CONTACT, FREE_INTERVIEWS, FREE_PRACTICE_PER_WEEK, FREE_REVIEWS, OPERATOR, PRO_PLAN, TRIAL_DAYS } from "@/lib/plans";
 import { supabase } from "@/lib/supabase";
 
 const FREE = [
@@ -32,6 +35,17 @@ export default function Pricing() {
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState(false);
+  const usage = useUsage();
+  const trialEligible = Boolean(usage?.trial?.eligible);
+  const trialEndsAt = usage?.plan === "pro" ? usage.trial?.endsAt : undefined;
+  // When the card would first be charged if the trial started now. Needs the browser's clock, so it is set after mount.
+  const [chargeAt, setChargeAt] = useState("");
+
+  useEffect(() => {
+    track("pricing_view", { oncePerLoad: true });
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- the clock only exists in the browser
+    setChargeAt(new Date(Date.now() + TRIAL_DAYS * 86_400_000).toISOString());
+  }, []);
 
   useEffect(() => {
     // Reading the URL needs the browser, so this can't be initial state without a hydration mismatch.
@@ -51,11 +65,12 @@ export default function Pricing() {
 
   const ready = payerAdult && startNow && acceptTerms;
 
-  async function checkout() {
+  async function checkout(trial: boolean) {
     setError("");
     setBusy(true);
     try {
-      const { url } = await postJson<{ url: string }>("/api/stripe/checkout", { payerAdult, startNow, acceptTerms });
+      track("checkout_start");
+      const { url } = await postJson<{ url: string }>("/api/stripe/checkout", { payerAdult, startNow, acceptTerms, trial });
       window.location.href = url;
     } catch (e) {
       setError((e as Error).message);
@@ -78,8 +93,27 @@ export default function Pricing() {
       <h1 className="page-title">Plans</h1>
       {success && (
         <p role="status" className="callout bg-mint-50 text-mint-600">
-          Thanks! Your Pro plan will be active within a minute or two.
+          {typeof window !== "undefined" && new URLSearchParams(window.location.search).has("trial")
+            ? `Your ${TRIAL_DAYS}-day free trial is starting. Pro will be active within a minute or two.`
+            : "Thanks! Your Pro plan will be active within a minute or two."}
         </p>
+      )}
+      {trialEligible && enabled && user && (
+        <section className="card space-y-2 border-brand-600 bg-brand-50 p-5" aria-label="Free trial of Pro">
+          <h2 className="text-xl font-bold tracking-tight">Try Pro free for {TRIAL_DAYS} days</h2>
+          <p className="text-sm">
+            Unlimited practice tests, unlimited AI mock interviews and every firm mock process, on top of everything in Free.
+            You enter a card to start. {TRIAL_DAYS} days free, then {PRO_PLAN.price} unless you cancel before the trial ends.
+          </p>
+        </section>
+      )}
+      {trialEndsAt && (
+        <section role="status" className="card space-y-1 border-brand-600 bg-brand-50 p-5">
+          <h2 className="text-lg font-bold">You&apos;re on the free trial: {timeLeft(trialEndsAt)} left</h2>
+          <p className="text-sm">
+            Your card is charged {PRO_PLAN.price.replace(" a month", "")} on {chargeDate(trialEndsAt)}, then every month, unless you cancel before then.
+          </p>
+        </section>
       )}
 
       <div className="grid gap-4 sm:grid-cols-2">
@@ -117,7 +151,7 @@ export default function Pricing() {
           <Link href="/login" className="underline">
             Sign in
           </Link>{" "}
-          to buy Pro.
+          to start your free {TRIAL_DAYS}-day Pro trial or buy Pro.
         </p>
       ) : (
         <section className="card space-y-4 p-5" aria-labelledby="before-you-pay">
@@ -129,6 +163,18 @@ export default function Pricing() {
             <dd>
               {PRO_PLAN.name}: {PRO_PLAN.price}. Prices are in pounds sterling.
             </dd>
+            {trialEligible && (
+              <>
+                <dt className="font-semibold">Free trial</dt>
+                <dd>
+                  {TRIAL_DAYS} days free if you start with the trial. You enter a card now.{" "}
+                  {chargeAt
+                    ? `If you do not cancel before ${chargeDate(chargeAt)}, your card is charged ${PRO_PLAN.price.replace(" a month", "")} then, and every month after, until you cancel.`
+                    : `If you do not cancel before the trial ends, your card is charged ${PRO_PLAN.price.replace(" a month", "")}, and every month after, until you cancel.`}{" "}
+                  You can cancel any time from this page. The free trial is once per person.
+                </dd>
+              </>
+            )}
             <dt className="font-semibold">What you get</dt>
             <dd>{PRO.slice(0, 3).join(". ")}.</dd>
             <dt className="font-semibold">How billing works</dt>
@@ -179,9 +225,22 @@ export default function Pricing() {
               </span>
             </label>
           </fieldset>
-          <button onClick={checkout} disabled={!ready || busy} className="btn btn-primary">
-            {busy ? "Opening secure payment…" : `Continue to payment: ${PRO_PLAN.price}`}
-          </button>
+          <div className="flex flex-wrap items-center gap-3">
+            {trialEligible ? (
+              <>
+                <button onClick={() => checkout(true)} disabled={!ready || busy} className="btn btn-primary">
+                  {busy ? "Opening secure payment…" : `Start my ${TRIAL_DAYS}-day free trial`}
+                </button>
+                <button onClick={() => checkout(false)} disabled={!ready || busy} className="btn btn-secondary">
+                  Subscribe now without the trial: {PRO_PLAN.price}
+                </button>
+              </>
+            ) : (
+              <button onClick={() => checkout(false)} disabled={!ready || busy} className="btn btn-primary">
+                {busy ? "Opening secure payment…" : `Continue to payment: ${PRO_PLAN.price}`}
+              </button>
+            )}
+          </div>
           {!ready && <p className="text-xs text-muted">Tick all three boxes to continue.</p>}
         </section>
       )}

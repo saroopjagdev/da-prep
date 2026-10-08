@@ -62,7 +62,7 @@ export default function Privacy() {
           interview data so it syncs between devices, plus a count of your practice tests, interviews and reviews each week so the free limits can apply. We use this to provide the service you asked for (contract).
         </li>
         <li>
-          <strong>If you buy Pro:</strong> a Stripe customer ID and your plan. When you pay we also record, with the payment, that you confirmed the payer is 18 or over, that you
+          <strong>If you buy Pro or start the free trial:</strong> a Stripe customer ID, your plan, and whether you have used the free trial and when it ends (so we can show a countdown and offer the trial only once). When you pay we also record, with the payment, that you confirmed the payer is 18 or over, that you
           asked Pro to start straight away and that you accepted the terms. Stripe holds your payment details.
         </li>
         <li>

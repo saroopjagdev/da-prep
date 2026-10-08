@@ -85,6 +85,7 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
         if (data.user && data.user.identities?.length === 0) {
           return { error: "That email already has an account. Sign in instead, or reset your password.", confirm: false };
         }
+        track("account_created");
         if (data.session) track("signed_in");
         return { error: null, confirm: !data.session };
       },
