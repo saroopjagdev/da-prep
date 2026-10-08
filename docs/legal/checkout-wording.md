@@ -1,4 +1,6 @@
-# Checkout wording (DRAFT, for lawyer review)
+# Checkout wording
+
+**Status:** approved by the lawyer on 8 October 2026, including the free weekly mock interview (7 October) and the 2-day free trial of Pro (8 October). Recorded here on the owner's word. Any later change to the wording below goes back to the lawyer.
 
 What the Plans page (`app/pricing/page.tsx`) shows before payment, as built on 2 October 2026. Prices are set in `lib/plans.ts` and must match the Stripe prices.
 

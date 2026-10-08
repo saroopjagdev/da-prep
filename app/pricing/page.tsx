@@ -25,7 +25,8 @@ const PRO = [
   "Everything in Free",
 ];
 
-// Pre-contract information and the cancellation wording are a draft for legal review before launch (docs/LAUNCH.md).
+// Pre-contract information, the free trial and the cancellation wording were approved by the lawyer on 8 October 2026
+// (docs/legal/checkout-wording.md). Any change to this wording goes back to the lawyer first.
 export default function Pricing() {
   const { enabled, user } = useAuth();
   const [plan, setPlan] = useState<"free" | "pro" | null>(null);
