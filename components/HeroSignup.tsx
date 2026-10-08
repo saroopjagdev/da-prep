@@ -24,7 +24,7 @@ export default function HeroSignup({ dark = false }: { dark?: boolean }) {
     <div className="max-w-sm space-y-2">
       <PasswordAuthForm initialMode="signup" dark={dark} idPrefix={dark ? "hero-dark" : "hero"} />
       <p className={`text-xs ${muted}`}>
-        Free, no card. By continuing you confirm you are 16 or over and agree to our{" "}
+        Free, no card. Then try Pro free for 2 days. By continuing you confirm you are 16 or over and agree to our{" "}
         <Link href="/terms" className="underline">
           terms
         </Link>{" "}

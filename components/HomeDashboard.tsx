@@ -3,6 +3,8 @@
 import Link from "next/link";
 import Icon from "@/components/Icon";
 import Progress from "@/components/Progress";
+import { TrialPromo, chargeDate, timeLeft } from "@/components/TrialOffer";
+import { PRO_PLAN } from "@/lib/plans";
 import { usePracticeAllowance } from "@/components/usePracticeAllowance";
 import { useUsage } from "@/components/useUsage";
 import type { OpenNow } from "@/lib/home";
@@ -93,6 +95,8 @@ export default function HomeDashboard({ open }: { open: OpenNow[] }) {
         </p>
       </div>
 
+      <TrialPromo />
+
       <div className="grid gap-4 lg:grid-cols-[1.4fr_1fr]">
         <section className="card space-y-4 p-5" aria-label="Next step">
           <div className="flex items-center justify-between">
@@ -123,6 +127,10 @@ export default function HomeDashboard({ open }: { open: OpenNow[] }) {
         <Card title="Your plan" href={usage?.plan !== "pro" ? "/pricing" : undefined} cta="See Pro">
           {!usage ? (
             <p className="text-muted">Checking...</p>
+          ) : usage.plan === "pro" && usage.trial?.endsAt ? (
+            <p>
+              <strong>Pro trial: {timeLeft(usage.trial.endsAt)} left.</strong> Unlimited practice and mock interviews, every firm mock process. Your card is charged on {chargeDate(usage.trial.endsAt)} unless you cancel first.
+            </p>
           ) : usage.plan === "pro" ? (
             <p>
               <strong>Pro.</strong> Unlimited practice and mock interviews, every firm mock process, and reviews on fair-use limits.
@@ -147,6 +155,7 @@ export default function HomeDashboard({ open }: { open: OpenNow[] }) {
                 )
               )}
               <p className="text-muted">Firm mock processes are part of Pro.</p>
+              {usage.trial?.used && <p className="font-medium">Your free Pro trial has ended. Keep unlimited practice and mock interviews for {PRO_PLAN.price}.</p>}
             </>
           )}
         </Card>

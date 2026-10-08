@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import PracticeLimitCard from "@/components/PracticeLimitCard";
 import RequireAccount from "@/components/RequireAccount";
+import { TrialCta, TrialFinePrint } from "@/components/TrialOffer";
 import { usePracticeAllowance } from "@/components/usePracticeAllowance";
 import { track } from "@/lib/funnel";
 import Runner from "@/components/assess/Runner";
@@ -193,9 +194,8 @@ function Player({ test }: { test: Test }) {
                 </p>
               )}
               <p className="mt-1 text-muted">Pro gives unlimited practice tests, AI mock interviews marked out of 100, and every firm mock process.</p>
-              <Link href="/pricing" className="btn btn-primary mt-3">
-                See Pro
-              </Link>
+              <TrialCta where="results" className="btn btn-primary mt-3" />
+              <TrialFinePrint className="mt-1 text-xs text-muted" />
             </aside>
           ) : null
         }

@@ -19,7 +19,7 @@ const res = await fetch(`${base}/rest/v1/funnel_daily?select=day,event,n&day=gte
 if (!res.ok) throw new Error(`${res.status} ${await res.text()}`);
 const rows = await res.json();
 
-const events = ["landing_view", "hero_signup_submit", "hero_try_practice", "link_sent", "signed_in", "first_practice", "first_mock"];
+const events = ["landing_view", "hero_signup_submit", "hero_try_practice", "link_sent", "account_created", "signed_in", "first_practice", "first_mock", "pricing_view", "trial_view", "trial_click", "checkout_start"];
 const byDay = {};
 for (const r of rows) (byDay[r.day] ??= {})[r.event] = r.n;
 const pad = (s, n) => String(s).padEnd(n);

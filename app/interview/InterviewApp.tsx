@@ -3,6 +3,7 @@
 import ProInterviewNotice from "@/components/ProInterviewNotice";
 import SignInNotice from "@/components/SignInNotice";
 import RequireAccount from "@/components/RequireAccount";
+import { TrialCta } from "@/components/TrialOffer";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import CameraPreview from "@/components/CameraPreview";
@@ -377,9 +378,7 @@ function InterviewInner({
     <div role="alert" className="space-y-1 callout bg-coral-50 text-coral-600">
       <p>{error}</p>
       {/part of Pro|free mock interview/.test(error) && (
-        <Link href="/pricing" className="underline">
-          See Pro
-        </Link>
+        <TrialCta where="interview-error" fallback="See Pro" className="underline" />
       )}
       {/Sign in/.test(error) && (
         <Link href="/login" className="underline">
