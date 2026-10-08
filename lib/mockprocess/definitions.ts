@@ -832,6 +832,122 @@ export const MOCKS: MockProcess[] = [
       },
     ],
   },
+  {
+    firm: "amazon",
+    title: "Amazon UK mock process",
+    confidence: "official",
+    // The scorer takes at most 12 items, so these are the principles the stages and our guide put weight on.
+    framework: {
+      name: "Amazon's Leadership Principles",
+      items: [
+        "Customer Obsession",
+        "Ownership",
+        "Invent and Simplify",
+        "Learn and Be Curious",
+        "Insist on the Highest Standards",
+        "Think Big",
+        "Bias for Action",
+        "Earn Trust",
+        "Dive Deep",
+        "Have Backbone; Disagree and Commit",
+        "Deliver Results",
+        "Hire and Develop the Best",
+      ].map((v) => {
+        if (!firm("amazon").values.includes(v)) throw new Error(`Amazon principle not in the profile: ${v}`);
+        return v;
+      }),
+    },
+    notes: [
+      "Amazon's apprenticeship pages confirm the stages and their order: online application with a short workstyles assessment, a game-based assessment, an on-demand video interview, a virtual assessment centre, then the offer. Later assessments after the first have a strict 5-day deadline that cannot be extended.",
+      "Amazon does not publish the contents of the assessments, the presentation topics or the interview questions. The questions here are original practice questions about the topics Amazon names, marked against its Leadership Principles. They are not Amazon's real questions.",
+    ],
+    stages: [
+      APPLICATION(
+        1,
+        "Upload your CV, fill in your details, answer the eligibility questions and complete a short online workstyles assessment. Applications are open on a rolling basis and close once Amazon has enough, so apply early.",
+        ["State your interest in the exact apprenticeship you are applying for.", "Sign up to Amazon's expression-of-interest list to hear when applications open."],
+      ),
+      {
+        kind: "test",
+        name: "Application: short workstyles assessment",
+        testId: "work-style-rating",
+        stageOrder: 1,
+        note: "Amazon says the application includes a short workstyles assessment. Its format is not published, so this is the closest replica we have: there are no right or wrong answers, so answer naturally and consistently.",
+      },
+      NOT_REPLICATED(
+        "Online assessment: game-based",
+        2,
+        "Amazon says you complete interactive, game-style tasks that show your strengths and problem-solving style. No prior knowledge is needed. The first assessment has an expiry date but no deadline; later assessments have a strict 5-day deadline that cannot be extended. A game provider (Arctic Shores) is reported by recruitment summaries but not confirmed by Amazon.",
+        "Not replicated: Amazon publishes no task details. Use a laptop in a quiet place, and set reminders for the 5-day deadlines.",
+      ),
+      {
+        kind: "qa",
+        name: "On-demand video interview",
+        mode: "video",
+        stageOrder: 3,
+        intro:
+          "Amazon says you follow a link and record answers to three questions about your motivations and transferable skills, on a laptop, tablet or phone. Third-party sites claim other numbers of questions, so treat the question count as Amazon's FAQ states it.",
+        prepSeconds: 30,
+        answerSeconds: 120,
+        retakes: 0,
+        prompts: prompts(
+          "Why Amazon, and why this apprenticeship? Which of Amazon's Leadership Principles do you relate to most, and why?",
+          "Tell me about a time you faced a difficult challenge and how you dealt with it.",
+          "Describe a time you took the lead in a group, at school, at work or in a club.",
+        ),
+        note: "Amazon does not publish the time limits or number of attempts, so these settings are typical, not official. Check your own invitation.",
+      },
+      {
+        kind: "qa",
+        name: "Virtual assessment centre: presentation",
+        mode: "exercise",
+        stageOrder: 4,
+        intro:
+          "Amazon says the assessment centre may include a presentation. It does not publish the topic. For practice, give a short talk about yourself and why you want this apprenticeship, with a clear structure.",
+        prepSeconds: 300,
+        answerSeconds: 180,
+        retakes: 0,
+        prompts: prompts(
+          "Give a three-minute presentation: who you are, what you have done that shows you would do well on this apprenticeship, and why you want to do it at Amazon.",
+        ),
+        note: "The real topic is not published. This is an original practice topic.",
+      },
+      NOT_REPLICATED(
+        "Virtual assessment centre: group exercise and practical task",
+        4,
+        "Amazon says you may take part in a group exercise and a practical task related to the programme you chose. It does not describe either in detail, including for the Software Development Engineer apprenticeship.",
+        "Not replicated: contents are not published. In a group exercise, include other people's ideas and keep the group on task.",
+      ),
+      {
+        kind: "qa",
+        name: "Virtual assessment centre: interviews with managers",
+        mode: "interview",
+        stageOrder: 4,
+        intro:
+          "Amazon says the centre includes one-to-one interviews with managers, and it marks against its Leadership Principles. Give specific examples: what the situation was, what you did, and what happened.",
+        prepSeconds: 0,
+        answerSeconds: 180,
+        retakes: 0,
+        prompts: prompts(
+          "Why Amazon, and why a degree apprenticeship rather than going straight to university?",
+          "Tell me about a time you took responsibility for something that was not strictly your job, and saw it through.",
+          "Describe a time you went out of your way to help someone get what they needed. What did you learn from how they reacted?",
+          "Tell me about a time you had to learn something completely new in a short time. How did you approach it?",
+          "Give an example of a time you had to act quickly without all the information you wanted. What did you decide, and why?",
+          "Tell me about a time you disagreed with a teammate or a teacher. How did you handle it, and what happened?",
+          "Describe a time you looked into a problem more deeply than most people would have. What did you find?",
+        ),
+        note: "Original practice questions about the Leadership Principles. Amazon's real questions are not published.",
+      },
+      {
+        kind: "info",
+        name: "Offer, background checks and onboarding",
+        stageOrder: 5,
+        summary: "Successful candidates receive an employment contract. Background checks and registration with the training provider follow before you start (degree apprenticeships start in September).",
+        tips: [],
+      },
+    ],
+  },
 ];
 
 // Profiles that stay reachable by URL but are not a current programme (see lib/directory.ts).

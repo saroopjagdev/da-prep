@@ -5,10 +5,20 @@ import { MOCKS, getMock } from "@/lib/mockprocess/definitions";
 
 const WAVE_1 = ["pwc", "deloitte", "kpmg", "ey", "barclays", "rolls-royce", "bae-systems", "lloyds"];
 const BANKS = ["goldman-sachs", "jp-morgan", "morgan-stanley", "bank-of-america", "hsbc"];
+const WAVE_3 = ["amazon"];
 
 describe("mock processes", () => {
-  it("cover the wave-1 firms and the investment banks exactly once", () => {
-    expect(MOCKS.map((m) => m.firm).sort()).toEqual([...WAVE_1, ...BANKS].sort());
+  it("cover the hand-built firms exactly once", () => {
+    expect(MOCKS.map((m) => m.firm).sort()).toEqual([...WAVE_1, ...BANKS, ...WAVE_3].sort());
+  });
+
+  it("every mock's framework fits what the scorer accepts (at most 12 items, short names)", async () => {
+    const { ALL_MOCKS } = await import("@/lib/mockprocess/definitions");
+    for (const m of ALL_MOCKS) {
+      expect(m.framework.items.length, m.firm).toBeLessThanOrEqual(12);
+      expect(m.framework.name.length, m.firm).toBeLessThanOrEqual(120);
+      for (const i of m.framework.items) expect(i.length, `${m.firm}: ${i}`).toBeLessThanOrEqual(200);
+    }
   });
 
   it("bank video stages match the video interview settings for that bank", async () => {
