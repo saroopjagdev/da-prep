@@ -1,7 +1,9 @@
 name: watch-employers
 
 # Every Monday: re-read the employer pages we cite, and open an issue listing the ones whose opening or closing wording
-# changed. Nothing is edited automatically; a person reads each flagged page and updates the dates.
+# changed. It also checks two vacancy lists for leads (ApprenticeHub's public job list and, once FAA_API_KEY is set, the
+# official Find an apprenticeship feed) and opens a second issue with new employers, new roles and changed closing dates.
+# Nothing is edited automatically; a person reads each flagged page and updates the dates.
 on:
   schedule:
     - cron: "0 6 * * 1"
@@ -26,21 +28,30 @@ jobs:
           if git ls-remote --exit-code --heads origin watch-data >/dev/null 2>&1; then
             git fetch origin watch-data
             git show origin/watch-data:state.json > data/watch/state.json || true
+            git show origin/watch-data:hub-state.json > data/watch/hub-state.json || rm -f data/watch/hub-state.json
+            git show origin/watch-data:faa-state.json > data/watch/faa-state.json || rm -f data/watch/faa-state.json
           fi
       - name: Check the pages
         run: node scripts/watch-employers.mjs
+      - name: Check the vacancy lists for leads
+        env:
+          FAA_API_KEY: ${{ secrets.FAA_API_KEY }}
+        run: |
+          # One source failing must not stop the other, or the snapshot save below.
+          node scripts/watch-apprenticeshub.mjs || echo "ApprenticeHub check failed"
+          node scripts/watch-faa.mjs || echo "Find an apprenticeship check failed"
       - name: Save the snapshot
         run: |
           git config user.name "level6-watch"
           git config user.email "actions@users.noreply.github.com"
-          rm -rf /tmp/wd && mkdir /tmp/wd && cp data/watch/state.json /tmp/wd/state.json
+          rm -rf /tmp/wd && mkdir /tmp/wd && cp data/watch/*state.json /tmp/wd/
           if git ls-remote --exit-code --heads origin watch-data >/dev/null 2>&1; then
             git checkout -B watch-data origin/watch-data
           else
             git checkout --orphan watch-data && git rm -rf . >/dev/null 2>&1 || true
           fi
-          cp /tmp/wd/state.json state.json
-          git add state.json
+          cp /tmp/wd/*state.json .
+          git add *state.json
           git commit -m "Snapshot $(date -u +%F)" || echo "no change"
           git push origin watch-data
       - name: Open an issue when something changed
@@ -52,4 +63,18 @@ jobs:
             gh issue create --title "Employer pages changed ($(date -u +%F))" --body-file /tmp/body.md
           else
             echo "nothing changed"
+          fi
+      - name: Open an issue with vacancy leads
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          for f in data/watch/hub-report.md data/watch/faa-report.md; do
+            if [ -f "$f" ]; then sed 's/^# /## /' "$f" >> /tmp/leads.md; fi
+          done
+          # Only worth an issue once a baseline exists, and only when something actually moved.
+          if [ -f /tmp/leads.md ] && grep -qE "^## (Employers we do not list yet|Deadline or status changed|Closing date changed|New roles)" /tmp/leads.md && ! grep -q "First run: this is the baseline" /tmp/leads.md; then
+            head -c 60000 /tmp/leads.md > /tmp/leads-body.md
+            gh issue create --title "Vacancy leads ($(date -u +%F))" --body-file /tmp/leads-body.md
+          else
+            echo "no new leads"
           fi
