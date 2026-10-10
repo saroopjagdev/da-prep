@@ -34,7 +34,7 @@ const HEADERS = {
   "User-Agent": UA,
   Accept: "application/json",
   "Ocp-Apim-Subscription-Key": KEY, // confirmed on the API's page: the key goes in this header
-  "X-Version": "2", // UNVERIFIED: the page shows "v2" but not how the version is selected; check display-advert-api.json
+  "X-Version": "2", // confirmed on the developer hub: send X-Version: 2 with every request (a missing one returns 404)
 };
 
 const pick = (o, ...keys) => {
