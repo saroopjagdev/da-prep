@@ -19,7 +19,7 @@ export async function POST(req: Request) {
   const wordCount = countWords(text);
   const blocked = await screenText(text, jobAd, question);
   if (blocked) return blocked;
-  // Free accounts get a couple of reviews a week; Pro has fair-use limits only. Counted after the safety check so blocked text is free.
+  // Free accounts get a couple of reviews in total; Pro has fair-use limits only. Counted after the safety check so blocked text is free.
   const usage = await consumeReview(req);
   if (!usage.ok) return Response.json({ error: usage.error }, { status: usage.status });
   try {

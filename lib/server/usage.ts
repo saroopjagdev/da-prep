@@ -1,9 +1,8 @@
 import { admin, userFromRequest } from "@/lib/server/auth";
-import { FREE_INTERVIEWS, FREE_MOCK_PROCESSES, FREE_PRACTICE_PER_WEEK, FREE_REVIEWS } from "@/lib/plans";
-import { isoWeek } from "@/lib/week";
+import { FREE_INTERVIEWS, FREE_MOCK_PROCESSES, FREE_PERIOD, FREE_PRACTICE, FREE_REVIEWS } from "@/lib/plans";
 import { limitsEnforced } from "@/lib/server/guard";
 
-export { FREE_INTERVIEWS, FREE_REVIEWS, isoWeek };
+export { FREE_INTERVIEWS, FREE_REVIEWS };
 
 type Result = { ok: true } | { ok: false; status: number; error: string };
 
@@ -30,46 +29,46 @@ async function consume(
   return { ok: true };
 }
 
-/** Count one AI mock interview against the caller's weekly free allowance. */
+/** Count one AI mock interview against the caller's free allowance. */
 export const consumeInterview = (req: Request) =>
   consume(
     req,
     "consume_interview",
-    isoWeek(),
+    FREE_PERIOD,
     FREE_INTERVIEWS,
     "Sign in to start an interview.",
-    `You've used your ${FREE_INTERVIEWS} free mock interview this week. It resets on Monday, or upgrade to Pro for unlimited mock interviews (fair-use limits apply).`,
+    `You've used your ${FREE_INTERVIEWS} free mock interviews. Upgrade to Pro for more mock interviews (fair-use limits apply).`,
   );
 
-/** Count one whole firm mock process against the caller's weekly free allowance (none: mock processes are part of Pro). */
+/** Count one whole firm mock process against the caller's free allowance (none: mock processes are part of Pro). */
 export const consumeMockProcess = (req: Request) =>
   consume(
     req,
     "consume_interview",
-    isoWeek(),
+    FREE_PERIOD,
     FREE_MOCK_PROCESSES,
     "Sign in to run a mock process.",
-    "Firm mock processes are part of Pro (£9.99 a month). Upgrade to run one. A free mock interview is included each week.",
+    "Firm mock processes are part of Pro (£9.99 a month). Upgrade to run one.",
   );
 
-/** Count one practice test against the caller's weekly free allowance. */
+/** Count one practice test against the caller's free allowance. */
 export const consumePractice = (req: Request) =>
   consume(
     req,
     "consume_practice",
-    isoWeek(),
-    FREE_PRACTICE_PER_WEEK,
+    FREE_PERIOD,
+    FREE_PRACTICE,
     "Create a free account to take practice tests.",
-    `You've used your ${FREE_PRACTICE_PER_WEEK} free practice tests this week. They reset on Monday, or upgrade to Pro for unlimited practice.`,
+    `You've used your ${FREE_PRACTICE} free practice tests. Upgrade to Pro for unlimited practice.`,
   );
 
-/** Count one statement or answer review against the caller's weekly free allowance. */
+/** Count one statement or answer review against the caller's free allowance. */
 export const consumeReview = (req: Request) =>
   consume(
     req,
     "consume_review",
-    isoWeek(),
+    FREE_PERIOD,
     FREE_REVIEWS,
     "Sign in to get a review.",
-    `You've used your ${FREE_REVIEWS} free reviews this week. They reset on Monday, or upgrade to Pro for more (fair-use limits apply).`,
+    `You've used your ${FREE_REVIEWS} free reviews. Upgrade to Pro for more (fair-use limits apply).`,
   );

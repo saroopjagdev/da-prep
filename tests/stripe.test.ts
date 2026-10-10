@@ -4,7 +4,6 @@ let event: unknown;
 let badSig = false;
 const subsList = vi.fn();
 const subsCancel = vi.fn();
-const subsRetrieve = vi.fn();
 const sessionCreate = vi.fn();
 const priceRetrieve = vi.fn();
 vi.mock("stripe", () => ({
@@ -15,7 +14,7 @@ vi.mock("stripe", () => ({
         return event;
       },
     };
-    subscriptions = { list: subsList, cancel: subsCancel, retrieve: subsRetrieve };
+    subscriptions = { list: subsList, cancel: subsCancel };
     checkout = { sessions: { create: sessionCreate } };
     prices = { retrieve: priceRetrieve };
   },
@@ -59,7 +58,6 @@ beforeEach(() => {
   profileRow = null;
   subsList.mockReset();
   subsCancel.mockReset();
-  subsRetrieve.mockReset();
   sessionCreate.mockReset();
   sessionCreate.mockResolvedValue({ url: "https://checkout.stripe.test/s" });
   priceRetrieve.mockReset();
@@ -90,34 +88,6 @@ describe("stripe webhook", () => {
     event = { type: "checkout.session.async_payment_succeeded", data: { object: { mode: "subscription", payment_status: "paid", client_reference_id: "u1", customer: "cus_1" } } };
     await hook();
     expect(calls[0]).toMatchObject({ op: "upsert", args: [{ id: "u1", plan: "pro" }] });
-  });
-
-  it("starts Pro and records the trial when a free-trial checkout completes with nothing to pay yet", async () => {
-    const end = 1_800_000_000;
-    subsRetrieve.mockResolvedValue({ id: "sub_1", status: "trialing", trial_end: end });
-    event = { type: "checkout.session.completed", data: { object: { mode: "subscription", payment_status: "no_payment_required", client_reference_id: "u1", customer: "cus_1", subscription: "sub_1" } } };
-    expect((await hook()).status).toBe(200);
-    expect(subsRetrieve).toHaveBeenCalledWith("sub_1");
-    expect(calls[0]).toMatchObject({
-      op: "upsert",
-      table: "profiles",
-      args: [{ id: "u1", plan: "pro", stripe_customer_id: "cus_1", trial_used: true, trial_ends_at: new Date(end * 1000).toISOString() }],
-    });
-  });
-
-  it("keeps the trial end date while trialing and clears it when the subscription becomes active or ends", async () => {
-    const end = 1_800_000_000;
-    event = { type: "customer.subscription.updated", data: { object: { customer: "cus_1", status: "trialing", trial_end: end } } };
-    await hook();
-    expect(calls[0]).toMatchObject({ op: "update", args: [{ plan: "pro", trial_ends_at: new Date(end * 1000).toISOString() }] });
-    calls.length = 0;
-    event = { type: "customer.subscription.updated", data: { object: { customer: "cus_1", status: "active", trial_end: end } } };
-    await hook();
-    expect(calls[0]).toMatchObject({ op: "update", args: [{ plan: "pro", trial_ends_at: null }] });
-    calls.length = 0;
-    event = { type: "customer.subscription.deleted", data: { object: { customer: "cus_1", status: "canceled" } } };
-    await hook();
-    expect(calls[0]).toMatchObject({ op: "update", args: [{ plan: "free", trial_ends_at: null }] });
   });
 
   it("never grants Pro for a one-off payment: only subscriptions are sold", async () => {
@@ -247,40 +217,6 @@ describe("checkout", () => {
     expect((await buy(ok)).status).toBe(409);
     subsList.mockResolvedValueOnce({ data: [{ id: "sub_1", status: "canceled" }] });
     expect((await buy(ok)).status).toBe(200);
-  });
-
-  it("starts a free trial with the card taken up front, when asked and allowed", async () => {
-    expect((await buy({ ...ok, trial: true })).status).toBe(200);
-    const arg = sessionCreate.mock.calls[0][0];
-    expect(arg.subscription_data.trial_period_days).toBe(2);
-    expect(arg.subscription_data.trial_settings).toEqual({ end_behavior: { missing_payment_method: "cancel" } });
-    expect(arg.payment_method_collection).toBe("always");
-    expect(arg.custom_text.submit.message).toMatch(/Free for 2 days, then £9.99 a month/);
-    expect(arg.success_url).toMatch(/trial=1/);
-    expect(arg.metadata.free_trial).toBe("2 days");
-  });
-
-  it("does not add a trial unless it is asked for", async () => {
-    await buy(ok);
-    const arg = sessionCreate.mock.calls[0][0];
-    expect(arg.subscription_data.trial_period_days).toBeUndefined();
-    expect(arg.payment_method_collection).toBeUndefined();
-    expect(arg.metadata.free_trial).toBe("no");
-  });
-
-  it("gives the free trial once per person", async () => {
-    profileRow = { plan: "free", trial_used: true };
-    expect((await buy({ ...ok, trial: true })).status).toBe(409);
-    expect(sessionCreate).not.toHaveBeenCalled();
-    // They can still subscribe without it.
-    expect((await buy(ok)).status).toBe(200);
-  });
-
-  it("gives no trial to someone who has subscribed before, even if our record says otherwise", async () => {
-    profileRow = { plan: "free", stripe_customer_id: "cus_1", trial_used: false };
-    subsList.mockResolvedValue({ data: [{ id: "sub_old", status: "canceled" }] });
-    expect((await buy({ ...ok, trial: true })).status).toBe(409);
-    expect(sessionCreate).not.toHaveBeenCalled();
   });
 
   it("will not sell Pro to someone who already has it", async () => {

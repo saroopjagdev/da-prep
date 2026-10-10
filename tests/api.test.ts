@@ -196,7 +196,7 @@ describe("billing and account endpoints without configuration", () => {
     expect(res.status).toBe(401);
   });
 
-  it("statement review stops when the free weekly allowance is used", async () => {
+  it("statement review stops when the free allowance is used", async () => {
     consumeReview.mockResolvedValue({ ok: false, status: 402, error: "Used up." });
     const res = await review(req({ kind: "statement", text: "x".repeat(80) }));
     expect(res.status).toBe(402);
