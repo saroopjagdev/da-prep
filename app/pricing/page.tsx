@@ -4,13 +4,14 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useAuth } from "@/components/AuthProvider";
 import { postJson } from "@/lib/api";
-import { FREE_INTERVIEWS, FREE_PRACTICE, FREE_REVIEWS, PRO_PLAN } from "@/lib/plans";
+import { BONUS_EXTRA, FREE_INTERVIEWS, FREE_PRACTICE, FREE_REVIEWS, PRO_PLAN } from "@/lib/plans";
 import { supabase } from "@/lib/supabase";
 
 const FREE = [
-  `${FREE_PRACTICE} practice tests`,
-  `${FREE_REVIEWS} CV, cover letter and statement reviews`,
-  `${FREE_INTERVIEWS} AI mock interviews, marked out of 100 with feedback`,
+  `${FREE_PRACTICE} practice test`,
+  `${FREE_REVIEWS} CV, cover letter or statement review`,
+  `${FREE_INTERVIEWS} AI mock interview, marked out of 100 with feedback`,
+  `${BONUS_EXTRA} more of each when you apply to an employer through the tracker, take a mock interview and start a practice test`,
   "Your own tracker, saved and synced",
   "Your scores and progress, kept for you",
 ];

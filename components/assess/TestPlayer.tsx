@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import PracticeLimitCard from "@/components/PracticeLimitCard";
 import RequireAccount from "@/components/RequireAccount";
+import UnlockProgress from "@/components/UnlockProgress";
 import { usePracticeAllowance } from "@/components/usePracticeAllowance";
 import { track } from "@/lib/funnel";
 import Runner from "@/components/assess/Runner";
@@ -192,7 +193,8 @@ function Player({ test }: { test: Test }) {
                   Your weakest section was <strong>{weakestTitle}</strong> ({percent(weakest.points, weakest.max)}%). Retaking this kind of test is the quickest way to improve it.
                 </p>
               )}
-              <p className="mt-1 text-muted">Pro gives unlimited practice tests, AI mock interviews marked out of 100, and every firm mock process.</p>
+              <UnlockProgress className="mt-2" />
+              <p className="mt-2 text-muted">Pro gives unlimited practice tests, AI mock interviews marked out of 100, and every firm mock process.</p>
               <Link href="/pricing" className="btn btn-primary mt-3">
                 See Pro
               </Link>

@@ -40,7 +40,26 @@ describe("GET /api/usage", () => {
     rows.usage = { interviews: 1, reviews: 2, practice: 1 };
     rows.profiles = { plan: "free" };
     const body = await (await call()).json();
-    expect(body).toMatchObject({ plan: "free", enforced: true, interviews: { used: 1, limit: 2 }, reviews: { used: 2, limit: 2 }, practice: { used: 1, limit: 2 } });
+    expect(body).toMatchObject({
+      plan: "free",
+      enforced: true,
+      interviews: { used: 1, limit: 1 },
+      reviews: { used: 2, limit: 1 },
+      practice: { used: 1, limit: 1 },
+      bonus: { unlocked: false, extra: 2, steps: { applied: false, interview: true, practice: true } },
+    });
+  });
+
+  it("adds the engagement reward to every limit once all three steps are done", async () => {
+    rows.usage = { interviews: 1, reviews: 0, practice: 1, applied: true };
+    rows.profiles = { plan: "free" };
+    const body = await (await call()).json();
+    expect(body).toMatchObject({
+      interviews: { used: 1, limit: 3 },
+      reviews: { used: 0, limit: 3 },
+      practice: { used: 1, limit: 3 },
+      bonus: { unlocked: true, extra: 2, steps: { applied: true, interview: true, practice: true } },
+    });
   });
 
   it("gives Pro no fixed allowance", async () => {

@@ -353,6 +353,8 @@ export type OpportunityRow = {
   hasMock?: boolean;
   /** Web search for this employer's own careers page, for employers without a guide. */
   vacancyUrl?: string;
+  /** The employer's own careers page to apply on, where we have read one (the page the dates came from, or the firm's first official link). */
+  applyUrl?: string;
 };
 
 const ORDER: Record<Status, number> = { open: 0, "opening-soon": 1, "not-announced": 2, closed: 3, "not-confirmed": 4 };
@@ -397,6 +399,7 @@ export function opportunityRows(today = new Date()): OpportunityRow[] {
       verified: f.lastVerified,
       template: e.template,
       hasMock: Boolean(getMock(f.slug)),
+      applyUrl: w?.source ?? f.officialLinks[0],
     };
   });
 

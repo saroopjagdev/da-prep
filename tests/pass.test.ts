@@ -10,7 +10,7 @@ vi.mock("@/lib/ai", () => ({
   transcribeAudio: async () => "I led a team.",
   transcribeModel: () => "test",
 }));
-vi.mock("@/lib/server/auth", () => ({ admin: () => ({ rpc }), userFromRequest: (...a: unknown[]) => userFromRequest(...a) }));
+vi.mock("@/lib/server/auth", () => ({ admin: () => ({ rpc, from: () => ({ select: () => ({ eq: () => ({ eq: () => ({ maybeSingle: async () => ({ data: null }) }) }) }) }) }), userFromRequest: (...a: unknown[]) => userFromRequest(...a) }));
 
 import { POST as next } from "@/app/api/interview/next/route";
 import { POST as score } from "@/app/api/interview/score/route";

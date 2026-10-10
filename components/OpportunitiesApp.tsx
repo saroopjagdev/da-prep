@@ -4,6 +4,7 @@ import { Fragment, useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useAuth } from "@/components/AuthProvider";
+import { postJson } from "@/lib/api";
 import { applicationsToIcs, hasDeadlines } from "@/lib/ics";
 import type { OpportunityRow, Status as OppStatus } from "@/lib/opportunities";
 import { STATUS_LABEL } from "@/lib/opportunities";
@@ -66,6 +67,12 @@ export default function OpportunitiesApp({ rows }: { rows: OpportunityRow[] }) {
 
   const today = new Date().toLocaleDateString("en-CA"); // local YYYY-MM-DD
   const patch = (id: string, p: Partial<Application>) => update((prev) => prev.map((a) => (a.id === id ? { ...a, ...p } : a)));
+
+  /** Following an Apply link counts towards the engagement reward. Fire and forget: it must never get in the way of the link. */
+  function followedApply() {
+    if (!enabled || !user) return;
+    postJson("/api/tracker/applied").catch(() => {});
+  }
 
   function choose(r: OpportunityRow, a: Application | undefined, value: string) {
     setKept("");
@@ -318,10 +325,14 @@ export default function OpportunitiesApp({ rows }: { rows: OpportunityRow[] }) {
                             </>
                           )}
                         </>
-                      ) : (
-                        <a href={r.vacancyUrl} target="_blank" rel="noreferrer" className="underline">
-                          Careers
-                        </a>
+                      ) : null}
+                      {(r.applyUrl ?? r.vacancyUrl) && (
+                        <>
+                          {r.slug ? " · " : ""}
+                          <a href={r.applyUrl ?? r.vacancyUrl} target="_blank" rel="noreferrer" className="underline" onClick={followedApply}>
+                            {r.slug ? "Apply" : "Careers"}
+                          </a>
+                        </>
                       )}
                       {a && (
                         <button
