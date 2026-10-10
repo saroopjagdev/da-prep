@@ -60,6 +60,16 @@ async function page(n) {
   return r.json();
 }
 
+/** Where the job is: the first site's town and postcode area, plus how many more sites there are. Sites sit in addresses[]. */
+const place = (v) => {
+  const sites = Array.isArray(v.addresses) ? v.addresses : v.address ? [v.address] : [];
+  if (!sites.length) return v.isNationalVacancy ? "national" : "";
+  const a = sites[0];
+  const town = a.addressLine3 || a.addressLine2 || a.addressLine1 || "";
+  const area = String(a.postcode ?? "").split(" ")[0];
+  return `${[town, area].filter(Boolean).join(" ")}${sites.length > 1 ? ` +${sites.length - 1} more` : ""}`.trim();
+};
+
 const raw = [];
 let first = true;
 for (let n = 1; n <= MAX_PAGES; n++) {
@@ -72,7 +82,7 @@ for (let n = 1; n <= MAX_PAGES; n++) {
   first = false;
   const list = Array.isArray(body) ? body : (body.vacancies ?? body.items ?? body.results ?? []);
   raw.push(...list);
-  const total = pick(body, "total", "totalFound", "totalCount", "pagination.total");
+  const total = pick(body, "totalFiltered", "total", "totalCount");
   if (!list.length || list.length < PAGE_SIZE || (total && raw.length >= Number(total))) break;
   await sleep(500);
 }
@@ -80,7 +90,8 @@ if (!raw.length) throw new Error("The API returned no vacancies: the response sh
 
 const now = {};
 for (const v of raw) {
-  const level = degreeLevel(pick(v, "apprenticeshipLevel", "course.level", "level", "courseLevel"));
+  // course.level is the number (2 to 7); apprenticeshipLevel is a word ("Advanced", "Higher", "Degree"), so it is only a fallback.
+  const level = degreeLevel(pick(v, "course.level", "apprenticeshipLevel", "level"));
   if (level < 6) continue;
   const id = String(pick(v, "vacancyReference", "reference", "id"));
   if (!id) continue;
@@ -89,7 +100,7 @@ for (const v of raw) {
     employer: String(pick(v, "employerName", "employer.name", "employer")),
     title: String(pick(v, "title", "vacancyTitle")),
     level: String(level),
-    location: String(pick(v, "address.addressLine4", "address.postcode", "location", "town", "address.town")),
+    location: place(v),
     deadline: String(pick(v, "closingDate", "closing_date")).slice(0, 10),
     posted: String(pick(v, "postedDate", "startDate")).slice(0, 10),
     apply: String(pick(v, "vacancyUrl", "applicationUrl", "url")),
