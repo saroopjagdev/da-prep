@@ -33,8 +33,8 @@ const UA = "Level6PageWatch/1.0 (+https://www.level6.uk; weekly check of the off
 const HEADERS = {
   "User-Agent": UA,
   Accept: "application/json",
-  "Ocp-Apim-Subscription-Key": KEY, // UNVERIFIED: standard Azure API Management header name
-  "X-Version": "2", // UNVERIFIED: version 2 is the current Display Advert API
+  "Ocp-Apim-Subscription-Key": KEY, // confirmed on the API's page: the key goes in this header
+  "X-Version": "2", // UNVERIFIED: the page shows "v2" but not how the version is selected; check display-advert-api.json
 };
 
 const pick = (o, ...keys) => {
