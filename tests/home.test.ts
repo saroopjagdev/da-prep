@@ -66,10 +66,10 @@ describe("home numbers are counted, not typed", () => {
   });
 
   it("has one definition of the free allowance", () => {
-    // Free has two marked AI mock interviews, two practice tests and two CV and statement reviews, in total.
-    expect(FREE_INTERVIEWS).toBe(2);
-    expect(FREE_PRACTICE).toBe(2);
-    expect(FREE_REVIEWS).toBe(2);
+    // Free has one marked AI mock interview, one practice test and one CV and statement review, in total.
+    expect(FREE_INTERVIEWS).toBe(1);
+    expect(FREE_PRACTICE).toBe(1);
+    expect(FREE_REVIEWS).toBe(1);
   });
 });
 

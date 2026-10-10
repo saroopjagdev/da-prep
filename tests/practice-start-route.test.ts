@@ -4,7 +4,7 @@ const enforced = vi.fn();
 const userFromRequest = vi.fn();
 const rpc = vi.fn();
 vi.mock("@/lib/server/guard", () => ({ limitsEnforced: () => enforced(), clientIp: () => "1.2.3.4" }));
-vi.mock("@/lib/server/auth", () => ({ admin: () => ({ rpc: (...a: unknown[]) => rpc(...a) }), userFromRequest: (...a: unknown[]) => userFromRequest(...a) }));
+vi.mock("@/lib/server/auth", () => ({ admin: () => ({ rpc: (...a: unknown[]) => rpc(...a), from: () => ({ select: () => ({ eq: () => ({ eq: () => ({ maybeSingle: async () => ({ data: null }) }) }) }) }) }), userFromRequest: (...a: unknown[]) => userFromRequest(...a) }));
 vi.mock("@/lib/rateLimit", () => ({ rateLimit: async () => true }));
 
 import { POST } from "@/app/api/practice/start/route";
@@ -18,10 +18,10 @@ beforeEach(() => {
 });
 
 describe("POST /api/practice/start", () => {
-  it("counts a test for a signed-in person against a lifetime limit of two", async () => {
+  it("counts a test for a signed-in person against a lifetime limit of one", async () => {
     const res = await call();
     expect(res.status).toBe(200);
-    expect(rpc).toHaveBeenCalledWith("consume_practice", expect.objectContaining({ p_uid: "u1", p_limit: 2, p_period: "lifetime" }));
+    expect(rpc).toHaveBeenCalledWith("consume_practice", expect.objectContaining({ p_uid: "u1", p_limit: 1, p_period: "lifetime" }));
   });
 
   it("asks for an account when nobody is signed in", async () => {
@@ -36,7 +36,7 @@ describe("POST /api/practice/start", () => {
     rpc.mockResolvedValue({ data: false, error: null });
     const res = await call();
     expect(res.status).toBe(402);
-    expect((await res.json()).error).toMatch(/2 free practice tests/);
+    expect((await res.json()).error).toMatch(/used your free practice test/);
   });
 
   it("counts nothing when limits are off", async () => {

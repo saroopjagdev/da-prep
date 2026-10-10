@@ -30,7 +30,7 @@ export default function Tests() {
           a detail, we say so on the test.
         </p>
       </div>
-      <AccountNote>Taking a test needs a free account: you get 2 free practice tests, and Pro is unlimited.</AccountNote>
+      <AccountNote>Taking a test needs a free account: you get 1 free practice test (2 more when you apply through the tracker and take a mock interview), and Pro is unlimited.</AccountNote>
       <ul className="grid gap-4 sm:grid-cols-2">
         {TESTS.map((t) => (
           <li key={t.id} className="card flex flex-col gap-2 p-5">

@@ -2,7 +2,7 @@
 
 What the Plans page (`app/pricing/page.tsx`) shows before payment, as built on 2 October 2026. Prices are set in `lib/plans.ts` and must match the Stripe prices.
 
-Changes since the version the lawyer last saw (10 October 2026): the free trial of Pro is removed; the free allowances (2 practice tests, 2 CV and statement reviews, 2 marked AI mock interviews) are now a total per account that does not renew, rather than weekly; the "Before you pay" block is cut to one paragraph (price, renewal, starts straight away, cancel any time) and links to the terms for the 14-day right to cancel, who the seller is and how payment is handled. Those details now sit in the Terms (Free and Pro plans, Who we are).
+Changes since the version the lawyer approved (10 October 2026, after the first line below): the free allowances drop to 1 of each, with a one-off engagement reward of 2 more of each (apply via the tracker, take a mock interview, start a practice test); the Terms (Free and Pro plans) say so and reserve the right to withdraw the bonus where it is claimed through automated or repeated use. Earlier changes (10 October 2026): the free trial of Pro is removed; the free allowances (2 practice tests, 2 CV and statement reviews, 2 marked AI mock interviews) are now a total per account that does not renew, rather than weekly; the "Before you pay" block is cut to one paragraph (price, renewal, starts straight away, cancel any time) and links to the terms for the 14-day right to cancel, who the seller is and how payment is handled. Those details now sit in the Terms (Free and Pro plans, Who we are).
 
 ## Plans
 - **Pro monthly, £9.99 a month.** "Renews every month until you cancel. Cancel any time from your account; Pro stays on until the end of the month you've paid for."
@@ -11,7 +11,7 @@ Changes since the version the lawyer last saw (10 October 2026): the free trial 
 - "[plan]: [price], renewing until you cancel. Pro starts as soon as payment goes through, and you can cancel any time from this page. Full details, including your 14-day right to cancel and who you're buying from, are in the terms." (links to /terms)
 
 ## Free plan (as shown on the Plans page and in the Terms)
-- Free account, no card, 16 or over. In total, per account, not renewing: 2 practice tests, 2 CV and statement reviews and 2 marked AI mock interviews (text or video, with feedback out of 100).
+- Free account, no card, 16 or over. In total, per account, not renewing: 1 practice test, 1 CV and statement review and 1 marked AI mock interview (text or video, with feedback out of 100). Engagement reward: once an account has applied to an employer through the tracker (followed its Apply link), taken a marked AI mock interview and started a practice test, it gets 2 more of each, once.
 - Firm mock processes are not part of the free plan; they are part of Pro.
 - Browsing the opportunities tracker, employer guides and advice guides needs no account.
 

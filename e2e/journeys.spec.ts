@@ -270,6 +270,47 @@ test("free practice stops when the free tests are used, and says why", async ({ 
   await expect(page.getByRole("heading", { name: /used your 2 free practice tests/ })).toBeVisible();
 });
 
+const bonusUsage = (page: Page, steps: { applied: boolean; interview: boolean; practice: boolean }, unlocked = false) =>
+  page.route("**/api/usage", (route) =>
+    route.fulfill({
+      json: {
+        plan: "free",
+        enforced: true,
+        interviews: { used: 1, limit: unlocked ? 3 : 1 },
+        reviews: { used: 0, limit: unlocked ? 3 : 1 },
+        practice: { used: 1, limit: unlocked ? 3 : 1 },
+        bonus: { unlocked, extra: 2, steps },
+      },
+    }),
+  );
+
+test("a free member who used their practice test sees which steps unlock 2 more of each", async ({ page }) => {
+  await signedIn(page);
+  await bonusUsage(page, { applied: false, interview: true, practice: true });
+  await page.goto("/practice");
+  await expect(page.getByRole("heading", { name: /used your 1 free practice test$/ })).toBeVisible();
+  const note = page.getByRole("note").filter({ hasText: /unlock 2 more/ });
+  await expect(note.getByRole("link", { name: "Apply to an employer from the tracker" })).toHaveAttribute("href", "/opportunities");
+  await expect(note.getByText("Take a mock interview")).toBeVisible();
+  await expect(note.getByRole("link", { name: "Take a mock interview" })).toHaveCount(0); // done, so no longer a link
+});
+
+test("following an Apply link in the tracker tells the server, once the member is signed in", async ({ page }) => {
+  await signedIn(page);
+  await bonusUsage(page, { applied: false, interview: false, practice: false });
+  let applied = 0;
+  await page.route("**/api/tracker/applied", (route) => {
+    applied++;
+    return route.fulfill({ json: { ok: true } });
+  });
+  await page.route("https://**/*", (route) => route.abort()); // never leave the app: the click is what counts
+  await page.goto("/opportunities");
+  const link = page.getByRole("link", { name: /^(Apply|Careers)$/ }).first();
+  await expect(link).toHaveAttribute("target", "_blank");
+  await link.click();
+  await expect.poll(() => applied).toBeGreaterThan(0);
+});
+
 test("free practice shows what is left", async ({ page }) => {
   await signedIn(page);
   await usage(page, { used: 1, limit: 2 });

@@ -7,7 +7,7 @@ import ScoreRing from "@/components/ScoreRing";
 import { FIRMS } from "@/lib/firms";
 import { homeStats, openNow } from "@/lib/home";
 import { logoPath } from "@/lib/logos";
-import { FREE_INTERVIEWS, FREE_PRACTICE, FREE_REVIEWS, PRO_PLAN } from "@/lib/plans";
+import { BONUS_EXTRA, FREE_INTERVIEWS, FREE_PRACTICE, FREE_REVIEWS, PRO_PLAN } from "@/lib/plans";
 
 // Rebuilt hourly so the "open now" row follows the dates (an opening date passing flips an employer to open).
 export const revalidate = 3600;
@@ -187,7 +187,7 @@ export default function Home() {
             <div className="card space-y-2 border-brand-600 p-6">
               <h3 className="text-lg font-bold">Free account</h3>
               <p className="text-sm text-muted">
-                Everything above, plus your own tracker, {FREE_PRACTICE} practice tests, {FREE_INTERVIEWS} marked AI mock interviews and {FREE_REVIEWS} CV and statement reviews, with your scores kept for you. No card.
+                Everything above, plus your own tracker, {FREE_PRACTICE} practice test, {FREE_INTERVIEWS} marked AI mock interview and {FREE_REVIEWS} CV and statement review, with your scores kept for you, and {BONUS_EXTRA} more of each when you apply through the tracker, take a mock interview and start a practice test. No card.
               </p>
             </div>
             <div className="card space-y-2 p-6">

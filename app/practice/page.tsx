@@ -118,7 +118,7 @@ function PracticeInner() {
         )}
         {allow.known && !allow.unlimited && !allow.blocked && (
           <p className="text-sm text-muted">
-            {allow.left} of {allow.limit} free practice tests left. Pro is unlimited.
+            {allow.left} of {allow.limit} free practice test{allow.limit === 1 ? "" : "s"} left. Pro is unlimited.
           </p>
         )}
         <label className="inline-flex items-center gap-2 text-sm font-medium">

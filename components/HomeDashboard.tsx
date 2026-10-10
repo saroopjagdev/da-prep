@@ -1,5 +1,6 @@
 "use client";
 
+import UnlockProgress from "@/components/UnlockProgress";
 import Link from "next/link";
 import Icon from "@/components/Icon";
 import Progress from "@/components/Progress";
@@ -147,6 +148,7 @@ export default function HomeDashboard({ open }: { open: OpenNow[] }) {
                 )
               )}
               <p className="text-muted">Firm mock processes are part of Pro.</p>
+              <UnlockProgress className="mt-2" />
             </>
           )}
         </Card>

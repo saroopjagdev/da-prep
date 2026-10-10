@@ -10,6 +10,8 @@ export type Usage = {
   interviews?: { used: number; limit: number };
   reviews?: { used: number; limit: number };
   practice?: { used: number; limit: number };
+  /** The engagement reward (limits above already include it once unlocked): the three steps and how far along they are. */
+  bonus?: { unlocked: boolean; extra: number; steps: { applied: boolean; interview: boolean; practice: boolean } };
 };
 
 /** What the signed-in person has left of the free allowances, from GET /api/usage. null while loading or when signed out. */
