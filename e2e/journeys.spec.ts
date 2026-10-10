@@ -224,7 +224,7 @@ test("the dashboard has no accessibility problems", async ({ page }) => {
 });
 
 const usage = (page: Page, practice: { used: number; limit: number }) =>
-  page.route("**/api/usage", (route) => route.fulfill({ json: { plan: "free", enforced: true, interviews: { used: 0, limit: 1 }, reviews: { used: 0, limit: 2 }, practice } }));
+  page.route("**/api/usage", (route) => route.fulfill({ json: { plan: "free", enforced: true, interviews: { used: 0, limit: 2 }, reviews: { used: 0, limit: 2 }, practice } }));
 
 // On a phone the account links sit inside the Menu button.
 const openMenu = async (page: Page, isMobile: boolean) => {
@@ -251,87 +251,37 @@ test("a Pro member sees no Go Pro prompt", async ({ page, isMobile }) => {
   await expect(page.getByRole("link", { name: "Go Pro" })).toHaveCount(0);
 });
 
-const trialUsage = (page: Page, body: object) => page.route("**/api/usage", (route) => route.fulfill({ json: body }));
-const freeBody = { plan: "free", enforced: true, interviews: { used: 0, limit: 1 }, reviews: { used: 0, limit: 2 }, practice: { used: 0, limit: 2 } };
-
-test("a free member who can still have the trial is pushed to start it: header, dashboard and Plans", async ({ page, isMobile }) => {
-  await signedIn(page);
-  await trialUsage(page, { ...freeBody, trial: { eligible: true, used: false } });
-  await page.goto("/");
-  await openMenu(page, isMobile);
-  await expect(page.getByRole("link", { name: "Try Pro free" }).first()).toHaveAttribute("href", "/pricing?trial=1");
-  await expect(page.getByRole("heading", { name: "Try Pro free for 2 days" })).toBeVisible();
-  await expect(page.getByText(/Card needed\. 2 days free, then £9\.99 a month unless you cancel first/).first()).toBeVisible();
-  await page.goto("/pricing?trial=1");
-  await expect(page.getByRole("heading", { name: "Try Pro free for 2 days" })).toBeVisible();
-  await page.getByLabel(/The person paying is 18 or over/).check();
-  await page.getByLabel(/I want Pro to start straight away/).check();
-  await page.getByLabel(/I.ve read this summary/).check();
-  await expect(page.getByRole("button", { name: "Start my 2-day free trial" })).toBeEnabled();
-  await expect(page.getByRole("button", { name: /Subscribe now without the trial/ })).toBeEnabled();
-  await expect(page.getByText(/If you do not cancel before .*, your card is charged £9\.99/)).toBeVisible();
-});
-
-test("the trial is not offered again once it has been used", async ({ page, isMobile }) => {
-  await signedIn(page);
-  await trialUsage(page, { ...freeBody, trial: { eligible: false, used: true } });
-  await page.goto("/");
-  await expect(page.getByRole("heading", { name: "Your dashboard" })).toBeVisible();
-  await expect(page.getByText(/Your free Pro trial has ended/)).toBeVisible();
-  await expect(page.getByRole("heading", { name: "Try Pro free for 2 days" })).toHaveCount(0);
-  await openMenu(page, isMobile);
-  await expect(page.getByRole("link", { name: "Go Pro" }).first()).toBeVisible();
-  await expect(page.getByRole("link", { name: "Try Pro free" })).toHaveCount(0);
-  await page.goto("/pricing");
-  await page.getByLabel(/The person paying is 18 or over/).check();
-  await page.getByLabel(/I want Pro to start straight away/).check();
-  await page.getByLabel(/I.ve read this summary/).check();
-  await expect(page.getByRole("button", { name: /Continue to payment/ })).toBeEnabled();
-  await expect(page.getByRole("button", { name: /Start my 2-day free trial/ })).toHaveCount(0);
-});
-
-test("while the trial runs, a banner counts down and says when the card will be charged", async ({ page }) => {
-  await signedIn(page);
-  const ends = new Date(Date.now() + 30 * 3_600_000).toISOString();
-  await trialUsage(page, { plan: "pro", enforced: true, trial: { eligible: false, used: true, endsAt: ends } });
-  await page.goto("/opportunities");
-  const banner = page.getByRole("status").filter({ hasText: /Pro trial:/ });
-  await expect(banner).toContainText(/1 day \d+ hours? left/);
-  await expect(banner).toContainText(/Your card is charged £9\.99 on .* unless you cancel first/);
-  await expect(banner.getByRole("link", { name: "Manage or cancel" })).toHaveAttribute("href", "/pricing");
-});
-
-test("free members are told about their weekly mock interview, and that firm mock processes are Pro", async ({ page }) => {
+test("free members are told about their free mock interviews, and that firm mock processes are Pro", async ({ page }) => {
   await signedIn(page);
   await usage(page, { used: 0, limit: 2 });
   await page.goto("/interview");
-  await expect(page.getByText(/1 free marked mock interview left this week/)).toBeVisible();
+  await expect(page.getByText(/2 free marked mock interviews left/)).toBeVisible();
   await page.goto("/mock/bank-of-america");
   await expect(page.getByText(/Firm mock processes are part of Pro/).first()).toBeVisible();
 });
 
-test("free practice stops when the week's tests are used, and says why", async ({ page }) => {
+test("free practice stops when the free tests are used, and says why", async ({ page }) => {
   await signedIn(page);
   await usage(page, { used: 2, limit: 2 });
   await page.goto("/practice");
-  await expect(page.getByRole("heading", { name: /used your 2 free practice tests this week/ })).toBeVisible();
+  await expect(page.getByRole("heading", { name: /used your 2 free practice tests/ })).toBeVisible();
   await expect(page.getByRole("button", { name: /Numerical/ }).first()).toBeDisabled();
   await page.goto("/tests/shl-numerical");
-  await expect(page.getByRole("heading", { name: /used your 2 free practice tests this week/ })).toBeVisible();
+  await expect(page.getByRole("heading", { name: /used your 2 free practice tests/ })).toBeVisible();
 });
 
 test("free practice shows what is left", async ({ page }) => {
   await signedIn(page);
   await usage(page, { used: 1, limit: 2 });
   await page.goto("/practice");
-  await expect(page.getByText("1 of 2 free practice tests left this week")).toBeVisible();
+  await expect(page.getByText("1 of 2 free practice tests left")).toBeVisible();
   await expect(page.getByRole("button", { name: /Numerical/ }).first()).toBeEnabled();
 });
 
 test("starting a test the server refuses shows its reason and does not start", async ({ page }) => {
   await signedIn(page);
   await usage(page, { used: 1, limit: 2 });
-  await page.route("**/api/practice/start", (route) => route.fulfill({ status: 402, json: { error: "You've used your 2 free practice tests this week." } }));
+  await page.route("**/api/practice/start", (route) => route.fulfill({ status: 402, json: { error: "You've used your 2 free practice tests." } }));
   await page.goto("/tests/capp-critical");
   await page.evaluate(() => localStorage.removeItem("da-prep:assess-run:capp-critical"));
   await page.getByRole("button", { name: /^start/i }).first().click();

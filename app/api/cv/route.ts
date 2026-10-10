@@ -23,7 +23,7 @@ export async function POST(req: Request) {
 
   const blocked = await screenText(cv.text, advert?.text);
   if (blocked) return blocked;
-  // A CV review counts as one of the free weekly reviews. Counted after the safety check so blocked text is free.
+  // A CV review counts as one of the free reviews. Counted after the safety check so blocked text is free.
   const usage = await consumeReview(req);
   if (!usage.ok) return Response.json({ error: usage.error }, { status: usage.status });
 

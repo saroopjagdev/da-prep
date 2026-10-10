@@ -5,7 +5,6 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import PracticeLimitCard from "@/components/PracticeLimitCard";
 import RequireAccount from "@/components/RequireAccount";
-import { TrialCta, TrialFinePrint } from "@/components/TrialOffer";
 import { usePracticeAllowance } from "@/components/usePracticeAllowance";
 import { track } from "@/lib/funnel";
 import Runner from "@/components/assess/Runner";
@@ -185,8 +184,8 @@ function Player({ test }: { test: Test }) {
             <aside className="callout bg-brand-50 text-sm" aria-label="Your free practice tests">
               <p className="font-semibold">
                 {allow.left > 0
-                  ? `${allow.left} free practice test${allow.left === 1 ? "" : "s"} left this week.`
-                  : "You have used this week's free practice tests. They reset on Monday."}
+                  ? `${allow.left} free practice test${allow.left === 1 ? "" : "s"} left.`
+                  : "You have used your free practice tests."}
               </p>
               {weakest && weakestTitle && (
                 <p className="mt-1">
@@ -194,8 +193,9 @@ function Player({ test }: { test: Test }) {
                 </p>
               )}
               <p className="mt-1 text-muted">Pro gives unlimited practice tests, AI mock interviews marked out of 100, and every firm mock process.</p>
-              <TrialCta where="results" className="btn btn-primary mt-3" />
-              <TrialFinePrint className="mt-1 text-xs text-muted" />
+              <Link href="/pricing" className="btn btn-primary mt-3">
+                See Pro
+              </Link>
             </aside>
           ) : null
         }

@@ -10,11 +10,6 @@ export const FUNNEL_EVENTS = [
   "signed_in", // they arrived back from the email and are signed in
   "first_practice", // first practice test completed on a device
   "first_mock", // first mock interview completed on a device
-  "account_created", // an account was created with a password
-  "pricing_view", // the Plans page was opened
-  "trial_view", // the free trial offer was shown to someone who can still have it
-  "trial_click", // they pressed a button to start the free trial
-  "checkout_start", // they went on to Stripe checkout (trial or not)
 ] as const;
 
 export type FunnelEvent = (typeof FUNNEL_EVENTS)[number];

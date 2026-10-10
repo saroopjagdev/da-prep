@@ -6,7 +6,6 @@ import { useEffect, useState } from "react";
 import { useAuth } from "@/components/AuthProvider";
 import Logo from "@/components/Logo";
 import { useUsage } from "@/components/useUsage";
-import { track } from "@/lib/funnel";
 import { NAV_GROUPS } from "@/lib/nav";
 
 const isActive = (path: string, href: string) => path === href || path.startsWith(`${href}/`);
@@ -31,12 +30,8 @@ export default function Nav() {
         </Link>
       )}
       {user && usage && usage.plan !== "pro" && (
-        <Link
-          href={usage.trial?.eligible ? "/pricing?trial=1" : "/pricing"}
-          onClick={() => usage.trial?.eligible && track("trial_click")}
-          className="btn btn-primary !px-4 !py-1.5"
-        >
-          {usage.trial?.eligible ? "Try Pro free" : "Go Pro"}
+        <Link href="/pricing" className="btn btn-primary !px-4 !py-1.5">
+          Go Pro
         </Link>
       )}
       <Link href="/login" className="btn btn-secondary !px-4 !py-1.5">

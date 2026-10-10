@@ -6,7 +6,6 @@ import Footer from "@/components/Footer";
 import JsonLd from "@/components/JsonLd";
 import { RETURNING_HINT_SCRIPT } from "@/lib/home-gate";
 import Nav from "@/components/Nav";
-import { TrialBanner } from "@/components/TrialOffer";
 import { organizationLd, websiteLd } from "@/lib/seo";
 import { SITE_DESCRIPTION, SITE_NAME, SITE_URL } from "@/lib/site";
 import { Figtree } from "next/font/google";
@@ -50,7 +49,6 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         </a>
         <AuthProvider>
           <Nav />
-          <TrialBanner />
           <main id="main" className="flex-1">
             {children}
           </main>

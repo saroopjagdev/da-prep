@@ -18,10 +18,10 @@ beforeEach(() => {
 });
 
 describe("POST /api/practice/start", () => {
-  it("counts a test for a signed-in person against this week's limit of two", async () => {
+  it("counts a test for a signed-in person against a lifetime limit of two", async () => {
     const res = await call();
     expect(res.status).toBe(200);
-    expect(rpc).toHaveBeenCalledWith("consume_practice", expect.objectContaining({ p_uid: "u1", p_limit: 2, p_period: expect.stringMatching(/^\d{4}-W\d{2}$/) }));
+    expect(rpc).toHaveBeenCalledWith("consume_practice", expect.objectContaining({ p_uid: "u1", p_limit: 2, p_period: "lifetime" }));
   });
 
   it("asks for an account when nobody is signed in", async () => {

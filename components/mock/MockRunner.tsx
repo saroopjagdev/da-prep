@@ -4,7 +4,6 @@ import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import ProInterviewNotice from "@/components/ProInterviewNotice";
 import SignInNotice from "@/components/SignInNotice";
-import { TrialCta } from "@/components/TrialOffer";
 import Runner from "@/components/assess/Runner";
 import QaStage, { type Turn } from "@/components/mock/QaStage";
 import { postJson } from "@/lib/api";
@@ -310,12 +309,6 @@ export default function MockRunner({ mock, firmName, tests }: { mock: MockProces
                   {r.error && (
                     <p role="alert" className="text-coral-600">
                       {r.error}
-                      {/part of Pro/.test(r.error) && (
-                        <>
-                          {" "}
-                          <TrialCta where="mock-stage" fallback="See Pro" className="font-semibold underline" />
-                        </>
-                      )}
                       {!/part of Pro|free mock interview|practice limit/.test(r.error) && (
                         <>
                           {" "}

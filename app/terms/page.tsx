@@ -63,26 +63,13 @@ export default function Terms() {
 
       <h2 className="text-base font-semibold">Free and Pro plans</h2>
       <p>
-        You can browse the employer list and guides without an account. The practice tests, mock processes, tracker and CV and statement review tools need a free account, which you must be 16 or over to create. Free use is limited as shown on the Plans page: a small number of CV and statement reviews and practice tests each week, and one AI mock interview each week. Firm mock processes are not part of the free plan. Pro removes the practice and mock interview limits and includes every firm mock process, subject to fair-use limits. We may change what each plan includes, but not for a period you have already paid for. Pro is a monthly subscription (£9.99 a month)
-        that renews automatically until you cancel, and the price is shown before you pay. You can cancel at any time
+        You can browse the employer list and guides without an account. The practice tests, mock processes, tracker and CV and statement review tools need a free account, which you must be 16 or over to create. Free use is limited as shown on the Plans page: a small total number of CV and statement reviews, practice tests and AI mock interviews for each account, which do not renew. Firm mock processes are not part of the free plan. Pro removes the practice and mock interview limits and includes every firm mock process, subject to fair-use limits. We may change what each plan includes, but not for a period you have already paid for. Pro is a monthly subscription (£9.99 a month)
+        that renews automatically until you cancel, and the price is shown before you pay. Prices are in pounds sterling, and payments are handled securely by Stripe, so we never see your card details. You can cancel at any time
         from the Plans page (Manage or cancel subscription) and keep Pro until the end of the month you have paid for.
         The person paying must be 18 or over. Because Pro is a digital service
         you start using immediately, you ask for it to begin straight away when you buy. You have a right to cancel
         within 14 days of buying; if you do, we will refund you minus a proportionate amount for the time you have
         already had Pro. To cancel or ask for a refund, contact us. Nothing here affects your statutory rights.
-      </p>
-
-      <h2 className="text-base font-semibold">Free trial of Pro</h2>
-      <p>
-        Each person can start one free trial of Pro, lasting 2 days. You enter a payment card to start it, and Pro is
-        available straight away. If you do not cancel before the trial ends, your card is charged £9.99 automatically and
-        Pro then renews every month until you cancel, as described above. The Plans page shows the date and time of the
-        first charge before you start, and a notice in the app shows how long the trial has left and when the charge will
-        be taken. You can cancel at any time during the trial from the Plans page (Manage or cancel subscription), and you
-        will not be charged if you cancel before the trial ends. The trial is limited to one per person, and we may refuse
-        it where we reasonably believe someone is creating more than one account to repeat it. During the trial, AI features have lower
-        daily limits than normal Pro fair use, so that the trial stays affordable. The right to cancel within 14 days
-        described above runs from the day you start the trial.
       </p>
 
       <h2 className="text-base font-semibold">Deleting your account</h2>

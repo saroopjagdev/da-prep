@@ -101,7 +101,7 @@ describe("plans and quotas (server-side functions)", () => {
     expect(got).toEqual([true, true, false]);
   });
 
-  it("free users hit the weekly review limit; the monthly subscription (plan = pro) does not", async () => {
+  it("free users hit the review limit; the monthly subscription (plan = pro) does not", async () => {
     const free = [];
     for (let i = 0; i < 3; i++) free.push((await one(`select consume_review('${A}','2026-W40',2) as ok`)).ok);
     expect(free).toEqual([true, true, false]);
