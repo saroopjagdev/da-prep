@@ -1,5 +1,4 @@
 import { describe, expect, it } from "vitest";
-// @ts-expect-error plain .mjs helper shared with the watcher scripts
 import { byEmployer, diff, isKnown, knownEmployers, norm } from "../scripts/lead-utils.mjs";
 
 describe("vacancy lead helpers", () => {
@@ -30,6 +29,6 @@ describe("vacancy lead helpers", () => {
   });
 
   it("groups by employer, biggest first", () => {
-    expect(byEmployer([{ employer: "A" }, { employer: "B" }, { employer: "B" }]).map(([e]: [string]) => e)).toEqual(["B", "A"]);
+    expect(byEmployer([{ employer: "A" }, { employer: "B" }, { employer: "B" }]).map(([e]) => e)).toEqual(["B", "A"]);
   });
 });
