@@ -1,0 +1,965 @@
+{
+ "checked": "2026-10-10",
+ "jobs": {
+  "9af4cf88-8eeb-4f2f-8856-286c2e25f9ca": {
+   "id": "9af4cf88-8eeb-4f2f-8856-286c2e25f9ca",
+   "employer": "Airbus",
+   "title": "Hardware Engineering - Electronics Degree Apprenticeship",
+   "level": "6",
+   "location": "Newport, United Kingdom",
+   "deadline": "2026-10-26",
+   "status": "open",
+   "apply": "https://ag.wd3.myworkdayjobs.com/en-US/Airbus/job/Newport/Hardware-Engineering---Electronics-Degree-Apprenticeship_JR10433054"
+  },
+  "19a364e7-8409-482b-b193-3a170bc76b84": {
+   "id": "19a364e7-8409-482b-b193-3a170bc76b84",
+   "employer": "Airbus",
+   "title": "Software Engineering Degree Apprenticeship",
+   "level": "6",
+   "location": "Newport, United Kingdom",
+   "deadline": "2026-10-26",
+   "status": "open",
+   "apply": "https://ag.wd3.myworkdayjobs.com/en-US/Airbus/job/Newport/Software-Engineering-Degree-Apprenticeship_JR10433575"
+  },
+  "f7143a86-2c49-41c4-8018-559f8e82c798": {
+   "id": "f7143a86-2c49-41c4-8018-559f8e82c798",
+   "employer": "Airbus",
+   "title": "Project Management Degree Apprenticeship",
+   "level": "6",
+   "location": "Portsmouth, United Kingdom",
+   "deadline": "2026-10-26",
+   "status": "open",
+   "apply": "https://ag.wd3.myworkdayjobs.com/en-US/Airbus/job/Portsmouth/Project-Management-Degree-Apprenticeship_JR10430264"
+  },
+  "9215b7e3-55c6-4ad2-9027-87df90051b04": {
+   "id": "9215b7e3-55c6-4ad2-9027-87df90051b04",
+   "employer": "Airbus",
+   "title": "Space Systems Engineering Degree Apprenticeship",
+   "level": "6",
+   "location": "Stevenage, United Kingdom",
+   "deadline": "2026-10-26",
+   "status": "open",
+   "apply": "https://ag.wd3.myworkdayjobs.com/en-US/Airbus/job/Stevenage/Space-Systems-Engineering-Degree-Apprenticeship_JR10428185"
+  },
+  "5c9766b5-f33b-4bfc-9d64-5c19e7e49f30": {
+   "id": "5c9766b5-f33b-4bfc-9d64-5c19e7e49f30",
+   "employer": "Airbus",
+   "title": "Project Management Office Degree Apprenticeship",
+   "level": "6",
+   "location": "Stevenage, United Kingdom",
+   "deadline": "2026-10-26",
+   "status": "open",
+   "apply": "https://ag.wd3.myworkdayjobs.com/en-US/Airbus/job/Stevenage/Project-Management-Office-Degree-Apprenticeship_JR10428188"
+  },
+  "f2d2988a-8e27-49ce-a498-9b5c2b7ee439": {
+   "id": "f2d2988a-8e27-49ce-a498-9b5c2b7ee439",
+   "employer": "Airbus",
+   "title": "Digital and Technology Solutions Degree Apprenticeship (Data Science)",
+   "level": "6",
+   "location": "Broughton, North Wales, United Kingdom",
+   "deadline": "2026-10-26",
+   "status": "open",
+   "apply": "https://ag.wd3.myworkdayjobs.com/en-US/Airbus/job/Broughton/Digital---Technology-Solutions-Degree-Apprenticeship_JR10427977"
+  },
+  "5972dfb9-03bc-4a6a-89f2-8fe4a459074e": {
+   "id": "5972dfb9-03bc-4a6a-89f2-8fe4a459074e",
+   "employer": "Airbus",
+   "title": "Supply Chain (Business Degree) Apprenticeship",
+   "level": "6",
+   "location": "Broughton, North Wales, United Kingdom",
+   "deadline": "2027-01-04",
+   "status": "open",
+   "apply": "https://ag.wd3.myworkdayjobs.com/en-US/Airbus/job/Broughton/Supply-Chain--Business-Degree--Apprenticeship_JR10427958"
+  },
+  "62a104dd-b96b-4686-859c-dd676ab2eda0": {
+   "id": "62a104dd-b96b-4686-859c-dd676ab2eda0",
+   "employer": "Airbus",
+   "title": "Business Degree Apprenticeship",
+   "level": "6",
+   "location": "Broughton, North Wales, United Kingdom",
+   "deadline": "2026-10-26",
+   "status": "open",
+   "apply": "https://ag.wd3.myworkdayjobs.com/en-US/Airbus/job/Broughton/Business-Degree-Apprenticeship_JR10427952"
+  },
+  "a41f759a-8bcd-492d-8aaf-db3fae2788c6": {
+   "id": "a41f759a-8bcd-492d-8aaf-db3fae2788c6",
+   "employer": "Airbus",
+   "title": "Engineering Degree Apprenticeship",
+   "level": "6",
+   "location": "Broughton, North Wales, United Kingdom",
+   "deadline": "2026-10-26",
+   "status": "open",
+   "apply": "https://ag.wd3.myworkdayjobs.com/en-US/Airbus/job/Broughton/Engineering-Degree-Apprenticeship_JR10427584"
+  },
+  "d49c14bd-51c5-44ca-9967-5c9ba9d51ae8": {
+   "id": "d49c14bd-51c5-44ca-9967-5c9ba9d51ae8",
+   "employer": "Airbus",
+   "title": "Procurement and Supply Chain Degree Apprenticeship",
+   "level": "6",
+   "location": "Filton, Bristol, United Kingdom",
+   "deadline": "2026-10-26",
+   "status": "open",
+   "apply": "https://ag.wd3.myworkdayjobs.com/en-US/Airbus/job/Bristol-Area/Procurement-and-Supply-Chain-Degree-Apprenticeship_JR10424271"
+  },
+  "367740b9-45a1-46c5-bfc1-e2950f0c6e2b": {
+   "id": "367740b9-45a1-46c5-bfc1-e2950f0c6e2b",
+   "employer": "Airbus",
+   "title": "Digital and Technology Solutions Degree Apprenticeship",
+   "level": "6",
+   "location": "Filton, Bristol, United Kingdom",
+   "deadline": "2026-10-26",
+   "status": "open",
+   "apply": "https://ag.wd3.myworkdayjobs.com/en-US/Airbus/job/Bristol-Area/Digital-and-Technology-Solutions-Degree-Apprenticeship_JR10428737"
+  },
+  "fc052b1e-944a-493f-ba27-be3e010aa1fc": {
+   "id": "fc052b1e-944a-493f-ba27-be3e010aa1fc",
+   "employer": "Airbus",
+   "title": "Mechanical Engineering (Manufacturing) Degree Apprenticeship",
+   "level": "6",
+   "location": "Filton, Bristol, United Kingdom",
+   "deadline": "2026-10-26",
+   "status": "open",
+   "apply": "https://ag.wd3.myworkdayjobs.com/en-US/Airbus/job/Bristol-Area/Mechanical-Engineering--Manufacturing--Degree-Apprenticeship_JR10430115"
+  },
+  "0ce3c328-364c-4db5-9b6e-2cf686defa83": {
+   "id": "0ce3c328-364c-4db5-9b6e-2cf686defa83",
+   "employer": "Airbus",
+   "title": "Electromechanical Engineering (Manufacturing) Degree Apprenticeship",
+   "level": "6",
+   "location": "Filton, Bristol, United Kingdom",
+   "deadline": "2026-10-26",
+   "status": "open",
+   "apply": "https://ag.wd3.myworkdayjobs.com/en-US/Airbus/job/Bristol-Area/Electromechanical-Engineering--Manufacturing--Degree-Apprenticeship_JR10430035"
+  },
+  "7d5b189a-5863-428d-9914-ede0bf0e4a0f": {
+   "id": "7d5b189a-5863-428d-9914-ede0bf0e4a0f",
+   "employer": "Airbus",
+   "title": "Customer Service Engineering Degree Apprenticeship",
+   "level": "6",
+   "location": "Filton, Bristol, United Kingdom",
+   "deadline": "2027-01-04",
+   "status": "open",
+   "apply": "https://ag.wd3.myworkdayjobs.com/en-US/Airbus/job/Bristol-Area/Customer-Service-Engineering-Degree-Apprenticeship_JR10429178"
+  },
+  "8fc76cc0-ce27-4a3c-8dcb-34ba7cf6e745": {
+   "id": "8fc76cc0-ce27-4a3c-8dcb-34ba7cf6e745",
+   "employer": "Airbus",
+   "title": "Aerospace Engineering Degree Apprenticeship",
+   "level": "6",
+   "location": "Filton, Bristol, United Kingdom",
+   "deadline": "2026-10-26",
+   "status": "open",
+   "apply": "https://ag.wd3.myworkdayjobs.com/en-US/Airbus/job/Bristol-Area/Aerospace-Engineering-Degree-Apprenticeship_JR10430134"
+  },
+  "d3a53418-380a-441e-8bed-5d42adbf3f41": {
+   "id": "d3a53418-380a-441e-8bed-5d42adbf3f41",
+   "employer": "Goldman Sachs",
+   "title": "2027 | EMEA | London | FICC & Equities, Sales & Trading | Apprentice Programme",
+   "level": "6",
+   "location": "London, Greater London, England, United Kingdom",
+   "deadline": "",
+   "status": "open",
+   "apply": "https://higher.gs.com/roles/174813"
+  },
+  "ea07090d-b17a-4f87-b6ef-2f24d681cf41": {
+   "id": "ea07090d-b17a-4f87-b6ef-2f24d681cf41",
+   "employer": "Goldman Sachs",
+   "title": "2027 | EMEA | Birmingham | Engineering | Apprentice Programme",
+   "level": "6",
+   "location": "Birmingham, West Midlands, England, United Kingdom",
+   "deadline": "",
+   "status": "open",
+   "apply": "https://higher.gs.com/roles/174815"
+  },
+  "fbbdf01e-73bc-406e-9cf8-7d96d005948f": {
+   "id": "fbbdf01e-73bc-406e-9cf8-7d96d005948f",
+   "employer": "Goldman Sachs",
+   "title": "2027 | EMEA | London | Engineering | Apprentice Programme",
+   "level": "6",
+   "location": "London, Greater London, England, United Kingdom",
+   "deadline": "",
+   "status": "open",
+   "apply": "https://higher.gs.com/roles/174814"
+  },
+  "11208ba4-70bd-49ab-8c7b-667ca1f0cfa2": {
+   "id": "11208ba4-70bd-49ab-8c7b-667ca1f0cfa2",
+   "employer": "TLT",
+   "title": "Legal Solicitor Apprenticeship 2027",
+   "level": "7",
+   "location": "Bristol / London / Manchester / Birmingham, United Kingdom",
+   "deadline": "2027-02-21",
+   "status": "open",
+   "apply": "https://www.tlt.com/careers/"
+  },
+  "e5cd589e-aff8-4c9c-a7a8-476a76c009fc": {
+   "id": "e5cd589e-aff8-4c9c-a7a8-476a76c009fc",
+   "employer": "Weightmans",
+   "title": "Solicitor Degree Apprenticeship",
+   "level": "7",
+   "location": "",
+   "deadline": "",
+   "status": "open",
+   "apply": "https://www.weightmans.com/careers/early-careers/apprenticeships/"
+  },
+  "9eb4c1b7-e018-4066-bf72-372c1972861f": {
+   "id": "9eb4c1b7-e018-4066-bf72-372c1972861f",
+   "employer": "Grant Thornton",
+   "title": "Financial Services Audit School Leaver Programme",
+   "level": "6",
+   "location": "London, United Kingdom",
+   "deadline": "",
+   "status": "open",
+   "apply": "https://www.grantthornton.co.uk/careers/early-careers-job-search/?jobPostingGrouping=Apprenticeship#career-results"
+  },
+  "c844bf5d-f456-4482-8a98-63f320f21e66": {
+   "id": "c844bf5d-f456-4482-8a98-63f320f21e66",
+   "employer": "Grant Thornton",
+   "title": "IT Audit School Leaver Programme",
+   "level": "6",
+   "location": "London, United Kingdom",
+   "deadline": "",
+   "status": "open",
+   "apply": "https://www.grantthornton.co.uk/careers/early-careers-job-search/?jobPostingGrouping=Apprenticeship#career-results"
+  },
+  "ed50727d-1ef0-4929-ab9e-b723c806c50d": {
+   "id": "ed50727d-1ef0-4929-ab9e-b723c806c50d",
+   "employer": "Grant Thornton",
+   "title": "Not for Profit Audit School Leaver Programme",
+   "level": "6",
+   "location": "London, Birmingham, United Kingdom",
+   "deadline": "",
+   "status": "open",
+   "apply": "https://www.grantthornton.co.uk/careers/early-careers-job-search/?jobPostingGrouping=Apprenticeship#career-results"
+  },
+  "bc9a8441-0bb0-41e8-bb7d-a2802ed47401": {
+   "id": "bc9a8441-0bb0-41e8-bb7d-a2802ed47401",
+   "employer": "Grant Thornton",
+   "title": "Pension Audit School Leaver Programme",
+   "level": "6",
+   "location": "Manchester, United Kingdom",
+   "deadline": "",
+   "status": "open",
+   "apply": "https://www.grantthornton.co.uk/careers/early-careers-job-search/?jobPostingGrouping=Apprenticeship#career-results"
+  },
+  "5a300a3d-227a-467f-8e62-9f1c9806dd75": {
+   "id": "5a300a3d-227a-467f-8e62-9f1c9806dd75",
+   "employer": "Grant Thornton",
+   "title": "Public Sector Audit School Leaver Programme",
+   "level": "6",
+   "location": "Manchester, London, Liverpool, Leeds, Glasgow, Bristol, Birmingham, United Kingdom",
+   "deadline": "",
+   "status": "open",
+   "apply": "https://www.grantthornton.co.uk/careers/early-careers-job-search/?jobPostingGrouping=Apprenticeship#career-results"
+  },
+  "bd2862eb-094a-4767-9fcc-99a6237d78d3": {
+   "id": "bd2862eb-094a-4767-9fcc-99a6237d78d3",
+   "employer": "Grant Thornton",
+   "title": "Tax School Leaver Programme",
+   "level": "6",
+   "location": "Manchester, Birmingham, London, United Kingdom",
+   "deadline": "",
+   "status": "open",
+   "apply": "https://www.grantthornton.co.uk/careers/early-careers-job-search/?jobPostingGrouping=Apprenticeship#career-results"
+  },
+  "923f172c-d2fc-4356-94b8-3286dee38755": {
+   "id": "923f172c-d2fc-4356-94b8-3286dee38755",
+   "employer": "Deloitte",
+   "title": "BrightStart Higher Apprenticeship - Tax Transformation & Technology",
+   "level": "6",
+   "location": "London, United Kingdom",
+   "deadline": "2026-10-23",
+   "status": "closing_soon",
+   "apply": "https://apply.deloitte.co.uk/UKEarlyCareers/SearchJobs/?4934=2772633&4934_format=4380&listFilterMode=1&jobRecordsPerPage=20&"
+  },
+  "2580cf24-536b-4304-b9e9-93018ab4e87a": {
+   "id": "2580cf24-536b-4304-b9e9-93018ab4e87a",
+   "employer": "Deloitte",
+   "title": "BrightStart Higher Apprenticeship - Tax Consulting",
+   "level": "6",
+   "location": "Reading, London, United Kingdom",
+   "deadline": "2026-10-23",
+   "status": "closing_soon",
+   "apply": "https://apply.deloitte.co.uk/UKEarlyCareers/SearchJobs/?4934=2772633&4934_format=4380&listFilterMode=1&jobRecordsPerPage=20&"
+  },
+  "dab79266-df51-4a03-afa2-347771e7884c": {
+   "id": "dab79266-df51-4a03-afa2-347771e7884c",
+   "employer": "Deloitte",
+   "title": "BrightStart Higher Apprenticeship - Indirect Tax Consulting",
+   "level": "6",
+   "location": "Reading, London, United Kingdom",
+   "deadline": "2026-10-23",
+   "status": "closing_soon",
+   "apply": "https://apply.deloitte.co.uk/UKEarlyCareers/SearchJobs/?4934=2772633&4934_format=4380&listFilterMode=1&jobRecordsPerPage=20&"
+  },
+  "1f996a93-e943-4818-aecf-60322c431234": {
+   "id": "1f996a93-e943-4818-aecf-60322c431234",
+   "employer": "Deloitte",
+   "title": "BrightStart Higher Apprenticeship - Executive Reward Consulting",
+   "level": "6",
+   "location": "London, United Kingdom",
+   "deadline": "2026-10-23",
+   "status": "closing_soon",
+   "apply": "https://apply.deloitte.co.uk/UKEarlyCareers/SearchJobs/?4934=2772633&4934_format=4380&listFilterMode=1&jobRecordsPerPage=20&"
+  },
+  "282a8dc7-8644-4215-81b6-227748898cf0": {
+   "id": "282a8dc7-8644-4215-81b6-227748898cf0",
+   "employer": "Deloitte",
+   "title": "BrightStart Higher Apprenticeship - Enterprise Applications Consulting (Sales & Service) - Computer Systems",
+   "level": "6",
+   "location": "Belfast, United Kingdom",
+   "deadline": "2026-10-12",
+   "status": "closing_soon",
+   "apply": "https://apply.deloitte.co.uk/UKEarlyCareers/SearchJobs/?4934=2772633&4934_format=4380&listFilterMode=1&jobRecordsPerPage=20&"
+  },
+  "41525f60-6c03-4116-b760-f98b9de98a18": {
+   "id": "41525f60-6c03-4116-b760-f98b9de98a18",
+   "employer": "Deloitte",
+   "title": "BrightStart Higher Apprenticeship - Enterprise Applications Consulting (Sales & Service) - Business Technology",
+   "level": "6",
+   "location": "Belfast, United Kingdom",
+   "deadline": "2026-10-12",
+   "status": "closing_soon",
+   "apply": "https://apply.deloitte.co.uk/UKEarlyCareers/SearchJobs/?4934=2772633&4934_format=4380&listFilterMode=1&jobRecordsPerPage=20&"
+  },
+  "2436fa6c-ed56-4308-ba5c-c91088c01b6a": {
+   "id": "2436fa6c-ed56-4308-ba5c-c91088c01b6a",
+   "employer": "Deloitte",
+   "title": "BrightStart Higher Apprenticeship - Human Capital Consulting (Transformation Activation NI)",
+   "level": "6",
+   "location": "Belfast, United Kingdom",
+   "deadline": "2026-10-23",
+   "status": "closing_soon",
+   "apply": "https://apply.deloitte.co.uk/UKEarlyCareers/SearchJobs/?4934=2772633&4934_format=4380&listFilterMode=1&jobRecordsPerPage=20&"
+  },
+  "e0974890-6670-48f5-8d74-348784955f5e": {
+   "id": "e0974890-6670-48f5-8d74-348784955f5e",
+   "employer": "Deloitte",
+   "title": "BrightStart Higher Apprenticeship - Business Transformation Consulting (Customer Products)",
+   "level": "6",
+   "location": "Belfast, United Kingdom",
+   "deadline": "2026-10-12",
+   "status": "closing_soon",
+   "apply": "https://apply.deloitte.co.uk/UKEarlyCareers/JobDetail/Business-Transformation-Consulting-Customer-Products/25179"
+  },
+  "d084683b-8238-42e1-a2c7-33c1e7a3c83c": {
+   "id": "d084683b-8238-42e1-a2c7-33c1e7a3c83c",
+   "employer": "Deloitte",
+   "title": "BrightStart Higher Apprenticeship - Audit & Assurance",
+   "level": "6",
+   "location": "Multiple locations across the UK (including Leeds, London, Manchester, Birmingham, Bristol and others)",
+   "deadline": "",
+   "status": "open",
+   "apply": "https://apply.deloitte.co.uk/UKEarlyCareers/SearchJobs/?4934=2772633&4934_format=4380&listFilterMode=1&jobRecordsPerPage=20&"
+  },
+  "7250b2b0-9ae1-44ce-ba86-3835e9c8079f": {
+   "id": "7250b2b0-9ae1-44ce-ba86-3835e9c8079f",
+   "employer": "HSBC",
+   "title": "Retail Banking - Rotational Degree Apprenticeship",
+   "level": "6",
+   "location": "Leeds, Birmingham, United Kingdom",
+   "deadline": "2026-11-01",
+   "status": "open",
+   "apply": "https://www.hsbc.com/careers/students-and-graduates/find-a-programme?page=1&take=20&programme-type=degree-apprenticeship"
+  },
+  "27dd6277-42aa-4b4d-8702-ea9cc4d223cb": {
+   "id": "27dd6277-42aa-4b4d-8702-ea9cc4d223cb",
+   "employer": "HSBC",
+   "title": "Relationship Management - Commercial Banking - Degree Apprenticeship",
+   "level": "6",
+   "location": "Manchester, London, Bristol, Birmingham, United Kingdom",
+   "deadline": "2026-11-01",
+   "status": "open",
+   "apply": "https://www.hsbc.com/careers/students-and-graduates/find-a-programme?page=1&take=20&programme-type=degree-apprenticeship"
+  },
+  "cab4d332-792b-4917-8365-90baccf2ac0c": {
+   "id": "cab4d332-792b-4917-8365-90baccf2ac0c",
+   "employer": "Barclays",
+   "title": "Global Transaction Banking Degree Apprenticeship Programme 2027 – London",
+   "level": "6",
+   "location": "London",
+   "deadline": "",
+   "status": "open",
+   "apply": "https://search.jobs.barclays/job/london/global-transaction-banking-degree-apprenticeship-programme-2027-london/13015/JR-0000124291"
+  },
+  "ee77ed02-cf8c-45c2-8be1-8d3615b6397f": {
+   "id": "ee77ed02-cf8c-45c2-8be1-8d3615b6397f",
+   "employer": "Barclays",
+   "title": "Global Transaction Banking Degree Apprenticeship Programme 2027 – Northampton",
+   "level": "6",
+   "location": "Northampton",
+   "deadline": "",
+   "status": "open",
+   "apply": "https://search.jobs.barclays/job/northampton/global-transaction-banking-degree-apprenticeship-programme-2027-northampton/13015/JR-0000124677"
+  },
+  "f1b3552c-f891-4723-9d8b-5451db427e51": {
+   "id": "f1b3552c-f891-4723-9d8b-5451db427e51",
+   "employer": "Barclays",
+   "title": "UK Corporate Banking Degree Apprenticeship Programme 2027 – London",
+   "level": "6",
+   "location": "London",
+   "deadline": "",
+   "status": "open",
+   "apply": "https://search.jobs.barclays/job/london/uk-corporate-banking-degree-apprenticeship-programme-2027-london/13015/JR-0000124379"
+  },
+  "8659a2d2-b357-4cc3-bb1b-50f0d99c69d1": {
+   "id": "8659a2d2-b357-4cc3-bb1b-50f0d99c69d1",
+   "employer": "Barclays",
+   "title": "UK Corporate Banking Degree Apprenticeship Programme 2027 – Birmingham",
+   "level": "6",
+   "location": "Birmingham",
+   "deadline": "",
+   "status": "open",
+   "apply": "https://search.jobs.barclays/job/birmingham/uk-corporate-banking-degree-apprenticeship-programme-2027-birmingham/13015/JR-0000124391"
+  },
+  "9c864a72-9d81-4abe-a72a-4339dd605993": {
+   "id": "9c864a72-9d81-4abe-a72a-4339dd605993",
+   "employer": "Barclays",
+   "title": "UK Corporate Banking Degree Apprenticeship Programme 2027 – Leeds",
+   "level": "6",
+   "location": "Leeds",
+   "deadline": "",
+   "status": "open",
+   "apply": "https://search.jobs.barclays/job/leeds/uk-corporate-banking-degree-apprenticeship-programme-2027-leeds/13015/JR-0000125017"
+  },
+  "c3939241-e142-444e-be91-828f56c2b9ec": {
+   "id": "c3939241-e142-444e-be91-828f56c2b9ec",
+   "employer": "KPMG",
+   "title": "Tax Apprenticeship Edinburgh Autumn 2027",
+   "level": "7",
+   "location": "Edinburgh",
+   "deadline": "",
+   "status": "open",
+   "apply": "https://www.kpmgcareers.co.uk/Vacancies/apprenticeshipstaxapprenticeshipedinburghautumn2027/befb001d-a1bb-10fd-bbad-a1e6c0109551"
+  },
+  "7908ee17-75d3-4d6b-92d7-70b9aae5c65f": {
+   "id": "7908ee17-75d3-4d6b-92d7-70b9aae5c65f",
+   "employer": "KPMG",
+   "title": "Tax Apprenticeship Reading Autumn 2027",
+   "level": "7",
+   "location": "Reading",
+   "deadline": "",
+   "status": "open",
+   "apply": "https://www.kpmgcareers.co.uk/Vacancies/apprenticeshipstaxapprenticeshipreadingautumn2027/c64431b0-934c-5407-5f5b-7afe72394d87"
+  },
+  "98d174b4-539e-4372-8132-3764a54bc482": {
+   "id": "98d174b4-539e-4372-8132-3764a54bc482",
+   "employer": "KPMG",
+   "title": "Tax Apprenticeship London Autumn 2027",
+   "level": "7",
+   "location": "London",
+   "deadline": "",
+   "status": "open",
+   "apply": "https://www.kpmgcareers.co.uk/Vacancies/apprenticeshipstaxapprenticeshiplondonautumn2027/838895db-fc79-5f5b-8ac9-39173e5869a8"
+  },
+  "44b476e0-dd2f-4ac8-ba18-d5f0b73ea82b": {
+   "id": "44b476e0-dd2f-4ac8-ba18-d5f0b73ea82b",
+   "employer": "KPMG",
+   "title": "Tax Apprenticeship Manchester Autumn 2027",
+   "level": "7",
+   "location": "Manchester",
+   "deadline": "",
+   "status": "open",
+   "apply": "https://www.kpmgcareers.co.uk/Vacancies/apprenticeshipstaxapprenticeshipmanchesterautumn2027/3eda499c-0701-0b4c-828d-0d50e9511461"
+  },
+  "22461afb-83b3-45bb-b074-7482cf87f225": {
+   "id": "22461afb-83b3-45bb-b074-7482cf87f225",
+   "employer": "KPMG",
+   "title": "Tax Apprenticeship Birmingham Autumn 2027",
+   "level": "7",
+   "location": "Birmingham",
+   "deadline": "",
+   "status": "open",
+   "apply": "https://www.kpmgcareers.co.uk/Vacancies/apprenticeshipstaxapprenticeshipbirminghamautumn2027/7c41ffcf-d518-ca44-ffe7-a499f672090e"
+  },
+  "b10cf6ce-b1a3-4e0d-9a3e-dff250a178d4": {
+   "id": "b10cf6ce-b1a3-4e0d-9a3e-dff250a178d4",
+   "employer": "KPMG",
+   "title": "Tax Apprenticeship Leeds Autumn 2027",
+   "level": "7",
+   "location": "Leeds",
+   "deadline": "",
+   "status": "open",
+   "apply": "https://www.kpmgcareers.co.uk/Vacancies/apprenticeshipstaxapprenticeshipleedsautumn2027/b52cb116-84a4-da22-3515-3491c4a9e46f"
+  },
+  "ac66109e-87a4-47d6-a3d5-7c9fb7f52bf5": {
+   "id": "ac66109e-87a4-47d6-a3d5-7c9fb7f52bf5",
+   "employer": "Barclays",
+   "title": "Business Banking Degree Apprenticeship Programme 2027 – Manchester",
+   "level": "6",
+   "location": "Manchester",
+   "deadline": "2026-09-25",
+   "status": "reference_only",
+   "apply": "https://search.jobs.barclays/job/manchester/2027-business-banking-degree-apprenticeship-programme-manchester/13015/JR-0000129406"
+  },
+  "a29c61e5-66de-461b-85de-22974b486577": {
+   "id": "a29c61e5-66de-461b-85de-22974b486577",
+   "employer": "Barclays",
+   "title": "Business Banking Degree Apprenticeship Programme 2027 – London",
+   "level": "6",
+   "location": "London",
+   "deadline": "2026-09-25",
+   "status": "reference_only",
+   "apply": "https://search.jobs.barclays/job/london/2027-business-banking-degree-apprenticeship-programme-london/13015/JR-0000129411"
+  },
+  "dbce8cc2-a318-47ab-942c-957c57003bad": {
+   "id": "dbce8cc2-a318-47ab-942c-957c57003bad",
+   "employer": "Barclays",
+   "title": "Business Banking Degree Apprenticeship Programme 2027 – Northampton",
+   "level": "6",
+   "location": "Northampton",
+   "deadline": "2026-09-25",
+   "status": "reference_only",
+   "apply": "https://search.jobs.barclays/job/northampton/2027-business-banking-degree-apprenticeship-programme-northampton/13015/JR-0000129419"
+  },
+  "cf0aa56f-fd16-4d67-8aa5-6e2c3dca9f1e": {
+   "id": "cf0aa56f-fd16-4d67-8aa5-6e2c3dca9f1e",
+   "employer": "Barclays",
+   "title": "Operations Analyst Degree Apprenticeship Programme 2027 – London",
+   "level": "6",
+   "location": "London",
+   "deadline": "2026-09-25",
+   "status": "reference_only",
+   "apply": "https://search.jobs.barclays/job/london/2027-operations-analyst-degree-apprenticeship-programme-london/13015/JR-0000129617"
+  },
+  "881dbfd0-6f80-4811-bd53-2c32605066ad": {
+   "id": "881dbfd0-6f80-4811-bd53-2c32605066ad",
+   "employer": "Barclays",
+   "title": "Technology Developer Degree Apprenticeship Programme 2027 – Northampton",
+   "level": "6",
+   "location": "Northampton",
+   "deadline": "2026-09-25",
+   "status": "reference_only",
+   "apply": "https://search.jobs.barclays/job/northampton/2027-technology-developer-degree-apprenticeship-programme-northampton/13015/JR-0000129431"
+  },
+  "6d51c8db-ca19-4f8e-97ea-b0259711f9f1": {
+   "id": "6d51c8db-ca19-4f8e-97ea-b0259711f9f1",
+   "employer": "Barclays",
+   "title": "Technology Developer Degree Apprenticeship Programme 2027 – Knutsford",
+   "level": "6",
+   "location": "Knutsford",
+   "deadline": "2026-09-25",
+   "status": "reference_only",
+   "apply": "https://search.jobs.barclays/job/knutsford/2027-technology-developer-degree-apprenticeship-programme-knutsford/13015/JR-0000129443"
+  },
+  "75fba0ab-999c-44af-836d-16f8e026ae6d": {
+   "id": "75fba0ab-999c-44af-836d-16f8e026ae6d",
+   "employer": "Barclays",
+   "title": "Technology Analyst Degree Apprenticeship Programme 2027 – Knutsford",
+   "level": "6",
+   "location": "Knutsford",
+   "deadline": "2026-09-25",
+   "status": "reference_only",
+   "apply": "https://search.jobs.barclays/job/knutsford/2027-technology-analyst-degree-apprenticeship-programme-knutsford/13015/JR-0000129131"
+  },
+  "1d9f47e0-58d3-4d8f-9344-30dd243b1d60": {
+   "id": "1d9f47e0-58d3-4d8f-9344-30dd243b1d60",
+   "employer": "L'Oréal",
+   "title": "IT Workplace Projects Degree Apprentice",
+   "level": "6",
+   "location": "White City, London",
+   "deadline": "2026-09-30",
+   "status": "reference_only",
+   "apply": "https://careers.loreal.com/en_US/jobs/JobDetail/Digital-Apprentice-IT-Europe-January-2027/253620"
+  },
+  "90509b34-309d-4433-977a-1bc147faa278": {
+   "id": "90509b34-309d-4433-977a-1bc147faa278",
+   "employer": "Cummins",
+   "title": "Engineering Degree Apprenticeship",
+   "level": "6",
+   "location": "Huddersfield",
+   "deadline": "2026-08-13",
+   "status": "reference_only",
+   "apply": "https://europeancareers.cummins.jobs/huddersfield-gbr/degree-apprenticeship-customer-engineering-level-6/8EEF85652FFE4BF7911B24844CD2567C/job/"
+  },
+  "fb752b07-1e53-48b3-a384-2d215ec1b384": {
+   "id": "fb752b07-1e53-48b3-a384-2d215ec1b384",
+   "employer": "Siemens",
+   "title": "Software Design Engineer Degree Apprentice",
+   "level": "6",
+   "location": "Congleton",
+   "deadline": "2026-02-20",
+   "status": "reference_only",
+   "apply": ""
+  },
+  "3e42bd1f-a4ee-4917-b9a8-daef6d745e76": {
+   "id": "3e42bd1f-a4ee-4917-b9a8-daef6d745e76",
+   "employer": "Siemens",
+   "title": "Laboratory Test Engineer Degree Apprentice",
+   "level": "6",
+   "location": "Congleton",
+   "deadline": "2026-02-20",
+   "status": "reference_only",
+   "apply": ""
+  },
+  "c1b1b021-9e95-4240-aa74-3ca6b49b9f05": {
+   "id": "c1b1b021-9e95-4240-aa74-3ca6b49b9f05",
+   "employer": "Airbus",
+   "title": "Supply Chain Operations Degree Apprenticeship",
+   "level": "6",
+   "location": "Filton, Bristol",
+   "deadline": "2026-02-28",
+   "status": "reference_only",
+   "apply": ""
+  },
+  "bf7ce685-d8c4-4cc7-9a99-3a411b5224fc": {
+   "id": "bf7ce685-d8c4-4cc7-9a99-3a411b5224fc",
+   "employer": "Airbus",
+   "title": "Supply Chain Logistics & Planning Business Degree Apprenticeship",
+   "level": "6",
+   "location": "Broughton",
+   "deadline": "2026-02-28",
+   "status": "reference_only",
+   "apply": ""
+  },
+  "f47e43e3-7a75-4462-9b9f-ffc51e46614a": {
+   "id": "f47e43e3-7a75-4462-9b9f-ffc51e46614a",
+   "employer": "JLR",
+   "title": "Digital and Technology Solutions Degree Apprenticeship",
+   "level": "6",
+   "location": "West Midlands (primarily Gaydon and Whitley)",
+   "deadline": "2026-02-13",
+   "status": "reference_only",
+   "apply": ""
+  },
+  "49c935cf-3db5-4d83-949c-876f7511901e": {
+   "id": "49c935cf-3db5-4d83-949c-876f7511901e",
+   "employer": "JLR",
+   "title": "Supply Chain and Procurement Degree Apprenticeship",
+   "level": "6",
+   "location": "West Midlands",
+   "deadline": "2026-02-13",
+   "status": "reference_only",
+   "apply": ""
+  },
+  "669b48dc-e27d-43cb-bc33-619356b6192b": {
+   "id": "669b48dc-e27d-43cb-bc33-619356b6192b",
+   "employer": "JLR",
+   "title": "Applied Professional Engineering Programme Degree Apprenticeship",
+   "level": "6",
+   "location": "West Midlands and Halewood",
+   "deadline": "2026-02-13",
+   "status": "reference_only",
+   "apply": ""
+  },
+  "411e103a-d6dd-48d8-9f78-52f225955676": {
+   "id": "411e103a-d6dd-48d8-9f78-52f225955676",
+   "employer": "JLR",
+   "title": "Finance Degree Apprenticeship",
+   "level": "7",
+   "location": "UK",
+   "deadline": "2026-02-13",
+   "status": "reference_only",
+   "apply": ""
+  },
+  "f0b861ad-007c-4069-bf42-1836774b7457": {
+   "id": "f0b861ad-007c-4069-bf42-1836774b7457",
+   "employer": "Thales",
+   "title": "Applied Professional Engineering Degree Apprenticeship",
+   "level": "6",
+   "location": "Crawley",
+   "deadline": "2026-02-12",
+   "status": "reference_only",
+   "apply": ""
+  },
+  "284861ff-84c4-4db1-9c07-f6d68325bded": {
+   "id": "284861ff-84c4-4db1-9c07-f6d68325bded",
+   "employer": "EDF",
+   "title": "Nucelar Engineering Degree Apprenticeship",
+   "level": "6",
+   "location": "Gloucester",
+   "deadline": "2026-02-23",
+   "status": "reference_only",
+   "apply": ""
+  },
+  "12b82db2-43e3-4d2f-81e2-19e2bbc07538": {
+   "id": "12b82db2-43e3-4d2f-81e2-19e2bbc07538",
+   "employer": "BAE Systems",
+   "title": "Manufacturing  Engineer Degree Apprenticeship",
+   "level": "6",
+   "location": "Sunderland",
+   "deadline": "2026-01-30",
+   "status": "reference_only",
+   "apply": ""
+  },
+  "594efe82-c579-44f7-a322-6cf3b67a17eb": {
+   "id": "594efe82-c579-44f7-a322-6cf3b67a17eb",
+   "employer": "BAE Systems",
+   "title": "Manufacturing  Engineer Degree Apprenticeship",
+   "level": "6",
+   "location": "Barrow-in-Furness",
+   "deadline": "2026-01-30",
+   "status": "reference_only",
+   "apply": ""
+  },
+  "d45d9f02-d22f-4210-abce-dc6ff14b59c5": {
+   "id": "d45d9f02-d22f-4210-abce-dc6ff14b59c5",
+   "employer": "BAE Systems",
+   "title": "Manufacturing  Engineer Degree Apprenticeship",
+   "level": "6",
+   "location": "Glasgow",
+   "deadline": "2026-01-30",
+   "status": "reference_only",
+   "apply": ""
+  },
+  "b2d9ee6b-ccc0-4f55-ba67-33bc94b1fd8a": {
+   "id": "b2d9ee6b-ccc0-4f55-ba67-33bc94b1fd8a",
+   "employer": "BAE Systems",
+   "title": "Aerospace Engineer Degree Apprenticeship",
+   "level": "6",
+   "location": "Samlesbury, Brough",
+   "deadline": "2026-01-30",
+   "status": "reference_only",
+   "apply": ""
+  },
+  "88b82521-9eb9-44f9-a054-e77aea59c77b": {
+   "id": "88b82521-9eb9-44f9-a054-e77aea59c77b",
+   "employer": "BAE Systems",
+   "title": "Naval Architect and Weights Engineer Degree Apprenticeship",
+   "level": "6",
+   "location": "Cumbria",
+   "deadline": "2026-01-30",
+   "status": "reference_only",
+   "apply": ""
+  },
+  "1a6d2c78-0ff3-41d5-8a7f-c52618a62967": {
+   "id": "1a6d2c78-0ff3-41d5-8a7f-c52618a62967",
+   "employer": "BAE Systems",
+   "title": "Systems Engineering Degree Apprenticeship",
+   "level": "6",
+   "location": "Cumbria",
+   "deadline": "2026-01-30",
+   "status": "reference_only",
+   "apply": ""
+  },
+  "18754356-ffca-478b-9ea7-c21bc7fdc986": {
+   "id": "18754356-ffca-478b-9ea7-c21bc7fdc986",
+   "employer": "BAE Systems",
+   "title": "Nuclear Focussed Engineering  Degree Apprenticeship",
+   "level": "6",
+   "location": "Cumbria",
+   "deadline": "2026-01-30",
+   "status": "reference_only",
+   "apply": ""
+  },
+  "f63f5fc3-fdef-4890-b64f-1f11ce67e490": {
+   "id": "f63f5fc3-fdef-4890-b64f-1f11ce67e490",
+   "employer": "BAE Systems",
+   "title": "Electronics Hardware Engineering Degree Apprenticeship",
+   "level": "6",
+   "location": "Rochester",
+   "deadline": "2026-01-30",
+   "status": "reference_only",
+   "apply": ""
+  },
+  "729d21c9-e06e-46ae-ab8f-b9da0b450567": {
+   "id": "729d21c9-e06e-46ae-ab8f-b9da0b450567",
+   "employer": "BAE Systems",
+   "title": "Network Engineering Degree Apprenticeship",
+   "level": "6",
+   "location": "Portsmouth",
+   "deadline": "2026-01-30",
+   "status": "reference_only",
+   "apply": ""
+  },
+  "35b512d1-b994-4d50-b5d9-a9ece14353cb": {
+   "id": "35b512d1-b994-4d50-b5d9-a9ece14353cb",
+   "employer": "BAE Systems",
+   "title": "Cyber Engineering Degree Apprenticeship",
+   "level": "6",
+   "location": "Portsmouth",
+   "deadline": "2026-01-30",
+   "status": "reference_only",
+   "apply": ""
+  },
+  "863bbb1e-0591-4661-b1c8-26225a87c56c": {
+   "id": "863bbb1e-0591-4661-b1c8-26225a87c56c",
+   "employer": "BAE Systems",
+   "title": "Test & Commissioning Engineering Degree Apprenticeship",
+   "level": "6",
+   "location": "Cumbria",
+   "deadline": "2026-01-30",
+   "status": "reference_only",
+   "apply": ""
+  },
+  "03e5e443-6e76-4881-9ba5-ecc8cfb2379b": {
+   "id": "03e5e443-6e76-4881-9ba5-ecc8cfb2379b",
+   "employer": "BAE Systems",
+   "title": "Nuclear Engineering Degree Apprenticeship",
+   "level": "6",
+   "location": "Cumbria",
+   "deadline": "2026-01-30",
+   "status": "reference_only",
+   "apply": ""
+  },
+  "20b271c2-6d48-474f-b79d-434b1fd02747": {
+   "id": "20b271c2-6d48-474f-b79d-434b1fd02747",
+   "employer": "BAE Systems",
+   "title": "Mechanical Engineering Degree Apprenticeship",
+   "level": "6",
+   "location": "Sunderland",
+   "deadline": "2026-01-30",
+   "status": "reference_only",
+   "apply": ""
+  },
+  "2c09e92a-8f05-4b0b-995d-12ee31cb9738": {
+   "id": "2c09e92a-8f05-4b0b-995d-12ee31cb9738",
+   "employer": "Cushman & Wakefield",
+   "title": "Commerical Property Degree Apprenticeship",
+   "level": "6",
+   "location": "Manchester",
+   "deadline": "2026-03-01",
+   "status": "reference_only",
+   "apply": ""
+  },
+  "548ffba8-7e9f-4ee7-bab7-1fd8a02a7d7e": {
+   "id": "548ffba8-7e9f-4ee7-bab7-1fd8a02a7d7e",
+   "employer": "Cushman & Wakefield",
+   "title": "Building Surveying/Project Management Apprenticeship",
+   "level": "6",
+   "location": "London",
+   "deadline": "2026-03-01",
+   "status": "reference_only",
+   "apply": ""
+  },
+  "a4433727-5f8a-476f-86b0-e6eafa98bf03": {
+   "id": "a4433727-5f8a-476f-86b0-e6eafa98bf03",
+   "employer": "Cushman & Wakefield",
+   "title": "Chartered Surveyor Degree Apprenticeship",
+   "level": "6",
+   "location": "Birmingham",
+   "deadline": "2026-03-01",
+   "status": "reference_only",
+   "apply": ""
+  },
+  "219cc6a8-4f6c-4352-8901-a109aeb98a1e": {
+   "id": "219cc6a8-4f6c-4352-8901-a109aeb98a1e",
+   "employer": "CBRE",
+   "title": "Real Estate Degree Apprenitceship",
+   "level": "6",
+   "location": "UK",
+   "deadline": "2026-02-13",
+   "status": "reference_only",
+   "apply": ""
+  },
+  "d2cf9e07-739b-4a26-bb22-4bbbfeea3860": {
+   "id": "d2cf9e07-739b-4a26-bb22-4bbbfeea3860",
+   "employer": "CBRE",
+   "title": "Management Consultancy Degree Apprenitceship",
+   "level": "6",
+   "location": "London",
+   "deadline": "2026-02-13",
+   "status": "reference_only",
+   "apply": ""
+  },
+  "3b5dec58-77a1-4519-96e2-ec4f26531e32": {
+   "id": "3b5dec58-77a1-4519-96e2-ec4f26531e32",
+   "employer": "CGI",
+   "title": "Cyber Security Degree Apprenticeship",
+   "level": "6",
+   "location": "Reading",
+   "deadline": "2026-02-28",
+   "status": "reference_only",
+   "apply": ""
+  },
+  "770adfc2-62a7-4505-b4bb-b093edbbd74e": {
+   "id": "770adfc2-62a7-4505-b4bb-b093edbbd74e",
+   "employer": "CGI",
+   "title": "Software Engineering Degree Apprenticeship",
+   "level": "6",
+   "location": "London, Leatherhead",
+   "deadline": "2026-02-28",
+   "status": "reference_only",
+   "apply": ""
+  },
+  "5bec8cb6-cd2a-4780-b88d-02cf15f4cbd4": {
+   "id": "5bec8cb6-cd2a-4780-b88d-02cf15f4cbd4",
+   "employer": "CGI",
+   "title": "Software Engineering Degree Apprenticeship",
+   "level": "6",
+   "location": "Gloucester",
+   "deadline": "2026-02-28",
+   "status": "reference_only",
+   "apply": ""
+  },
+  "45a65794-0f10-4dbc-9a70-c4e793a42129": {
+   "id": "45a65794-0f10-4dbc-9a70-c4e793a42129",
+   "employer": "CGI",
+   "title": "Software Engineering Degree Apprenticeship",
+   "level": "6",
+   "location": "Manchester,  Leeds",
+   "deadline": "2026-02-28",
+   "status": "reference_only",
+   "apply": ""
+  },
+  "02ad3467-cbda-439c-96d1-66847d90cefc": {
+   "id": "02ad3467-cbda-439c-96d1-66847d90cefc",
+   "employer": "CapGemini",
+   "title": "Chartered Management Degree Apprenticeship",
+   "level": "6",
+   "location": "UK",
+   "deadline": "2026-02-28",
+   "status": "reference_only",
+   "apply": ""
+  },
+  "7b8e9e96-cb0b-4fe0-b6c4-bedab8a34d42": {
+   "id": "7b8e9e96-cb0b-4fe0-b6c4-bedab8a34d42",
+   "employer": "CapGemini",
+   "title": "UX Degree Apprenticeship",
+   "level": "6",
+   "location": "UK",
+   "deadline": "2026-02-28",
+   "status": "reference_only",
+   "apply": ""
+  },
+  "c3e83bdb-fe9e-47fc-9ac8-e2161284e5d9": {
+   "id": "c3e83bdb-fe9e-47fc-9ac8-e2161284e5d9",
+   "employer": "CapGemini",
+   "title": "Digital & Technology Degree Apprenticeship",
+   "level": "6",
+   "location": "UK",
+   "deadline": "2026-02-28",
+   "status": "reference_only",
+   "apply": ""
+  },
+  "4e0c1c7b-5537-4cbc-851c-e1dba63e0300": {
+   "id": "4e0c1c7b-5537-4cbc-851c-e1dba63e0300",
+   "employer": "BT Group",
+   "title": "AI Transformation and Delivery Degree Apprenticeship",
+   "level": "6",
+   "location": "Bristol, Birmingham, London, Manchester",
+   "deadline": "2026-02-06",
+   "status": "reference_only",
+   "apply": ""
+  },
+  "47e9c6ba-51ad-43ca-9a1b-999e1d1d5b4e": {
+   "id": "47e9c6ba-51ad-43ca-9a1b-999e1d1d5b4e",
+   "employer": "BT Group",
+   "title": "Secure Contracts degree apprentice",
+   "level": "6",
+   "location": "Manchester",
+   "deadline": "2026-02-06",
+   "status": "reference_only",
+   "apply": ""
+  },
+  "9d2cf0fa-5b87-4a50-bdae-281f77a078f1": {
+   "id": "9d2cf0fa-5b87-4a50-bdae-281f77a078f1",
+   "employer": "Lloyd's Banking Group",
+   "title": "Technology Engineering Degree Apprenticeship",
+   "level": "6",
+   "location": "Manchester",
+   "deadline": "2026-01-30",
+   "status": "reference_only",
+   "apply": ""
+  },
+  "dcc3370c-ec83-4ceb-ac70-2a3322a4d930": {
+   "id": "dcc3370c-ec83-4ceb-ac70-2a3322a4d930",
+   "employer": "Lloyd's Banking Group",
+   "title": "Accounting Professional and Finance Degree Apprenticeship",
+   "level": "7",
+   "location": "Leeds, Halifax , Bristol",
+   "deadline": "2026-01-30",
+   "status": "reference_only",
+   "apply": ""
+  }
+ }
+}
