@@ -1,5 +1,5 @@
 {
- "checked": "2026-10-10",
+ "checked": "2026-10-12",
  "jobs": {
   "9af4cf88-8eeb-4f2f-8856-286c2e25f9ca": {
    "id": "9af4cf88-8eeb-4f2f-8856-286c2e25f9ca",
@@ -8,7 +8,7 @@
    "level": "6",
    "location": "Newport, United Kingdom",
    "deadline": "2026-10-26",
-   "status": "open",
+   "status": "closing_soon",
    "apply": "https://ag.wd3.myworkdayjobs.com/en-US/Airbus/job/Newport/Hardware-Engineering---Electronics-Degree-Apprenticeship_JR10433054"
   },
   "19a364e7-8409-482b-b193-3a170bc76b84": {
@@ -18,7 +18,7 @@
    "level": "6",
    "location": "Newport, United Kingdom",
    "deadline": "2026-10-26",
-   "status": "open",
+   "status": "closing_soon",
    "apply": "https://ag.wd3.myworkdayjobs.com/en-US/Airbus/job/Newport/Software-Engineering-Degree-Apprenticeship_JR10433575"
   },
   "f7143a86-2c49-41c4-8018-559f8e82c798": {
@@ -28,7 +28,7 @@
    "level": "6",
    "location": "Portsmouth, United Kingdom",
    "deadline": "2026-10-26",
-   "status": "open",
+   "status": "closing_soon",
    "apply": "https://ag.wd3.myworkdayjobs.com/en-US/Airbus/job/Portsmouth/Project-Management-Degree-Apprenticeship_JR10430264"
   },
   "9215b7e3-55c6-4ad2-9027-87df90051b04": {
@@ -38,7 +38,7 @@
    "level": "6",
    "location": "Stevenage, United Kingdom",
    "deadline": "2026-10-26",
-   "status": "open",
+   "status": "closing_soon",
    "apply": "https://ag.wd3.myworkdayjobs.com/en-US/Airbus/job/Stevenage/Space-Systems-Engineering-Degree-Apprenticeship_JR10428185"
   },
   "5c9766b5-f33b-4bfc-9d64-5c19e7e49f30": {
@@ -48,7 +48,7 @@
    "level": "6",
    "location": "Stevenage, United Kingdom",
    "deadline": "2026-10-26",
-   "status": "open",
+   "status": "closing_soon",
    "apply": "https://ag.wd3.myworkdayjobs.com/en-US/Airbus/job/Stevenage/Project-Management-Office-Degree-Apprenticeship_JR10428188"
   },
   "f2d2988a-8e27-49ce-a498-9b5c2b7ee439": {
@@ -58,7 +58,7 @@
    "level": "6",
    "location": "Broughton, North Wales, United Kingdom",
    "deadline": "2026-10-26",
-   "status": "open",
+   "status": "closing_soon",
    "apply": "https://ag.wd3.myworkdayjobs.com/en-US/Airbus/job/Broughton/Digital---Technology-Solutions-Degree-Apprenticeship_JR10427977"
   },
   "5972dfb9-03bc-4a6a-89f2-8fe4a459074e": {
@@ -78,7 +78,7 @@
    "level": "6",
    "location": "Broughton, North Wales, United Kingdom",
    "deadline": "2026-10-26",
-   "status": "open",
+   "status": "closing_soon",
    "apply": "https://ag.wd3.myworkdayjobs.com/en-US/Airbus/job/Broughton/Business-Degree-Apprenticeship_JR10427952"
   },
   "a41f759a-8bcd-492d-8aaf-db3fae2788c6": {
@@ -88,7 +88,7 @@
    "level": "6",
    "location": "Broughton, North Wales, United Kingdom",
    "deadline": "2026-10-26",
-   "status": "open",
+   "status": "closing_soon",
    "apply": "https://ag.wd3.myworkdayjobs.com/en-US/Airbus/job/Broughton/Engineering-Degree-Apprenticeship_JR10427584"
   },
   "d49c14bd-51c5-44ca-9967-5c9ba9d51ae8": {
@@ -98,7 +98,7 @@
    "level": "6",
    "location": "Filton, Bristol, United Kingdom",
    "deadline": "2026-10-26",
-   "status": "open",
+   "status": "closing_soon",
    "apply": "https://ag.wd3.myworkdayjobs.com/en-US/Airbus/job/Bristol-Area/Procurement-and-Supply-Chain-Degree-Apprenticeship_JR10424271"
   },
   "367740b9-45a1-46c5-bfc1-e2950f0c6e2b": {
@@ -108,7 +108,7 @@
    "level": "6",
    "location": "Filton, Bristol, United Kingdom",
    "deadline": "2026-10-26",
-   "status": "open",
+   "status": "closing_soon",
    "apply": "https://ag.wd3.myworkdayjobs.com/en-US/Airbus/job/Bristol-Area/Digital-and-Technology-Solutions-Degree-Apprenticeship_JR10428737"
   },
   "fc052b1e-944a-493f-ba27-be3e010aa1fc": {
@@ -118,7 +118,7 @@
    "level": "6",
    "location": "Filton, Bristol, United Kingdom",
    "deadline": "2026-10-26",
-   "status": "open",
+   "status": "closing_soon",
    "apply": "https://ag.wd3.myworkdayjobs.com/en-US/Airbus/job/Bristol-Area/Mechanical-Engineering--Manufacturing--Degree-Apprenticeship_JR10430115"
   },
   "0ce3c328-364c-4db5-9b6e-2cf686defa83": {
@@ -128,7 +128,7 @@
    "level": "6",
    "location": "Filton, Bristol, United Kingdom",
    "deadline": "2026-10-26",
-   "status": "open",
+   "status": "closing_soon",
    "apply": "https://ag.wd3.myworkdayjobs.com/en-US/Airbus/job/Bristol-Area/Electromechanical-Engineering--Manufacturing--Degree-Apprenticeship_JR10430035"
   },
   "7d5b189a-5863-428d-9914-ede0bf0e4a0f": {
@@ -148,7 +148,7 @@
    "level": "6",
    "location": "Filton, Bristol, United Kingdom",
    "deadline": "2026-10-26",
-   "status": "open",
+   "status": "closing_soon",
    "apply": "https://ag.wd3.myworkdayjobs.com/en-US/Airbus/job/Bristol-Area/Aerospace-Engineering-Degree-Apprenticeship_JR10430134"
   },
   "d3a53418-380a-441e-8bed-5d42adbf3f41": {
@@ -301,26 +301,6 @@
    "status": "closing_soon",
    "apply": "https://apply.deloitte.co.uk/UKEarlyCareers/SearchJobs/?4934=2772633&4934_format=4380&listFilterMode=1&jobRecordsPerPage=20&"
   },
-  "282a8dc7-8644-4215-81b6-227748898cf0": {
-   "id": "282a8dc7-8644-4215-81b6-227748898cf0",
-   "employer": "Deloitte",
-   "title": "BrightStart Higher Apprenticeship - Enterprise Applications Consulting (Sales & Service) - Computer Systems",
-   "level": "6",
-   "location": "Belfast, United Kingdom",
-   "deadline": "2026-10-12",
-   "status": "closing_soon",
-   "apply": "https://apply.deloitte.co.uk/UKEarlyCareers/SearchJobs/?4934=2772633&4934_format=4380&listFilterMode=1&jobRecordsPerPage=20&"
-  },
-  "41525f60-6c03-4116-b760-f98b9de98a18": {
-   "id": "41525f60-6c03-4116-b760-f98b9de98a18",
-   "employer": "Deloitte",
-   "title": "BrightStart Higher Apprenticeship - Enterprise Applications Consulting (Sales & Service) - Business Technology",
-   "level": "6",
-   "location": "Belfast, United Kingdom",
-   "deadline": "2026-10-12",
-   "status": "closing_soon",
-   "apply": "https://apply.deloitte.co.uk/UKEarlyCareers/SearchJobs/?4934=2772633&4934_format=4380&listFilterMode=1&jobRecordsPerPage=20&"
-  },
   "2436fa6c-ed56-4308-ba5c-c91088c01b6a": {
    "id": "2436fa6c-ed56-4308-ba5c-c91088c01b6a",
    "employer": "Deloitte",
@@ -330,16 +310,6 @@
    "deadline": "2026-10-23",
    "status": "closing_soon",
    "apply": "https://apply.deloitte.co.uk/UKEarlyCareers/SearchJobs/?4934=2772633&4934_format=4380&listFilterMode=1&jobRecordsPerPage=20&"
-  },
-  "e0974890-6670-48f5-8d74-348784955f5e": {
-   "id": "e0974890-6670-48f5-8d74-348784955f5e",
-   "employer": "Deloitte",
-   "title": "BrightStart Higher Apprenticeship - Business Transformation Consulting (Customer Products)",
-   "level": "6",
-   "location": "Belfast, United Kingdom",
-   "deadline": "2026-10-12",
-   "status": "closing_soon",
-   "apply": "https://apply.deloitte.co.uk/UKEarlyCareers/JobDetail/Business-Transformation-Consulting-Customer-Products/25179"
   },
   "d084683b-8238-42e1-a2c7-33c1e7a3c83c": {
    "id": "d084683b-8238-42e1-a2c7-33c1e7a3c83c",
@@ -480,6 +450,66 @@
    "deadline": "",
    "status": "open",
    "apply": "https://www.kpmgcareers.co.uk/Vacancies/apprenticeshipstaxapprenticeshipleedsautumn2027/b52cb116-84a4-da22-3515-3491c4a9e46f"
+  },
+  "1d362583-30c5-4197-b688-cf695bef3a31": {
+   "id": "1d362583-30c5-4197-b688-cf695bef3a31",
+   "employer": "KPMG",
+   "title": "Tax Apprenticeship Bristol Autumn 2027",
+   "level": "7",
+   "location": "Bristol",
+   "deadline": "",
+   "status": "open",
+   "apply": "https://www.kpmgcareers.co.uk/Vacancies/apprenticeshipstaxapprenticeshipbristolautumn2027/05535102-b525-2c44-857f-9368f7006e33"
+  },
+  "484bc2bc-18c2-49fd-afb5-647c13d5c581": {
+   "id": "484bc2bc-18c2-49fd-afb5-647c13d5c581",
+   "employer": "KPMG",
+   "title": "Tax Apprenticeship Glasgow Autumn 2027",
+   "level": "7",
+   "location": "Glasgow",
+   "deadline": "",
+   "status": "open",
+   "apply": "https://www.kpmgcareers.co.uk/Vacancies/apprenticeshipstaxapprenticeshipglasgowautumn2027/"
+  },
+  "bd798137-fed6-41ff-a1f1-a08501f7b3ee": {
+   "id": "bd798137-fed6-41ff-a1f1-a08501f7b3ee",
+   "employer": "KPMG",
+   "title": "Audit Apprenticeship South Coast - Southampton Autumn 2027",
+   "level": "7",
+   "location": "South Coast - Southampton",
+   "deadline": "",
+   "status": "open",
+   "apply": "https://www.kpmgcareers.co.uk/Vacancies/apprenticeshipsauditapprenticeshipsouthcoastsouthamptonautumn2027/71723265-1410-f418-da02-66b29cb8f7ab"
+  },
+  "282a8dc7-8644-4215-81b6-227748898cf0": {
+   "id": "282a8dc7-8644-4215-81b6-227748898cf0",
+   "employer": "Deloitte",
+   "title": "BrightStart Higher Apprenticeship - Enterprise Applications Consulting (Sales & Service) - Computer Systems",
+   "level": "6",
+   "location": "Belfast, United Kingdom",
+   "deadline": "2026-10-12",
+   "status": "reference_only",
+   "apply": "https://apply.deloitte.co.uk/UKEarlyCareers/SearchJobs/?4934=2772633&4934_format=4380&listFilterMode=1&jobRecordsPerPage=20&"
+  },
+  "41525f60-6c03-4116-b760-f98b9de98a18": {
+   "id": "41525f60-6c03-4116-b760-f98b9de98a18",
+   "employer": "Deloitte",
+   "title": "BrightStart Higher Apprenticeship - Enterprise Applications Consulting (Sales & Service) - Business Technology",
+   "level": "6",
+   "location": "Belfast, United Kingdom",
+   "deadline": "2026-10-12",
+   "status": "reference_only",
+   "apply": "https://apply.deloitte.co.uk/UKEarlyCareers/SearchJobs/?4934=2772633&4934_format=4380&listFilterMode=1&jobRecordsPerPage=20&"
+  },
+  "e0974890-6670-48f5-8d74-348784955f5e": {
+   "id": "e0974890-6670-48f5-8d74-348784955f5e",
+   "employer": "Deloitte",
+   "title": "BrightStart Higher Apprenticeship - Business Transformation Consulting (Customer Products)",
+   "level": "6",
+   "location": "Belfast, United Kingdom",
+   "deadline": "2026-10-12",
+   "status": "reference_only",
+   "apply": "https://apply.deloitte.co.uk/UKEarlyCareers/JobDetail/Business-Transformation-Consulting-Customer-Products/25179"
   },
   "ac66109e-87a4-47d6-a3d5-7c9fb7f52bf5": {
    "id": "ac66109e-87a4-47d6-a3d5-7c9fb7f52bf5",
@@ -928,36 +958,6 @@
    "level": "6",
    "location": "Bristol, Birmingham, London, Manchester",
    "deadline": "2026-02-06",
-   "status": "reference_only",
-   "apply": ""
-  },
-  "47e9c6ba-51ad-43ca-9a1b-999e1d1d5b4e": {
-   "id": "47e9c6ba-51ad-43ca-9a1b-999e1d1d5b4e",
-   "employer": "BT Group",
-   "title": "Secure Contracts degree apprentice",
-   "level": "6",
-   "location": "Manchester",
-   "deadline": "2026-02-06",
-   "status": "reference_only",
-   "apply": ""
-  },
-  "9d2cf0fa-5b87-4a50-bdae-281f77a078f1": {
-   "id": "9d2cf0fa-5b87-4a50-bdae-281f77a078f1",
-   "employer": "Lloyd's Banking Group",
-   "title": "Technology Engineering Degree Apprenticeship",
-   "level": "6",
-   "location": "Manchester",
-   "deadline": "2026-01-30",
-   "status": "reference_only",
-   "apply": ""
-  },
-  "dcc3370c-ec83-4ceb-ac70-2a3322a4d930": {
-   "id": "dcc3370c-ec83-4ceb-ac70-2a3322a4d930",
-   "employer": "Lloyd's Banking Group",
-   "title": "Accounting Professional and Finance Degree Apprenticeship",
-   "level": "7",
-   "location": "Leeds, Halifax , Bristol",
-   "deadline": "2026-01-30",
    "status": "reference_only",
    "apply": ""
   }

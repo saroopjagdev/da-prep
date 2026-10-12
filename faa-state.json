@@ -1,5 +1,5 @@
 {
- "checked": "2026-10-10",
+ "checked": "2026-10-12",
  "jobs": {
   "2000026593": {
    "id": "2000026593",
@@ -601,6 +601,46 @@
    "posted": "2026-10-07",
    "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000057615"
   },
+  "2000057866": {
+   "id": "2000057866",
+   "employer": "AWE PLC",
+   "title": "Project Management Apprenticeship",
+   "level": "6",
+   "location": "Reading RG7",
+   "deadline": "2026-10-25",
+   "posted": "2026-10-12",
+   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000057866"
+  },
+  "2000057891": {
+   "id": "2000057891",
+   "employer": "AWE PLC",
+   "title": "Manufacturing Engineer Apprenticeship",
+   "level": "6",
+   "location": "Reading RG7",
+   "deadline": "2026-12-20",
+   "posted": "2026-10-12",
+   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000057891"
+  },
+  "2000057932": {
+   "id": "2000057932",
+   "employer": "AWE PLC",
+   "title": "Project Controls Apprenticeship",
+   "level": "6",
+   "location": "Reading RG7",
+   "deadline": "2026-11-01",
+   "posted": "2026-10-12",
+   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000057932"
+  },
+  "2000057960": {
+   "id": "2000057960",
+   "employer": "AWE PLC",
+   "title": "Electronic Design Apprenticeship",
+   "level": "6",
+   "location": "Reading RG7",
+   "deadline": "2027-01-10",
+   "posted": "2026-10-12",
+   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000057960"
+  },
   "2000057974": {
    "id": "2000057974",
    "employer": "PORTLAND FUEL LIMITED",
@@ -620,6 +660,26 @@
    "deadline": "2026-10-25",
    "posted": "2026-10-08",
    "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000058000"
+  },
+  "2000058053": {
+   "id": "2000058053",
+   "employer": "AWE PLC",
+   "title": "Building Services Asset Engineering Degree Apprenticeship",
+   "level": "6",
+   "location": "Reading RG7",
+   "deadline": "2026-12-20",
+   "posted": "2026-10-12",
+   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000058053"
+  },
+  "2000058095": {
+   "id": "2000058095",
+   "employer": "AWE PLC",
+   "title": "Electrical Engineering (Facilities & Equipment) Degree Apprentice",
+   "level": "6",
+   "location": "Reading RG7",
+   "deadline": "2026-11-01",
+   "posted": "2026-10-12",
+   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000058095"
   },
   "2000058121": {
    "id": "2000058121",
@@ -810,6 +870,26 @@
    "deadline": "2026-10-30",
    "posted": "2026-10-09",
    "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000058500"
+  },
+  "2000058587": {
+   "id": "2000058587",
+   "employer": "STANTEC UK LIMITED",
+   "title": "Degree Apprentice Civil Engineer - Glasgow",
+   "level": "6",
+   "location": "Glasgow G2",
+   "deadline": "2026-12-18",
+   "posted": "2026-10-12",
+   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000058587"
+  },
+  "2000058598": {
+   "id": "2000058598",
+   "employer": "STANTEC UK LIMITED",
+   "title": "Degree Apprentice Civil Engineer - Glasgow",
+   "level": "6",
+   "location": "Glasgow G2",
+   "deadline": "2026-12-18",
+   "posted": "2026-10-12",
+   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000058598"
   }
  }
 }
