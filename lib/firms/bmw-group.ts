@@ -1,6 +1,6 @@
 import type { FirmProfile } from "./types";
 
-const RECRUIT = "https://www.bmwgroup.jobs/gb/en/apprentices/recruitment-process-apprentices.html";
+const RECRUIT = "https://www.bmwgroup.jobs/gb/en/future-talent/apprentices/recruitment-process-apprentices.html";
 const HIGHERIN = "https://higherin.com/jobs/43052/bmw-group-uk/register-your-interest-business-degree-apprenticeship-2027";
 const GF_TESTS = "https://www.graduatesfirst.com/bmw-assessment-tests";
 const GF_AC = "https://www.graduatesfirst.com/bmw-assessment-centre";
@@ -101,7 +101,7 @@ export const bmwGroup: FirmProfile = {
     "Get to know the site you apply to (MINI Plant Oxford, Hams Hall engines, Swindon pressings) and the business area: the AC is at a UK site.",
     "Notice periods are short (7-10 days) so pre-build a presentation template.",
   ],
-  officialLinks: [RECRUIT, "https://www.bmwgroup.jobs/gb/en/apprentices.html", CULTURE],
+  officialLinks: [RECRUIT, "https://www.bmwgroup.jobs/gb/en/future-talent/apprentices.html", CULTURE],
   lastVerified: "2026-10-02",
   gaps: [
     "Browser pass 2 Oct 2026: BMW's UK recruitment-process page and the whole /gb/en/apprentices section return a genuine 404 in a real browser (the site has been reorganised), so the earlier 404s were not blocks. BMW Group's global 'Application tips' page (bmwgroup.jobs/en/application-tips.html, official, read directly) describes a telephone or staggered video interview, a face-to-face interview, and a selection day (assessment centre) whose tools 'might be used' include self-presentation, group exercise or discussion, computer-aided testing, sample work, a presentation on a specialist topic, role-playing tasks and a short interview, varying by applicant type (school leavers, students, graduates). That is global rather than UK-apprentice-specific, but it suggests any testing may sit at the selection day rather than as a separate online stage.",
