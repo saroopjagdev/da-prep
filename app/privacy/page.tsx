@@ -12,6 +12,7 @@ const PROCESSORS: [string, string, string][] = [
   ["Supabase", "Accounts, sign-in and cloud sync of your data", "Ireland (EU)"],
   ["Vercel", "Hosts the website and its servers", "Global, with servers in the EU and US"],
   ["Stripe", "Takes payment for Pro. We never see your card number", "EU and US"],
+  ["Resend", "Sends the sign-in emails and, only if you ask for them, deadline emails", "EU and US"],
   ["Google", "Only if you choose Sign in with Google", "United States"],
 ];
 
@@ -60,6 +61,9 @@ export default function Privacy() {
         <li>
           <strong>If you create an account:</strong> your email address and a password (our sign-in provider, Supabase, keeps only a scrambled version of it; we never see or store it in readable form), and your tracker, stories, practice scores and
           interview data so it syncs between devices, plus a count of your practice tests, interviews and reviews so the free limits can apply. We use this to provide the service you asked for (contract).
+        </li>
+        <li>
+          <strong>If you ask for deadline emails:</strong> the employers you chose to follow in the tracker, which emails we have already sent you (so nothing is sent twice) and a private code in the unsubscribe link. We email you when a followed employer opens and a week before it closes, and use your account email address to do it. Every email has a one-click link to stop them all, and everything here is deleted if you delete your account (consent, which you can withdraw at any time).
         </li>
         <li>
           <strong>If you buy Pro:</strong> a Stripe customer ID and your plan. When you pay we also record, with the payment, that you confirmed the payer is 18 or over, that you
