@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useAuth } from "@/components/AuthProvider";
 import { postJson } from "@/lib/api";
+import { alertKey } from "@/lib/alerts";
 import { track } from "@/lib/funnel";
 import { applicationsToIcs, hasDeadlines } from "@/lib/ics";
 import type { OpportunityRow, Status as OppStatus } from "@/lib/opportunities";
@@ -68,6 +69,44 @@ export default function OpportunitiesApp({ rows }: { rows: OpportunityRow[] }) {
 
   const today = new Date().toLocaleDateString("en-CA"); // local YYYY-MM-DD
   const patch = (id: string, p: Partial<Application>) => update((prev) => prev.map((a) => (a.id === id ? { ...a, ...p } : a)));
+
+  // The employers this person follows for deadline emails. Loaded once they are signed in; the buttons update at once.
+  const [following, setFollowing] = useState<Set<string>>(new Set());
+  const [alertError, setAlertError] = useState("");
+  useEffect(() => {
+    if (!enabled || !user) return;
+    let alive = true;
+    postJson<{ keys: string[] }>("/api/alerts", undefined, "GET")
+      .then((d) => alive && setFollowing(new Set(d.keys)))
+      .catch(() => {});
+    return () => {
+      alive = false;
+    };
+  }, [enabled, user]);
+
+  async function toggleAlert(r: OpportunityRow) {
+    const key = alertKey(r);
+    const on = !following.has(key);
+    setAlertError("");
+    setFollowing((prev) => {
+      const next = new Set(prev);
+      if (on) next.add(key);
+      else next.delete(key);
+      return next;
+    });
+    try {
+      await postJson("/api/alerts", { key, on });
+    } catch (e) {
+      // Put the button back and say why, so it never looks saved when it was not.
+      setFollowing((prev) => {
+        const next = new Set(prev);
+        if (on) next.delete(key);
+        else next.add(key);
+        return next;
+      });
+      setAlertError((e as Error).message);
+    }
+  }
 
   /** Following an Apply link counts towards the engagement reward. Fire and forget: it must never get in the way of the link. */
   function followedApply() {
@@ -205,6 +244,11 @@ export default function OpportunitiesApp({ rows }: { rows: OpportunityRow[] }) {
           {kept}
         </p>
       )}
+      {alertError && (
+        <p className="callout bg-coral-50 text-sm text-coral-600" role="alert">
+          {alertError}
+        </p>
+      )}
 
       <div role="region" aria-label="Opportunities tracker table" tabIndex={0} className="overflow-x-auto rounded-xl border border-line bg-white">
         <table className="w-full min-w-[34rem] text-left text-sm">
@@ -335,6 +379,16 @@ export default function OpportunitiesApp({ rows }: { rows: OpportunityRow[] }) {
                             {r.slug ? "Apply" : "Careers"}
                           </a>
                         </>
+                      )}
+                      {canTrack && r.status !== "closed" && (
+                        <button
+                          onClick={() => toggleAlert(r)}
+                          aria-pressed={following.has(alertKey(r))}
+                          aria-label={`Email me when ${r.name} opens and before it closes`}
+                          className={`ml-2 rounded-md border px-2 py-0.5 ${following.has(alertKey(r)) ? "border-brand-500 bg-brand-50 font-semibold text-brand-700" : "border-line hover:border-brand-500"}`}
+                        >
+                          {following.has(alertKey(r)) ? "Alerts on" : "Alert me"}
+                        </button>
                       )}
                       {a && (
                         <button

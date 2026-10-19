@@ -267,6 +267,41 @@ test("a visit counts its source and where it began, with nothing that identifies
   expect(visit.source).toBe("school");
 });
 
+test("a signed-in member can follow an employer for deadline emails, and it reverts if saving fails", async ({ page }) => {
+  await signedIn(page);
+  let fail = false;
+  const posts: { key: string; on: boolean }[] = [];
+  await page.route("**/api/alerts", async (route) => {
+    if (route.request().method() === "GET") return route.fulfill({ json: { keys: [] } });
+    posts.push(JSON.parse(route.request().postData() ?? "{}"));
+    return fail ? route.fulfill({ status: 500, json: { error: "Could not save that." } }) : route.fulfill({ json: { ok: true } });
+  });
+  await page.goto("/opportunities");
+  const button = page.getByRole("button", { name: /Email me when .* opens and before it closes/ }).first();
+  await expect(button).toHaveText("Alert me");
+  await button.click();
+  await expect(button).toHaveText("Alerts on");
+  await expect(button).toHaveAttribute("aria-pressed", "true");
+  expect(posts[0].on).toBe(true);
+  fail = true;
+  await button.click();
+  await expect(page.getByRole("alert").filter({ hasText: "Could not save that." })).toBeVisible();
+  await expect(button).toHaveText("Alerts on"); // the failed unfollow put it back
+});
+
+test("the unsubscribe page needs a button press and then confirms", async ({ page }) => {
+  let posted = 0;
+  await page.route("**/api/alerts/unsubscribe**", (route) => {
+    posted++;
+    return route.fulfill({ json: { ok: true } });
+  });
+  await page.goto("/unsubscribe?t=11111111-2222-3333-4444-555555555555");
+  expect(posted).toBe(0); // opening the link alone changes nothing
+  await page.getByRole("button", { name: "Stop all deadline emails" }).click();
+  await expect(page.getByRole("status")).toContainText("You will not get any more deadline emails");
+  expect(posted).toBe(1);
+});
+
 test("a Pro member sees no Go Pro prompt", async ({ page, isMobile }) => {
   await signedIn(page);
   await page.route("**/api/usage", (route) => route.fulfill({ json: { plan: "pro", enforced: true } }));
