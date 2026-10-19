@@ -72,13 +72,16 @@ export default function OpportunitiesApp({ rows }: { rows: OpportunityRow[] }) {
 
   // The employers this person follows for deadline emails. Loaded once they are signed in; the buttons update at once.
   const [following, setFollowing] = useState<Set<string>>(new Set());
+  // The buttons wait for the list to load, so a click made first cannot be wiped by the list arriving afterwards.
+  const [alertsLoaded, setAlertsLoaded] = useState(false);
   const [alertError, setAlertError] = useState("");
   useEffect(() => {
     if (!enabled || !user) return;
     let alive = true;
     postJson<{ keys: string[] }>("/api/alerts", undefined, "GET")
       .then((d) => alive && setFollowing(new Set(d.keys)))
-      .catch(() => {});
+      .catch(() => {})
+      .finally(() => alive && setAlertsLoaded(true));
     return () => {
       alive = false;
     };
@@ -383,9 +386,10 @@ export default function OpportunitiesApp({ rows }: { rows: OpportunityRow[] }) {
                       {canTrack && r.status !== "closed" && (
                         <button
                           onClick={() => toggleAlert(r)}
+                          disabled={!alertsLoaded}
                           aria-pressed={following.has(alertKey(r))}
                           aria-label={`Email me when ${r.name} opens and before it closes`}
-                          className={`ml-2 rounded-md border px-2 py-0.5 ${following.has(alertKey(r)) ? "border-brand-500 bg-brand-50 font-semibold text-brand-700" : "border-line hover:border-brand-500"}`}
+                          className={`ml-2 rounded-md border px-2 py-0.5 disabled:opacity-60 ${following.has(alertKey(r)) ? "border-brand-500 bg-brand-50 font-semibold text-brand-700" : "border-line hover:border-brand-500"}`}
                         >
                           {following.has(alertKey(r)) ? "Alerts on" : "Alert me"}
                         </button>
