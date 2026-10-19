@@ -26,9 +26,9 @@ export default function Privacy() {
           The short version
         </h2>
         <ul className="list-disc space-y-1 pl-5">
-          <li>You can browse the employer list, guides and pricing without an account, and we never see what you browse. The practice tests, tracker and AI tools need a free account (16 and over), where we keep your email and your saved work so it syncs. You can delete it all yourself, any time.</li>
+          <li>You can browse the employer list, guides and pricing without an account, and we never see who is browsing. The practice tests, tracker and AI tools need a free account (16 and over), where we keep your email and your saved work so it syncs. You can delete it all yourself, any time.</li>
           <li>What you type or say into the AI tools is sent to OpenAI to make questions and feedback. We don&apos;t keep it. Please leave out names, phone numbers and addresses.</li>
-          <li>No adverts and no tracking. We keep anonymous daily totals, such as how many people visited the home page or signed up, and use Vercel&apos;s privacy-friendly page-view counts (no cookies, no advertising, nothing that identifies you or follows you across sites). We never share your data with employers.</li>
+          <li>No adverts and no tracking. We keep anonymous daily totals, such as how many people visited the home page or signed up, and which kind of site they came from (for example a search engine, a social app or a school link, as a short label only). We use Vercel&apos;s privacy-friendly page-view counts (no cookies, no advertising, nothing that identifies you or follows you across sites). We never share your data with employers.</li>
           <li>The feedback is written by AI, so it can be wrong. You decide what to use.</li>
         </ul>
         <p>The full details are below.</p>

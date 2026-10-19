@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useAuth } from "@/components/AuthProvider";
 import { postJson } from "@/lib/api";
+import { track } from "@/lib/funnel";
 import { BONUS_EXTRA, FREE_INTERVIEWS, FREE_PRACTICE, FREE_REVIEWS, PRO_PLAN } from "@/lib/plans";
 import { supabase } from "@/lib/supabase";
 
@@ -38,6 +39,7 @@ export default function Pricing() {
     // Reading the URL needs the browser, so this can't be initial state without a hydration mismatch.
     // eslint-disable-next-line react-hooks/set-state-in-effect
     setSuccess(new URLSearchParams(window.location.search).has("success"));
+    track("pricing_view", { oncePerLoad: true });
   }, []);
 
   useEffect(() => {
@@ -55,6 +57,7 @@ export default function Pricing() {
   async function checkout() {
     setError("");
     setBusy(true);
+    track("checkout_start");
     try {
       const { url } = await postJson<{ url: string }>("/api/stripe/checkout", { payerAdult, startNow, acceptTerms });
       window.location.href = url;

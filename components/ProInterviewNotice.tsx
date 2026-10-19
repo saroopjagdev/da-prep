@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import TrackOnMount from "@/components/TrackOnMount";
 import UnlockProgress from "@/components/UnlockProgress";
 import { useUsage } from "@/components/useUsage";
 import { PRO_PLAN } from "@/lib/plans";
@@ -55,6 +56,7 @@ export default function ProInterviewNotice({ kind = "interview" }: { kind?: "int
         See Pro
       </Link>
       .
+      {left === 0 && <TrackOnMount event="limit_hit" />}
       {left === 0 && <UnlockProgress className="mt-2" />}
     </p>
   );

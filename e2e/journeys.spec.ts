@@ -129,7 +129,7 @@ test("unknown pages show a friendly 404", async ({ page }) => {
   await expect(page.getByRole("heading", { level: 1 })).toBeVisible();
 });
 
-const PAGES = ["/", "/opportunities", "/sectors/finance", "/sectors/finance/calendar", "/sectors/finance/myths", "/employers/ubs", "/learn", "/learn/degree-apprenticeship-vs-university", "/tests/hsbc-simulate", "/mock/natwest", "/mock/santander", "/interview", "/tests", "/employers", "/tracker", "/review", "/cv", "/pricing", "/privacy", "/terms", "/accessibility"];
+const PAGES = ["/", "/opportunities", "/sectors/finance", "/sectors/finance/calendar", "/sectors/finance/myths", "/employers/ubs", "/deadlines", "/learn", "/learn/degree-apprenticeship-vs-university", "/tests/hsbc-simulate", "/mock/natwest", "/mock/santander", "/interview", "/tests", "/employers", "/tracker", "/review", "/cv", "/pricing", "/privacy", "/terms", "/accessibility"];
 
 for (const path of PAGES) {
   test(`no automatically detectable accessibility problems on ${path}`, async ({ page }) => {
@@ -240,6 +240,31 @@ test("the header offers Plans to visitors and Go Pro to free members", async ({ 
   await page.goto("/opportunities");
   await openMenu(page, isMobile);
   await expect(page.getByRole("link", { name: "Go Pro" }).first()).toHaveAttribute("href", "/pricing");
+});
+
+test("the deadlines page lists who is open, soonest closing first, with share and print", async ({ page }) => {
+  await page.goto("/deadlines");
+  await expect(page.getByRole("heading", { level: 1, name: /deadlines, 2027 intake/ })).toBeVisible();
+  const open = page.getByRole("table", { name: /open now/i });
+  await expect(open.locator("tbody tr").first()).toBeVisible();
+  const closes = await open.locator("tbody tr td:nth-child(4)").allInnerTexts();
+  expect(closes.length).toBeGreaterThan(0);
+  await expect(page.getByRole("button", { name: "Share this page" })).toBeVisible();
+  await expect(page.getByRole("button", { name: /Print or save as PDF/ })).toBeVisible();
+  await expect(page.getByRole("link", { name: "Create a free account" })).toHaveAttribute("href", "/login");
+});
+
+test("a visit counts its source and where it began, with nothing that identifies the visitor", async ({ page }) => {
+  const sent: { event: string; source: string }[] = [];
+  await page.route("**/api/event", (route) => {
+    sent.push(JSON.parse(route.request().postData() ?? "{}"));
+    return route.fulfill({ status: 204 });
+  });
+  await page.goto("/employers/ubs?utm_source=school");
+  await expect.poll(() => sent.some((e) => e.event === "visit_employer")).toBe(true);
+  const visit = sent.find((e) => e.event === "visit_employer")!;
+  expect(Object.keys(visit).sort()).toEqual(["event", "source"]);
+  expect(visit.source).toBe("school");
 });
 
 test("a Pro member sees no Go Pro prompt", async ({ page, isMobile }) => {

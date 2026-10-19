@@ -5,19 +5,33 @@ import { FIRMS, getFirm } from "@/lib/firms";
 import { extraAdvice, extraBlocks, extraOaTests } from "@/lib/firms/dedupe";
 import { glance, practiceLinks } from "@/lib/firms/glance";
 import JsonLd from "@/components/JsonLd";
+import ShareButton from "@/components/ShareButton";
 import { logoPath } from "@/lib/logos";
+import { opportunityRows } from "@/lib/opportunities";
 import { articleLd, breadcrumbLd } from "@/lib/seo";
 import { pageMeta } from "@/lib/site";
 
 export const generateStaticParams = () => FIRMS.map((f) => ({ slug: f.slug }));
+
+// The application window in the page's search snippet follows the calendar, so rebuild hourly (like the tracker).
+export const revalidate = 3600;
+
+/** "Applications open until 18 December 2026." and the like, from the tracker's dates; empty when we have none. */
+function windowLine(slug: string): string {
+  const r = opportunityRows(new Date()).find((x) => x.slug === slug);
+  if (!r) return "";
+  if (r.status === "open") return r.rolling ? "Applications are open and close when full." : r.closes ? `Applications are open until ${r.closes}.` : "Applications are open.";
+  if (r.status === "opening-soon" && r.opens) return `Applications open ${r.opens}.`;
+  return "";
+}
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const firm = getFirm((await params).slug);
   if (!firm) return { title: "Employer not found" };
   const stages = firm.stages.map((s) => s.name.split(/[(:]/)[0].trim().toLowerCase()).join(", ");
   return pageMeta({
-    title: `${firm.name} degree apprenticeship: process, tests and interview`,
-    description: `How the ${firm.name} degree apprenticeship application works: ${stages}. Dates, entry requirements, reported questions and tips.`.slice(0, 300),
+    title: `${firm.name} degree apprenticeship 2027: dates, process, tests and interview`,
+    description: `${windowLine(firm.slug)} How the ${firm.name} degree apprenticeship application works: ${stages}. Entry requirements, reported questions and tips.`.trim().slice(0, 300),
     path: `/employers/${firm.slug}`,
   });
 }
@@ -86,6 +100,7 @@ export default async function FirmPage({ params }: { params: Promise<{ slug: str
               {l.label}
             </Link>
           ))}
+          <ShareButton title={`${firm.name} degree apprenticeship guide`} text={`How the ${firm.name} degree apprenticeship application works, with dates and tips`} label="Share this guide" />
         </div>
       </section>
 
