@@ -32,11 +32,13 @@ export const FREE_REVIEWS = 1; // statement, answer or CV reviews
 
 /**
  * The engagement reward: a free account that has tried the product properly gets BONUS_EXTRA more of each allowance
- * above (interviews, practice tests, reviews), once. "Tried it properly" is all three of: applying to an employer
- * through the tracker (following its Apply link), taking a marked mock interview, and starting a practice test. Mock
- * processes stay Pro-only. The server checks this on every use, from the counts on the account.
+ * above (interviews, practice tests, reviews), once. "Tried it properly" is any TWO of: applying to an employer
+ * through the tracker (following its Apply link), taking a marked mock interview, and starting a practice test. (It was
+ * all three until 19 October 2026; nobody got there, because people who track and people who practise are different
+ * groups.) Mock processes stay Pro-only. The server checks this on every use, from the counts on the account.
  */
 export const BONUS_EXTRA = 2;
+export const BONUS_STEPS_NEEDED = 2;
 
 export type BonusCounts = { applied?: boolean | null; interviews?: number | null; practice?: number | null } | null | undefined;
 
@@ -47,10 +49,10 @@ export const bonusSteps = (c: BonusCounts) => ({
   practice: (c?.practice ?? 0) >= 1,
 });
 
-export const bonusUnlocked = (c: BonusCounts) => {
-  const s = bonusSteps(c);
-  return s.applied && s.interview && s.practice;
-};
+/** How many of the three steps are done. */
+export const bonusDone = (c: BonusCounts) => Object.values(bonusSteps(c)).filter(Boolean).length;
+
+export const bonusUnlocked = (c: BonusCounts) => bonusDone(c) >= BONUS_STEPS_NEEDED;
 
 /** An allowance with the reward added once it is unlocked. */
 export const withBonus = (base: number, c: BonusCounts) => base + (bonusUnlocked(c) ? BONUS_EXTRA : 0);

@@ -11,7 +11,7 @@ Changes since the version the lawyer approved (10 October 2026, after the first 
 - "[plan]: [price], renewing until you cancel. Pro starts as soon as payment goes through, and you can cancel any time from this page. Full details, including your 14-day right to cancel and who you're buying from, are in the terms." (links to /terms)
 
 ## Free plan (as shown on the Plans page and in the Terms)
-- Free account, no card, 16 or over. In total, per account, not renewing: 1 practice test, 1 CV and statement review and 1 marked AI mock interview (text or video, with feedback out of 100). Engagement reward: once an account has applied to an employer through the tracker (followed its Apply link), taken a marked AI mock interview and started a practice test, it gets 2 more of each, once.
+- Free account, no card, 16 or over. In total, per account, not renewing: 1 practice test, 1 CV and statement review and 1 marked AI mock interview (text or video, with feedback out of 100). Engagement reward: once an account has done any two of (a) applied to an employer through the tracker (followed its Apply link), (b) taken a marked AI mock interview, (c) started a practice test, it gets 2 more of each, once. (Changed from all three on 19 October 2026, approved by the lawyer.)
 - Firm mock processes are not part of the free plan; they are part of Pro.
 - Browsing the opportunities tracker, employer guides and advice guides needs no account.
 

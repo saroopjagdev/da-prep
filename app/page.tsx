@@ -187,7 +187,7 @@ export default function Home() {
             <div className="card space-y-2 border-brand-600 p-6">
               <h3 className="text-lg font-bold">Free account</h3>
               <p className="text-sm text-muted">
-                Everything above, plus your own tracker, {FREE_PRACTICE} practice test, {FREE_INTERVIEWS} marked AI mock interview and {FREE_REVIEWS} CV and statement review, with your scores kept for you, and {BONUS_EXTRA} more of each when you apply through the tracker, take a mock interview and start a practice test. No card.
+                Everything above, plus your own tracker, {FREE_PRACTICE} practice test, {FREE_INTERVIEWS} marked AI mock interview and {FREE_REVIEWS} CV and statement review, with your scores kept for you, and {BONUS_EXTRA} more of each when you do any two of: apply through the tracker, take a mock interview, start a practice test. No card.
               </p>
             </div>
             <div className="card space-y-2 p-6">
