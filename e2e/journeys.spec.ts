@@ -311,13 +311,14 @@ const bonusUsage = (page: Page, steps: { applied: boolean; interview: boolean; p
 
 test("a free member who used their practice test sees which steps unlock 2 more of each", async ({ page }) => {
   await signedIn(page);
-  await bonusUsage(page, { applied: false, interview: true, practice: true });
+  await bonusUsage(page, { applied: false, interview: false, practice: true });
   await page.goto("/practice");
   await expect(page.getByRole("heading", { name: /used your 1 free practice test$/ })).toBeVisible();
   const note = page.getByRole("note").filter({ hasText: /unlock 2 more/ });
   await expect(note.getByRole("link", { name: "Apply to an employer from the tracker" })).toHaveAttribute("href", "/opportunities");
-  await expect(note.getByText("Take a mock interview")).toBeVisible();
-  await expect(note.getByRole("link", { name: "Take a mock interview" })).toHaveCount(0); // done, so no longer a link
+  await expect(note.getByText(/any two of these/)).toBeVisible();
+  await expect(note.getByText("Start a practice test")).toBeVisible();
+  await expect(note.getByRole("link", { name: "Start a practice test" })).toHaveCount(0); // done, so no longer a link
 });
 
 test("following an Apply link in the tracker tells the server, once the member is signed in", async ({ page }) => {

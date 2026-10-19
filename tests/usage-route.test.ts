@@ -37,7 +37,7 @@ describe("GET /api/usage", () => {
 
   it("returns what the free plan has used and its limits", async () => {
     // The account's single lifetime row holds the interview, review and practice counts.
-    rows.usage = { interviews: 1, reviews: 2, practice: 1 };
+    rows.usage = { interviews: 1, reviews: 2, practice: 0 };
     rows.profiles = { plan: "free" };
     const body = await (await call()).json();
     expect(body).toMatchObject({
@@ -45,20 +45,20 @@ describe("GET /api/usage", () => {
       enforced: true,
       interviews: { used: 1, limit: 1 },
       reviews: { used: 2, limit: 1 },
-      practice: { used: 1, limit: 1 },
-      bonus: { unlocked: false, extra: 2, steps: { applied: false, interview: true, practice: true } },
+      practice: { used: 0, limit: 1 },
+      bonus: { unlocked: false, extra: 2, steps: { applied: false, interview: true, practice: false } },
     });
   });
 
-  it("adds the engagement reward to every limit once all three steps are done", async () => {
-    rows.usage = { interviews: 1, reviews: 0, practice: 1, applied: true };
+  it("adds the engagement reward to every limit once any two of the three steps are done", async () => {
+    rows.usage = { interviews: 1, reviews: 0, practice: 1 }; // interview and practice: two steps, no tracker click
     rows.profiles = { plan: "free" };
     const body = await (await call()).json();
     expect(body).toMatchObject({
       interviews: { used: 1, limit: 3 },
       reviews: { used: 0, limit: 3 },
       practice: { used: 1, limit: 3 },
-      bonus: { unlocked: true, extra: 2, steps: { applied: true, interview: true, practice: true } },
+      bonus: { unlocked: true, extra: 2, steps: { applied: false, interview: true, practice: true } },
     });
   });
 

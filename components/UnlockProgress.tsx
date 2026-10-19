@@ -25,7 +25,7 @@ export default function UnlockProgress({ className = "" }: { className?: string 
   ];
   return (
     <div role="note" className={`space-y-1 text-sm ${className}`}>
-      <p className="font-medium">Do all three to unlock {b.extra} more practice tests, mock interviews and reviews:</p>
+      <p className="font-medium">Do any two of these to unlock {b.extra} more practice tests, mock interviews and reviews:</p>
       <ul className="space-y-0.5">
         {steps.map((s) => (
           <li key={s.label} className={s.done ? "text-mint-600" : ""}>

@@ -10,7 +10,7 @@ const PERKS = [
   `${FREE_PRACTICE} free practice test`,
   `${FREE_REVIEWS} free CV and statement review`,
   `${FREE_INTERVIEWS} free AI mock interview, marked out of 100`,
-  `${BONUS_EXTRA} more of each when you use the tracker, a mock interview and a practice test`,
+  `${BONUS_EXTRA} more of each when you do any two of: use the tracker, take a mock interview, start a practice test`,
   "Your tracker, saved and synced across devices",
   "Your scores and progress, kept for you",
 ];

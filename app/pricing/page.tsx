@@ -12,7 +12,7 @@ const FREE = [
   `${FREE_PRACTICE} practice test`,
   `${FREE_REVIEWS} CV, cover letter or statement review`,
   `${FREE_INTERVIEWS} AI mock interview, marked out of 100 with feedback`,
-  `${BONUS_EXTRA} more of each when you apply to an employer through the tracker, take a mock interview and start a practice test`,
+  `${BONUS_EXTRA} more of each when you do any two of: apply through the tracker, take a mock interview, start a practice test`,
   "Your own tracker, saved and synced",
   "Your scores and progress, kept for you",
 ];

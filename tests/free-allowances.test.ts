@@ -15,7 +15,7 @@ vi.mock("@/lib/server/auth", () => ({
   userFromRequest: async () => ({ id: "u1" }),
 }));
 
-import { BONUS_EXTRA, FREE_INTERVIEWS, FREE_MOCK_PROCESSES, FREE_PERIOD, FREE_PRACTICE, FREE_REVIEWS } from "@/lib/plans";
+import { BONUS_EXTRA, BONUS_STEPS_NEEDED, FREE_INTERVIEWS, FREE_MOCK_PROCESSES, FREE_PERIOD, FREE_PRACTICE, FREE_REVIEWS } from "@/lib/plans";
 import { consumeInterview, consumeMockProcess, consumePractice, consumeReview, markApplied } from "@/lib/server/usage";
 
 const req = new Request("http://x/api");
@@ -53,14 +53,19 @@ describe("free allowances", () => {
     expect(res).toMatchObject({ ok: false, status: 402 });
     const error = (res as { error: string }).error;
     expect(error).toMatch(/used your free mock interview\./);
-    expect(error).toMatch(/Apply to an employer through the tracker/);
+    expect(error).toMatch(/apply to an employer through the tracker/);
     expect(error).not.toMatch(/Monday|this week/);
   });
 });
 
 describe("the engagement reward", () => {
-  it("adds 2 more of each once the account has applied via the tracker, taken an interview and started a practice test", async () => {
-    counts = { applied: true, interviews: 1, practice: 1 };
+  it.each([
+    ["applied and took an interview", { applied: true, interviews: 1, practice: 0 }],
+    ["applied and started a practice test", { applied: true, interviews: 0, practice: 1 }],
+    ["took an interview and started a practice test", { applied: false, interviews: 1, practice: 1 }],
+    ["did all three", { applied: true, interviews: 1, practice: 1 }],
+  ])("adds 2 more of each once the account has %s", async (_label, c) => {
+    counts = c;
     await consumeInterview(req);
     await consumePractice(req);
     await consumeReview(req);
@@ -70,14 +75,21 @@ describe("the engagement reward", () => {
   });
 
   it.each([
-    ["has not applied via the tracker", { applied: false, interviews: 1, practice: 1 }],
-    ["has not taken an interview", { applied: true, interviews: 0, practice: 1 }],
-    ["has not started a practice test", { applied: true, interviews: 1, practice: 0 }],
+    ["has only applied via the tracker", { applied: true, interviews: 0, practice: 0 }],
+    ["has only taken an interview", { applied: false, interviews: 1, practice: 0 }],
+    ["has only started a practice test", { applied: false, interviews: 0, practice: 1 }],
     ["has done nothing yet", null],
   ])("does not unlock it when the account %s", async (_label, c) => {
     counts = c;
     await consumePractice(req);
     expect(rpc).toHaveBeenCalledWith("consume_practice", { p_uid: "u1", p_period: FREE_PERIOD, p_limit: 1 });
+  });
+
+  it("needs two steps, and says so in the message", async () => {
+    expect(BONUS_STEPS_NEEDED).toBe(2);
+    rpc.mockResolvedValue({ data: false, error: null });
+    const res = await consumeReview(req);
+    expect((res as { error: string }).error).toMatch(/any two of these/);
   });
 
   it("records the tracker click-through on the lifetime row, once per account", async () => {

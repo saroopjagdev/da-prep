@@ -4,7 +4,7 @@ import { limitsEnforced } from "@/lib/server/guard";
 
 export { FREE_INTERVIEWS, FREE_REVIEWS };
 
-const UNLOCK_HINT = `Apply to an employer through the tracker, and do a mock interview and a practice test, to unlock ${BONUS_EXTRA} more of each.`;
+const UNLOCK_HINT = `Do any two of these to unlock ${BONUS_EXTRA} more of each: apply to an employer through the tracker, take a mock interview, start a practice test.`;
 
 type Result = { ok: true } | { ok: false; status: number; error: string };
 
