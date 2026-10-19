@@ -16,7 +16,7 @@ export const EMPLOYERS: Employer[] = [
     name: "Rolls-Royce",
     sector: "Engineering",
     sectors: ["engineering"],
-    link: "https://careers.rolls-royce.com/early-careers",
+    link: "https://careers.rolls-royce.com/en/students-and-graduates/united-kingdom/apprenticeships-and-school-leavers",
     note: "Publishes its application process for higher apprenticeships.",
   },
   {

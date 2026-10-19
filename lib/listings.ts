@@ -203,6 +203,22 @@ Tata Steel|e|Tata Steel Apprenticeship 2027
 Science & Technology Facilities Council|ep|Advanced Engineering Apprenticeship 2027
 Siemens Healthineers|e|Technical Excellence Engineering Apprenticeship 2027
 WMG, University of Warwick|e|Applied Professional Engineering Degree Apprenticeship 2027
+Weightmans|b|Solicitor Degree Apprenticeship
+Thales UK|ed|2027 Systems Engineering Apprentice; 2027 Machine Learning Apprentice (Level 6 AI Engineer)
+Stantec|ec|Degree Apprentice Civil Engineer (2027)
+Dalcour Maclaren|c|Chartered Surveyor Degree Apprenticeship (Rural; Real Estate)
+Devonport Royal Dockyard|e|Mechanical Engineer Degree Apprenticeship; Civil Engineer Degree Apprenticeship; Building Services Engineer Degree Apprenticeship
+Cavendish Nuclear|e|Chemical and Process Engineer Degree Apprenticeship; Mechanical Engineering Degree Apprenticeship; Electrical, Control and Instrumentation Degree Apprenticeship
+Trowers & Hamlins|b|Solicitor Apprenticeship
+Molson Coors|b|Logistics Degree Apprentice; Sales Degree Apprentice; Operations Degree Apprentice
+Morrisons|b|Retail Degree Apprenticeship; Food Technical Degree Apprentice
+Michelmores|b|Solicitor Apprenticeship
+TLT|b|Legal Solicitor Apprenticeship 2027
+GKN Aerospace|e|Aerospace Engineering Degree Apprentice
+Cranswick|b|Food Manufacturing Operations Degree Apprenticeship
+Hanson|c|Quantity Surveyor Degree Apprenticeship
+British Airways|d|Data Science Apprenticeship
+Osborne Clarke|bd|Solutions Apprentice
 `;
 
 export const LISTED: Listed[] = RAW.trim()

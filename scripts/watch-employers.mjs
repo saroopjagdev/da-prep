@@ -91,7 +91,7 @@ function signals(html) {
 }
 
 const state = fs.existsSync(STATE) ? JSON.parse(read(STATE)) : { pages: {} };
-const changed = [], fresh = [], failed = [], blocked = [];
+const changed = [], fresh = [], failed = [], blocked = [], walled = [];
 const list = targets();
 console.log(`${list.length} pages to check`);
 
@@ -103,7 +103,9 @@ for (const t of list) {
     }
     const r = await fetch(t.url, { headers: { "User-Agent": UA, Accept: "text/html" }, redirect: "follow", signal: AbortSignal.timeout(20000) });
     if (!r.ok) {
-      failed.push({ ...t, why: `HTTP ${r.status}` });
+      // 401, 403 and 429 mean the site refuses automated readers (nothing a link fix can change), so keep them apart from
+      // links that are actually broken (404, 410, server errors), which someone can go and repair.
+      (/^(401|403|429)$/.test(String(r.status)) ? walled : failed).push({ ...t, why: `HTTP ${r.status}` });
       continue;
     }
     const sig = signals(await r.text());
@@ -127,7 +129,10 @@ const opp = read("lib/opportunities.ts");
 const old = [...opp.matchAll(/checked:\s*"(\d{4}-\d{2}-\d{2})"/g)].map((m) => m[1]).filter((d) => Date.now() - Date.parse(d) > 14 * 864e5);
 
 const lines = [`# Employer page watch, ${new Date().toISOString().slice(0, 10)}`, ""];
-lines.push(`Checked ${list.length} pages: ${changed.length} changed, ${fresh.length} first-time baselines, ${failed.length} failed, ${blocked.length} disallowed by robots.txt.`, "");
+lines.push(
+  `Checked ${list.length} pages: ${changed.length} changed, ${fresh.length} first-time baselines, ${failed.length} broken, ${walled.length} refuse automated readers (check by hand), ${blocked.length} disallowed by robots.txt.`,
+  "",
+);
 if (changed.length) {
   lines.push("## Changed (read the page, then update the dates)", "");
   for (const c of changed) {
@@ -137,7 +142,8 @@ if (changed.length) {
     lines.push("");
   }
 }
-if (failed.length) lines.push("## Failed", "", ...failed.map((f) => `- ${f.name}: ${f.url} (${f.why})`), "");
+if (failed.length) lines.push("## Broken (fix the link or find the page's new address)", "", ...failed.map((f) => `- ${f.name}: ${f.url} (${f.why})`), "");
+if (walled.length) lines.push("## Refuse automated readers (open these in a browser now and then; we cannot watch them)", "", ...walled.map((f) => `- ${f.name}: ${f.url} (${f.why})`), "");
 if (old.length) lines.push(`## Stale entries`, "", `${old.length} entries in lib/opportunities.ts were last checked more than 14 days ago.`, "");
 fs.mkdirSync(path.dirname(STATE), { recursive: true });
 fs.writeFileSync(STATE, JSON.stringify(state, null, 1));

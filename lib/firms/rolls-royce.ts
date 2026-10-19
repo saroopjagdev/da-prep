@@ -234,7 +234,7 @@ export const rollsRoyce: FirmProfile = {
     AC_GUIDE_2026,
     OA_HELP,
     APP_GUIDE,
-    "https://careers.rolls-royce.com/early-careers",
+    "https://careers.rolls-royce.com/en/students-and-graduates/united-kingdom/apprenticeships-and-school-leavers",
   ],
   lastVerified: "2026-10-02",
   gaps: [
