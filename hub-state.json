@@ -1,5 +1,5 @@
 {
- "checked": "2026-10-12",
+ "checked": "2026-10-19",
  "jobs": {
   "9af4cf88-8eeb-4f2f-8856-286c2e25f9ca": {
    "id": "9af4cf88-8eeb-4f2f-8856-286c2e25f9ca",
@@ -328,7 +328,7 @@
    "level": "6",
    "location": "Leeds, Birmingham, United Kingdom",
    "deadline": "2026-11-01",
-   "status": "open",
+   "status": "closing_soon",
    "apply": "https://www.hsbc.com/careers/students-and-graduates/find-a-programme?page=1&take=20&programme-type=degree-apprenticeship"
   },
   "27dd6277-42aa-4b4d-8702-ea9cc4d223cb": {
@@ -338,7 +338,7 @@
    "level": "6",
    "location": "Manchester, London, Bristol, Birmingham, United Kingdom",
    "deadline": "2026-11-01",
-   "status": "open",
+   "status": "closing_soon",
    "apply": "https://www.hsbc.com/careers/students-and-graduates/find-a-programme?page=1&take=20&programme-type=degree-apprenticeship"
   },
   "cab4d332-792b-4917-8365-90baccf2ac0c": {
@@ -590,6 +590,36 @@
    "deadline": "2026-09-30",
    "status": "reference_only",
    "apply": "https://careers.loreal.com/en_US/jobs/JobDetail/Digital-Apprentice-IT-Europe-January-2027/253620"
+  },
+  "287d86ad-5fdc-4061-b1ae-915b8f015734": {
+   "id": "287d86ad-5fdc-4061-b1ae-915b8f015734",
+   "employer": "RSM",
+   "title": "Audit Data Analytics School Leaver",
+   "level": "6",
+   "location": "Multiple Locations, UK",
+   "deadline": "2026-10-19",
+   "status": "reference_only",
+   "apply": "https://www.rsmuk.com/careers/jobs?q=tax+school+leaver&page=1"
+  },
+  "2df7d806-2cfc-4843-bed2-afdb9b5a5015": {
+   "id": "2df7d806-2cfc-4843-bed2-afdb9b5a5015",
+   "employer": "RSM",
+   "title": "Tax School Leaver",
+   "level": "6",
+   "location": "Multiple Locations, UK",
+   "deadline": "2026-10-19",
+   "status": "reference_only",
+   "apply": "https://www.rsmuk.com/careers/jobs?q=tax+school+leaver&page=1"
+  },
+  "61364d1a-993e-4c68-8ee0-365689ffa87f": {
+   "id": "61364d1a-993e-4c68-8ee0-365689ffa87f",
+   "employer": "Crowe",
+   "title": "Assistant, Audit (School Leaver)",
+   "level": "6",
+   "location": "Multiple Locations, UK",
+   "deadline": "2026-10-19",
+   "status": "reference_only",
+   "apply": "https://isw.changeworknow.co.uk/crowe/vms/e/careers/search/new?page=1"
   },
   "90509b34-309d-4433-977a-1bc147faa278": {
    "id": "90509b34-309d-4433-977a-1bc147faa278",
@@ -928,36 +958,6 @@
    "level": "6",
    "location": "UK",
    "deadline": "2026-02-28",
-   "status": "reference_only",
-   "apply": ""
-  },
-  "7b8e9e96-cb0b-4fe0-b6c4-bedab8a34d42": {
-   "id": "7b8e9e96-cb0b-4fe0-b6c4-bedab8a34d42",
-   "employer": "CapGemini",
-   "title": "UX Degree Apprenticeship",
-   "level": "6",
-   "location": "UK",
-   "deadline": "2026-02-28",
-   "status": "reference_only",
-   "apply": ""
-  },
-  "c3e83bdb-fe9e-47fc-9ac8-e2161284e5d9": {
-   "id": "c3e83bdb-fe9e-47fc-9ac8-e2161284e5d9",
-   "employer": "CapGemini",
-   "title": "Digital & Technology Degree Apprenticeship",
-   "level": "6",
-   "location": "UK",
-   "deadline": "2026-02-28",
-   "status": "reference_only",
-   "apply": ""
-  },
-  "4e0c1c7b-5537-4cbc-851c-e1dba63e0300": {
-   "id": "4e0c1c7b-5537-4cbc-851c-e1dba63e0300",
-   "employer": "BT Group",
-   "title": "AI Transformation and Delivery Degree Apprenticeship",
-   "level": "6",
-   "location": "Bristol, Birmingham, London, Manchester",
-   "deadline": "2026-02-06",
    "status": "reference_only",
    "apply": ""
   }

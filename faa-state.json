@@ -1,5 +1,5 @@
 {
- "checked": "2026-10-12",
+ "checked": "2026-10-19",
  "jobs": {
   "2000026593": {
    "id": "2000026593",
@@ -10,6 +10,16 @@
    "deadline": "2027-03-15",
    "posted": "2026-09-23",
    "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000026593"
+  },
+  "2000040334": {
+   "id": "2000040334",
+   "employer": "John Crane UK Limited",
+   "title": "Chartered Surveyor Apprentice",
+   "level": "6",
+   "location": "Slough SL1",
+   "deadline": "2026-11-02",
+   "posted": "2026-10-19",
+   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000040334"
   },
   "2000049834": {
    "id": "2000049834",
@@ -137,7 +147,7 @@
    "title": "Finance Graduate Apprentice (AMAG Technology Parent Limited)",
    "level": "7",
    "location": "Tewkesbury GL20",
-   "deadline": "2026-10-12",
+   "deadline": "2026-10-26",
    "posted": "2026-09-16",
    "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000053819"
   },
@@ -211,36 +221,6 @@
    "posted": "2026-10-08",
    "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000054432"
   },
-  "2000055403": {
-   "id": "2000055403",
-   "employer": "MHA",
-   "title": "Audit Junior Apprenticeship",
-   "level": "7",
-   "location": "Crawley RH10 +1 more",
-   "deadline": "2026-10-12",
-   "posted": "2026-09-24",
-   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000055403"
-  },
-  "2000055548": {
-   "id": "2000055548",
-   "employer": "HSBC UK",
-   "title": "Degree Apprenticeship - Commercial Banking - Birmingham - HSBC",
-   "level": "6",
-   "location": "1 Centenary Square B1",
-   "deadline": "2026-10-25",
-   "posted": "2026-10-02",
-   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000055548"
-  },
-  "2000055573": {
-   "id": "2000055573",
-   "employer": "HSBC UK",
-   "title": "Degree Apprenticeship - Commercial Banking - Manchester- HSBC",
-   "level": "6",
-   "location": "2-4 St. Anns Square M2",
-   "deadline": "2026-10-25",
-   "posted": "2026-10-01",
-   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000055573"
-  },
   "2000055575": {
    "id": "2000055575",
    "employer": "SMART UK AUTOMOTIVE LTD ",
@@ -250,16 +230,6 @@
    "deadline": "2026-10-31",
    "posted": "2026-10-01",
    "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000055575"
-  },
-  "2000055580": {
-   "id": "2000055580",
-   "employer": "HSBC UK",
-   "title": "Degree Apprenticeship - Commercial Banking - Bristol - HSBC",
-   "level": "6",
-   "location": "Bristol BS1",
-   "deadline": "2026-10-25",
-   "posted": "2026-10-01",
-   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000055580"
   },
   "2000055584": {
    "id": "2000055584",
@@ -280,16 +250,6 @@
    "deadline": "2026-10-25",
    "posted": "2026-10-01",
    "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000055590"
-  },
-  "2000055786": {
-   "id": "2000055786",
-   "employer": "HORSELL CHILDCARE LIMITED",
-   "title": "Early Years Initial Teacher Training (EYITT) –  Jiminy Cricket Apprenticeship",
-   "level": "6",
-   "location": "WOKING GU21",
-   "deadline": "2026-10-15",
-   "posted": "2026-09-28",
-   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000055786"
   },
   "2000055810": {
    "id": "2000055810",
@@ -341,16 +301,6 @@
    "posted": "2026-09-30",
    "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000056390"
   },
-  "2000056392": {
-   "id": "2000056392",
-   "employer": "MICHELMORES LLP",
-   "title": "Solicitor Apprenticeship - Bristol",
-   "level": "7",
-   "location": "Bristol BS1 +1 more",
-   "deadline": "2026-11-05",
-   "posted": "2026-09-30",
-   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000056392"
-  },
   "2000056571": {
    "id": "2000056571",
    "employer": "DALCOUR MACLAREN LIMITED",
@@ -361,6 +311,16 @@
    "posted": "2026-10-01",
    "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000056571"
   },
+  "2000056706": {
+   "id": "2000056706",
+   "employer": "TLT LLP",
+   "title": "Legal Solicitor Apprentice (TLT LLP)",
+   "level": "7",
+   "location": "Bristol BS1 +3 more",
+   "deadline": "2027-02-21",
+   "posted": "2026-10-13",
+   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000056706"
+  },
   "2000056924": {
    "id": "2000056924",
    "employer": "ForGood.Tech",
@@ -370,26 +330,6 @@
    "deadline": "2026-10-31",
    "posted": "2026-10-06",
    "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000056924"
-  },
-  "2000057061": {
-   "id": "2000057061",
-   "employer": "Murray Smith LLP",
-   "title": "Trainee Accountant Apprentice",
-   "level": "7",
-   "location": "Northwich CW8",
-   "deadline": "2026-10-18",
-   "posted": "2026-10-02",
-   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000057061"
-  },
-  "2000057111": {
-   "id": "2000057111",
-   "employer": "BASKETDROP LTD. ",
-   "title": "Client Relationship Manager Apprenticeship",
-   "level": "6",
-   "location": "national",
-   "deadline": "2026-12-20",
-   "posted": "2026-10-05",
-   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000057111"
   },
   "2000057112": {
    "id": "2000057112",
@@ -417,7 +357,7 @@
    "title": "Aerospace Engineering Degree Apprentice",
    "level": "6",
    "location": "Bristol BS34",
-   "deadline": "2026-12-31",
+   "deadline": "2026-10-23",
    "posted": "2026-10-05",
    "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000057138"
   },
@@ -601,56 +541,6 @@
    "posted": "2026-10-07",
    "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000057615"
   },
-  "2000057866": {
-   "id": "2000057866",
-   "employer": "AWE PLC",
-   "title": "Project Management Apprenticeship",
-   "level": "6",
-   "location": "Reading RG7",
-   "deadline": "2026-10-25",
-   "posted": "2026-10-12",
-   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000057866"
-  },
-  "2000057891": {
-   "id": "2000057891",
-   "employer": "AWE PLC",
-   "title": "Manufacturing Engineer Apprenticeship",
-   "level": "6",
-   "location": "Reading RG7",
-   "deadline": "2026-12-20",
-   "posted": "2026-10-12",
-   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000057891"
-  },
-  "2000057932": {
-   "id": "2000057932",
-   "employer": "AWE PLC",
-   "title": "Project Controls Apprenticeship",
-   "level": "6",
-   "location": "Reading RG7",
-   "deadline": "2026-11-01",
-   "posted": "2026-10-12",
-   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000057932"
-  },
-  "2000057960": {
-   "id": "2000057960",
-   "employer": "AWE PLC",
-   "title": "Electronic Design Apprenticeship",
-   "level": "6",
-   "location": "Reading RG7",
-   "deadline": "2027-01-10",
-   "posted": "2026-10-12",
-   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000057960"
-  },
-  "2000057974": {
-   "id": "2000057974",
-   "employer": "PORTLAND FUEL LIMITED",
-   "title": "IT Trainee Apprentice (Portland Fuel Limited)",
-   "level": "6",
-   "location": "YORK YO1",
-   "deadline": "2026-10-31",
-   "posted": "2026-10-08",
-   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000057974"
-  },
   "2000058000": {
    "id": "2000058000",
    "employer": "Cheshire West and Chester Council",
@@ -661,26 +551,6 @@
    "posted": "2026-10-08",
    "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000058000"
   },
-  "2000058053": {
-   "id": "2000058053",
-   "employer": "AWE PLC",
-   "title": "Building Services Asset Engineering Degree Apprenticeship",
-   "level": "6",
-   "location": "Reading RG7",
-   "deadline": "2026-12-20",
-   "posted": "2026-10-12",
-   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000058053"
-  },
-  "2000058095": {
-   "id": "2000058095",
-   "employer": "AWE PLC",
-   "title": "Electrical Engineering (Facilities & Equipment) Degree Apprentice",
-   "level": "6",
-   "location": "Reading RG7",
-   "deadline": "2026-11-01",
-   "posted": "2026-10-12",
-   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000058095"
-  },
   "2000058121": {
    "id": "2000058121",
    "employer": "Murray Smith LLP",
@@ -690,16 +560,6 @@
    "deadline": "2026-10-23",
    "posted": "2026-10-08",
    "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000058121"
-  },
-  "2000058147": {
-   "id": "2000058147",
-   "employer": "THALES UK LIMITED",
-   "title": "2027 Industrial Process Engineer Apprentice - Templecombe",
-   "level": "6",
-   "location": "Throop Road BA8",
-   "deadline": "2027-02-17",
-   "posted": "2026-10-08",
-   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000058147"
   },
   "2000058198": {
    "id": "2000058198",
@@ -731,16 +591,6 @@
    "posted": "2026-10-09",
    "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000058377"
   },
-  "2000058383": {
-   "id": "2000058383",
-   "employer": "No Limitz Sports",
-   "title": "Apprenticeship -  Assistant buyer and merchandiser (level 6)",
-   "level": "6",
-   "location": "BEDFORD MK41",
-   "deadline": "2026-10-31",
-   "posted": "2026-10-09",
-   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000058383"
-  },
   "2000058410": {
    "id": "2000058410",
    "employer": "STANTEC UK LIMITED",
@@ -760,6 +610,16 @@
    "deadline": "2026-12-18",
    "posted": "2026-10-09",
    "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000058417"
+  },
+  "2000058437": {
+   "id": "2000058437",
+   "employer": "Babcock International",
+   "title": "Civil and Structural Engineering Degree Apprenticeship",
+   "level": "6",
+   "location": "Warrington WA3",
+   "deadline": "2026-12-08",
+   "posted": "2026-10-15",
+   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000058437"
   },
   "2000058440": {
    "id": "2000058440",
@@ -890,6 +750,556 @@
    "deadline": "2026-12-18",
    "posted": "2026-10-12",
    "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000058598"
+  },
+  "2000058637": {
+   "id": "2000058637",
+   "employer": "SOUTH TEES HOSPITALS NHS FOUNDATION TRUST",
+   "title": "Apprentice Therapeutic Radiographer",
+   "level": "6",
+   "location": "MIDDLESBROUGH TS4",
+   "deadline": "2026-10-26",
+   "posted": "2026-10-12",
+   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000058637"
+  },
+  "2000058648": {
+   "id": "2000058648",
+   "employer": "AWE PLC",
+   "title": "Data Scientist Level 6 Apprenticeship",
+   "level": "6",
+   "location": "Reading RG7",
+   "deadline": "2026-11-08",
+   "posted": "2026-10-15",
+   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000058648"
+  },
+  "2000058664": {
+   "id": "2000058664",
+   "employer": "AWE PLC",
+   "title": "Mechanical Design Engineer Apprentice",
+   "level": "6",
+   "location": "Reading RG7",
+   "deadline": "2026-11-01",
+   "posted": "2026-10-15",
+   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000058664"
+  },
+  "2000058692": {
+   "id": "2000058692",
+   "employer": "CAVENDISH NUCLEAR LIMITED",
+   "title": "Chemical and Process Engineer Degree Apprenticeship",
+   "level": "6",
+   "location": "Warrington WA3",
+   "deadline": "2026-12-07",
+   "posted": "2026-10-15",
+   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000058692"
+  },
+  "2000058699": {
+   "id": "2000058699",
+   "employer": "CAVENDISH NUCLEAR LIMITED",
+   "title": "Electrical, Control and Instrumentation Degree Apprenticeship",
+   "level": "6",
+   "location": "Bristol BS16",
+   "deadline": "2026-12-07",
+   "posted": "2026-10-13",
+   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000058699"
+  },
+  "2000058701": {
+   "id": "2000058701",
+   "employer": "Babcock International",
+   "title": "Electrical, Control and Instrumentation Degree Apprenticeship",
+   "level": "6",
+   "location": "Warrington WA3",
+   "deadline": "2026-12-07",
+   "posted": "2026-10-15",
+   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000058701"
+  },
+  "2000058703": {
+   "id": "2000058703",
+   "employer": "CAVENDISH NUCLEAR LIMITED",
+   "title": "Electrical, Control and Instrumentation Degree Apprenticeship",
+   "level": "6",
+   "location": "Leicester LE3",
+   "deadline": "2026-12-07",
+   "posted": "2026-10-15",
+   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000058703"
+  },
+  "2000058704": {
+   "id": "2000058704",
+   "employer": "Babcock International",
+   "title": "Electrical, Control and Instrumentation Engineering Degree Apprenticeship",
+   "level": "6",
+   "location": "Plymouth PL2",
+   "deadline": "2026-12-07",
+   "posted": "2026-10-15",
+   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000058704"
+  },
+  "2000058706": {
+   "id": "2000058706",
+   "employer": "Babcock Technology Centre",
+   "title": "Project Management Graduate Apprenticeship",
+   "level": "6",
+   "location": "Bristol BS16",
+   "deadline": "2026-12-07",
+   "posted": "2026-10-13",
+   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000058706"
+  },
+  "2000058708": {
+   "id": "2000058708",
+   "employer": "Babcock International",
+   "title": "Project Management Apprenticeship",
+   "level": "6",
+   "location": "Warrington WA4",
+   "deadline": "2026-12-07",
+   "posted": "2026-10-15",
+   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000058708"
+  },
+  "2000058709": {
+   "id": "2000058709",
+   "employer": "BABCOCK INTERNATIONAL LIMITED",
+   "title": "Project Management Degree Apprenticeship",
+   "level": "6",
+   "location": "Bristol Business Park BS16",
+   "deadline": "2026-12-07",
+   "posted": "2026-10-15",
+   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000058709"
+  },
+  "2000058710": {
+   "id": "2000058710",
+   "employer": "DEVONPORT ROYAL DOCKYARD LIMITED",
+   "title": "Mechanical Engineer Degree Apprenticeship",
+   "level": "6",
+   "location": "Bristol BS16",
+   "deadline": "2026-12-07",
+   "posted": "2026-10-15",
+   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000058710"
+  },
+  "2000058711": {
+   "id": "2000058711",
+   "employer": "CAVENDISH NUCLEAR LIMITED",
+   "title": "Mechanical Engineering Degree Apprenticeship",
+   "level": "6",
+   "location": "Warrington WA3",
+   "deadline": "2026-12-07",
+   "posted": "2026-10-15",
+   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000058711"
+  },
+  "2000058712": {
+   "id": "2000058712",
+   "employer": "CAVENDISH NUCLEAR LIMITED",
+   "title": "Mechanical Engineering Degree Apprenticeship",
+   "level": "6",
+   "location": "Leicester LE3",
+   "deadline": "2026-12-07",
+   "posted": "2026-10-15",
+   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000058712"
+  },
+  "2000058714": {
+   "id": "2000058714",
+   "employer": "CAVENDISH NUCLEAR LIMITED",
+   "title": "Mechanical Engineering Degree Apprenticeship",
+   "level": "6",
+   "location": "Hessle HU13",
+   "deadline": "2026-12-07",
+   "posted": "2026-10-15",
+   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000058714"
+  },
+  "2000058715": {
+   "id": "2000058715",
+   "employer": "DEVONPORT ROYAL DOCKYARD LIMITED",
+   "title": "Building Services Engineer Degree Apprenticeship",
+   "level": "6",
+   "location": "Plymouth PL1",
+   "deadline": "2026-12-07",
+   "posted": "2026-10-15",
+   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000058715"
+  },
+  "2000058716": {
+   "id": "2000058716",
+   "employer": "DEVONPORT ROYAL DOCKYARD LIMITED",
+   "title": "Civil Engineer Degree Apprenticeship",
+   "level": "6",
+   "location": "Plymouth PL1",
+   "deadline": "2026-12-07",
+   "posted": "2026-10-15",
+   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000058716"
+  },
+  "2000058717": {
+   "id": "2000058717",
+   "employer": "DEVONPORT ROYAL DOCKYARD LIMITED",
+   "title": "Control Systems Degree Apprenticeship",
+   "level": "6",
+   "location": "Plymouth PL1",
+   "deadline": "2026-12-07",
+   "posted": "2026-10-15",
+   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000058717"
+  },
+  "2000058718": {
+   "id": "2000058718",
+   "employer": "DEVONPORT ROYAL DOCKYARD LIMITED",
+   "title": "Electro-Mechanical Degree Apprenticeship",
+   "level": "6",
+   "location": "Plymouth PL1",
+   "deadline": "2026-12-07",
+   "posted": "2026-10-15",
+   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000058718"
+  },
+  "2000058719": {
+   "id": "2000058719",
+   "employer": "DEVONPORT ROYAL DOCKYARD LIMITED",
+   "title": "Nuclear Scientist and Engineer Degree Apprentice",
+   "level": "6",
+   "location": "Plymouth PL1",
+   "deadline": "2026-12-07",
+   "posted": "2026-10-15",
+   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000058719"
+  },
+  "2000058720": {
+   "id": "2000058720",
+   "employer": "DEVONPORT ROYAL DOCKYARD LIMITED",
+   "title": "Process and Plant Engineer Degree Apprentice",
+   "level": "6",
+   "location": "Plymouth PL1",
+   "deadline": "2026-12-07",
+   "posted": "2026-10-15",
+   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000058720"
+  },
+  "2000058721": {
+   "id": "2000058721",
+   "employer": "DEVONPORT ROYAL DOCKYARD LIMITED",
+   "title": "Manufacturing Engineer Degree Apprenticeship - Safety Engineering",
+   "level": "6",
+   "location": "Bristol BS16",
+   "deadline": "2026-12-07",
+   "posted": "2026-10-15",
+   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000058721"
+  },
+  "2000058722": {
+   "id": "2000058722",
+   "employer": "CAVENDISH NUCLEAR LIMITED",
+   "title": "Project Controls Degree Apprenticeship",
+   "level": "6",
+   "location": "GB WA3",
+   "deadline": "2026-12-07",
+   "posted": "2026-10-15",
+   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000058722"
+  },
+  "2000058724": {
+   "id": "2000058724",
+   "employer": "BABCOCK MISSION CRITICAL SERVICES UK LIMITED",
+   "title": "Digital and Technology Solutions Degree Apprentice",
+   "level": "6",
+   "location": "Plymouth PL2 +1 more",
+   "deadline": "2026-12-07",
+   "posted": "2026-10-15",
+   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000058724"
+  },
+  "2000058725": {
+   "id": "2000058725",
+   "employer": "BABCOCK INTEGRATED TECHNOLOGY LIMITED",
+   "title": "Electro-Mechanical Engineering Degree Apprenticeship",
+   "level": "6",
+   "location": "Bristol, GB BS3",
+   "deadline": "2026-12-07",
+   "posted": "2026-10-14",
+   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000058725"
+  },
+  "2000058761": {
+   "id": "2000058761",
+   "employer": "BABCOCK INTEGRATED TECHNOLOGY LIMITED",
+   "title": "Electronic and Communication Engineering Degree Apprentice",
+   "level": "6",
+   "location": "Bristol, GB BS3",
+   "deadline": "2026-12-07",
+   "posted": "2026-10-15",
+   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000058761"
+  },
+  "2000058766": {
+   "id": "2000058766",
+   "employer": "BABCOCK INTEGRATED TECHNOLOGY LIMITED",
+   "title": "Mechanical Engineering with Manufacturing Degree Apprenticeship",
+   "level": "6",
+   "location": "Bristol, GB BS3",
+   "deadline": "2026-12-07",
+   "posted": "2026-10-15",
+   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000058766"
+  },
+  "2000059042": {
+   "id": "2000059042",
+   "employer": "THALES UK LIMITED",
+   "title": "2027 Industrial Process Engineer Apprentice - Templecombe",
+   "level": "6",
+   "location": "Throop Road BA8",
+   "deadline": "2027-02-17",
+   "posted": "2026-10-14",
+   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000059042"
+  },
+  "2000059068": {
+   "id": "2000059068",
+   "employer": "AWE PLC",
+   "title": "Electrical Engineering (Facilities & Equipment) Degree Apprentice",
+   "level": "6",
+   "location": "Reading RG7",
+   "deadline": "2026-11-01",
+   "posted": "2026-10-14",
+   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000059068"
+  },
+  "2000059071": {
+   "id": "2000059071",
+   "employer": "AWE PLC",
+   "title": "Building Services Asset Engineering Degree Apprenticeship",
+   "level": "6",
+   "location": "Reading RG7",
+   "deadline": "2026-12-20",
+   "posted": "2026-10-14",
+   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000059071"
+  },
+  "2000059073": {
+   "id": "2000059073",
+   "employer": "AWE PLC",
+   "title": "Electronic Design Apprenticeship",
+   "level": "6",
+   "location": "Reading RG7",
+   "deadline": "2027-01-10",
+   "posted": "2026-10-14",
+   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000059073"
+  },
+  "2000059075": {
+   "id": "2000059075",
+   "employer": "AWE PLC",
+   "title": "Project Controls Apprenticeship",
+   "level": "6",
+   "location": "Reading RG7",
+   "deadline": "2026-11-01",
+   "posted": "2026-10-14",
+   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000059075"
+  },
+  "2000059077": {
+   "id": "2000059077",
+   "employer": "AWE PLC",
+   "title": "Manufacturing Engineer Apprenticeship",
+   "level": "6",
+   "location": "Reading RG7",
+   "deadline": "2026-12-20",
+   "posted": "2026-10-14",
+   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000059077"
+  },
+  "2000059081": {
+   "id": "2000059081",
+   "employer": "AWE PLC",
+   "title": "Project Management Apprenticeship",
+   "level": "6",
+   "location": "Reading RG7",
+   "deadline": "2026-10-25",
+   "posted": "2026-10-14",
+   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000059081"
+  },
+  "2000059136": {
+   "id": "2000059136",
+   "employer": "Halo",
+   "title": "HALO - Project Management Degree Apprenticeship (Level 6)",
+   "level": "6",
+   "location": "Ipswich IP11TA",
+   "deadline": "2027-04-30",
+   "posted": "2026-10-14",
+   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000059136"
+  },
+  "2000059137": {
+   "id": "2000059137",
+   "employer": "Molson Coors Beverage Company",
+   "title": "Logistics Degree Apprentice",
+   "level": "6",
+   "location": "Burton on Trent DE14",
+   "deadline": "2027-01-15",
+   "posted": "2026-10-14",
+   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000059137"
+  },
+  "2000059145": {
+   "id": "2000059145",
+   "employer": "Molson Coors Beverage Company",
+   "title": "Sales Degree Apprentice",
+   "level": "6",
+   "location": "national",
+   "deadline": "2027-01-15",
+   "posted": "2026-10-14",
+   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000059145"
+  },
+  "2000059173": {
+   "id": "2000059173",
+   "employer": "Molson Coors Beverage Company",
+   "title": "Operations Degree Apprentice",
+   "level": "6",
+   "location": "Burton On Trent DE14",
+   "deadline": "2027-01-15",
+   "posted": "2026-10-14",
+   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000059173"
+  },
+  "2000059218": {
+   "id": "2000059218",
+   "employer": "The Royal Marsden NHS Foundation Trust",
+   "title": "Clinical Research Administrative Assistant Degree Apprenticeship",
+   "level": "6",
+   "location": "Downs Road SM2",
+   "deadline": "2026-10-25",
+   "posted": "2026-10-15",
+   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000059218"
+  },
+  "2000059234": {
+   "id": "2000059234",
+   "employer": "PORTLAND FUEL LIMITED",
+   "title": "IT Trainee Apprentice (Portland Fuel Limited)",
+   "level": "6",
+   "location": "YORK YO1",
+   "deadline": "2026-10-31",
+   "posted": "2026-10-15",
+   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000059234"
+  },
+  "2000059253": {
+   "id": "2000059253",
+   "employer": "BARD PHARMACEUTICALS LIMITED",
+   "title": "Quality Control Laboratory Technician Apprentice",
+   "level": "6",
+   "location": "Cambridge CB4",
+   "deadline": "2026-11-11",
+   "posted": "2026-10-15",
+   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000059253"
+  },
+  "2000059344": {
+   "id": "2000059344",
+   "employer": "DALCOUR MACLAREN LIMITED",
+   "title": "Chartered Surveyor (Real Estate) Degree Apprenticeship - Stamford, Lincolnshire",
+   "level": "6",
+   "location": "Stamford PE9",
+   "deadline": "2027-01-22",
+   "posted": "2026-10-15",
+   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000059344"
+  },
+  "2000059345": {
+   "id": "2000059345",
+   "employer": "DALCOUR MACLAREN LIMITED",
+   "title": "Chartered Surveyor (Rural) Degree Apprenticeship (Bristol)",
+   "level": "6",
+   "location": "Bristol BS35",
+   "deadline": "2027-01-22",
+   "posted": "2026-10-15",
+   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000059345"
+  },
+  "2000059350": {
+   "id": "2000059350",
+   "employer": "DALCOUR MACLAREN LIMITED",
+   "title": "Chartered Surveyor (Rural) Degree Apprenticeship - Crewe, Cheshire",
+   "level": "6",
+   "location": "Crewe CW1",
+   "deadline": "2027-01-22",
+   "posted": "2026-10-15",
+   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000059350"
+  },
+  "2000059355": {
+   "id": "2000059355",
+   "employer": "DALCOUR MACLAREN LIMITED",
+   "title": "Chartered Surveyor (Rural) Degree Apprenticeship - Tewkesbury, Gloucestershire",
+   "level": "6",
+   "location": "Tewkesbury GL20",
+   "deadline": "2027-01-22",
+   "posted": "2026-10-15",
+   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000059355"
+  },
+  "2000059356": {
+   "id": "2000059356",
+   "employer": "DALCOUR MACLAREN LIMITED",
+   "title": "Chartered Surveyor (Real Estate) Degree Apprenticeship - Melbourne, Derbyshire",
+   "level": "6",
+   "location": "Derby DE73",
+   "deadline": "2027-01-22",
+   "posted": "2026-10-15",
+   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000059356"
+  },
+  "2000059363": {
+   "id": "2000059363",
+   "employer": "DALCOUR MACLAREN LIMITED",
+   "title": "Chartered Surveyor (Rural) Degree Apprenticeship (Cirencester)",
+   "level": "6",
+   "location": "Cirencester GL7",
+   "deadline": "2027-01-22",
+   "posted": "2026-10-15",
+   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000059363"
+  },
+  "2000059366": {
+   "id": "2000059366",
+   "employer": "DALCOUR MACLAREN LIMITED",
+   "title": "Chartered Surveyor (Rural) Degree Apprenticeship - East Midlands",
+   "level": "6",
+   "location": "Derby DE73",
+   "deadline": "2027-01-22",
+   "posted": "2026-10-15",
+   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000059366"
+  },
+  "2000059367": {
+   "id": "2000059367",
+   "employer": "DALCOUR MACLAREN LIMITED",
+   "title": "Chartered Surveyor (Rural) Degree Apprenticeship - Stamford",
+   "level": "6",
+   "location": "Stamford PE9",
+   "deadline": "2027-01-22",
+   "posted": "2026-10-15",
+   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000059367"
+  },
+  "2000059368": {
+   "id": "2000059368",
+   "employer": "AWE PLC",
+   "title": "Construction Site Management Degree Apprentice Level 6",
+   "level": "6",
+   "location": "Reading RG7",
+   "deadline": "2027-01-31",
+   "posted": "2026-10-15",
+   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000059368"
+  },
+  "2000059401": {
+   "id": "2000059401",
+   "employer": "The London Borough of Barking and Dagenham",
+   "title": "Apprentice Public Health Practitioner",
+   "level": "6",
+   "location": "Barking IG11",
+   "deadline": "2026-10-29",
+   "posted": "2026-10-16",
+   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000059401"
+  },
+  "2000059707": {
+   "id": "2000059707",
+   "employer": "CAPGEMINI UK PLC",
+   "title": "Digital & Technology Solutions Degree Apprenticeship - Consulting - Capgemini Invent UK",
+   "level": "6",
+   "location": "Trafford Park M41 +1 more",
+   "deadline": "2027-01-31",
+   "posted": "2026-10-19",
+   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000059707"
+  },
+  "2000059708": {
+   "id": "2000059708",
+   "employer": "CAPGEMINI UK PLC",
+   "title": "Engineering - Digital and Technology Solutions Degree Apprenticeship 2027",
+   "level": "6",
+   "location": "Shropshire TF3",
+   "deadline": "2027-01-31",
+   "posted": "2026-10-19",
+   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000059708"
+  },
+  "2000059710": {
+   "id": "2000059710",
+   "employer": "CAPGEMINI UK PLC",
+   "title": "SAP - Digital and Technology Solutions Degree Apprenticeship 2027",
+   "level": "6",
+   "location": "Hove BN3",
+   "deadline": "2027-01-31",
+   "posted": "2026-10-19",
+   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000059710"
+  },
+  "2000059816": {
+   "id": "2000059816",
+   "employer": "BRITISH AIRWAYS (BA) LIMITED",
+   "title": "Data Science Apprenticeship",
+   "level": "6",
+   "location": "Harmondsworth UB7",
+   "deadline": "2026-11-19",
+   "posted": "2026-10-19",
+   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000059816"
   }
  }
 }
