@@ -1,8 +1,15 @@
+"use client";
+
 import Link from "next/link";
+import { useEffect } from "react";
+import { track } from "@/lib/funnel";
 import UnlockProgress from "@/components/UnlockProgress";
 
 /** Shown instead of a practice test when the free allowance is used up. */
 export default function PracticeLimitCard({ limit }: { limit: number }) {
+  useEffect(() => {
+    track("limit_hit", { oncePerLoad: true });
+  }, []);
   return (
     <section className="card mx-auto max-w-xl space-y-3 p-6 text-center" aria-label="Free practice used">
       <h2 className="text-xl font-bold tracking-tight">You have used your {limit} free practice test{limit === 1 ? "" : "s"}</h2>

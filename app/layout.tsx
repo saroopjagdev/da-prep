@@ -6,6 +6,7 @@ import Footer from "@/components/Footer";
 import JsonLd from "@/components/JsonLd";
 import { RETURNING_HINT_SCRIPT } from "@/lib/home-gate";
 import Nav from "@/components/Nav";
+import VisitTracker from "@/components/VisitTracker";
 import { organizationLd, websiteLd } from "@/lib/seo";
 import { SITE_DESCRIPTION, SITE_NAME, SITE_URL } from "@/lib/site";
 import { Figtree } from "next/font/google";
@@ -54,6 +55,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           </main>
           <Footer />
           <BottomNav />
+          <VisitTracker />
         </AuthProvider>
         <Analytics />
       </body>

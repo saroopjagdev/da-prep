@@ -1,5 +1,9 @@
 // Anonymous funnel counters: a handful of named steps, counted per day, with nothing that identifies a person.
 // Safe for client and server. The server side is app/api/event/route.ts; the table is funnel_daily.
+//
+// Each count also carries a coarse "source": a label from the fixed list below saying which channel the visit came from
+// (Google, TikTok, a school email...). It is worked out in memory from the current page's own referrer or utm_source and
+// sent with the event. It is not stored in the browser, so a full page reload on a later page loses it.
 
 export const FUNNEL_EVENTS = [
   "landing_view", // a new visitor was shown the landing page
@@ -10,17 +14,114 @@ export const FUNNEL_EVENTS = [
   "signed_in", // they arrived back from the email and are signed in
   "first_practice", // first practice test completed on a device
   "first_mock", // first mock interview completed on a device
+  "visit_home", // a visit began on the home page
+  "visit_employer", // ...on an employer guide
+  "visit_guide", // ...on an advice or learning page
+  "visit_tool", // ...on a practice test, mock, tracker or other tool page
+  "visit_other", // ...anywhere else
+  "pricing_view", // the Plans page was opened
+  "limit_hit", // a free allowance was used up and the upgrade prompt was shown
+  "checkout_start", // they pressed Continue to payment
+  "apply_click", // they followed an Apply link in the tracker
+  "share_click", // they pressed a share button
 ] as const;
 
 export type FunnelEvent = (typeof FUNNEL_EVENTS)[number];
 
 export const isFunnelEvent = (v: unknown): v is FunnelEvent => typeof v === "string" && (FUNNEL_EVENTS as readonly string[]).includes(v);
 
+/**
+ * The only source labels that are counted. A fixed list keeps the table small and means nobody can fill it with junk.
+ * Use one of these as utm_source on links you share (for example ?utm_source=school or ?utm_source=tiktok).
+ */
+export const SOURCES = [
+  "direct",
+  "google",
+  "bing",
+  "duckduckgo",
+  "ecosia",
+  "tiktok",
+  "instagram",
+  "facebook",
+  "youtube",
+  "reddit",
+  "linkedin",
+  "x",
+  "whatsapp",
+  "snapchat",
+  "discord",
+  "studentroom",
+  "email",
+  "school",
+  "college",
+  "careers",
+  "share", // the share buttons on this site
+  "other",
+] as const;
+
+export type Source = (typeof SOURCES)[number];
+
+export const isSource = (v: unknown): v is Source => typeof v === "string" && (SOURCES as readonly string[]).includes(v);
+
+// Referrer host fragment -> source. The first match wins.
+const REFERRER_HOSTS: [RegExp, Source][] = [
+  [/(^|\.)google\./, "google"],
+  [/(^|\.)bing\.com$/, "bing"],
+  [/(^|\.)duckduckgo\.com$/, "duckduckgo"],
+  [/(^|\.)ecosia\.org$/, "ecosia"],
+  [/(^|\.)(tiktok\.com)$/, "tiktok"],
+  [/(^|\.)(instagram\.com|l\.instagram\.com)$/, "instagram"],
+  [/(^|\.)(facebook\.com|fb\.com|l\.facebook\.com|m\.facebook\.com)$/, "facebook"],
+  [/(^|\.)(youtube\.com|youtu\.be)$/, "youtube"],
+  [/(^|\.)reddit\.com$/, "reddit"],
+  [/(^|\.)(linkedin\.com|lnkd\.in)$/, "linkedin"],
+  [/(^|\.)(twitter\.com|x\.com|t\.co)$/, "x"],
+  [/(^|\.)(whatsapp\.com|wa\.me)$/, "whatsapp"],
+  [/(^|\.)snapchat\.com$/, "snapchat"],
+  [/(^|\.)discord(app)?\.com$/, "discord"],
+  [/(^|\.)thestudentroom\.co\.uk$/, "studentroom"],
+];
+
+/**
+ * Which channel a visit came from. A utm_source on the link wins (when it is on the list, otherwise "other"); then the
+ * referrer's host; an empty referrer is "direct". Referrers from our own site are "direct" too: they are not a source.
+ */
+export function sourceFrom(referrer: string, search: string, ownHost = ""): Source {
+  const utm = new URLSearchParams(search).get("utm_source")?.trim().toLowerCase();
+  if (utm) return isSource(utm) ? utm : "other";
+  if (!referrer) return "direct";
+  let host = "";
+  try {
+    host = new URL(referrer).hostname.toLowerCase();
+  } catch {
+    return "direct";
+  }
+  if (!host || host === ownHost) return "direct";
+  return REFERRER_HOSTS.find(([re]) => re.test(host))?.[1] ?? "other";
+}
+
+/** Which kind of page a visit began on, from its path. */
+export function entryEvent(pathname: string): FunnelEvent {
+  if (pathname === "/" || pathname === "") return "visit_home";
+  if (pathname.startsWith("/employers/")) return "visit_employer";
+  if (/^\/(learn|guide|tips|timeline|faq|sectors|deadlines)(\/|$)/.test(pathname)) return "visit_guide";
+  if (/^\/(tests|practice|mock|interview|review|cv|stories|progress|opportunities)(\/|$)/.test(pathname)) return "visit_tool";
+  return "visit_other";
+}
+
 const sent = new Set<string>();
+let currentSource: Source | null = null;
+
+/** The source of this page load, worked out once from the browser's own referrer and URL. */
+function source(): Source {
+  if (currentSource) return currentSource;
+  currentSource = sourceFrom(document.referrer, window.location.search, window.location.hostname);
+  return currentSource;
+}
 
 /**
  * Count one step. Fire and forget; failures are ignored. Nothing is stored in the browser: the same event is only sent
- * once per page load (a module-level Set), and the request carries no identifier.
+ * once per page load (a module-level Set), and the request carries no identifier, only the coarse source label.
  */
 export function track(event: FunnelEvent, opts: { oncePerLoad?: boolean } = {}) {
   if (typeof window === "undefined") return;
@@ -29,8 +130,19 @@ export function track(event: FunnelEvent, opts: { oncePerLoad?: boolean } = {}) 
     sent.add(event);
   }
   try {
-    void fetch("/api/event", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ event }), keepalive: true }).catch(() => {});
+    void fetch("/api/event", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ event, source: source() }),
+      keepalive: true,
+    }).catch(() => {});
   } catch {
     /* counting must never get in the way */
   }
+}
+
+/** Count the start of a visit on the page it began on. Once per page load. */
+export function trackVisit() {
+  if (typeof window === "undefined") return;
+  track(entryEvent(window.location.pathname), { oncePerLoad: true });
 }
