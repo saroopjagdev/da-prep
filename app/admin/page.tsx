@@ -117,7 +117,8 @@ function Dashboard() {
     let live = true;
     postJson<Stats>(`/api/admin/stats?days=${days}`, undefined, "GET")
       .then((s) => live && (setStats(s), setError("")))
-      .catch((e: Error) => live && setError(e.message));
+      // Anyone who is not an admin gets a 404 from the endpoint; show them nothing more than that.
+      .catch((e: Error) => live && (console.error("admin stats:", e.message), setError("This page is not available.")));
     return () => {
       live = false;
     };
@@ -146,7 +147,7 @@ function Dashboard() {
     return { group, sources: group("source"), campaigns: group("campaign").filter((c) => c.k !== "(none)"), days: [...byDay.entries()].sort((a, b) => b[0].localeCompare(a[0])) };
   }, [stats]);
 
-  if (error) return <p role="alert" className="text-red-700">{error}</p>;
+  if (error) return <p role="alert" className="text-muted">{error}</p>;
   if (!stats || !view) return <p className="text-muted" aria-busy="true">Loading…</p>;
 
   const f = stats.funnel;

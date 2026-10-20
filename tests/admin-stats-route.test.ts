@@ -33,12 +33,20 @@ describe("admin access", () => {
   it("matches the two admin emails regardless of case", () => {
     expect(isAdminEmail("SSJagdev@outlook.com")).toBe(true);
     expect(isAdminEmail("benhumphreys15@gmail.com")).toBe(true);
+    expect(isAdminEmail("saroopjagdev@gmail.com")).toBe(true);
+    expect(isAdminEmail("saroopjagdev@gmail.com.evil.test")).toBe(false);
     expect(isAdminEmail("someone@else.com")).toBe(false);
     expect(isAdminEmail(null)).toBe(false);
   });
 });
 
 describe("GET /api/admin/stats", () => {
+  it("cannot be widened by an ADMIN_EMAILS environment variable", () => {
+    vi.stubEnv("ADMIN_EMAILS", "someone@else.com");
+    expect(isAdminEmail("someone@else.com")).toBe(false);
+    vi.unstubAllEnvs();
+  });
+
   it("is a 404 for signed-out people, other users, and unconfirmed admin emails", async () => {
     userFromRequest.mockResolvedValue(null);
     expect((await call()).status).toBe(404);
