@@ -83,19 +83,17 @@ function Table({ head, rows, caption }: { head: string[]; rows: (string | number
   );
 }
 
-/** A link for a TikTok video or bio, with the campaign label this page then groups by. */
+/** A link that carries its source, so the visits table can count it. */
 function LinkBuilder() {
   const [source, setSource] = useState("tiktok");
-  const [campaign, setCampaign] = useState("bio");
   const [path, setPath] = useState("/");
-  const label = campaign.trim().toLowerCase().replace(/[^a-z0-9_-]+/g, "-").replace(/^-+|-+$/g, "").slice(0, 40);
   const origin = typeof window === "undefined" ? "" : window.location.origin;
-  const url = `${origin}${path.startsWith("/") ? path : `/${path}`}?utm_source=${source}${label ? `&utm_campaign=${label}` : ""}`;
+  const url = `${origin}${path.startsWith("/") ? path : `/${path}`}?utm_source=${source}`;
   return (
     <section className="card space-y-3 p-4" aria-label="Tracked link builder">
-      <h2 className="font-bold">Make a TikTok (or other) link that tracks where clicks came from</h2>
-      <p className="text-sm text-muted">A plain link works, but TikTok usually hides where a click came from, so it would be counted as &ldquo;direct&rdquo;. The tags on this link are what let the tables below say &ldquo;tiktok, video-3&rdquo;.</p>
-      <div className="grid gap-3 sm:grid-cols-3">
+      <h2 className="font-bold">Link to use in your TikTok bio</h2>
+      <p className="text-sm text-muted">TikTok usually hides where a click came from, so a plain link would be counted as &ldquo;direct&rdquo;. This link ends in <code>?utm_source=tiktok</code>, which is what puts those visits in the TikTok row below.</p>
+      <div className="grid gap-3 sm:grid-cols-2">
         <label className="space-y-1 text-sm">
           <span className="text-muted">Source</span>
           <select className="input w-full" value={source} onChange={(e) => setSource(e.target.value)}>
@@ -103,10 +101,6 @@ function LinkBuilder() {
               <option key={s}>{s}</option>
             ))}
           </select>
-        </label>
-        <label className="space-y-1 text-sm">
-          <span className="text-muted">Campaign (video or placement)</span>
-          <input className="input w-full" value={campaign} onChange={(e) => setCampaign(e.target.value)} />
         </label>
         <label className="space-y-1 text-sm">
           <span className="text-muted">Page</span>
@@ -142,16 +136,14 @@ function Dashboard() {
   const view = useMemo(() => {
     if (!stats) return null;
     const f = stats.funnel;
-    const group = (key: "source" | "campaign") => {
-      const keys = [...new Set(f.map((r) => r[key] || (key === "source" ? "(before tracking)" : "(none)")))];
-      return keys
-        .map((k) => {
-          const rows = f.filter((r) => (r[key] || (key === "source" ? "(before tracking)" : "(none)")) === k);
-          return { k, rows, visits: visitsOf(rows) };
-        })
-        .filter((g) => g.visits || sumOf(g.rows, "signed_in"))
-        .sort((a, b) => b.visits - a.visits);
-    };
+    const label = (r: Stats["funnel"][number]) => r.source || "(before tracking)";
+    const sources = [...new Set(f.map(label))]
+      .map((k) => {
+        const rows = f.filter((r) => label(r) === k);
+        return { k, rows, visits: visitsOf(rows) };
+      })
+      .filter((g) => g.visits || sumOf(g.rows, "signed_in"))
+      .sort((a, b) => b.visits - a.visits);
     const byDay = new Map<string, Record<string, number>>();
     for (const r of f) {
       const d = byDay.get(r.day) ?? {};
@@ -159,7 +151,7 @@ function Dashboard() {
       byDay.set(r.day, d);
     }
     for (const d of Object.keys(stats.signups)) if (!byDay.has(d)) byDay.set(d, {});
-    return { group, sources: group("source"), campaigns: group("campaign").filter((c) => c.k !== "(none)"), days: [...byDay.entries()].sort((a, b) => b[0].localeCompare(a[0])) };
+    return { sources, days: [...byDay.entries()].sort((a, b) => b[0].localeCompare(a[0])) };
   }, [stats]);
 
   if (error) return <p role="alert" className="text-muted">{error}</p>;
@@ -205,16 +197,6 @@ function Dashboard() {
           head={["Source", "Visits", "Home visits", "Signup submits", "Signed in", "Pricing views", "Checkouts started"]}
           rows={view.sources.map((g) => [g.k, ...conv(g.rows)])}
         />
-      </section>
-
-      <section className="space-y-2">
-        <h2 className="font-bold">Campaigns (utm_campaign)</h2>
-        <Table
-          caption="Visits and conversions by campaign"
-          head={["Campaign", "Visits", "Home visits", "Signup submits", "Signed in", "Pricing views", "Checkouts started"]}
-          rows={view.campaigns.map((g) => [g.k, ...conv(g.rows)])}
-        />
-        <p className="text-xs text-muted">Campaigns appear once links carry a utm_campaign and the campaign migration has been applied.</p>
       </section>
 
       <section className="space-y-2">
