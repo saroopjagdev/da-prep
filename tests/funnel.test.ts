@@ -6,7 +6,7 @@ vi.mock("@/lib/server/auth", () => ({ admin: () => ({ rpc: (...a: unknown[]) => 
 vi.mock("@/lib/rateLimit", () => ({ rateLimit: (...a: unknown[]) => limited(...a) }));
 
 import { POST } from "@/app/api/event/route";
-import { FUNNEL_EVENTS, SOURCES, entryEvent, isFunnelEvent, isSource, sourceFrom, track } from "@/lib/funnel";
+import { FUNNEL_EVENTS, SOURCES, campaignFrom, cleanCampaign, entryEvent, isFunnelEvent, isSource, sourceFrom, track } from "@/lib/funnel";
 
 const post = (body: unknown, headers: Record<string, string> = {}) =>
   POST(new Request("http://x/api/event", { method: "POST", headers: { "content-type": "application/json", ...headers }, body: JSON.stringify(body) }));
@@ -23,7 +23,7 @@ describe("POST /api/event", () => {
     expect(rpc).toHaveBeenCalledTimes(1);
     const [fn, args] = rpc.mock.calls[0];
     expect(fn).toBe("bump_funnel");
-    expect(Object.keys(args).sort()).toEqual(["p_day", "p_event", "p_source"]);
+    expect(Object.keys(args).sort()).toEqual(["p_campaign", "p_day", "p_event", "p_source"]);
     expect(args.p_event).toBe("link_sent");
     expect(args.p_source).toBe("other"); // none was sent
     expect(args.p_day).toBe(new Date().toISOString().slice(0, 10));
@@ -77,7 +77,7 @@ describe("track()", () => {
     track("landing_view", { oncePerLoad: true });
     track("hero_try_practice");
     expect(fetchMock).toHaveBeenCalledTimes(2);
-    expect(JSON.parse(fetchMock.mock.calls[0][1].body)).toEqual({ event: "landing_view", source: "school" });
+    expect(JSON.parse(fetchMock.mock.calls[0][1].body)).toEqual({ event: "landing_view", source: "school", campaign: "" });
     expect(setItem).not.toHaveBeenCalled();
     vi.unstubAllGlobals();
   });
@@ -132,5 +132,23 @@ describe("traffic source", () => {
 
   it("includes the new steps in the event list", () => {
     for (const e of ["pricing_view", "limit_hit", "checkout_start", "apply_click", "share_click", "visit_employer"]) expect(isFunnelEvent(e)).toBe(true);
+  });
+});
+
+describe("campaign label", () => {
+  it("is read from utm_campaign and cleaned to a short harmless label", () => {
+    expect(campaignFrom("?utm_source=tiktok&utm_campaign=Bio Link!")).toBe("bio-link");
+    expect(campaignFrom("?utm_campaign=<script>x</script>")).toBe("script-x-script");
+    expect(campaignFrom("?utm_campaign=" + "a".repeat(100))).toHaveLength(40);
+    expect(campaignFrom("")).toBe("");
+    expect(cleanCampaign(5)).toBe("");
+  });
+
+  it("is counted with the step, and falls back to the old function if the migration is not applied yet", async () => {
+    await post({ event: "visit_home", source: "tiktok", campaign: "Video 3" });
+    expect(rpc.mock.calls[0][1]).toMatchObject({ p_source: "tiktok", p_campaign: "video-3" });
+    rpc.mockReset().mockResolvedValueOnce({ error: { message: "no function" } }).mockResolvedValueOnce({ error: null });
+    expect((await post({ event: "visit_home", source: "tiktok", campaign: "x" })).status).toBe(204);
+    expect(rpc.mock.calls[1][1]).toEqual({ p_day: expect.any(String), p_event: "visit_home", p_source: "tiktok" });
   });
 });

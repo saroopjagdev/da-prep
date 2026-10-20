@@ -100,6 +100,16 @@ export function sourceFrom(referrer: string, search: string, ownHost = ""): Sour
   return REFERRER_HOSTS.find(([re]) => re.test(host))?.[1] ?? "other";
 }
 
+/**
+ * A campaign label cleaned to lowercase letters, digits, - and _, at most 40 characters. Applied in the browser and again
+ * on the server, so the table only ever holds short harmless labels.
+ */
+export const cleanCampaign = (v: unknown): string =>
+  typeof v === "string" ? v.trim().toLowerCase().replace(/[^a-z0-9_-]+/g, "-").replace(/^-+|-+$/g, "").slice(0, 40) : "";
+
+/** The link's utm_campaign (which TikTok video or bio link brought them), cleaned. Empty when there is none. */
+export const campaignFrom = (search: string): string => cleanCampaign(new URLSearchParams(search).get("utm_campaign"));
+
 /** Which kind of page a visit began on, from its path. */
 export function entryEvent(pathname: string): FunnelEvent {
   if (pathname === "/" || pathname === "") return "visit_home";
@@ -111,6 +121,7 @@ export function entryEvent(pathname: string): FunnelEvent {
 
 const sent = new Set<string>();
 let currentSource: Source | null = null;
+let currentCampaign: string | null = null;
 
 /** The source of this page load, worked out once from the browser's own referrer and URL. */
 function source(): Source {
@@ -118,6 +129,8 @@ function source(): Source {
   currentSource = sourceFrom(document.referrer, window.location.search, window.location.hostname);
   return currentSource;
 }
+
+const campaign = () => (currentCampaign ??= campaignFrom(window.location.search));
 
 /**
  * Count one step. Fire and forget; failures are ignored. Nothing is stored in the browser: the same event is only sent
@@ -133,7 +146,7 @@ export function track(event: FunnelEvent, opts: { oncePerLoad?: boolean } = {}) 
     void fetch("/api/event", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ event, source: source() }),
+      body: JSON.stringify({ event, source: source(), campaign: campaign() }),
       keepalive: true,
     }).catch(() => {});
   } catch {
