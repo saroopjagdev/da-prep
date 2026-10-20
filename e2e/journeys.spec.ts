@@ -255,16 +255,17 @@ test("the deadlines page lists who is open, soonest closing first, with share an
 });
 
 test("a visit counts its source and where it began, with nothing that identifies the visitor", async ({ page }) => {
-  const sent: { event: string; source: string }[] = [];
+  const sent: { event: string; source: string; campaign: string }[] = [];
   await page.route("**/api/event", (route) => {
     sent.push(JSON.parse(route.request().postData() ?? "{}"));
     return route.fulfill({ status: 204 });
   });
-  await page.goto("/employers/ubs?utm_source=school");
+  await page.goto("/employers/ubs?utm_source=school&utm_campaign=Year 13 Talk");
   await expect.poll(() => sent.some((e) => e.event === "visit_employer")).toBe(true);
   const visit = sent.find((e) => e.event === "visit_employer")!;
-  expect(Object.keys(visit).sort()).toEqual(["event", "source"]);
+  expect(Object.keys(visit).sort()).toEqual(["campaign", "event", "source"]);
   expect(visit.source).toBe("school");
+  expect(visit.campaign).toBe("year-13-talk");
 });
 
 test("a signed-in member can follow an employer for deadline emails, and it reverts if saving fails", async ({ page }) => {
