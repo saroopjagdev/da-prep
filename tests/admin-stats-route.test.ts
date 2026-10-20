@@ -9,7 +9,7 @@ const query = (name: string) => {
   return q;
 };
 vi.mock("@/lib/server/auth", () => ({
-  admin: () => ({ from: (n: string) => query(n), auth: { admin: { getUserById: async (id: string) => ({ data: { user: { email: `${id}@x.test` } } }) } } }),
+  admin: () => ({ from: (n: string) => query(n), auth: { admin: { getUserById: async (id: string) => ({ data: { user: { email: id.includes("@") ? id : `${id}@x.test` } } }) } } }),
   userFromRequest: (...a: unknown[]) => userFromRequest(...a),
 }));
 
@@ -26,6 +26,9 @@ beforeEach(() => {
     { id: "a", plan: "pro", stripe_customer_id: "cus_1", created_at: "2026-10-01T00:00:00Z" },
     { id: "b", plan: "free", stripe_customer_id: null, created_at: "2026-10-02T00:00:00Z" },
     { id: "c", plan: "free", stripe_customer_id: "cus_2", created_at: "2026-10-03T00:00:00Z" },
+    // An admin's own account with a Stripe id, and a Pro plan set by hand with none: neither counts as a paying user.
+    { id: "saroopjagdev@gmail.com", plan: "pro", stripe_customer_id: "cus_test", created_at: "2026-10-04T00:00:00Z" },
+    { id: "d", plan: "pro", stripe_customer_id: null, created_at: "2026-10-05T00:00:00Z" },
   ];
 });
 
@@ -61,7 +64,7 @@ describe("GET /api/admin/stats", () => {
     const res = await call();
     expect(res.status).toBe(200);
     const body = await res.json();
-    expect(body.totals).toEqual({ accounts: 3, pro: 1, everPaid: 2 });
+    expect(body.totals).toEqual({ accounts: 5, pro: 1, everPaid: 2 });
     expect(body.paying.map((p: { email: string; plan: string }) => [p.email, p.plan])).toEqual([
       ["a@x.test", "pro"],
       ["c@x.test", "free"],

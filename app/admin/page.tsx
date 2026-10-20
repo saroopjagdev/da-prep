@@ -15,7 +15,21 @@ type Stats = {
 };
 
 const RANGES = [7, 14, 30, 90];
-const STEPS = ["landing_view", "hero_signup_submit", "gate_view", "link_sent", "signed_in", "first_practice", "first_mock", "pricing_view", "limit_hit", "checkout_start", "apply_click", "share_click"];
+// Day-by-day columns: [funnel event, short heading]. Short headings that can wrap keep the table inside the page.
+const STEPS: [string, string][] = [
+  ["landing_view", "Landing views"],
+  ["hero_signup_submit", "Signup submits"],
+  ["gate_view", "Gate views"],
+  ["link_sent", "Emails sent"],
+  ["signed_in", "Signed in"],
+  ["first_practice", "First practice"],
+  ["first_mock", "First mock"],
+  ["pricing_view", "Pricing views"],
+  ["limit_hit", "Limit hits"],
+  ["checkout_start", "Checkouts"],
+  ["apply_click", "Apply clicks"],
+  ["share_click", "Shares"],
+];
 const pct = (a: number, b: number) => (b ? `${Math.round((100 * a) / b)}%` : "–");
 const date = (iso: string) => new Date(iso).toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" });
 
@@ -40,7 +54,7 @@ function Table({ head, rows, caption }: { head: string[]; rows: (string | number
         <thead className="bg-navy/5 text-xs uppercase tracking-wide text-muted">
           <tr>
             {head.map((h) => (
-              <th key={h} scope="col" className="whitespace-nowrap px-3 py-2">
+              <th key={h} scope="col" className="px-2 py-2 align-bottom">
                 {h}
               </th>
             ))}
@@ -50,7 +64,7 @@ function Table({ head, rows, caption }: { head: string[]; rows: (string | number
           {rows.map((r, i) => (
             <tr key={i} className="border-t border-line">
               {r.map((c, j) => (
-                <td key={j} className={`whitespace-nowrap px-3 py-2 ${j ? "tabular-nums" : "font-semibold"}`}>
+                <td key={j} className={`px-2 py-2 ${j ? "tabular-nums" : "break-words font-semibold"}`}>
                   {c}
                 </td>
               ))}
@@ -79,7 +93,8 @@ function LinkBuilder() {
   const url = `${origin}${path.startsWith("/") ? path : `/${path}`}?utm_source=${source}${label ? `&utm_campaign=${label}` : ""}`;
   return (
     <section className="card space-y-3 p-4" aria-label="Tracked link builder">
-      <h2 className="font-bold">Make a tracked link</h2>
+      <h2 className="font-bold">Make a TikTok (or other) link that tracks where clicks came from</h2>
+      <p className="text-sm text-muted">A plain link works, but TikTok usually hides where a click came from, so it would be counted as &ldquo;direct&rdquo;. The tags on this link are what let the tables below say &ldquo;tiktok, video-3&rdquo;.</p>
       <div className="grid gap-3 sm:grid-cols-3">
         <label className="space-y-1 text-sm">
           <span className="text-muted">Source</span>
@@ -206,8 +221,8 @@ function Dashboard() {
         <h2 className="font-bold">Day by day</h2>
         <Table
           caption="Funnel steps per day"
-          head={["Day", "New accounts", ...STEPS]}
-          rows={view.days.map(([d, e]) => [d, stats.signups[d] ?? 0, ...STEPS.map((s) => e[s] ?? 0)])}
+          head={["Day", "New accounts", ...STEPS.map(([, label]) => label)]}
+          rows={view.days.map(([d, e]) => [d.slice(5), stats.signups[d] ?? 0, ...STEPS.map(([s]) => e[s] ?? 0)])}
         />
       </section>
 

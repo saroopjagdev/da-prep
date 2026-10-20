@@ -1,4 +1,4 @@
-import { adminFromRequest } from "@/lib/server/admin-access";
+import { adminFromRequest, isAdminEmail } from "@/lib/server/admin-access";
 import { admin } from "@/lib/server/auth";
 
 export const dynamic = "force-dynamic";
@@ -42,8 +42,11 @@ export async function GET(req: Request) {
     );
 
     const profiles = await all<Profile>((from, to) => db.from("profiles").select("id,plan,stripe_customer_id,created_at").order("created_at").range(from, to));
-    const paying = profiles.filter((p) => p.stripe_customer_id);
-    const emails = await Promise.all(paying.map((p) => db.auth.admin.getUserById(p.id).then((r) => r.data.user?.email ?? null, () => null)));
+    // A paying user has a Stripe customer id. The admins' own accounts (test purchases, plans set by hand) are left out, and
+    // so is a Pro plan with no Stripe id, so "paying now" can never be more than "ever paid".
+    const withStripe = profiles.filter((p) => p.stripe_customer_id);
+    const stripeEmails = await Promise.all(withStripe.map((p) => db.auth.admin.getUserById(p.id).then((r) => r.data.user?.email ?? null, () => null)));
+    const paid = withStripe.map((p, i) => ({ p, email: stripeEmails[i] })).filter(({ email }) => !isAdminEmail(email));
 
     const signups: Record<string, number> = {};
     for (const p of profiles) {
@@ -57,11 +60,11 @@ export async function GET(req: Request) {
       signups,
       totals: {
         accounts: profiles.length,
-        pro: profiles.filter((p) => p.plan === "pro").length,
-        everPaid: paying.length,
+        pro: paid.filter(({ p }) => p.plan === "pro").length,
+        everPaid: paid.length,
       },
-      paying: paying
-        .map((p, i) => ({ email: emails[i], plan: p.plan, joined: p.created_at }))
+      paying: paid
+        .map(({ p, email }) => ({ email, plan: p.plan, joined: p.created_at }))
         .sort((a, b) => (a.plan === b.plan ? b.joined.localeCompare(a.joined) : a.plan === "pro" ? -1 : 1)),
     });
   } catch (e) {
