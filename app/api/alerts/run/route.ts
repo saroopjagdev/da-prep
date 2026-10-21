@@ -1,6 +1,7 @@
 import { rateLimit } from "@/lib/rateLimit";
 import { clientIp } from "@/lib/server/guard";
 import { runAlerts } from "@/lib/server/alerts";
+import { runNudges } from "@/lib/server/nudges";
 
 export const dynamic = "force-dynamic";
 // A run can take a while when many emails are due.
@@ -20,5 +21,8 @@ export async function GET(req: Request) {
 
   const result = await runAlerts();
   console.log("deadline alerts", JSON.stringify(result));
-  return Response.json(result);
+  // The first-steps email rides on the same daily job; it does nothing unless NUDGES_ENABLED is "true".
+  const nudges = await runNudges();
+  console.log("first-steps emails", JSON.stringify(nudges));
+  return Response.json({ ...result, nudges });
 }
