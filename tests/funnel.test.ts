@@ -58,7 +58,7 @@ describe("POST /api/event", () => {
 
 describe("the list of steps", () => {
   it("is small and fixed", () => {
-    expect(FUNNEL_EVENTS).toHaveLength(18);
+    expect(FUNNEL_EVENTS).toHaveLength(21);
     expect(new Set(FUNNEL_EVENTS).size).toBe(FUNNEL_EVENTS.length);
     expect(isFunnelEvent("signed_in")).toBe(true);
     expect(isFunnelEvent("anything_else")).toBe(false);

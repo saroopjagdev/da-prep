@@ -24,6 +24,9 @@ export const FUNNEL_EVENTS = [
   "checkout_start", // they pressed Continue to payment
   "apply_click", // they followed an Apply link in the tracker
   "share_click", // they pressed a share button
+  "tracker_prompt_view", // the tracker showed a suggested next step
+  "tracker_prompt_click", // they followed it
+  "parent_share_click", // they pressed the button to send the plan to a parent or guardian
 ] as const;
 
 export type FunnelEvent = (typeof FUNNEL_EVENTS)[number];

@@ -1,4 +1,4 @@
-import { adminFromRequest, isAdminEmail } from "@/lib/server/admin-access";
+import { ADMIN_EMAILS, adminFromRequest, isAdminEmail } from "@/lib/server/admin-access";
 import { admin } from "@/lib/server/auth";
 
 export const dynamic = "force-dynamic";
@@ -54,9 +54,14 @@ export async function GET(req: Request) {
       if (d >= since) signups[d] = (signups[d] ?? 0) + 1;
     }
 
+    // Engagement counts come from a database function (supabase/migrations/20261021000000_admin_engagement.sql). Until it
+    // is applied the rest of the page still loads and this part says so.
+    const eng = await db.rpc("admin_engagement", { p_exclude: [...ADMIN_EMAILS] });
+
     return Response.json({
       days,
       funnel,
+      engagement: eng.error ? null : eng.data,
       signups,
       totals: {
         accounts: profiles.length,

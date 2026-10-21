@@ -12,6 +12,20 @@ type Stats = {
   signups: Record<string, number>;
   totals: { accounts: number; pro: number; everPaid: number };
   paying: { email: string | null; plan: string; joined: string }[];
+  /** null until the admin_engagement migration is applied. */
+  engagement: null | {
+    accounts: number;
+    did_nothing: number;
+    tracker: number;
+    tracker_only: number;
+    practice: number;
+    interview: number;
+    review: number;
+    ai: number;
+    came_back: number;
+    following: number;
+    stages: { status: string; items: number; users: number }[];
+  };
 };
 
 const RANGES = [7, 14, 30, 90];
@@ -177,6 +191,41 @@ function Dashboard() {
         <Tile label="Paying now" value={stats.totals.pro} hint="plan is Pro" />
         <Tile label="Ever paid" value={stats.totals.everPaid} hint="has a Stripe customer id" />
         <Tile label="Visits" value={visits} hint={`${pct(sumOf(f, "signed_in"), visits)} signed in`} />
+      </section>
+
+      <section className="space-y-2">
+        <h2 className="font-bold">What accounts actually do</h2>
+        {stats.engagement ? (
+          <>
+            <Table
+              caption="Accounts by what they have used, all time, admins excluded"
+              head={["What", "Accounts", "Share"]}
+              rows={(
+                [
+                  ["Did nothing at all", stats.engagement.did_nothing],
+                  ["Used the tracker", stats.engagement.tracker],
+                  ["Tracker only (no practice, mock or review)", stats.engagement.tracker_only],
+                  ["Took a practice test", stats.engagement.practice],
+                  ["Did a mock interview", stats.engagement.interview],
+                  ["Had a CV or statement reviewed", stats.engagement.review],
+                  ["Used any AI feature", stats.engagement.ai],
+                  ["Came back on a later day (saved something)", stats.engagement.came_back],
+                  ["Follow employers for deadline emails", stats.engagement.following],
+                ] as [string, number][]
+              ).map(([label, n]) => [label, n, pct(n, stats.engagement!.accounts)])}
+            />
+            <Table
+              caption="Tracked applications by stage"
+              head={["Stage", "Applications", "Accounts"]}
+              rows={stats.engagement.stages.map((s) => [s.status, s.items, s.users])}
+            />
+            <p className="text-xs text-muted">
+              Tracker suggestions in the last {days} days: shown {sumOf(f, "tracker_prompt_view")}, followed {sumOf(f, "tracker_prompt_click")}. Parent shares: {sumOf(f, "parent_share_click")}.
+            </p>
+          </>
+        ) : (
+          <p className="text-sm text-muted">Not available yet: apply supabase/migrations/20261021000000_admin_engagement.sql.</p>
+        )}
       </section>
 
       <LinkBuilder />
