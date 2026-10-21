@@ -9,7 +9,7 @@ const query = (name: string) => {
   return q;
 };
 vi.mock("@/lib/server/auth", () => ({
-  admin: () => ({ from: (n: string) => query(n), auth: { admin: { getUserById: async (id: string) => ({ data: { user: { email: id.includes("@") ? id : `${id}@x.test` } } }) } } }),
+  admin: () => ({ rpc: async () => ({ data: { accounts: 5, did_nothing: 2 }, error: null }), from: (n: string) => query(n), auth: { admin: { getUserById: async (id: string) => ({ data: { user: { email: id.includes("@") ? id : `${id}@x.test` } } }) } } }),
   userFromRequest: (...a: unknown[]) => userFromRequest(...a),
 }));
 
@@ -70,5 +70,6 @@ describe("GET /api/admin/stats", () => {
       ["c@x.test", "free"],
     ]);
     expect(body.funnel[0]).toMatchObject({ source: "tiktok", campaign: "bio", n: 3 });
+    expect(body.engagement).toMatchObject({ accounts: 5, did_nothing: 2 });
   });
 });

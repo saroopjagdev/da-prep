@@ -12,7 +12,9 @@ import type { OpportunityRow, Status as OppStatus } from "@/lib/opportunities";
 import { STATUS_LABEL } from "@/lib/opportunities";
 import { SECTORS, SECTOR_BY_ID, type SectorId } from "@/lib/sectors";
 import { useCollection } from "@/lib/store";
+import TrackerNudge from "@/components/TrackerNudge";
 import { fromTemplate } from "@/lib/tracker-item";
+import { nextPrompt } from "@/lib/tracker-prompts";
 import { STATUSES, type Application, type Status } from "@/lib/types";
 
 const CHIP: Record<OppStatus, string> = {
@@ -236,6 +238,20 @@ export default function OpportunitiesApp({ rows }: { rows: OpportunityRow[] }) {
           </button>
         )}
       </div>
+
+      {canTrack && loaded && (() => {
+        const rowFor = (employer: string) => {
+          const a = apps.find((x) => x.employer === employer);
+          return a ? rows.find((r) => mine([a], r)) : undefined;
+        };
+        const prompt = nextPrompt(apps, today, (employer) => {
+          const r = rowFor(employer);
+          return r?.hasMock && r.slug ? `/mock/${r.slug}` : null;
+        });
+        const row = prompt?.employer ? rowFor(prompt.employer) : undefined;
+        const canFollow = Boolean(enabled && user && alertsLoaded && row && row.status !== "closed" && !following.has(alertKey(row)));
+        return <TrackerNudge apps={apps} prompt={prompt} canFollow={canFollow} onFollow={() => row && void toggleAlert(row)} />;
+      })()}
 
       {closingSoon.length > 0 && (
         <p className="callout bg-sun-50 text-sm text-sun-600">
