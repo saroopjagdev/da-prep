@@ -19,5 +19,7 @@ export async function POST(req: Request) {
 
   const { error } = await a.from("alert_subscriptions").delete().eq("user_id", pref.user_id);
   if (error) return Response.json({ error: "Could not unsubscribe you. Please try again." }, { status: 500 });
+  // Also stops the one-off first-steps email. Ignored if that column is not there yet: the deadline emails are already off.
+  await a.from("alert_prefs").update({ nudges_off: true }).eq("user_id", pref.user_id);
   return Response.json({ ok: true });
 }

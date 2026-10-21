@@ -15,7 +15,7 @@ beforeAll(async () => {
   await db.exec(`
     create role anon nologin; create role authenticated nologin; create role service_role nologin bypassrls;
     create schema auth;
-    create table auth.users (id uuid primary key, email text, created_at timestamptz not null default now());
+    create table auth.users (id uuid primary key, email text, created_at timestamptz not null default now(), email_confirmed_at timestamptz default now());
     create function auth.uid() returns uuid language sql stable as $$ select nullif(current_setting('request.jwt.claim.sub', true), '')::uuid $$;
     grant usage on schema auth to anon, authenticated, service_role;
     grant execute on function auth.uid() to anon, authenticated, service_role;
@@ -119,5 +119,44 @@ describe("plans and quotas (server-side functions)", () => {
     await db.exec(`delete from auth.users where id='${B}'`);
     const n = (await one(`select (select count(*) from user_data where user_id='${B}') + (select count(*) from usage where user_id='${B}') + (select count(*) from profiles where id='${B}') as n`)).n;
     expect(Number(n)).toBe(0);
+  });
+});
+
+describe("first-steps email candidates and admin engagement counts", () => {
+  const id = (n: number) => `33333333-3333-3333-3333-${String(n).padStart(12, "0")}`;
+  const [QUIET, BUSY, UNCONFIRMED, STOPPED, TOO_NEW, SENT, ADMIN] = [1, 2, 3, 4, 5, 6, 7].map(id);
+
+  beforeAll(async () => {
+    await db.exec(`
+      insert into auth.users (id, email, created_at, email_confirmed_at) values
+        ('${QUIET}', 'quiet@x', now() - interval '3 days', now()),
+        ('${BUSY}', 'busy@x', now() - interval '3 days', now()),
+        ('${UNCONFIRMED}', 'unconfirmed@x', now() - interval '3 days', null),
+        ('${STOPPED}', 'stopped@x', now() - interval '3 days', now()),
+        ('${TOO_NEW}', 'new@x', now() - interval '1 day', now()),
+        ('${SENT}', 'sent@x', now() - interval '3 days', now()),
+        ('${ADMIN}', 'Admin@X', now() - interval '3 days', now());
+      insert into usage (user_id, period, practice) values ('${BUSY}', 'lifetime', 1);
+      insert into alert_prefs (user_id, nudges_off) values ('${STOPPED}', true);
+      insert into nudge_sent (user_id, kind) values ('${SENT}', 'first-steps');
+    `);
+  });
+
+  const ids = async (sql: string) => (await db.query<{ user_id: string }>(sql)).rows.map((r) => r.user_id);
+
+  it("picks only confirmed, quiet, not-unsubscribed, not-yet-emailed accounts of the right age, and leaves excluded emails out", async () => {
+    expect(await ids(`select user_id from nudge_candidates('first-steps', 2, 14, array['admin@x'])`)).toEqual([QUIET]);
+  });
+
+  it("keeps the functions away from signed-in users and the public", async () => {
+    expect((await as(A, `select * from nudge_candidates('first-steps', 2, 14, '{}')`)).err).toBeTruthy();
+    expect((await as(null, `select admin_engagement('{}')`)).err).toBeTruthy();
+  });
+
+  it("counts engagement without exposing anyone", async () => {
+    const r = (await one(`select admin_engagement(array['admin@x']) as e`)).e as Record<string, number>;
+    expect(r.practice).toBe(1);
+    expect(r.did_nothing).toBeGreaterThanOrEqual(3);
+    expect(Object.keys(r)).not.toContain("email");
   });
 });

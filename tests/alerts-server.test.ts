@@ -33,6 +33,20 @@ function from(table: string) {
       }
       return { error: null };
     },
+    update(patch: Row) {
+      const filters: [string, unknown][] = [];
+      const api: Record<string, unknown> = {
+        eq(c: string, v: unknown) {
+          filters.push([c, v]);
+          return api;
+        },
+        then: (res: (v: unknown) => unknown) => {
+          for (const r of rows()) if (filters.every(([c, v]) => r[c] === v)) Object.assign(r, patch);
+          return res({ error: null });
+        },
+      };
+      return api;
+    },
     delete() {
       const filters: [string, unknown][] = [];
       const api: Record<string, unknown> = {
@@ -50,8 +64,16 @@ function from(table: string) {
   };
 }
 
+let candidates: { user_id: string; email: string }[] = [];
+const rpcCalls: { name: string; args: unknown }[] = [];
 vi.mock("@/lib/server/auth", () => ({
-  admin: () => ({ from, auth: { admin: { getUserById: async (id: string) => ({ data: { user: users[id] ?? null } }) } } }),
+  admin: () => ({
+    from,
+    rpc: async (name: string, args: unknown) => {
+      rpcCalls.push({ name, args });
+      return { data: candidates, error: null };
+    },
+    auth: { admin: { getUserById: async (id: string) => ({ data: { user: users[id] ?? null } }) } } }),
   userFromRequest: async () => signedIn,
 }));
 vi.mock("@/lib/rateLimit", () => ({ rateLimit: async () => true }));
@@ -63,6 +85,7 @@ import { POST as unsubscribe } from "@/app/api/alerts/unsubscribe/route";
 import { ALERT_CYCLE, MAX_FOLLOWED, alertKey } from "@/lib/alerts";
 import { opportunityRows } from "@/lib/opportunities";
 import { runAlerts } from "@/lib/server/alerts";
+import { runNudges } from "@/lib/server/nudges";
 
 const open = opportunityRows(new Date()).find((r) => r.status === "open")!;
 const key = alertKey(open);
@@ -173,6 +196,46 @@ describe("unsubscribing", () => {
   it("refuses a malformed or unknown token", async () => {
     expect((await call("not-a-token")).status).toBe(400);
     expect((await call("99999999-2222-3333-4444-555555555555")).status).toBe(404);
+  });
+});
+
+describe("the first-steps email", () => {
+  const send = vi.fn();
+  beforeEach(() => {
+    send.mockReset().mockResolvedValue(true);
+    rpcCalls.length = 0;
+    candidates = [{ user_id: "u1", email: "a@example.com" }];
+    delete process.env.NUDGES_ENABLED;
+  });
+
+  it("does nothing unless it is switched on", async () => {
+    expect(await runNudges(send)).toMatchObject({ skipped: expect.stringMatching(/NUDGES_ENABLED/), sent: 0 });
+    expect(send).not.toHaveBeenCalled();
+    expect(rpcCalls).toEqual([]);
+  });
+
+  it("sends once to each eligible account, with an unsubscribe link, leaving the admins out, and logs it", async () => {
+    process.env.NUDGES_ENABLED = "true";
+    expect(await runNudges(send)).toEqual({ eligible: 1, sent: 1, failed: 0 });
+    expect(rpcCalls[0]).toMatchObject({ name: "nudge_candidates", args: { p_kind: "first-steps", p_min_days: 2, p_max_days: 14 } });
+    expect((rpcCalls[0].args as { p_exclude: string[] }).p_exclude).toContain("ssjagdev@outlook.com");
+    const [to, email] = send.mock.calls[0];
+    expect(to).toBe("a@example.com");
+    expect(email.text).toContain("/unsubscribe?t=");
+    expect(email.headers["List-Unsubscribe"]).toContain("/api/alerts/unsubscribe?t=");
+  });
+
+  it("counts a failed send and carries on", async () => {
+    process.env.NUDGES_ENABLED = "true";
+    send.mockResolvedValue(false);
+    expect(await runNudges(send)).toEqual({ eligible: 1, sent: 0, failed: 1 });
+  });
+
+  it("is stopped for good by the unsubscribe link", async () => {
+    const token = "11111111-2222-3333-4444-555555555555";
+    db.alert_prefs = [{ user_id: "u1", token }];
+    await unsubscribe(new Request(`http://x/api/alerts/unsubscribe?t=${token}`, { method: "POST" }));
+    expect(db.alert_prefs[0]).toMatchObject({ user_id: "u1", nudges_off: true });
   });
 });
 
