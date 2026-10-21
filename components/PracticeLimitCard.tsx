@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useEffect } from "react";
 import { track } from "@/lib/funnel";
+import ParentShare from "@/components/ParentShare";
 import UnlockProgress from "@/components/UnlockProgress";
 
 /** Shown instead of a practice test when the free allowance is used up. */
@@ -19,6 +20,7 @@ export default function PracticeLimitCard({ limit }: { limit: number }) {
         <Link href="/pricing" className="btn btn-primary">
           See Pro
         </Link>
+        <ParentShare label="Ask a parent or guardian" />
         <Link href="/opportunities" className="btn btn-secondary">
           See who is open
         </Link>

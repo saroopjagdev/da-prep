@@ -166,15 +166,16 @@ describe("account deletion", () => {
 
 describe("checkout", () => {
   const buy = (body: unknown) => checkout(new Request("http://x/api/stripe/checkout", { method: "POST", body: JSON.stringify(body) }));
-  const ok = { payerAdult: true, startNow: true, acceptTerms: true };
+  const ok = { startNow: true, acceptTerms: true };
   beforeEach(() => {
     vi.stubEnv("STRIPE_PRICE_ID", "price_pro");
     vi.stubEnv("STRIPE_PRICE_MONTHLY", "");
   });
 
-  it("refuses without all three confirmations", async () => {
-    expect((await buy({ payerAdult: true, startNow: true })).status).toBe(400);
-    expect((await buy({ ...ok, payerAdult: false })).status).toBe(400);
+  it("refuses without both confirmations", async () => {
+    expect((await buy({ startNow: true })).status).toBe(400);
+    expect((await buy({ acceptTerms: true })).status).toBe(400);
+    expect((await buy({ ...ok, acceptTerms: false })).status).toBe(400);
     expect((await buy({})).status).toBe(400);
     expect(sessionCreate).not.toHaveBeenCalled();
   });
@@ -184,7 +185,7 @@ describe("checkout", () => {
     expect(res.status).toBe(200);
     const arg = sessionCreate.mock.calls[0][0];
     expect(arg).toMatchObject({ mode: "subscription", line_items: [{ price: "price_pro", quantity: 1 }], client_reference_id: "u1" });
-    expect(arg.metadata).toMatchObject({ plan: "monthly", payer_adult_confirmed: "yes", immediate_start_requested: "yes", terms_accepted: "yes" });
+    expect(arg.metadata).toMatchObject({ plan: "monthly", immediate_start_requested: "yes", terms_accepted: "yes" });
     expect(arg.subscription_data.metadata.user_id).toBe("u1");
   });
 

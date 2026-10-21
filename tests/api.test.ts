@@ -187,7 +187,7 @@ describe("billing and account endpoints without configuration", () => {
     vi.stubEnv("STRIPE_SECRET_KEY", "");
     vi.stubEnv("STRIPE_PRICE_ID", "");
     vi.stubEnv("STRIPE_PRICE_PASS", "");
-    expect((await checkout(req({ plan: "pass", payerAdult: true, startNow: true, acceptTerms: true }))).status).toBe(503);
+    expect((await checkout(req({ plan: "pass", startNow: true, acceptTerms: true }))).status).toBe(503);
     vi.unstubAllEnvs();
   });
 

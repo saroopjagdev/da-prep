@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useAuth } from "@/components/AuthProvider";
+import ParentShare from "@/components/ParentShare";
 import { postJson } from "@/lib/api";
 import { track } from "@/lib/funnel";
 import { BONUS_EXTRA, FREE_INTERVIEWS, FREE_PRACTICE, FREE_REVIEWS, PRO_PLAN } from "@/lib/plans";
@@ -28,7 +29,6 @@ const PRO = [
 export default function Pricing() {
   const { enabled, user } = useAuth();
   const [plan, setPlan] = useState<"free" | "pro" | null>(null);
-  const [payerAdult, setPayerAdult] = useState(false);
   const [startNow, setStartNow] = useState(false);
   const [acceptTerms, setAcceptTerms] = useState(false);
   const [busy, setBusy] = useState(false);
@@ -52,14 +52,14 @@ export default function Pricing() {
       .then(({ data }) => setPlan((data?.plan as "free" | "pro") ?? "free"));
   }, [user]);
 
-  const ready = payerAdult && startNow && acceptTerms;
+  const ready = startNow && acceptTerms;
 
   async function checkout() {
     setError("");
     setBusy(true);
     track("checkout_start");
     try {
-      const { url } = await postJson<{ url: string }>("/api/stripe/checkout", { payerAdult, startNow, acceptTerms });
+      const { url } = await postJson<{ url: string }>("/api/stripe/checkout", { startNow, acceptTerms });
       window.location.href = url;
     } catch (e) {
       setError((e as Error).message);
@@ -90,7 +90,7 @@ export default function Pricing() {
         <section className="card space-y-2 p-4">
           <h2 className="font-semibold">Free account</h2>
           <p className="text-2xl font-bold">£0</p>
-          <p className="text-sm text-muted">Needs an email address, no card. These are yours to use in total; they do not renew. The opportunities tracker and employer guides need no account.</p>
+          <p className="text-sm text-muted">Needs an email address, no card. These are yours to use in total; they do not renew. The list of who is open and the employer guides need no account; the tracker needs a free one.</p>
           <ul className="list-disc pl-5 text-sm">
             {FREE.map((f) => (
               <li key={f}>{f}</li>
@@ -117,12 +117,17 @@ export default function Pricing() {
           </button>
         </section>
       ) : !(enabled && user) ? (
-        <p className="text-sm text-muted">
-          <Link href="/login" className="underline">
-            Sign in
-          </Link>{" "}
-          to buy Pro.
-        </p>
+        <section className="card space-y-3 p-4">
+          <p className="text-sm">
+            Create a free account or sign in to buy Pro. It takes a minute, and the tracker and deadline emails are free.
+          </p>
+          <div className="flex flex-wrap gap-3">
+            <Link href="/login" className="btn btn-primary">
+              Create a free account or sign in
+            </Link>
+            <ParentShare />
+          </div>
+        </section>
       ) : (
         <section className="card space-y-4 p-5" aria-labelledby="before-you-pay">
           <h2 id="before-you-pay" className="text-lg font-semibold">
@@ -135,14 +140,10 @@ export default function Pricing() {
             <Link href="/terms" className="underline">
               terms
             </Link>
-            .
+            . Pro is bought by an adult: you must be 18 or over, or a parent or guardian must have agreed and be paying.
           </p>
           <fieldset className="space-y-2 text-sm">
             <legend className="sr-only">Confirm before paying</legend>
-            <label className="flex items-start gap-2">
-              <input type="checkbox" className="mt-1 accent-brand-600" checked={payerAdult} onChange={(e) => setPayerAdult(e.target.checked)} />
-              <span>The person paying is 18 or over. (If you&apos;re under 18, ask a parent or guardian to pay.)</span>
-            </label>
             <label className="flex items-start gap-2">
               <input type="checkbox" className="mt-1 accent-brand-600" checked={startNow} onChange={(e) => setStartNow(e.target.checked)} />
               <span>
@@ -168,9 +169,52 @@ export default function Pricing() {
           <button onClick={checkout} disabled={!ready || busy} className="btn btn-primary">
             {busy ? "Opening secure payment…" : `Continue to payment: ${PRO_PLAN.price}`}
           </button>
-          {!ready && <p className="text-xs text-muted">Tick all three boxes to continue.</p>}
+          {!ready && <p className="text-xs text-muted">Tick both boxes to continue.</p>}
+          <div className="border-t border-line pt-3">
+            <p className="mb-2 text-sm text-muted">Not paying yourself? Send a parent or guardian a short explanation.</p>
+            <ParentShare />
+          </div>
         </section>
       )}
+
+      <section className="card space-y-2 p-5" aria-labelledby="example">
+        <h2 id="example" className="text-lg font-semibold">
+          What marked feedback looks like
+        </h2>
+        <p className="text-xs text-muted">An invented example to show the format, not a real student&apos;s answer.</p>
+        <p className="text-sm">
+          <strong>Question:</strong> Tell us about a time you worked in a team. <strong>Score: 68 out of 100.</strong>
+        </p>
+        <ul className="list-disc space-y-1 pl-5 text-sm">
+          <li>
+            <strong>Strength:</strong> a clear situation and a specific action you took yourself.
+          </li>
+          <li>
+            <strong>To improve:</strong> the result is missing. Say what changed and how you know, with a number if you can.
+          </li>
+          <li>
+            <strong>STAR check:</strong> Situation ✓ Task ✓ Action ✓ Result ✗
+          </li>
+        </ul>
+        <p className="text-sm text-muted">Free accounts get one marked mock interview. Pro gives you as many as you want.</p>
+      </section>
+
+      <section className="space-y-2" aria-labelledby="faq">
+        <h2 id="faq" className="text-lg font-semibold">
+          Questions
+        </h2>
+        {[
+          ["Can I cancel?", "Yes, any time from this page. Pro stays on until the end of the month you have paid for, and you have a 14-day right to cancel (see the terms)."],
+          ["What happens to my tracker if I stop paying?", "Nothing. Your tracker, notes and scores stay on your free account."],
+          ["I'm under 18. Can I buy it?", "Pro is bought by an adult, so a parent or guardian must agree and pay. The button above sends them a short explanation."],
+          ["Do I need Pro to use the tracker?", "No. The tracker and deadline emails are free with an account."],
+        ].map(([q, a]) => (
+          <details key={q} className="rounded-lg border border-line px-3 py-2 text-sm">
+            <summary className="cursor-pointer font-medium">{q}</summary>
+            <p className="mt-2 text-muted">{a}</p>
+          </details>
+        ))}
+      </section>
       {error && (
         <p role="alert" className="callout bg-coral-50 text-coral-600">
           {error}

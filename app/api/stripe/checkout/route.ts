@@ -9,7 +9,7 @@ export async function POST(req: Request) {
   const key = process.env.STRIPE_SECRET_KEY;
   const parsed = checkoutInput.safeParse(await req.json().catch(() => null));
   if (!parsed.success) {
-    return Response.json({ error: "Please tick the three confirmations." }, { status: 400 });
+    return Response.json({ error: "Please tick both confirmations." }, { status: 400 });
   }
   const price = priceId();
   if (!key || !price) return Response.json({ error: "Payments are not configured." }, { status: 503 });
@@ -48,7 +48,6 @@ export async function POST(req: Request) {
   const consent = {
     user_id: user.id,
     plan: "monthly",
-    payer_adult_confirmed: "yes",
     immediate_start_requested: "yes",
     terms_accepted: "yes",
     confirmed_at: new Date().toISOString(),
