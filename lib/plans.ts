@@ -13,7 +13,6 @@ export const PRO_PLAN = {
 
 /** Everything the buyer must confirm before checkout. The server re-checks these and records them with the payment. */
 export const checkoutInput = z.object({
-  payerAdult: z.literal(true),
   startNow: z.literal(true),
   acceptTerms: z.literal(true),
 });

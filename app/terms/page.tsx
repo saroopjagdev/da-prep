@@ -66,7 +66,9 @@ export default function Terms() {
         You can browse the employer list and guides without an account. The practice tests, mock processes, tracker and CV and statement review tools need a free account, which you must be 16 or over to create. Free use is limited as shown on the Plans page: one CV and statement review, one practice test and one AI mock interview for each account, which do not renew. If you do any two of these three things, you get 2 more of each, once: apply to an employer through the tracker (by following its Apply link), take an AI mock interview, and start a practice test. We may decline or withdraw this bonus where we reasonably believe it is being claimed through automated or repeated use. Firm mock processes are not part of the free plan. Pro removes the practice and mock interview limits and includes every firm mock process, subject to fair-use limits. We may change what each plan includes, but not for a period you have already paid for. Pro is a monthly subscription (£9.99 a month)
         that renews automatically until you cancel, and the price is shown before you pay. Prices are in pounds sterling, and payments are handled securely by Stripe, so we never see your card details. You can cancel at any time
         from the Plans page (Manage or cancel subscription) and keep Pro until the end of the month you have paid for.
-        The person paying must be 18 or over. Because Pro is a digital service
+        Pro is bought by an adult. By buying it you confirm that you are 18 or over, or that you are 16 or 17 and a parent or
+        guardian has agreed to the purchase and is paying (or has given you permission to pay) with their own payment method.
+        Because Pro is a digital service
         you start using immediately, you ask for it to begin straight away when you buy. You have a right to cancel
         within 14 days of buying; if you do, we will refund you minus a proportionate amount for the time you have
         already had Pro. To cancel or ask for a refund, contact us. Nothing here affects your statutory rights.
