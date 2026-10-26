@@ -1,7 +1,7 @@
 // Plain-English summary of a firm profile for the top of its employer page, and the practice that matches its process.
 // Everything is derived from the profile; nothing new is claimed here.
 import { getTest } from "@/lib/assess/tests";
-import { gamesForText } from "@/lib/games/catalog";
+import { providersForText } from "@/lib/games/providers";
 import { getMock } from "@/lib/mockprocess/definitions";
 import { VIDEO_PRESETS } from "@/lib/hirevue";
 import type { FirmProfile } from "./types";
@@ -79,10 +79,7 @@ export function practiceLinks(f: FirmProfile): PracticeLink[] {
     const t = getTest(id);
     if (t) links.push({ href: `/tests/${id}`, label: `Practise: ${t.name}` });
   }
-  // Employers whose process mentions game-based tasks also get the matching practice games.
-  for (const g of gamesForText(text).slice(0, 3)) {
-    const href = g.href ?? `/games/${g.id}`;
-    if (!links.some((l) => l.href === href)) links.push({ href, label: `Play: ${g.name}` });
-  }
+  // Employers whose process names game-based tasks also get a link to that provider's games.
+  for (const p of providersForText(text)) links.push({ href: `/games/provider/${p.id}`, label: `Play: ${p.name} games` });
   return links;
 }

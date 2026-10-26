@@ -1,5 +1,7 @@
 import { describe, expect, it } from "vitest";
-import { GAMES, GAME_DISCLAIMER, PLAYABLE, getGame, gamesForText } from "@/lib/games/catalog";
+import { GAMES, GAME_DISCLAIMER, PLAYABLE, getGame, gamesForText, providersForGame } from "@/lib/games/catalog";
+import { firmsForProvider } from "@/lib/games/firms";
+import { GENERAL_ID, PROVIDERS, getProvider, providersForText } from "@/lib/games/providers";
 import {
   BALLOON,
   CARD_TURNS,
@@ -202,11 +204,54 @@ describe("the catalog", () => {
     expect(getGame("switch")?.href).toBe("/tests/switch-challenge");
   });
 
-  it("adds the matching games to an employer whose process names them, and none to one that does not", () => {
-    const airbus = practiceLinks(getFirm("airbus")!).filter((l) => l.href.startsWith("/games/"));
-    expect(airbus.length).toBeGreaterThan(0);
-    for (const l of airbus) expect(getGame(l.href.replace("/games/", ""))).toBeTruthy();
-    const none = practiceLinks(getFirm("hsbc")!).filter((l) => l.href.startsWith("/games/"));
-    expect(none).toEqual([]);
+  it("links an employer whose process names a game provider to that provider's page, and none to one that does not", () => {
+    const airbus = practiceLinks(getFirm("airbus")!).filter((l) => l.href.startsWith("/games/provider/"));
+    expect(airbus.map((l) => l.href)).toContain("/games/provider/arctic-shores");
+    for (const l of airbus) expect(getProvider(l.href.replace("/games/provider/", ""))).toBeTruthy();
+    expect(practiceLinks(getFirm("hsbc")!).filter((l) => l.href.startsWith("/games/provider/"))).toEqual([]);
+  });
+});
+
+describe("providers", () => {
+  it("have unique ids, real games, sources, and the unnamed-provider entry", () => {
+    expect(new Set(PROVIDERS.map((p) => p.id)).size).toBe(PROVIDERS.length);
+    expect(getProvider(GENERAL_ID)).toBeTruthy();
+    for (const p of PROVIDERS) {
+      expect(p.whatWeKnow.length).toBeGreaterThan(0);
+      expect(p.sources.length).toBeGreaterThan(0);
+      expect(p.gameIds.length).toBeGreaterThan(0);
+      for (const id of p.gameIds) expect(getGame(id), `${p.id} -> ${id}`).toBeTruthy();
+    }
+  });
+
+  it("every playable game belongs to at least one provider, so none is unreachable from the hub", () => {
+    for (const g of GAMES) expect(providersForGame(g.id).length, g.id).toBeGreaterThan(0);
+  });
+
+  it("matches a stage to the provider it names, falls back to the unnamed entry, and ignores stages with no game", () => {
+    expect(providersForText("Online assessment (Arctic Shores) game").map((p) => p.id)).toEqual(["arctic-shores"]);
+    expect(providersForText("HireVue games and a video interview").map((p) => p.id)).toEqual(["hirevue-games"]);
+    expect(providersForText("Pymetrics games").map((p) => p.id)).toEqual(["pymetrics"]);
+    expect(providersForText("Neurosight online assessment").map((p) => p.id)).toEqual(["neurosight"]);
+    expect(providersForText("an interactive game-based task").map((p) => p.id)).toEqual([GENERAL_ID]);
+    expect(providersForText("Video interview on HireVue, 3 questions")).toEqual([]);
+    expect(providersForText("Numerical reasoning (SHL)")).toEqual([]);
+  });
+
+  it("lists the employers whose guides name each provider, with the line that says so", () => {
+    const shores = firmsForProvider("arctic-shores").map((f) => f.slug);
+    expect(shores).toEqual(expect.arrayContaining(["airbus", "amazon"]));
+    const neuro = firmsForProvider("neurosight").map((f) => f.slug);
+    expect(neuro).toEqual(expect.arrayContaining(["grant-thornton", "mazars"]));
+    for (const p of PROVIDERS)
+      for (const f of firmsForProvider(p.id)) {
+        expect(getFirm(f.slug), `${p.id} -> ${f.slug}`).toBeTruthy();
+        expect(f.excerpt.length).toBeGreaterThan(0);
+      }
+    // A game stage that names no provider goes under "other", and a stage that names one does not.
+    const general = firmsForProvider(GENERAL_ID);
+    expect(general.map((f) => f.slug)).toContain("bdo");
+    expect(general.find((f) => f.slug === "airbus")).toBeUndefined();
+    expect(firmsForProvider("arctic-shores").find((f) => f.slug === "airbus")?.excerpt).toMatch(/Arctic Shores/);
   });
 });

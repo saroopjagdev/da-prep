@@ -2,46 +2,88 @@ import Link from "next/link";
 import AccountNote from "@/components/AccountNote";
 import AreaTabs from "@/components/AreaTabs";
 import JsonLd from "@/components/JsonLd";
-import { GAME_DISCLAIMER, GAMES } from "@/lib/games/catalog";
+import GameCard from "@/components/games/GameCard";
+import { GAME_DISCLAIMER, GAMES, getGame } from "@/lib/games/catalog";
+import { firmsForProvider } from "@/lib/games/firms";
+import { PROVIDERS } from "@/lib/games/providers";
 import { breadcrumbLd } from "@/lib/seo";
 import { pageMeta } from "@/lib/site";
 
 export const metadata = pageMeta({
   title: "Game-based assessment practice: Arctic Shores, Pymetrics and HireVue style games",
   description:
-    "Practise the kinds of games employers use in degree apprenticeship applications: balloon risk, card decks, tower planning, digit span, shape matching, reaction and more. Free with an account. Independent practice, not the real tests.",
+    "Find out which degree apprenticeship employers use game-based assessments, which provider they use, and practise the matching games. Free with an account. Independent practice, not the real tests.",
   path: "/games",
 });
 
+const SHOWN_FIRMS = 8;
+
 export default function Games() {
   return (
-    <div className="mx-auto max-w-5xl space-y-6">
+    <div className="mx-auto max-w-5xl space-y-8">
       <JsonLd data={breadcrumbLd([{ name: "Home", path: "/" }, { name: "Practice games", path: "/games" }])} />
       <AreaTabs area="tests" current="/games" />
       <div className="max-w-2xl space-y-2">
         <h1 className="page-title">Practice games</h1>
         <p className="lead">
-          Many employers now start with short games instead of (or as well as) reasoning tests. These practise the same kinds of task, so the format feels familiar on the day. Most have no right answers: employers look at how you play.
+          Many employers now start with short games instead of (or as well as) reasoning tests. Pick the test provider your employer uses, see who else uses it, and practise the same kinds of task. Most have no right answers: employers look at how you play.
         </p>
       </div>
       <AccountNote>Playing a game needs a free account, which also gives you the tracker, deadline emails and your first practice test.</AccountNote>
-      <ul className="grid gap-4 sm:grid-cols-2">
-        {GAMES.map((g) => (
-          <li key={g.id} className="card flex flex-col gap-2 p-5">
-            <h2 className="font-bold">{g.name}</h2>
-            <p className="text-sm font-medium">{g.tagline}</p>
-            <p className="text-sm text-muted">{g.about}</p>
-            <p className="text-xs text-muted">Reported with: {g.reportedWith.join("; ")}</p>
-            <div className="mt-auto flex flex-wrap items-center gap-3 pt-2">
-              <Link href={g.href ?? `/games/${g.id}`} className="btn btn-primary">
-                {g.href ? "Open the test" : "Play"}
-              </Link>
-              <span className="chip text-xs">{g.minutes} min</span>
-              <span className="chip text-xs">{g.kind === "traits" ? "No right answers" : "Scored for accuracy"}</span>
-            </div>
-          </li>
-        ))}
-      </ul>
+
+      <section className="space-y-3" aria-labelledby="providers">
+        <h2 id="providers" className="text-lg font-semibold">
+          Start with the test provider
+        </h2>
+        <ul className="grid gap-4 sm:grid-cols-2">
+          {PROVIDERS.map((p) => {
+            const firms = firmsForProvider(p.id);
+            return (
+              <li key={p.id} className="card flex flex-col gap-2 p-5">
+                <h3 className="text-base font-bold">{p.name}</h3>
+                <p className="text-sm text-muted">{p.summary}</p>
+                <p className="text-sm">
+                  <span className="font-medium">Employers:</span>{" "}
+                  {firms.length ? (
+                    <>
+                      {firms.slice(0, SHOWN_FIRMS).map((f, i) => (
+                        <span key={f.slug}>
+                          {i > 0 && ", "}
+                          <Link href={`/employers/${f.slug}`} className="underline">
+                            {f.name}
+                          </Link>
+                        </span>
+                      ))}
+                      {firms.length > SHOWN_FIRMS && ` and ${firms.length - SHOWN_FIRMS} more`}
+                    </>
+                  ) : (
+                    <span className="text-muted">none of our guides name it yet</span>
+                  )}
+                </p>
+                <p className="text-sm">
+                  <span className="font-medium">Games:</span> {p.gameIds.map((id) => getGame(id)?.name).filter(Boolean).join(", ")}
+                </p>
+                <div className="mt-auto pt-2">
+                  <Link href={`/games/provider/${p.id}`} className="btn btn-primary">
+                    Open {p.name}
+                  </Link>
+                </div>
+              </li>
+            );
+          })}
+        </ul>
+      </section>
+
+      <section className="space-y-3" aria-labelledby="all">
+        <h2 id="all" className="text-lg font-semibold">
+          Or pick any game
+        </h2>
+        <ul className="grid gap-4 sm:grid-cols-2">
+          {GAMES.map((g) => (
+            <GameCard key={g.id} game={g} />
+          ))}
+        </ul>
+      </section>
       <p className="text-xs text-muted">{GAME_DISCLAIMER}</p>
     </div>
   );

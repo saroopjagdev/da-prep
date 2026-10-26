@@ -4,7 +4,7 @@ import { notFound } from "next/navigation";
 import JsonLd from "@/components/JsonLd";
 import RequireAccount from "@/components/RequireAccount";
 import GamePlayer from "@/components/games/GamePlayer";
-import { PLAYABLE, getGame } from "@/lib/games/catalog";
+import { PLAYABLE, getGame, providersForGame } from "@/lib/games/catalog";
 import { breadcrumbLd } from "@/lib/seo";
 import { pageMeta } from "@/lib/site";
 
@@ -62,10 +62,15 @@ export default async function GamePage({ params }: { params: Promise<{ id: strin
   return (
     <div className="mx-auto max-w-2xl space-y-4">
       <JsonLd data={breadcrumbLd([{ name: "Home", path: "/" }, { name: "Practice games", path: "/games" }, { name: game.name, path: `/games/${game.id}` }])} />
-      <p className="text-sm">
+      <p className="flex flex-wrap gap-x-4 gap-y-1 text-sm">
         <Link href="/games" className="underline">
           All practice games
         </Link>
+        {providersForGame(game.id).map((p) => (
+          <Link key={p.id} href={`/games/provider/${p.id}`} className="underline">
+            More from {p.name}
+          </Link>
+        ))}
       </p>
       <RequireAccount heading="h2" what={`play ${game.name}`} preview={about}>
         <h1 className="page-title">{game.name}</h1>

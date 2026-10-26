@@ -129,7 +129,7 @@ test("unknown pages show a friendly 404", async ({ page }) => {
   await expect(page.getByRole("heading", { level: 1 })).toBeVisible();
 });
 
-const PAGES = ["/", "/opportunities", "/sectors/finance", "/sectors/finance/calendar", "/sectors/finance/myths", "/employers/ubs", "/deadlines", "/learn", "/learn/degree-apprenticeship-vs-university", "/tests/hsbc-simulate", "/mock/natwest", "/mock/santander", "/interview", "/tests", "/games", "/games/balloon", "/employers", "/tracker", "/review", "/cv", "/pricing", "/privacy", "/terms", "/accessibility"];
+const PAGES = ["/", "/opportunities", "/sectors/finance", "/sectors/finance/calendar", "/sectors/finance/myths", "/employers/ubs", "/deadlines", "/learn", "/learn/degree-apprenticeship-vs-university", "/tests/hsbc-simulate", "/mock/natwest", "/mock/santander", "/interview", "/tests", "/games", "/games/provider/arctic-shores", "/games/balloon", "/employers", "/tracker", "/review", "/cv", "/pricing", "/privacy", "/terms", "/accessibility"];
 
 for (const path of PAGES) {
   test(`no automatically detectable accessibility problems on ${path}`, async ({ page }) => {
@@ -533,10 +533,22 @@ test("a signed-in member can play Balloon bank to the end", async ({ page }) => 
   await expect(page.getByText("Balloons burst")).toBeVisible();
 });
 
-test("an employer whose process names game-based tasks links to the matching practice games", async ({ page }) => {
+test("an employer whose process names a game provider links to that provider's page, which lists its employers and games", async ({ page }) => {
   await page.goto("/employers/airbus");
-  await expect(page.getByText("Practise this kind of game:").first()).toBeVisible();
-  await expect(page.getByRole("link", { name: "Balloon bank" }).first()).toHaveAttribute("href", "/games/balloon");
+  await expect(page.getByText("Practise the games:").first()).toBeVisible();
+  await page.getByRole("link", { name: "Arctic Shores" }).first().click();
+  await expect(page).toHaveURL(/\/games\/provider\/arctic-shores$/);
+  await expect(page.getByRole("heading", { name: "Arctic Shores practice" })).toBeVisible();
+  await expect(page.getByRole("link", { name: "Airbus" }).first()).toHaveAttribute("href", "/employers/airbus");
+  await expect(page.getByRole("link", { name: "Play" }).first()).toHaveAttribute("href", "/games/balloon");
+});
+
+test("the games hub starts with providers, each listing its employers and linking to its page", async ({ page }) => {
+  await page.goto("/games");
+  const first = page.getByRole("heading", { name: "Arctic Shores", level: 3 });
+  await expect(first).toBeVisible();
+  await page.getByRole("link", { name: "Open Arctic Shores" }).click();
+  await expect(page).toHaveURL(/\/games\/provider\/arctic-shores$/);
 });
 
 const startGame = async (page: Page, id: string) => {

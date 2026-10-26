@@ -2,6 +2,7 @@ import type { MetadataRoute } from "next";
 import { TESTS } from "@/lib/assess/tests";
 import { FIRMS } from "@/lib/firms";
 import { PLAYABLE } from "@/lib/games/catalog";
+import { PROVIDERS } from "@/lib/games/providers";
 import { GUIDES } from "@/lib/guides";
 import { ALL_MOCKS } from "@/lib/mockprocess/definitions";
 import { SECTOR_IDS } from "@/lib/sectors";
@@ -20,6 +21,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...GUIDES.map((g) => `/learn/${g.slug}`),
     ...TESTS.map((t) => `/tests/${t.id}`),
     ...PLAYABLE.map((g) => `/games/${g.id}`),
+    ...PROVIDERS.map((p) => `/games/provider/${p.id}`),
     ...ALL_MOCKS.map((m) => `/mock/${m.firm}`),
   ];
   return [...new Set(paths)].map((p) => ({
