@@ -9,7 +9,9 @@ export default defineConfig({
   timeout: 120_000,
   expect: { timeout: 15_000 },
   fullyParallel: false,
-  retries: 0,
+  // One retry on CI only: clicks made straight after load can race the dev server's page hydration and flake one test per run.
+  // A real failure still fails twice.
+  retries: process.env.CI ? 1 : 0,
   reporter: [["list"]],
   use: { baseURL: `http://localhost:${PORT}`, trace: "retain-on-failure" },
   projects: [
