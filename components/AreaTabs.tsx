@@ -5,6 +5,7 @@ export const AREAS = {
   tests: [
     { href: "/practice", label: "General practice" },
     { href: "/tests", label: "Employer replicas" },
+    { href: "/games", label: "Games" },
   ],
   feedback: [
     { href: "/review", label: "Statement and answers" },

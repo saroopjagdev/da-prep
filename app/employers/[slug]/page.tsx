@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { FIRMS, getFirm } from "@/lib/firms";
 import { extraAdvice, extraBlocks, extraOaTests } from "@/lib/firms/dedupe";
 import { glance, practiceLinks } from "@/lib/firms/glance";
+import { gamesForText } from "@/lib/games/catalog";
 import JsonLd from "@/components/JsonLd";
 import ShareButton from "@/components/ShareButton";
 import { logoPath } from "@/lib/logos";
@@ -170,6 +171,22 @@ export default async function FirmPage({ params }: { params: Promise<{ slug: str
                 {s.durationMins ? ` · about ${s.durationMins} min` : ""}
               </p>
               {s.passMarkNotes && <p className="text-sm text-muted">{s.passMarkNotes}</p>}
+              {(() => {
+                const games = gamesForText(`${s.name} ${s.provider ?? ""} ${s.format}`);
+                return games.length ? (
+                  <p className="text-sm">
+                    <span className="font-medium">Practise this kind of game:</span>{" "}
+                    {games.map((g, i) => (
+                      <span key={g.id}>
+                        {i > 0 && " · "}
+                        <Link href={g.href ?? `/games/${g.id}`} className="underline">
+                          {g.name}
+                        </Link>
+                      </span>
+                    ))}
+                  </p>
+                ) : null;
+              })()}
               {s.tips.length > 0 && (
                 <ul className="list-disc pl-5 text-sm">
                   {s.tips.map((t) => (
