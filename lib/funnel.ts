@@ -27,6 +27,8 @@ export const FUNNEL_EVENTS = [
   "tracker_prompt_view", // the tracker showed a suggested next step
   "tracker_prompt_click", // they followed it
   "parent_share_click", // they pressed the button to send the plan to a parent or guardian
+  "game_start", // they started a practice game
+  "game_complete", // they finished one
 ] as const;
 
 export type FunnelEvent = (typeof FUNNEL_EVENTS)[number];
@@ -118,7 +120,7 @@ export function entryEvent(pathname: string): FunnelEvent {
   if (pathname === "/" || pathname === "") return "visit_home";
   if (pathname.startsWith("/employers/")) return "visit_employer";
   if (/^\/(learn|guide|tips|timeline|faq|sectors|deadlines)(\/|$)/.test(pathname)) return "visit_guide";
-  if (/^\/(tests|practice|mock|interview|review|cv|stories|progress|opportunities)(\/|$)/.test(pathname)) return "visit_tool";
+  if (/^\/(tests|games|practice|mock|interview|review|cv|stories|progress|opportunities)(\/|$)/.test(pathname)) return "visit_tool";
   return "visit_other";
 }
 

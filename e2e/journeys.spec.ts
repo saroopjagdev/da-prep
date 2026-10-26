@@ -129,7 +129,7 @@ test("unknown pages show a friendly 404", async ({ page }) => {
   await expect(page.getByRole("heading", { level: 1 })).toBeVisible();
 });
 
-const PAGES = ["/", "/opportunities", "/sectors/finance", "/sectors/finance/calendar", "/sectors/finance/myths", "/employers/ubs", "/deadlines", "/learn", "/learn/degree-apprenticeship-vs-university", "/tests/hsbc-simulate", "/mock/natwest", "/mock/santander", "/interview", "/tests", "/employers", "/tracker", "/review", "/cv", "/pricing", "/privacy", "/terms", "/accessibility"];
+const PAGES = ["/", "/opportunities", "/sectors/finance", "/sectors/finance/calendar", "/sectors/finance/myths", "/employers/ubs", "/deadlines", "/learn", "/learn/degree-apprenticeship-vs-university", "/tests/hsbc-simulate", "/mock/natwest", "/mock/santander", "/interview", "/tests", "/games", "/games/balloon", "/employers", "/tracker", "/review", "/cv", "/pricing", "/privacy", "/terms", "/accessibility"];
 
 for (const path of PAGES) {
   test(`no automatically detectable accessibility problems on ${path}`, async ({ page }) => {
@@ -499,4 +499,122 @@ test("finishing a practice test adds it to progress", async ({ page }) => {
   await page.goto("/progress");
   await expect(page.getByRole("heading", { name: "Practice tests" })).toBeVisible();
   await expect(page.getByText("1 attempt").first()).toBeVisible();
+});
+
+test("practice games need an account: a visitor sees what the game is and a sign-up prompt, not the game", async ({ page }) => {
+  await page.goto("/games/balloon");
+  await expect(page.getByRole("heading", { name: "Create a free account to play Balloon bank" })).toBeVisible();
+  await expect(page.getByRole("button", { name: "Start" })).toHaveCount(0);
+  await expect(page.getByText(/Appetite for risk/)).toBeVisible();
+});
+
+test("a signed-in member can play Four decks to the end and see their numbers and the disclaimer", async ({ page }) => {
+  await signedIn(page);
+  await page.goto("/games/cards");
+  await expect(page.getByText(/not affiliated with or endorsed/i).first()).toBeVisible();
+  await page.getByRole("button", { name: "Start" }).click();
+  for (let i = 0; i < 40; i++) await page.getByRole("button", { name: "Draw a card from deck C" }).click();
+  await expect(page.getByRole("region", { name: "Your result" })).toBeVisible();
+  await expect(page.getByText("Steadier decks (C and D)")).toBeVisible();
+  await expect(page.getByRole("button", { name: "Play again" })).toBeVisible();
+});
+
+test("a signed-in member can play Balloon bank to the end", async ({ page }) => {
+  await signedIn(page);
+  await page.goto("/games/balloon");
+  await page.getByRole("button", { name: "Start" }).click();
+  const result = page.getByRole("region", { name: "Your result" });
+  for (let n = 0; n < 40 && !(await result.isVisible()); n++) {
+    await page.getByRole("button", { name: "Pump" }).click();
+    const bank = page.getByRole("button", { name: /^Bank/ });
+    if (await bank.isEnabled().catch(() => false)) await bank.click();
+  }
+  await expect(result).toBeVisible();
+  await expect(page.getByText("Balloons burst")).toBeVisible();
+});
+
+test("an employer whose process names game-based tasks links to the matching practice games", async ({ page }) => {
+  await page.goto("/employers/airbus");
+  await expect(page.getByText("Practise this kind of game:").first()).toBeVisible();
+  await expect(page.getByRole("link", { name: "Balloon bank" }).first()).toHaveAttribute("href", "/games/balloon");
+});
+
+const startGame = async (page: Page, id: string) => {
+  await signedIn(page);
+  await page.goto(`/games/${id}`);
+  await page.getByRole("button", { name: "Start" }).click();
+};
+const resultRegion = (page: Page) => page.getByRole("region", { name: "Your result" });
+
+test("Colour words runs to its result", async ({ page }) => {
+  await startGame(page, "stroop");
+  for (let i = 0; i < 40; i++) await page.getByRole("button", { name: /^red/i }).click();
+  await expect(resultRegion(page)).toBeVisible();
+  await expect(page.getByText("Average time, word differs from ink")).toBeVisible();
+});
+
+test("Money exchange runs both parts to its result", async ({ page }) => {
+  await startGame(page, "money");
+  for (let i = 0; i < 6; i++) await page.getByRole("button", { name: /^Send \d+/ }).click();
+  await expect(page.getByText(/Part 2/)).toBeVisible();
+  for (let i = 0; i < 8; i++) await page.getByRole("button", { name: "Accept" }).click();
+  await expect(resultRegion(page)).toBeVisible();
+  await expect(page.getByText("Average sent to partner")).toBeVisible();
+});
+
+test("Tower can be solved in the fewest moves on every level", async ({ page }) => {
+  await startGame(page, "tower");
+  const peg = (n: number) => page.getByRole("button", { name: new RegExp(`^Peg ${n + 1}`) });
+  async function solve(k: number, from: number, to: number, via: number) {
+    if (k === 0) return;
+    await solve(k - 1, from, via, to);
+    await peg(from).click();
+    await peg(to).click();
+    await solve(k - 1, via, to, from);
+  }
+  for (const discs of [3, 4, 5]) await solve(discs, 0, 2, 1);
+  await expect(resultRegion(page)).toBeVisible();
+  await expect(page.getByText("Every level in the fewest moves")).toBeVisible();
+});
+
+test("Digit span: the digits shown can be typed back and are marked correct", async ({ page }) => {
+  await startGame(page, "digit-span");
+  const seen: string[] = [];
+  let gap = true;
+  const input = page.locator("#span-answer");
+  for (let n = 0; n < 200 && !(await input.isVisible()); n++) {
+    const label = await page.locator('p[aria-live="assertive"][aria-label^="Digit "]').first().getAttribute("aria-label", { timeout: 100 }).catch(() => null);
+    if (label && gap) seen.push(label.replace("Digit ", ""));
+    gap = !label;
+    await page.waitForTimeout(80);
+  }
+  expect(seen).toHaveLength(3);
+  await input.fill(seen.join(""));
+  await page.getByRole("button", { name: "Check" }).click();
+  await expect(page.getByRole("status").filter({ hasText: "Correct." })).toBeVisible();
+});
+
+test("Keypress runs through its five rounds to a result", async ({ page }) => {
+  await startGame(page, "keypress");
+  await page.getByRole("button", { name: /^Press/ }).click();
+  await expect(resultRegion(page)).toBeVisible({ timeout: 40_000 });
+  await expect(page.getByText("Presses while told to wait")).toBeVisible();
+});
+
+test("Flashback, Shape reaction and Block sequence start and take input", async ({ page }) => {
+  await startGame(page, "flashback");
+  await page.getByRole("button", { name: /^Same/ }).click();
+  await page.getByRole("button", { name: /^Different/ }).click();
+  await expect(page.getByText(/2 answered/)).toBeVisible();
+
+  await page.goto("/games/reaction");
+  await page.getByRole("button", { name: "Start" }).click();
+  await expect(page.getByText("Shape 1 of 40")).toBeVisible();
+  await page.getByRole("button", { name: /^Press/ }).click(); // too early: counted, not a crash
+
+  await page.goto("/games/sequence");
+  await page.getByRole("button", { name: "Start" }).click();
+  await expect(page.getByText(/Tap the tiles in the same order/)).toBeVisible({ timeout: 15_000 });
+  for (const t of [1, 2, 3]) await page.getByRole("button", { name: new RegExp(`^Tile ${t}`) }).click();
+  await expect(page.getByRole("status").filter({ hasText: /Correct\.|Not quite/ })).toBeVisible();
 });

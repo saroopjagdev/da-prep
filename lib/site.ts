@@ -34,6 +34,7 @@ export const PUBLIC_PATHS = [
   "/interview",
   "/practice",
   "/tests",
+  "/games",
   "/employers",
   "/review",
   "/cv",

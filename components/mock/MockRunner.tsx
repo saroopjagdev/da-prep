@@ -7,6 +7,7 @@ import SignInNotice from "@/components/SignInNotice";
 import Runner from "@/components/assess/Runner";
 import QaStage, { type Turn } from "@/components/mock/QaStage";
 import { postJson } from "@/lib/api";
+import { gamesForText } from "@/lib/games/catalog";
 import { percent, traitProfile } from "@/lib/assess/score";
 import type { Test, TestResult } from "@/lib/assess/types";
 import type { MockProcess, MockStage } from "@/lib/mockprocess/types";
@@ -232,6 +233,23 @@ export default function MockRunner({ mock, firmName, tests }: { mock: MockProces
             </ul>
           )}
           {stage.note && <p className="callout bg-brand-50 text-sm">{stage.note}</p>}
+          {(() => {
+            const games = gamesForText(`${stage.name} ${stage.summary} ${stage.note ?? ""}`);
+            return games.length ? (
+              <div className="callout bg-sun-50 text-sm">
+                <p className="font-semibold">Practise this kind of game (opens in a new tab, so your mock stays where it is)</p>
+                <ul className="mt-1 flex flex-wrap gap-x-4 gap-y-1">
+                  {games.map((g) => (
+                    <li key={g.id}>
+                      <a href={g.href ?? `/games/${g.id}`} target="_blank" rel="noopener noreferrer" className="font-medium underline">
+                        {g.name}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ) : null;
+          })()}
           <button className="btn btn-primary" onClick={() => advance(stageIdx, [...results.slice(0, stageIdx), { kind: "info" }])}>
             Continue
           </button>

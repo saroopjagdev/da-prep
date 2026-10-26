@@ -95,5 +95,5 @@ Missing, in rough order of finance value:
 6. **Watson Glaser-style critical thinking** (some finance and law; Big 4 routes).
 7. **Aon switchChallenge-style** (Morgan Stanley).
 8. Talent Q Elements style (Citi/BoE reports), CCAT, Saville Swift: lower priority.
-9. Games (Arctic Shores, Pymetrics): explain only; don't simulate (no right answers, and imitation risks misleading students).
+9. Games (Arctic Shores, Pymetrics): originally "explain only". **Changed on 26 October 2026:** the product now has original practice versions of the documented task types (`/games`, `lib/games/`), each with a plain disclaimer that they are independent practice, not the real tests, and not predictive. Providers' real task designs, timings and scoring are unpublished, so these follow task types described by prep sites and university careers services, not any provider's own games. Neurosight, Cosmic Cadet and Arctic Shores' other task names had no public description and are not replicated.
 10. Coding (HackerRank/Codility): link to the free official practice platforms rather than build our own.
