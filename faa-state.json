@@ -1,5 +1,5 @@
 {
- "checked": "2026-10-19",
+ "checked": "2026-10-26",
  "jobs": {
   "2000026593": {
    "id": "2000026593",
@@ -21,6 +21,16 @@
    "posted": "2026-10-19",
    "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000040334"
   },
+  "2000046706": {
+   "id": "2000046706",
+   "employer": "SKELLY & COUCH LIMITED ",
+   "title": "Skelly & Couch Limited - Building, Environment & Services Engineering Level 6 Degree Apprenticeship",
+   "level": "6",
+   "location": "23 WENLOCK ROAD N1",
+   "deadline": "2027-08-31",
+   "posted": "2026-10-19",
+   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000046706"
+  },
   "2000049834": {
    "id": "2000049834",
    "employer": "MY LOCAL SOLICITOR LTD ",
@@ -30,16 +40,6 @@
    "deadline": "2027-01-01",
    "posted": "2026-09-21",
    "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000049834"
-  },
-  "2000050828": {
-   "id": "2000050828",
-   "employer": "WM MORRISON SUPERMARKETS P L C",
-   "title": "Retail Degree Apprenticeship",
-   "level": "6",
-   "location": "national",
-   "deadline": "2026-12-01",
-   "posted": "2026-09-01",
-   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000050828"
   },
   "2000050830": {
    "id": "2000050830",
@@ -60,16 +60,6 @@
    "deadline": "2026-12-01",
    "posted": "2026-09-01",
    "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000050834"
-  },
-  "2000050968": {
-   "id": "2000050968",
-   "employer": "BULLEN DEVELOPMENTS LIMITED",
-   "title": "Apprentice Building Surveying",
-   "level": "6",
-   "location": "Norwich NR8",
-   "deadline": "2026-10-31",
-   "posted": "2026-09-02",
-   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000050968"
   },
   "2000051163": {
    "id": "2000051163",
@@ -140,16 +130,6 @@
    "deadline": "2026-12-01",
    "posted": "2026-10-08",
    "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000053381"
-  },
-  "2000053819": {
-   "id": "2000053819",
-   "employer": "G4S TECHNOLOGY LIMITED",
-   "title": "Finance Graduate Apprentice (AMAG Technology Parent Limited)",
-   "level": "7",
-   "location": "Tewkesbury GL20",
-   "deadline": "2026-10-26",
-   "posted": "2026-09-16",
-   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000053819"
   },
   "2000054164": {
    "id": "2000054164",
@@ -230,26 +210,6 @@
    "deadline": "2026-10-31",
    "posted": "2026-10-01",
    "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000055575"
-  },
-  "2000055584": {
-   "id": "2000055584",
-   "employer": "HSBC UK",
-   "title": "Degree Apprenticeship - Retail Banking - Birmingham - HSBC",
-   "level": "6",
-   "location": "1 Centenary Square B1",
-   "deadline": "2026-10-25",
-   "posted": "2026-10-01",
-   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000055584"
-  },
-  "2000055590": {
-   "id": "2000055590",
-   "employer": "HSBC UK",
-   "title": "Degree Apprenticeship - Retail Banking - Leeds - HSBC",
-   "level": "6",
-   "location": "40 Wakefield Road, Leeds LS98",
-   "deadline": "2026-10-25",
-   "posted": "2026-10-01",
-   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000055590"
   },
   "2000055810": {
    "id": "2000055810",
@@ -350,16 +310,6 @@
    "deadline": "2026-10-30",
    "posted": "2026-10-05",
    "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000057136"
-  },
-  "2000057138": {
-   "id": "2000057138",
-   "employer": "GKN AEROSPACE SERVICES LIMITED",
-   "title": "Aerospace Engineering Degree Apprentice",
-   "level": "6",
-   "location": "Bristol BS34",
-   "deadline": "2026-10-23",
-   "posted": "2026-10-05",
-   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000057138"
   },
   "2000057141": {
    "id": "2000057141",
@@ -540,26 +490,6 @@
    "deadline": "2027-02-17",
    "posted": "2026-10-07",
    "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000057615"
-  },
-  "2000058000": {
-   "id": "2000058000",
-   "employer": "Cheshire West and Chester Council",
-   "title": "Building Control Surveyor Degree Apprentice (Level 6)",
-   "level": "6",
-   "location": "national",
-   "deadline": "2026-10-25",
-   "posted": "2026-10-08",
-   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000058000"
-  },
-  "2000058121": {
-   "id": "2000058121",
-   "employer": "Murray Smith LLP",
-   "title": "Trainee Accountant Apprentice",
-   "level": "7",
-   "location": "Northwich CW8",
-   "deadline": "2026-10-23",
-   "posted": "2026-10-08",
-   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000058121"
   },
   "2000058198": {
    "id": "2000058198",
@@ -1081,16 +1011,6 @@
    "posted": "2026-10-14",
    "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000059077"
   },
-  "2000059081": {
-   "id": "2000059081",
-   "employer": "AWE PLC",
-   "title": "Project Management Apprenticeship",
-   "level": "6",
-   "location": "Reading RG7",
-   "deadline": "2026-10-25",
-   "posted": "2026-10-14",
-   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000059081"
-  },
   "2000059136": {
    "id": "2000059136",
    "employer": "Halo",
@@ -1130,16 +1050,6 @@
    "deadline": "2027-01-15",
    "posted": "2026-10-14",
    "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000059173"
-  },
-  "2000059218": {
-   "id": "2000059218",
-   "employer": "The Royal Marsden NHS Foundation Trust",
-   "title": "Clinical Research Administrative Assistant Degree Apprenticeship",
-   "level": "6",
-   "location": "Downs Road SM2",
-   "deadline": "2026-10-25",
-   "posted": "2026-10-15",
-   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000059218"
   },
   "2000059234": {
    "id": "2000059234",
@@ -1300,6 +1210,76 @@
    "deadline": "2026-11-19",
    "posted": "2026-10-19",
    "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000059816"
+  },
+  "2000059911": {
+   "id": "2000059911",
+   "employer": "ASTREA ACADEMY TRUST",
+   "title": "Apprentice Careers Advisor - Level 6",
+   "level": "6",
+   "location": "St. Neots PE19",
+   "deadline": "2026-11-01",
+   "posted": "2026-10-19",
+   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000059911"
+  },
+  "2000060218": {
+   "id": "2000060218",
+   "employer": "WHIRLEDGE & NOTT LIMITED ",
+   "title": "Graduate Apprenticeship - Chartered Surveyor",
+   "level": "6",
+   "location": "HULLBRIDGE ROAD SS6",
+   "deadline": "2026-12-07",
+   "posted": "2026-10-21",
+   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000060218"
+  },
+  "2000060227": {
+   "id": "2000060227",
+   "employer": "Animal and Plant Health Agency",
+   "title": "Assistant Scientific Officer ID5050 Apprenticeship",
+   "level": "6",
+   "location": "Loughborough LE12",
+   "deadline": "2026-11-02",
+   "posted": "2026-10-20",
+   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000060227"
+  },
+  "2000060259": {
+   "id": "2000060259",
+   "employer": "Horizon Healthcare",
+   "title": "Registered Nursing Associate / Registered Nurse Degree Apprentice (Step-Up Route)",
+   "level": "6",
+   "location": "DERBY DE1",
+   "deadline": "2026-11-04",
+   "posted": "2026-10-22",
+   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000060259"
+  },
+  "2000060460": {
+   "id": "2000060460",
+   "employer": "GCA (UK) LTD ",
+   "title": "Civil Engineering Apprenticeship",
+   "level": "6",
+   "location": "Derby DE1",
+   "deadline": "2026-11-12",
+   "posted": "2026-10-22",
+   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000060460"
+  },
+  "2000060574": {
+   "id": "2000060574",
+   "employer": "PAUL BASHAM ASSOCIATES LTD ",
+   "title": "Civil Engineering Apprentice",
+   "level": "6",
+   "location": "FAREHAM PO16 +1 more",
+   "deadline": "2027-05-31",
+   "posted": "2026-10-22",
+   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000060574"
+  },
+  "2000060649": {
+   "id": "2000060649",
+   "employer": "WM MORRISON SUPERMARKETS P L C",
+   "title": "Retail Degree Apprenticeship",
+   "level": "6",
+   "location": "Bridlington YO16 +8 more",
+   "deadline": "2026-12-01",
+   "posted": "2026-10-22",
+   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000060649"
   }
  }
 }
