@@ -2,6 +2,7 @@
 // Every game is an ORIGINAL practice version of a task type described publicly (prep sites, university careers services,
 // provider help pages). None is a provider's own task, timing or scoring, and none predicts a real result.
 import type { Confidence } from "@/lib/firms/types";
+import { PROVIDERS, providersForText } from "@/lib/games/providers";
 
 export const GAME_DISCLAIMER =
   "Independent practice in the style of game-based assessments. Not affiliated with or endorsed by any test provider or employer. Real assessments differ in design, timing and scoring, which providers do not publish, and a result here says nothing about how you would do in one.";
@@ -195,20 +196,19 @@ export const GAMES: Game[] = [
 export const getGame = (id: string) => GAMES.find((g) => g.id === id);
 export const PLAYABLE = GAMES.filter((g) => !g.href);
 
-const byId = (...ids: string[]) => ids.map((i) => getGame(i)!).filter(Boolean);
-
 /**
- * The games that match a stage described by free text (its name, provider and format). A stage must actually mention
- * a game-based assessment, so ordinary test and interview stages get none. Returns at most six.
+ * The games that match a stage described by free text (its name, provider and format), through the providers it names.
+ * A stage must actually mention a game-based assessment, so ordinary test and interview stages get none.
  */
 export function gamesForText(text: string): Game[] {
-  if (!/\bgames?\b|gamif|game-based|arctic shores|pymetrics|harver|neurosight|switch ?challenge|cosmic cadet|task-based/i.test(text)) return [];
   const out: Game[] = [];
-  const add = (...g: Game[]) => g.forEach((x) => out.some((o) => o.id === x.id) || out.push(x));
-  if (/arctic shores/i.test(text)) add(...byId("balloon", "reaction", "sequence"));
-  if (/pymetrics|harver/i.test(text)) add(...byId("balloon", "cards", "tower", "digit-span", "keypress", "money"));
-  if (/hirevue|santander|bae/i.test(text)) add(...byId("flashback", "digit-span", "balloon"));
-  if (/switch ?challenge|aon|cut-e/i.test(text)) add(...byId("switch"));
-  if (out.length === 0) add(...byId("flashback", "reaction", "digit-span", "balloon"));
+  for (const p of providersForText(text))
+    for (const id of p.gameIds) {
+      const g = getGame(id);
+      if (g && !out.some((o) => o.id === g.id)) out.push(g);
+    }
   return out.slice(0, 6);
 }
+
+/** The providers whose practice includes this game. */
+export const providersForGame = (gameId: string) => PROVIDERS.filter((p) => p.gameIds.includes(gameId));

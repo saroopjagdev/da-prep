@@ -4,7 +4,8 @@ import { notFound } from "next/navigation";
 import { FIRMS, getFirm } from "@/lib/firms";
 import { extraAdvice, extraBlocks, extraOaTests } from "@/lib/firms/dedupe";
 import { glance, practiceLinks } from "@/lib/firms/glance";
-import { gamesForText } from "@/lib/games/catalog";
+import { getGame } from "@/lib/games/catalog";
+import { providersForText } from "@/lib/games/providers";
 import JsonLd from "@/components/JsonLd";
 import ShareButton from "@/components/ShareButton";
 import { logoPath } from "@/lib/logos";
@@ -171,22 +172,21 @@ export default async function FirmPage({ params }: { params: Promise<{ slug: str
                 {s.durationMins ? ` · about ${s.durationMins} min` : ""}
               </p>
               {s.passMarkNotes && <p className="text-sm text-muted">{s.passMarkNotes}</p>}
-              {(() => {
-                const games = gamesForText(`${s.name} ${s.provider ?? ""} ${s.format}`);
-                return games.length ? (
-                  <p className="text-sm">
-                    <span className="font-medium">Practise this kind of game:</span>{" "}
-                    {games.map((g, i) => (
-                      <span key={g.id}>
-                        {i > 0 && " · "}
-                        <Link href={g.href ?? `/games/${g.id}`} className="underline">
-                          {g.name}
-                        </Link>
-                      </span>
-                    ))}
-                  </p>
-                ) : null;
-              })()}
+              {providersForText(`${s.name} ${s.provider ?? ""} ${s.format}`).map((p) => (
+                <p key={p.id} className="text-sm">
+                  <span className="font-medium">Practise the games:</span>{" "}
+                  <Link href={`/games/provider/${p.id}`} className="font-semibold underline">
+                    {p.name}
+                  </Link>{" "}
+                  <span className="text-muted">
+                    ({p.gameIds
+                      .map((id) => getGame(id)?.name)
+                      .filter(Boolean)
+                      .join(" · ")}
+                    )
+                  </span>
+                </p>
+              ))}
               {s.tips.length > 0 && (
                 <ul className="list-disc pl-5 text-sm">
                   {s.tips.map((t) => (
