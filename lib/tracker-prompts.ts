@@ -18,6 +18,8 @@ export type TrackerPrompt = {
   cta: string;
   /** The employer this is about, when it has one, so a nudge can also offer deadline emails for it. */
   employer?: string;
+  /** What the suggestion leads to is part of Pro, so a free member is told so up front. */
+  pro?: boolean;
 };
 
 const daysUntil = (iso: string, today: string) => Math.round((Date.parse(iso) - Date.parse(today)) / 86_400_000);
@@ -40,6 +42,7 @@ export function nextPrompt(apps: Application[], today: string, mockHref: (employ
       href: href ?? "/interview",
       cta: href ? "Try the mock process" : "Practise interview questions",
       employer: centre.employer,
+      pro: Boolean(href),
     };
   }
 

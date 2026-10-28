@@ -26,7 +26,7 @@ test("finance is a sector page with its calendar, and old finance links redirect
 test("a firm-specific text interview reaches marked feedback", async ({ page }) => {
   await signedIn(page);
   await page.goto("/interview?firm=morgan-stanley");
-  await expect(page.getByLabel(/^Employer/)).toHaveValue("morgan-stanley");
+  await expect(page.getByRole("combobox", { name: /^Employer/ })).toHaveValue("morgan-stanley");
   await page.getByRole("button", { name: "Commercial awareness" }).click();
   await page.getByRole("button", { name: /start interview/i }).click();
   for (let i = 0; i < 5; i++) {
@@ -96,7 +96,7 @@ test("the My tracker menu link works from the page you are already on", async ({
   await clearRuns(page);
   await page.reload();
   await page.locator("tbody tr").filter({ hasText: "Barclays" }).first().getByLabel("My status for Barclays").selectOption("Interested");
-  await page.getByRole("navigation").getByRole("link", { name: "Tracker" }).first().hover();
+  await page.getByRole("navigation").getByRole("link", { name: "Employers" }).first().hover();
   await page.getByRole("link", { name: /My tracker/ }).first().click();
   await expect(page.getByRole("button", { name: /My tracker/ })).toHaveAttribute("aria-pressed", "true");
   await expect(page.getByLabel(/My status for/)).toHaveCount(1);
@@ -404,7 +404,7 @@ for (const [path, what] of [
   test(`without an account, ${path} asks for one instead of opening the tool`, async ({ page }) => {
     await page.goto(path);
     await expect(page.getByRole("heading", { name: /create a free account to/i })).toContainText(what);
-    await expect(page.getByRole("link", { name: "Create a free account" }).first()).toHaveAttribute("href", "/login?mode=signup");
+    await expect(page.getByRole("link", { name: "Create a free account" }).first()).toHaveAttribute("href", /^\/login\?mode=signup&next=/);
   });
 }
 
@@ -679,4 +679,66 @@ test("a brand-new member's dashboard offers one clear first step, with the check
   await expect(page.getByRole("link", { name: /Answer a question/ })).toHaveAttribute("href", "/interview");
   await page.getByText(/Your prep checklist/).click();
   await expect(page.getByRole("link", { name: "Track 3 applications" })).toBeVisible();
+});
+
+test("after creating an account the form says what to do next, with an inbox link, a resend and a way back", async ({ page }) => {
+  let resent = 0;
+  await page.route("**/auth/v1/signup**", (route) =>
+    route.fulfill({ json: { id: "u-new", aud: "authenticated", role: "", email: "new@gmail.com", identities: [{ id: "i1" }], app_metadata: {}, user_metadata: {}, created_at: new Date().toISOString() } }),
+  );
+  await page.route("**/auth/v1/resend**", (route) => {
+    resent++;
+    return route.fulfill({ json: {} });
+  });
+  await page.goto("/login?mode=signup&next=/practice");
+  await page.getByLabel("Email address").fill("new@gmail.com");
+  await page.getByLabel("Password").fill("a-long-enough-password");
+  await page.getByRole("button", { name: "Create free account" }).click();
+  await expect(page.getByText("Check your email")).toBeVisible();
+  await expect(page.getByText(/signed in straight away, with no password to type/)).toBeVisible();
+  await expect(page.getByRole("link", { name: "Open Gmail" })).toHaveAttribute("href", "https://mail.google.com/");
+  expect(await page.evaluate(() => localStorage.getItem("da-prep:after-auth"))).toBe("/practice");
+  await page.getByRole("button", { name: "send it again" }).click();
+  await expect(page.getByText(/Sent again/)).toBeVisible();
+  expect(resent).toBe(1);
+  await page.getByRole("button", { name: "Use a different one" }).click();
+  await expect(page.getByRole("button", { name: "Create free account" })).toBeVisible();
+});
+
+test("the header has three clear groups, and the old confusing ones are gone", async ({ page, isMobile }) => {
+  test.skip(isMobile, "the dropdowns are the desktop navigation");
+  await page.goto("/");
+  const nav = page.getByRole("navigation").first();
+  for (const name of ["Employers", "Practise", "Learn"]) await expect(nav.getByRole("link", { name, exact: true }).first()).toBeVisible();
+  for (const name of ["Prepare", "My prep", "Tracker"]) await expect(nav.getByRole("link", { name, exact: true })).toHaveCount(0);
+  await nav.getByRole("link", { name: "Practise", exact: true }).first().hover();
+  await expect(page.getByRole("link", { name: /Stories bank/ }).first()).toBeVisible();
+});
+
+test("the plans page tells you who Pro is for and shows the feedback before the payment form", async ({ page }) => {
+  await signedIn(page);
+  await page.goto("/pricing");
+  await expect(page.getByRole("heading", { name: "Is Pro for you?" })).toBeVisible();
+  const example = (await page.getByRole("heading", { name: "What marked feedback looks like" }).boundingBox())!;
+  const pay = (await page.getByRole("heading", { name: "Before you pay" }).boundingBox())!;
+  expect(example.y).toBeLessThan(pay.y);
+});
+
+test("a free member sees which tracker links lead to Pro", async ({ page }) => {
+  await signedIn(page);
+  await usage(page, { used: 0, limit: 1 });
+  await page.route("**/api/alerts", (route) => route.fulfill({ json: { keys: [] } }));
+  await page.goto("/opportunities");
+  await expect(page.getByTitle("Firm mock processes are part of Pro").filter({ visible: true }).first()).toBeVisible();
+});
+
+test("finishing a game points to marked feedback and to Pro", async ({ page }) => {
+  await signedIn(page);
+  await usage(page, { used: 0, limit: 1 });
+  await page.goto("/games/cards");
+  await page.getByRole("button", { name: "Start" }).click();
+  for (let i = 0; i < 40; i++) await page.getByRole("button", { name: "Draw a card from deck C" }).click();
+  await expect(page.getByRole("heading", { name: /Want feedback on how you answer/ })).toBeVisible();
+  await expect(page.getByRole("link", { name: "Try a mock interview" })).toHaveAttribute("href", "/interview");
+  await expect(page.getByRole("link", { name: "See Pro" })).toHaveAttribute("href", "/pricing");
 });
