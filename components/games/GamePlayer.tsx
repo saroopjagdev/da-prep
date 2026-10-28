@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useState } from "react";
+import { useUsage } from "@/components/useUsage";
 import Balloon from "@/components/games/Balloon";
 import Cards from "@/components/games/Cards";
 import { DigitSpan, Sequence } from "@/components/games/Spans";
@@ -30,6 +31,7 @@ type Phase = { name: "intro" } | { name: "play"; seed: number } | { name: "done"
 /** One game from start to finish: how it works, the game itself, then your numbers and what to try next. */
 export default function GamePlayer({ game }: { game: Game }) {
   const [phase, setPhase] = useState<Phase>({ name: "intro" });
+  const usage = useUsage();
   const Play = COMPONENTS[game.id];
   if (!Play) return null;
   const others = GAMES.filter((g) => g.id !== game.id).slice(0, 4);
@@ -95,6 +97,22 @@ export default function GamePlayer({ game }: { game: Game }) {
               </li>
             ))}
           </ul>
+        </section>
+        <section className="card space-y-2 border-brand-600 p-5" aria-label="Get marked feedback">
+          <h2 className="font-semibold">Want feedback on how you answer, not just how you play?</h2>
+          <p className="text-sm text-muted">
+            Games are one part of an application. Your first AI mock interview is free, marked out of 100 with what to fix.{usage?.plan === "pro" ? "" : " Pro gives unlimited mock interviews and every firm mock process."}
+          </p>
+          <div className="flex flex-wrap gap-3">
+            <Link href="/interview" className="btn btn-primary">
+              Try a mock interview
+            </Link>
+            {usage?.plan !== "pro" && (
+              <Link href="/pricing" className="btn btn-secondary">
+                See Pro
+              </Link>
+            )}
+          </div>
         </section>
         <p className="text-xs text-muted">{GAME_DISCLAIMER}</p>
       </div>

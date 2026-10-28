@@ -3,6 +3,7 @@
 import { createContext, useContext, useEffect, useMemo, useState, type ReactNode } from "react";
 import type { User } from "@supabase/supabase-js";
 import { z } from "zod";
+import { takeNext } from "@/lib/after-auth";
 import { track } from "@/lib/funnel";
 import { cloudEnabled, supabase } from "@/lib/supabase";
 
@@ -20,6 +21,8 @@ type AuthState = {
   /** Create an account. `confirm` is true when Supabase wants the email address confirmed before signing in. */
   signUpPassword: (email: string, password: string) => Promise<{ error: string | null; confirm: boolean }>;
   signInPassword: (email: string, password: string) => Promise<string | null>;
+  /** Send the account-confirmation email again. Returns an error message, or null on success. */
+  resendSignup: (email: string) => Promise<string | null>;
   resetPassword: (email: string) => Promise<string | null>;
   updatePassword: (password: string) => Promise<string | null>;
   signInGoogle: () => Promise<string | null>;
@@ -36,6 +39,7 @@ const Ctx = createContext<AuthState>({
   signInEmail: async () => "Accounts are not configured",
   signUpPassword: async () => ({ error: "Accounts are not configured", confirm: false }),
   signInPassword: async () => "Accounts are not configured",
+  resendSignup: async () => "Accounts are not configured",
   resetPassword: async () => "Accounts are not configured",
   updatePassword: async () => "Accounts are not configured",
   signInGoogle: async () => "Accounts are not configured",
@@ -60,6 +64,9 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
       if (fromLink && data.session) track("signed_in", { oncePerLoad: true });
       setUser(data.session?.user ?? null);
       setReady(true);
+      // Back from the confirmation email: carry on where they were when they created the account.
+      const next = fromLink && data.session ? takeNext() : null;
+      if (next && next !== window.location.pathname) window.location.replace(next);
     });
     const { data } = sb.auth.onAuthStateChange((e, s) => {
       if (e === "PASSWORD_RECOVERY") setRecovery(true);
@@ -91,6 +98,10 @@ export default function AuthProvider({ children }: { children: ReactNode }) {
       async signInPassword(email, password) {
         const { data, error } = await supabase()!.auth.signInWithPassword({ email, password });
         if (!error && data.session) track("signed_in");
+        return error?.message ?? null;
+      },
+      async resendSignup(email) {
+        const { error } = await supabase()!.auth.resend({ type: "signup", email, options: { emailRedirectTo: window.location.origin } });
         return error?.message ?? null;
       },
       async resetPassword(email) {

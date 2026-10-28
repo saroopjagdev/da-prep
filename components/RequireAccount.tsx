@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useEffect } from "react";
 import { useAuth } from "@/components/AuthProvider";
 import { track } from "@/lib/funnel";
@@ -22,6 +23,7 @@ const PERKS = [
  */
 export default function RequireAccount({ what, children, preview, heading: Heading = "h1" }: { what: string; children: React.ReactNode; /** The page's main heading is the sign-up prompt unless the preview brings its own. */ heading?: "h1" | "h2"; /** Server-rendered text shown with the sign-up card, so the page still describes itself to search engines. */ preview?: React.ReactNode }) {
   const { enabled, ready, user } = useAuth();
+  const pathname = usePathname();
   const gated = enabled && ready && !user;
   useEffect(() => {
     if (gated) track("gate_view", { oncePerLoad: true });
@@ -41,7 +43,7 @@ export default function RequireAccount({ what, children, preview, heading: Headi
         ))}
       </ul>
       <div className="flex flex-wrap gap-3">
-        <Link href="/login?mode=signup" className="btn btn-primary">
+        <Link href={`/login?mode=signup&next=${encodeURIComponent(pathname)}`} className="btn btn-primary">
           Create a free account
         </Link>
         <Link href="/opportunities" className="btn btn-secondary">

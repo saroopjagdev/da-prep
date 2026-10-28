@@ -79,7 +79,10 @@ export default function Pricing() {
 
   return (
     <div className="mx-auto max-w-3xl space-y-6">
-      <h1 className="page-title">Plans</h1>
+      <div className="space-y-2">
+        <h1 className="page-title">Plans</h1>
+        <p className="lead">Free is enough to look around, track your applications and try each tool once. Pro is for when you have specific employers to prepare for.</p>
+      </div>
       {success && (
         <p role="status" className="callout bg-mint-50 text-mint-600">
           Thanks! Your Pro plan will be active within a minute or two.
@@ -108,6 +111,53 @@ export default function Pricing() {
           </ul>
         </section>
       </div>
+
+      <section className="space-y-2" aria-labelledby="who">
+        <h2 id="who" className="text-lg font-semibold">
+          Is Pro for you?
+        </h2>
+        <div className="grid gap-4 sm:grid-cols-2">
+          <div className="card space-y-1 p-4">
+            <p className="font-semibold">Free is enough if you are</p>
+            <ul className="list-disc pl-5 text-sm">
+              <li>still choosing which employers to go for</li>
+              <li>tracking deadlines and getting alerts</li>
+              <li>trying each tool once to see how it works</li>
+            </ul>
+          </div>
+          <div className="card space-y-1 p-4 ring-2 ring-brand-500">
+            <p className="font-semibold">Pro is for you if you</p>
+            <ul className="list-disc pl-5 text-sm">
+              <li>are applying to specific employers and want to run each one&apos;s real stages</li>
+              <li>have an online test, video interview or assessment centre coming up</li>
+              <li>want to redo answers until your score moves, not see one result</li>
+              <li>would rather pay for the weeks you need it: it is monthly and you can cancel any time</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section className="card space-y-2 p-5" aria-labelledby="example">
+        <h2 id="example" className="text-lg font-semibold">
+          What marked feedback looks like
+        </h2>
+        <p className="text-xs text-muted">An invented example to show the format, not a real student&apos;s answer.</p>
+        <p className="text-sm">
+          <strong>Question:</strong> Tell us about a time you worked in a team. <strong>Score: 68 out of 100.</strong>
+        </p>
+        <ul className="list-disc space-y-1 pl-5 text-sm">
+          <li>
+            <strong>Strength:</strong> a clear situation and a specific action you took yourself.
+          </li>
+          <li>
+            <strong>To improve:</strong> the result is missing. Say what changed and how you know, with a number if you can.
+          </li>
+          <li>
+            <strong>STAR check:</strong> Situation ✓ Task ✓ Action ✓ Result ✗
+          </li>
+        </ul>
+        <p className="text-sm text-muted">Free accounts get one marked mock interview. Pro gives you as many as you want.</p>
+      </section>
 
       {plan === "pro" ? (
         <section className="card space-y-2 p-4">
@@ -176,28 +226,6 @@ export default function Pricing() {
           </div>
         </section>
       )}
-
-      <section className="card space-y-2 p-5" aria-labelledby="example">
-        <h2 id="example" className="text-lg font-semibold">
-          What marked feedback looks like
-        </h2>
-        <p className="text-xs text-muted">An invented example to show the format, not a real student&apos;s answer.</p>
-        <p className="text-sm">
-          <strong>Question:</strong> Tell us about a time you worked in a team. <strong>Score: 68 out of 100.</strong>
-        </p>
-        <ul className="list-disc space-y-1 pl-5 text-sm">
-          <li>
-            <strong>Strength:</strong> a clear situation and a specific action you took yourself.
-          </li>
-          <li>
-            <strong>To improve:</strong> the result is missing. Say what changed and how you know, with a number if you can.
-          </li>
-          <li>
-            <strong>STAR check:</strong> Situation ✓ Task ✓ Action ✓ Result ✗
-          </li>
-        </ul>
-        <p className="text-sm text-muted">Free accounts get one marked mock interview. Pro gives you as many as you want.</p>
-      </section>
 
       <section className="space-y-2" aria-labelledby="faq">
         <h2 id="faq" className="text-lg font-semibold">

@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useAuth } from "@/components/AuthProvider";
+import { mailLink, rememberNext } from "@/lib/after-auth";
 import { track } from "@/lib/funnel";
 
 export const MIN_PASSWORD = 8;
@@ -16,18 +17,24 @@ export default function PasswordAuthForm({
   initialMode = "signup",
   dark = false,
   idPrefix = "auth",
+  next = null,
 }: {
   initialMode?: Mode;
   dark?: boolean;
   idPrefix?: string;
+  /** A path on this site to return to after the account is confirmed. */
+  next?: string | null;
 }) {
-  const { signUpPassword, signInPassword, resetPassword } = useAuth();
+  const { signUpPassword, signInPassword, resendSignup, resetPassword } = useAuth();
   const [mode, setMode] = useState<Mode>(initialMode);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState("");
   const [note, setNote] = useState("");
+  /** The address a confirmation email was sent to. While set, the form is replaced by what to do next. */
+  const [sentTo, setSentTo] = useState<string | null>(null);
+  const [resent, setResent] = useState("");
   const muted = dark ? "text-white/75" : "text-muted";
   const linkBtn = `underline underline-offset-2 ${dark ? "text-white" : "text-brand-700"}`;
 
@@ -45,9 +52,13 @@ export default function PasswordAuthForm({
     const addr = email.trim();
     if (mode === "signup") {
       track("hero_signup_submit");
+      rememberNext(next);
       const r = await signUpPassword(addr, password);
       if (r.error) setError(r.error);
-      else if (r.confirm) setNote(`We sent a message to ${addr}. Open it once to confirm your address, then sign in with your password.`);
+      else if (r.confirm) {
+        setSentTo(addr);
+        setResent("");
+      }
     } else if (mode === "signin") {
       const err = await signInPassword(addr, password);
       if (err) setError(err === "Invalid login credentials" ? "That email and password do not match." : err);
@@ -57,6 +68,42 @@ export default function PasswordAuthForm({
       else setNote(`If ${addr} has an account, a reset link is on its way. It may land in spam.`);
     }
     setBusy(false);
+  }
+
+  async function again() {
+    if (!sentTo) return;
+    setResent("");
+    const err = await resendSignup(sentTo);
+    setResent(err ? `Could not send it again: ${err}` : "Sent again. It can take a minute, and it may land in spam.");
+  }
+
+  if (sentTo) {
+    const mail = mailLink(sentTo);
+    return (
+      <div className="space-y-3" role="status">
+        <p className={`font-semibold ${dark ? "text-white" : ""}`}>Check your email</p>
+        <p className={`text-sm ${dark ? "text-white" : ""}`}>
+          We sent a message to <strong>{sentTo}</strong>. Open it and press the button inside: you will be signed in straight away, with no password to type this time.
+        </p>
+        {mail && (
+          <a href={mail.url} target="_blank" rel="noreferrer" className={`btn w-full !py-3 ${dark ? "btn-light" : "btn-primary"}`}>
+            Open {mail.name}
+          </a>
+        )}
+        <p className={`text-sm ${muted}`}>
+          Not there? Check your spam folder, or{" "}
+          <button type="button" className={linkBtn} onClick={again}>
+            send it again
+          </button>
+          . Wrong address?{" "}
+          <button type="button" className={linkBtn} onClick={() => setSentTo(null)}>
+            Use a different one
+          </button>
+          .
+        </p>
+        {resent && <p className={`text-sm ${dark ? "text-white" : "text-mint-600"}`}>{resent}</p>}
+      </div>
+    );
   }
 
   const label = `block text-sm font-medium ${dark ? "text-white" : ""}`;

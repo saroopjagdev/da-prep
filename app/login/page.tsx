@@ -1,13 +1,14 @@
 "use client";
 
 import Link from "next/link";
-import { useSearchParams } from "next/navigation";
-import { Suspense, useState } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
+import { Suspense, useEffect, useState } from "react";
 import { useAuth } from "@/components/AuthProvider";
 import EmailCodeEntry from "@/components/EmailCodeEntry";
 import PasswordAuthForm, { MIN_PASSWORD } from "@/components/PasswordAuthForm";
 import DataTools from "@/components/DataTools";
 import { postJson } from "@/lib/api";
+import { safeNext } from "@/lib/after-auth";
 import { clearLocalData } from "@/lib/store";
 
 // Hidden until the Google provider is switched on in Supabase (Authentication > Providers). Then set this to "true".
@@ -53,8 +54,8 @@ function NewPassword() {
 
 /** The sign-in form, opened on "create an account" when the link says ?mode=signup (the header's Sign up free does). */
 function ModeForm() {
-  const signup = useSearchParams().get("mode") === "signup";
-  return <PasswordAuthForm initialMode={signup ? "signup" : "signin"} />;
+  const params = useSearchParams();
+  return <PasswordAuthForm initialMode={params.get("mode") === "signup" ? "signup" : "signin"} next={safeNext(params.get("next"))} />;
 }
 
 export default function Login() {
@@ -62,6 +63,14 @@ export default function Login() {
   const [email, setEmail] = useState("");
   const [msg, setMsg] = useState("");
   const [error, setError] = useState("");
+  const router = useRouter();
+
+  // Signed in with no email step (for example the address was already confirmed): carry on to where they were headed.
+  useEffect(() => {
+    if (!user) return;
+    const next = safeNext(new URLSearchParams(window.location.search).get("next"));
+    if (next) router.replace(next);
+  }, [user, router]);
 
   if (enabled && !ready) return <p className="text-muted">Loading...</p>;
 

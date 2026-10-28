@@ -13,6 +13,7 @@ import { STATUS_LABEL } from "@/lib/opportunities";
 import { SECTORS, SECTOR_BY_ID, type SectorId } from "@/lib/sectors";
 import { useCollection } from "@/lib/store";
 import TrackerNudge from "@/components/TrackerNudge";
+import { useUsage } from "@/components/useUsage";
 import { fromTemplate } from "@/lib/tracker-item";
 import { nextPrompt } from "@/lib/tracker-prompts";
 import { STATUSES, type Application, type Status } from "@/lib/types";
@@ -46,6 +47,7 @@ export default function OpportunitiesApp({ rows }: { rows: OpportunityRow[] }) {
   // Without an account the list is view-only: tracking needs one (it is saved and synced to the account).
   const canTrack = !enabled || !ready || Boolean(user);
   const { items: apps, loaded, update } = useCollection<Application>("applications");
+  const usage = useUsage();
   const params = useSearchParams();
   const router = useRouter();
   const [query, setQuery] = useState("");
@@ -317,6 +319,11 @@ export default function OpportunitiesApp({ rows }: { rows: OpportunityRow[] }) {
                       <Link href={`/mock/${r.slug}`} className="whitespace-nowrap underline">
                         Mock
                       </Link>
+                      {usage?.plan === "free" && usage.enforced && (
+                        <span className="ml-1 rounded bg-sun-50 px-1 text-[10px] font-bold uppercase text-sun-700" title="Firm mock processes are part of Pro">
+                          Pro
+                        </span>
+                      )}
                     </>
                   )}
                 </>

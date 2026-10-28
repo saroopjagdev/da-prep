@@ -30,6 +30,9 @@ describe("nextPrompt", () => {
   it("sends an assessment centre to the employer's mock process when there is one", () => {
     const p = nextPrompt([app("Barclays", "Assessment centre")], today, (e) => (e === "Barclays" ? "/mock/barclays" : null));
     expect(p?.href).toBe("/mock/barclays");
+    expect(p?.pro).toBe(true); // firm mock processes are part of Pro, so a free member is told up front
+    expect(nextPrompt([app("Other", "Assessment centre")], today)?.pro).toBe(false);
+    expect(nextPrompt([app("A", "Online tests")], today)?.pro).toBeUndefined();
     expect(nextPrompt([app("Other", "Assessment centre")], today)?.href).toBe("/interview");
   });
 
