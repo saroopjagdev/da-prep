@@ -85,6 +85,19 @@ body {
 }
 
 @layer components {
+  /* Soft dotted ground behind the hero. */
+  .hero-dots {
+    background-image: radial-gradient(rgba(27, 40, 41, 0.07) 1px, transparent 1px);
+    background-size: 18px 18px;
+    background-color: #fff;
+  }
+  /* Wavy highlighter underline on one phrase of a headline. */
+  .squiggle {
+    text-decoration: underline wavy var(--color-pop-500);
+    text-decoration-thickness: 0.07em;
+    text-underline-offset: 0.18em;
+    text-decoration-skip-ink: none;
+  }
   .card {
     background: #fff;
     border: 1px solid var(--color-line);
