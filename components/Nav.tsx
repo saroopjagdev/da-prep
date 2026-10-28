@@ -38,7 +38,7 @@ export default function Nav() {
         {user ? "Account" : "Log in"}
       </Link>
       {!user && (
-        <Link href="/login" className="btn btn-primary !px-4 !py-1.5">
+        <Link href="/login?mode=signup" className="btn btn-primary !px-4 !py-1.5">
           Sign up free
         </Link>
       )}

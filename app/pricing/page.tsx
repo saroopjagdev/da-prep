@@ -122,7 +122,7 @@ export default function Pricing() {
             Create a free account or sign in to buy Pro. It takes a minute, and the tracker and deadline emails are free.
           </p>
           <div className="flex flex-wrap gap-3">
-            <Link href="/login" className="btn btn-primary">
+            <Link href="/login?mode=signup" className="btn btn-primary">
               Create a free account or sign in
             </Link>
             <ParentShare />

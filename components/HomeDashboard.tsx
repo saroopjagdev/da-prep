@@ -76,6 +76,8 @@ export default function HomeDashboard({ open }: { open: OpenNow[] }) {
     { done: stories.items.length > 0, label: "Save a STAR story", href: "/stories" },
   ];
   const done = checklist.filter((c) => c.done).length;
+  // A brand-new member (everything has loaded and nothing is used yet) gets one clear first step instead of the full checklist.
+  const fresh = sessions.loaded && practice.loaded && apps.loaded && stories.loaded && !sessions.items.length && !practice.items.length && !apps.items.length && !stories.items.length;
   const next = checklist.find((c) => !c.done);
 
   const forSector = open.filter((o) => !sector || o.sectors.includes(sector));
@@ -95,14 +97,22 @@ export default function HomeDashboard({ open }: { open: OpenNow[] }) {
       </div>
 
       <div className="grid gap-4 lg:grid-cols-[1.4fr_1fr]">
-        <section className="card space-y-4 p-5" aria-label="Next step">
-          <div className="flex items-center justify-between">
-            <h2 className="text-lg font-bold tracking-tight">{next ? `Next: ${next.label.toLowerCase()}` : "You are all set up"}</h2>
-            <span className="text-sm font-bold text-brand-700">
-              {done}/{checklist.length}
-            </span>
-          </div>
-          <Progress value={done} max={checklist.length} label="Prep checklist progress" className="!h-2.5" />
+        {fresh ? (
+          <section className="card space-y-4 p-5" aria-label="Start here">
+            <h2 className="text-lg font-bold tracking-tight">Start here: get your first marked answer</h2>
+            <p className="text-sm text-muted">It takes about five minutes. Answer one interview question and see your score out of 100, with what to fix.</p>
+            <div className="flex flex-wrap gap-3">
+              <Link href="/interview" className="btn btn-primary">
+                Answer a question
+                <Icon name="arrow" className="h-4 w-4" />
+              </Link>
+              <Link href="/opportunities" className="btn btn-secondary">
+                Or see who is open and track employers
+              </Link>
+            </div>
+            <details className="text-sm">
+              <summary className="cursor-pointer text-muted">Your prep checklist ({done}/{checklist.length})</summary>
+              <div className="mt-2">
           <ul className="grid gap-1 text-sm sm:grid-cols-2">
             {checklist.map((c) => (
               <li key={c.label}>
@@ -115,11 +125,36 @@ export default function HomeDashboard({ open }: { open: OpenNow[] }) {
               </li>
             ))}
           </ul>
-          <Link href={next ? next.href : "/interview"} className="btn btn-primary">
-            {next ? next.label : "Keep practising"}
-            <Icon name="arrow" className="h-4 w-4" />
-          </Link>
-        </section>
+                  </div>
+            </details>
+          </section>
+        ) : (
+          <section className="card space-y-4 p-5" aria-label="Next step">
+            <div className="flex items-center justify-between">
+              <h2 className="text-lg font-bold tracking-tight">{next ? `Next: ${next.label.toLowerCase()}` : "You are all set up"}</h2>
+              <span className="text-sm font-bold text-brand-700">
+                {done}/{checklist.length}
+              </span>
+            </div>
+            <Progress value={done} max={checklist.length} label="Prep checklist progress" className="!h-2.5" />
+            <ul className="grid gap-1 text-sm sm:grid-cols-2">
+              {checklist.map((c) => (
+                <li key={c.label}>
+                  <Link href={c.href} className={`flex items-center gap-2 rounded-lg px-2 py-1.5 hover:bg-brand-50 ${c.done ? "text-muted line-through" : "font-medium"}`}>
+                    <span className={`grid h-5 w-5 shrink-0 place-items-center rounded-md border text-[11px] font-bold ${c.done ? "border-mint-600 bg-mint-600 text-white" : "border-line"}`} aria-hidden>
+                      {c.done ? "✓" : ""}
+                    </span>
+                    {c.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+            <Link href={next ? next.href : "/interview"} className="btn btn-primary">
+              {next ? next.label : "Keep practising"}
+              <Icon name="arrow" className="h-4 w-4" />
+            </Link>
+          </section>
+          )}
 
         <Card title="Your plan" href={usage?.plan !== "pro" ? "/pricing" : undefined} cta="See Pro">
           {!usage ? (
@@ -131,11 +166,11 @@ export default function HomeDashboard({ open }: { open: OpenNow[] }) {
           ) : (
             <>
               <p>
-                <strong>{cap.known ? cap.left : cap.limit}</strong> of {cap.limit} free practice tests left
+                <strong>{cap.known ? cap.left : cap.limit}</strong> free practice test{(cap.known ? cap.left : cap.limit) === 1 ? "" : "s"} left
               </p>
               {usage.reviews && (
                 <p>
-                  <strong>{Math.max(0, usage.reviews.limit - usage.reviews.used)}</strong> of {usage.reviews.limit} CV and statement reviews left
+                  <strong>{Math.max(0, usage.reviews.limit - usage.reviews.used)}</strong> CV and statement review{usage.reviews.limit - usage.reviews.used === 1 ? "" : "s"} left
                 </p>
               )}
               {usage.interviews && usage.interviews.limit === 0 ? (
@@ -143,7 +178,7 @@ export default function HomeDashboard({ open }: { open: OpenNow[] }) {
               ) : (
                 usage.interviews && (
                   <p>
-                    <strong>{Math.max(0, usage.interviews.limit - usage.interviews.used)}</strong> of {usage.interviews.limit} free AI mock interview{usage.interviews.limit === 1 ? "" : "s"} left
+                    <strong>{Math.max(0, usage.interviews.limit - usage.interviews.used)}</strong> free AI mock interview{usage.interviews.limit - usage.interviews.used === 1 ? "" : "s"} left
                   </p>
                 )
               )}
