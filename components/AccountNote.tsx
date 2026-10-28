@@ -10,7 +10,7 @@ export default function AccountNote({ children }: { children: React.ReactNode })
   return (
     <p role="note" className="callout bg-brand-50 text-sm">
       {children}{" "}
-      <Link href="/login" className="font-semibold underline">
+      <Link href="/login?mode=signup" className="font-semibold underline">
         Create a free account
       </Link>
     </p>

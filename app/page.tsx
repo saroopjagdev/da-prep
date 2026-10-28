@@ -182,7 +182,7 @@ export default function Home() {
           <div className="grid gap-5 md:grid-cols-3">
             <div className="card space-y-2 p-6">
               <h3 className="text-lg font-bold">No account</h3>
-              <p className="text-sm text-muted">Browse the opportunities tracker, every employer guide and the advice guides.</p>
+              <p className="text-sm text-muted">See who is open and when they close, read every employer guide and the advice guides. Tracking applications needs a free account.</p>
             </div>
             <div className="card space-y-2 border-brand-600 p-6">
               <h3 className="text-lg font-bold">Free account</h3>

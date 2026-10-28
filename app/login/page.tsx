@@ -1,7 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useSearchParams } from "next/navigation";
+import { Suspense, useState } from "react";
 import { useAuth } from "@/components/AuthProvider";
 import EmailCodeEntry from "@/components/EmailCodeEntry";
 import PasswordAuthForm, { MIN_PASSWORD } from "@/components/PasswordAuthForm";
@@ -48,6 +49,12 @@ function NewPassword() {
       {error && <p className="text-sm text-coral-600">{error}</p>}
     </section>
   );
+}
+
+/** The sign-in form, opened on "create an account" when the link says ?mode=signup (the header's Sign up free does). */
+function ModeForm() {
+  const signup = useSearchParams().get("mode") === "signup";
+  return <PasswordAuthForm initialMode={signup ? "signup" : "signin"} />;
 }
 
 export default function Login() {
@@ -107,7 +114,9 @@ export default function Login() {
           <p className="text-sm text-muted">
             An account is needed for practice tests, mock processes and the AI features (mock interviews, CV and statement review), and it syncs your progress across devices. It is free, and you stay signed in on this device.
           </p>
-          <PasswordAuthForm initialMode="signin" />
+          <Suspense fallback={<PasswordAuthForm initialMode="signin" />}>
+            <ModeForm />
+          </Suspense>
           {GOOGLE_SIGN_IN && (
             <button
               onClick={async () => setError((await signInGoogle()) ?? "")}
@@ -157,7 +166,16 @@ export default function Login() {
         </section>
       )}
 
-      <DataTools />
+      {enabled && !user ? (
+        <details className="text-sm">
+          <summary className="cursor-pointer text-muted">Back up or restore the data on this device</summary>
+          <div className="mt-2">
+            <DataTools />
+          </div>
+        </details>
+      ) : (
+        <DataTools />
+      )}
     </div>
   );
 }

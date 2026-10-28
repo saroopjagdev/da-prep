@@ -189,7 +189,7 @@ test("a new visitor sees the pitch with a way to start, and opportunities still 
   await expect(page.getByText("Your dashboard")).toBeHidden();
   await page.goto("/opportunities?q=natwest");
   await expect(page.getByLabel("Search employers or programmes")).toHaveValue("natwest");
-  await expect(page.locator("tbody tr").filter({ hasText: "NatWest Group" }).getByText("Not open yet", { exact: true })).toBeVisible();
+  await expect(page.locator("tbody tr").filter({ hasText: "NatWest Group" }).getByText("Not open yet", { exact: true }).filter({ visible: true })).toBeVisible();
 });
 
 const withActivity = (page: Page) =>
@@ -251,7 +251,7 @@ test("the deadlines page lists who is open, soonest closing first, with share an
   expect(closes.length).toBeGreaterThan(0);
   await expect(page.getByRole("button", { name: "Share this page" })).toBeVisible();
   await expect(page.getByRole("button", { name: /Print or save as PDF/ })).toBeVisible();
-  await expect(page.getByRole("link", { name: "Create a free account" })).toHaveAttribute("href", "/login");
+  await expect(page.getByRole("link", { name: "Create a free account" })).toHaveAttribute("href", "/login?mode=signup");
 });
 
 test("a visit counts its source and where it began, with nothing that identifies the visitor", async ({ page }) => {
@@ -404,7 +404,7 @@ for (const [path, what] of [
   test(`without an account, ${path} asks for one instead of opening the tool`, async ({ page }) => {
     await page.goto(path);
     await expect(page.getByRole("heading", { name: /create a free account to/i })).toContainText(what);
-    await expect(page.getByRole("link", { name: "Create a free account" }).first()).toHaveAttribute("href", "/login");
+    await expect(page.getByRole("link", { name: "Create a free account" }).first()).toHaveAttribute("href", "/login?mode=signup");
   });
 }
 
@@ -629,4 +629,54 @@ test("Flashback, Shape reaction and Block sequence start and take input", async 
   await expect(page.getByText(/Tap the tiles in the same order/)).toBeVisible({ timeout: 15_000 });
   for (const t of [1, 2, 3]) await page.getByRole("button", { name: new RegExp(`^Tile ${t}`) }).click();
   await expect(page.getByRole("status").filter({ hasText: /Correct\.|Not quite/ })).toBeVisible();
+});
+
+test("the tracker's row actions are on screen without scrolling sideways, on a laptop and a phone", async ({ page }) => {
+  await signedIn(page);
+  await page.route("**/api/alerts", (route) => route.fulfill({ json: { keys: [] } }));
+  await page.goto("/opportunities");
+  const alert = page.getByRole("button", { name: /Email me when .* opens and before it closes/ }).first();
+  await expect(alert).toBeVisible();
+  // Inside the table's own scroll area, not merely inside the window: the table must not need a sideways scroll.
+  const box = (await alert.boundingBox())!;
+  const region = page.getByRole("region", { name: "Opportunities tracker table" });
+  const edge = (await region.boundingBox())!;
+  expect(box.x).toBeGreaterThanOrEqual(edge.x);
+  expect(box.x + box.width).toBeLessThanOrEqual(edge.x + edge.width + 1);
+  expect(await region.evaluate((el) => el.scrollWidth > el.clientWidth + 1)).toBe(false);
+  expect(await page.evaluate(() => document.documentElement.scrollWidth > window.innerWidth)).toBe(false);
+  await expect(page.getByRole("link", { name: /^(Guide|Apply|Careers)$/ }).first()).toBeVisible();
+});
+
+test("Sign up free opens the create-account form, and sign-in stays the default for Log in", async ({ page, isMobile }) => {
+  test.skip(isMobile, "the header buttons live in the menu on a phone");
+  await page.goto("/opportunities");
+  await page.getByRole("link", { name: "Sign up free" }).click();
+  await expect(page).toHaveURL(/\/login\?mode=signup$/);
+  await expect(page.getByRole("button", { name: "Create free account" })).toBeVisible();
+  await page.goto("/login");
+  await expect(page.getByRole("button", { name: "Sign in", exact: true })).toBeVisible();
+});
+
+test("the backup tools are tucked away for someone who is not signed in", async ({ page }) => {
+  await page.goto("/login");
+  await expect(page.getByRole("button", { name: "Download backup" })).toBeHidden();
+  await page.getByText("Back up or restore the data on this device").click();
+  await expect(page.getByRole("button", { name: "Download backup" })).toBeVisible();
+});
+
+test("a new member can start a mock interview in one click with a sample advert", async ({ page }) => {
+  await signedIn(page);
+  await page.goto("/interview");
+  await page.getByRole("button", { name: "Start with a sample question" }).click();
+  await expect(page.getByText("Question 1 of 5")).toBeVisible();
+});
+
+test("a brand-new member's dashboard offers one clear first step, with the checklist tucked underneath", async ({ page }) => {
+  await signedIn(page);
+  await page.goto("/");
+  await expect(page.getByRole("heading", { name: "Start here: get your first marked answer" })).toBeVisible();
+  await expect(page.getByRole("link", { name: /Answer a question/ })).toHaveAttribute("href", "/interview");
+  await page.getByText(/Your prep checklist/).click();
+  await expect(page.getByRole("link", { name: "Track 3 applications" })).toBeVisible();
 });

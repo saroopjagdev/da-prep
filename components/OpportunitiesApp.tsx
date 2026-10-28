@@ -179,7 +179,7 @@ export default function OpportunitiesApp({ rows }: { rows: OpportunityRow[] }) {
       {!canTrack && (
         <p role="note" className="callout bg-brand-50 text-sm">
           You are viewing the list. Create a free account to track your applications, set reminders for closing dates and keep notes, saved and synced across devices.{" "}
-          <Link href="/login" className="font-semibold underline">
+          <Link href="/login?mode=signup" className="font-semibold underline">
             Create a free account
           </Link>
         </p>
@@ -270,7 +270,7 @@ export default function OpportunitiesApp({ rows }: { rows: OpportunityRow[] }) {
       )}
 
       <div role="region" aria-label="Opportunities tracker table" tabIndex={0} className="overflow-x-auto rounded-xl border border-line bg-white">
-        <table className="w-full min-w-[34rem] text-left text-sm">
+        <table className="w-full text-left text-sm md:min-w-[34rem]">
           <caption className="sr-only">Employers with your status, the application status, and opening and closing dates</caption>
           <thead className="bg-soft text-xs uppercase tracking-wide text-muted">
             <tr>
@@ -280,19 +280,19 @@ export default function OpportunitiesApp({ rows }: { rows: OpportunityRow[] }) {
               <th scope="col" className="px-3 py-2 font-semibold">
                 Employer
               </th>
-              <th scope="col" className="px-3 py-2 font-semibold">
+              <th scope="col" className="hidden px-3 py-2 font-semibold md:table-cell">
                 Status
               </th>
-              <th scope="col" className="hidden min-w-28 px-3 py-2 font-semibold md:table-cell">
+              <th scope="col" className="hidden min-w-28 px-3 py-2 font-semibold 2xl:table-cell">
                 Opens
               </th>
-              <th scope="col" className="hidden min-w-44 px-3 py-2 font-semibold md:table-cell">
+              <th scope="col" className="hidden min-w-44 px-3 py-2 font-semibold 2xl:table-cell">
                 Closes
               </th>
-              <th scope="col" className="hidden min-w-28 whitespace-nowrap px-3 py-2 font-semibold lg:table-cell">
+              <th scope="col" className="hidden min-w-28 whitespace-nowrap px-3 py-2 font-semibold 2xl:table-cell">
                 Assessments
               </th>
-              <th scope="col" className="px-3 py-2 text-right font-semibold">
+              <th scope="col" className="hidden px-3 py-2 text-right font-semibold md:table-cell">
                 <span className="sr-only">Links</span>
               </th>
             </tr>
@@ -304,6 +304,55 @@ export default function OpportunitiesApp({ rows }: { rows: OpportunityRow[] }) {
               const expanded = open === key && a;
               const overdue = a && a.deadline && a.deadline < today && a.status === "Interested";
               const startsGroup = i === 0 || groupOf(shownRows[i - 1]) !== groupOf(r);
+                const actions = (
+                  <span className="inline-flex flex-wrap items-center justify-end gap-x-1.5 gap-y-1.5">
+              {r.slug ? (
+                <>
+                  <Link href={`/employers/${r.slug}`} className="whitespace-nowrap underline">
+                    Guide
+                  </Link>
+                  {r.hasMock && (
+                    <>
+                      {" · "}
+                      <Link href={`/mock/${r.slug}`} className="whitespace-nowrap underline">
+                        Mock
+                      </Link>
+                    </>
+                  )}
+                </>
+              ) : null}
+              {(r.applyUrl ?? r.vacancyUrl) && (
+                <>
+                  {r.slug ? " · " : ""}
+                  <a href={r.applyUrl ?? r.vacancyUrl} target="_blank" rel="noreferrer" className="whitespace-nowrap underline" onClick={followedApply}>
+                    {r.slug ? "Apply" : "Careers"}
+                  </a>
+                </>
+              )}
+              {canTrack && r.status !== "closed" && (
+                <button
+                  onClick={() => toggleAlert(r)}
+                  disabled={!alertsLoaded}
+                  aria-pressed={following.has(alertKey(r))}
+                  aria-label={`Email me when ${r.name} opens and before it closes`}
+                  className={`ml-2 rounded-md border px-2 py-0.5 disabled:opacity-60 ${following.has(alertKey(r)) ? "border-brand-500 bg-brand-50 font-semibold text-brand-700" : "border-line hover:border-brand-500"}`}
+                >
+                  {following.has(alertKey(r)) ? "Alerts on" : "Alert me"}
+                </button>
+              )}
+              {a && (
+                <button
+                  onClick={() => setOpen(expanded ? null : key)}
+                  aria-expanded={Boolean(expanded)}
+                  aria-label={`Notes and stages for ${r.name}`}
+                  className="rounded-md border border-line px-2 py-0.5 hover:border-brand-500"
+                >
+                  Notes{overdue && <span className="text-coral-600"> !</span>}
+                </button>
+              )}
+
+                  </span>
+                );
               return (
                 <Fragment key={key}>
                   {startsGroup && (
@@ -316,7 +365,7 @@ export default function OpportunitiesApp({ rows }: { rows: OpportunityRow[] }) {
                   <tr className="border-t border-line align-top hover:bg-soft/60">
                     <td className="px-3 py-2">
                       {!canTrack ? (
-                        <Link href="/login" className="whitespace-nowrap text-xs font-semibold text-brand-700 underline-offset-2 hover:underline">
+                        <Link href="/login?mode=signup" className="whitespace-nowrap text-xs font-semibold text-brand-700 underline-offset-2 hover:underline">
                           Sign up to track
                         </Link>
                       ) : (
@@ -342,85 +391,44 @@ export default function OpportunitiesApp({ rows }: { rows: OpportunityRow[] }) {
                         <span className="font-semibold">{r.name}</span>
                       )}
                       {r.programmes.length > 0 && (
-                        <span className="block max-w-[16rem] truncate text-xs text-muted" title={r.programmes.join(" · ")}>
+                        <span className="block text-xs text-muted md:max-w-[16rem] md:truncate" title={r.programmes.join(" · ")}>
                           {r.programmes[0]}
                           {r.programmes.length > 1 && ` +${r.programmes.length - 1}`}
                         </span>
                       )}
                       {(r.opens || r.closes) && (
-                        <span className="block text-xs text-muted md:hidden">
+                        <span className="block text-xs text-muted 2xl:hidden">
                           {r.opens && `Opens ${r.opens}`}
                           {r.opens && r.closes && " · "}
                           {r.closes && `Closes ${r.closes}`}
                         </span>
                       )}
+                      <div className="mt-1.5 flex flex-wrap items-center gap-x-3 gap-y-1.5 md:hidden">
+                        <span className={`inline-block whitespace-nowrap rounded-full px-2.5 py-0.5 text-xs font-semibold ring-1 ${CHIP[r.status]}`}>{STATUS_LABEL[r.status]}</span>
+                        <span className="text-xs">{actions}</span>
+                      </div>
                     </td>
-                    <td className="px-3 py-2">
+                    <td className="hidden px-3 py-2 md:table-cell">
                       <span title={r.note} className={`inline-block whitespace-nowrap rounded-full px-2.5 py-0.5 text-xs font-semibold ring-1 ${CHIP[r.status]}`}>
                         {STATUS_LABEL[r.status]}
                       </span>
                     </td>
-                    <td className="hidden px-3 py-2 md:table-cell">
+                    <td className="hidden px-3 py-2 2xl:table-cell">
                       <span className="line-clamp-2" title={r.opens}>
                         {r.opens || <span className="text-muted">-</span>}
                       </span>
                     </td>
-                    <td className="hidden px-3 py-2 md:table-cell">
+                    <td className="hidden px-3 py-2 2xl:table-cell">
                       <span className="line-clamp-2" title={r.closes}>
                         {r.closes || <span className="text-muted">-</span>}
                       </span>
                     </td>
-                    <td className="hidden px-3 py-2 text-xs text-muted lg:table-cell">
+                    <td className="hidden px-3 py-2 text-xs text-muted 2xl:table-cell">
                       <span className="line-clamp-2" title={r.providers.join(", ")}>
                         {r.providers.join(", ") || "-"}
                       </span>
                     </td>
-                    <td className="whitespace-nowrap px-3 py-2 text-right text-xs">
-                      {r.slug ? (
-                        <>
-                          <Link href={`/employers/${r.slug}`} className="underline">
-                            Guide
-                          </Link>
-                          {r.hasMock && (
-                            <>
-                              {" · "}
-                              <Link href={`/mock/${r.slug}`} className="underline">
-                                Mock
-                              </Link>
-                            </>
-                          )}
-                        </>
-                      ) : null}
-                      {(r.applyUrl ?? r.vacancyUrl) && (
-                        <>
-                          {r.slug ? " · " : ""}
-                          <a href={r.applyUrl ?? r.vacancyUrl} target="_blank" rel="noreferrer" className="underline" onClick={followedApply}>
-                            {r.slug ? "Apply" : "Careers"}
-                          </a>
-                        </>
-                      )}
-                      {canTrack && r.status !== "closed" && (
-                        <button
-                          onClick={() => toggleAlert(r)}
-                          disabled={!alertsLoaded}
-                          aria-pressed={following.has(alertKey(r))}
-                          aria-label={`Email me when ${r.name} opens and before it closes`}
-                          className={`ml-2 rounded-md border px-2 py-0.5 disabled:opacity-60 ${following.has(alertKey(r)) ? "border-brand-500 bg-brand-50 font-semibold text-brand-700" : "border-line hover:border-brand-500"}`}
-                        >
-                          {following.has(alertKey(r)) ? "Alerts on" : "Alert me"}
-                        </button>
-                      )}
-                      {a && (
-                        <button
-                          onClick={() => setOpen(expanded ? null : key)}
-                          aria-expanded={Boolean(expanded)}
-                          aria-label={`Notes and stages for ${r.name}`}
-                          className="ml-2 rounded-md border border-line px-2 py-0.5 hover:border-brand-500"
-                        >
-                          Notes{overdue && <span className="text-coral-600"> !</span>}
-                        </button>
-                      )}
-                    </td>
+                    <td className="hidden px-3 py-2 text-right text-xs md:table-cell md:min-w-52">{actions}</td>
                   </tr>
                   {expanded && a && (
                     <tr className="bg-soft/50">

@@ -149,9 +149,9 @@ function InterviewInner({
     if (vstate === "recording" && recorder.level > 0.06) setHeard(true);
   }, [vstate, recorder.level]);
 
-  async function fetchQuestion(h: Turn[]) {
+  async function fetchQuestion(h: Turn[], ad = jobAd) {
     const { question } = await postJson<{ question: string }>("/api/interview/next", {
-      jobAd,
+      jobAd: ad,
       cv: cv || undefined,
       stage,
       sector: sector ?? undefined,
@@ -186,13 +186,14 @@ function InterviewInner({
     setPhase("asking");
   }
 
-  async function start() {
+  /** adOverride lets the quick start use a sample advert without waiting for state to update. */
+  async function start(adOverride?: string) {
     void micTest.stop();
     void recorder.stop();
     setBusy(true);
     setError("");
     try {
-      const q = await fetchQuestion([]);
+      const q = await fetchQuestion([], adOverride);
       setPractice(false);
       setPracticeUrl("");
       setHistory([]);
@@ -398,6 +399,28 @@ function InterviewInner({
         </div>
         <SignInNotice what="the mock interview" />
         <ProInterviewNotice />
+        {!jobAd.trim() && !firmSlug && (
+          <section className="card flex flex-wrap items-center justify-between gap-3 border-brand-600 p-5" aria-label="Quick start">
+            <div className="min-w-0 flex-1">
+              <p className="font-semibold">Short on time? Try one question now</p>
+              <p className="text-sm text-muted">
+                We use a sample {SECTOR_BY_ID[sector ?? "business"].name.toLowerCase()} advert and ask a typical first interview question. Set up your own role afterwards.
+              </p>
+            </div>
+            <button
+              type="button"
+              className="btn btn-primary"
+              disabled={busy}
+              onClick={() => {
+                const ad = SECTOR_BY_ID[sector ?? "business"].sampleAd;
+                setJobAd(ad);
+                void start(ad);
+              }}
+            >
+              {busy ? "Preparing your question..." : "Start with a sample question"}
+            </button>
+          </section>
+        )}
         <div className="card space-y-5 p-6">
           <div className="space-y-2">
             <p className="label">
@@ -647,7 +670,7 @@ function InterviewInner({
           </div>
           {errorBox}
           <button
-            onClick={mode === "video" ? beginPractice : start}
+            onClick={mode === "video" ? beginPractice : () => void start()}
             disabled={busy || !ready}
             className="btn btn-primary !px-6 !py-3"
           >

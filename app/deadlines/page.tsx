@@ -98,7 +98,7 @@ export default function Deadlines() {
           Create a free account to add employers to your own tracker, see your closing dates in one place, and practise the tests and interviews each one uses.
         </p>
         <div className="flex flex-wrap gap-3">
-          <Link href="/login" className="btn btn-primary">
+          <Link href="/login?mode=signup" className="btn btn-primary">
             Create a free account
           </Link>
           <Link href="/opportunities" className="btn btn-secondary">
