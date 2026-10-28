@@ -26,7 +26,7 @@ test("finance is a sector page with its calendar, and old finance links redirect
 test("a firm-specific text interview reaches marked feedback", async ({ page }) => {
   await signedIn(page);
   await page.goto("/interview?firm=morgan-stanley");
-  await expect(page.getByLabel(/^Employer/)).toHaveValue("morgan-stanley");
+  await expect(page.getByRole("combobox", { name: /^Employer/ })).toHaveValue("morgan-stanley");
   await page.getByRole("button", { name: "Commercial awareness" }).click();
   await page.getByRole("button", { name: /start interview/i }).click();
   for (let i = 0; i < 5; i++) {
