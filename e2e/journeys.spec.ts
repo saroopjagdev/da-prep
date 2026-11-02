@@ -96,8 +96,8 @@ test("the My tracker menu link works from the page you are already on", async ({
   await clearRuns(page);
   await page.reload();
   await page.locator("tbody tr").filter({ hasText: "Barclays" }).first().getByLabel("My status for Barclays").selectOption("Interested");
-  await page.getByRole("navigation").getByRole("link", { name: "Employers" }).first().hover();
-  await page.getByRole("link", { name: /My tracker/ }).first().click();
+  // The header has a plain Tracker link; "My tracker" is in the footer's Employers column.
+  await page.getByRole("contentinfo").getByRole("link", { name: "My tracker" }).click();
   await expect(page.getByRole("button", { name: /My tracker/ })).toHaveAttribute("aria-pressed", "true");
   await expect(page.getByLabel(/My status for/)).toHaveCount(1);
 });
@@ -184,8 +184,8 @@ test("the old mock index and guides filter links go to the employer guides page"
 
 test("a new visitor sees the pitch with a way to start, and opportunities still follows ?q=", async ({ page }) => {
   await page.goto("/");
-  await expect(page.getByRole("heading", { level: 1, name: /Practise the real stages/ })).toBeVisible();
-  await expect(page.getByRole("link", { name: /Or see who is open now/ })).toBeVisible();
+  await expect(page.getByRole("heading", { level: 1, name: /Know every stage/ })).toBeVisible();
+  await expect(page.getByRole("link", { name: /See who is open now/ })).toBeVisible();
   await expect(page.getByText("Your dashboard")).toBeHidden();
   await page.goto("/opportunities?q=natwest");
   await expect(page.getByLabel("Search employers or programmes")).toHaveValue("natwest");
@@ -199,17 +199,17 @@ test("a signed-in person gets the dashboard instead of the pitch, and /?pitch=1 
   await signedIn(page);
   await page.goto("/");
   await expect(page.getByRole("heading", { level: 1, name: "Your dashboard" })).toBeVisible();
-  await expect(page.getByRole("heading", { name: /Practise the real stages/ })).toBeHidden();
+  await expect(page.getByRole("heading", { name: /Know every stage/ })).toBeHidden();
   await expect(page.getByLabel("Open now").first()).toBeVisible();
   await page.goto("/?pitch=1");
-  await expect(page.getByRole("heading", { level: 1, name: /Practise the real stages/ })).toBeVisible();
+  await expect(page.getByRole("heading", { level: 1, name: /Know every stage/ })).toBeVisible();
   await expect(page.getByRole("heading", { name: "Your dashboard" })).toBeHidden();
 });
 
 test("saved practice and a tracker without an account still get the landing page, not the dashboard", async ({ page }) => {
   await withActivity(page);
   await page.goto("/");
-  await expect(page.getByRole("heading", { level: 1, name: /Practise the real stages/ })).toBeVisible();
+  await expect(page.getByRole("heading", { level: 1, name: /Know every stage/ })).toBeVisible();
   await expect(page.getByRole("heading", { name: "Your dashboard" })).toBeHidden();
 });
 
@@ -705,12 +705,12 @@ test("after creating an account the form says what to do next, with an inbox lin
   await expect(page.getByRole("button", { name: "Create free account" })).toBeVisible();
 });
 
-test("the header has three clear groups, and the old confusing ones are gone", async ({ page, isMobile }) => {
+test("the header puts Tracker, Pricing and FAQ up front with Practise and Learn menus, and the old groups are gone", async ({ page, isMobile }) => {
   test.skip(isMobile, "the dropdowns are the desktop navigation");
   await page.goto("/");
   const nav = page.getByRole("navigation").first();
-  for (const name of ["Employers", "Practise", "Learn"]) await expect(nav.getByRole("link", { name, exact: true }).first()).toBeVisible();
-  for (const name of ["Prepare", "My prep", "Tracker"]) await expect(nav.getByRole("link", { name, exact: true })).toHaveCount(0);
+  for (const name of ["Tracker", "Practise", "Learn", "Pricing", "FAQ"]) await expect(nav.getByRole("link", { name, exact: true }).first()).toBeVisible();
+  for (const name of ["Prepare", "My prep", "Employers"]) await expect(nav.getByRole("link", { name, exact: true })).toHaveCount(0);
   await nav.getByRole("link", { name: "Practise", exact: true }).first().hover();
   await expect(page.getByRole("link", { name: /Stories bank/ }).first()).toBeVisible();
 });
