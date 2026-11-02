@@ -45,3 +45,22 @@ export const LEGAL_LINKS: NavLink[] = [
   { href: "/terms", label: "Terms" },
   { href: "/accessibility", label: "Accessibility" },
 ];
+
+// The header: the places people look for first sit at the top level (Tracker, Pricing, FAQ); the rest group into two menus.
+export type HeaderItem = { label: string; href: string; links?: NavLink[] };
+const group = (label: string) => NAV_GROUPS.find((g) => g.label === label)!.links;
+export const HEADER_ITEMS: HeaderItem[] = [
+  { label: "Tracker", href: "/opportunities" },
+  { label: "Practise", href: "/interview", links: group("Practise") },
+  {
+    label: "Learn",
+    href: "/learn",
+    links: [
+      { href: "/employers", label: "Employer guides", blurb: "Every employer's process, tests and interview, stage by stage" },
+      ...group("Learn").filter((l) => l.href !== "/faq"),
+      { href: "/deadlines", label: "Deadlines", blurb: "Who is open and when they close, to print or share" },
+    ],
+  },
+  { label: "Pricing", href: "/pricing" },
+  { label: "FAQ", href: "/faq" },
+];
