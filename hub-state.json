@@ -1,6 +1,276 @@
 {
- "checked": "2026-10-26",
+ "checked": "2026-11-02",
  "jobs": {
+  "58ad0f0f-f94f-436d-a9dc-214347fdc9c5": {
+   "id": "58ad0f0f-f94f-436d-a9dc-214347fdc9c5",
+   "employer": "Michelmores",
+   "title": "Solicitor Apprenticeship 2027",
+   "level": "7",
+   "location": "Exeter, Bristol",
+   "deadline": "2026-11-05",
+   "status": "closing_soon",
+   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000056390"
+  },
+  "e8536708-1d53-4434-8c13-600ee343cf2c": {
+   "id": "e8536708-1d53-4434-8c13-600ee343cf2c",
+   "employer": "Trowers & Hamlins",
+   "title": "Solicitor Apprenticeship 2027",
+   "level": "7",
+   "location": "London, Manchester, Exeter",
+   "deadline": "2027-02-19",
+   "status": "open",
+   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000055814"
+  },
+  "2832669b-bccf-4e1d-99aa-d311bb22d6aa": {
+   "id": "2832669b-bccf-4e1d-99aa-d311bb22d6aa",
+   "employer": "Burges Salmon",
+   "title": "Legal Apprenticeship 2027 (Solicitor)",
+   "level": "7",
+   "location": "Bristol",
+   "deadline": "2026-11-09",
+   "status": "closing_soon",
+   "apply": "https://careers.burges-salmon.com/jobs/vacancy/legal-apprenticeship-2027-1557-bristol/1575/description/action/apply?_channelid=15"
+  },
+  "ec26b0d9-b11d-4f25-945f-b24c70d4e67c": {
+   "id": "ec26b0d9-b11d-4f25-945f-b24c70d4e67c",
+   "employer": "Mayer Brown",
+   "title": "2027 London Solicitor Apprenticeship",
+   "level": "7",
+   "location": "London",
+   "deadline": "2027-02-14",
+   "status": "open",
+   "apply": "https://mayerbrown.grad.allhires.com/app/"
+  },
+  "332d6553-f190-49ee-9fe3-2b1929f2433c": {
+   "id": "332d6553-f190-49ee-9fe3-2b1929f2433c",
+   "employer": "Herbert Smith Freehills Kramer",
+   "title": "2027 London Solicitor Apprenticeship",
+   "level": "7",
+   "location": "London",
+   "deadline": "2027-02-15",
+   "status": "open",
+   "apply": "https://tracking.allaboutlaw.co.uk/x10u"
+  },
+  "a73ac9da-4844-48c3-9d11-a593a22fc536": {
+   "id": "a73ac9da-4844-48c3-9d11-a593a22fc536",
+   "employer": "Mishcon de Reya",
+   "title": "Solicitor Apprenticeship 2027",
+   "level": "7",
+   "location": "London",
+   "deadline": "",
+   "status": "open",
+   "apply": "https://fsr.cvmailuk.com/mishcon/main.cfm?page=jobSpecific&jobId=79064&rcd=473429&queryString=srxksl%3D1"
+  },
+  "01b361fa-ea8b-4c6b-a1c2-734971cad528": {
+   "id": "01b361fa-ea8b-4c6b-a1c2-734971cad528",
+   "employer": "Babcock",
+   "title": "Engineering Degree Apprenticeships 2027 (Bristol)",
+   "level": "6",
+   "location": "Bristol",
+   "deadline": "2026-12-07",
+   "status": "open",
+   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000058725"
+  },
+  "b0247169-a1a6-4e90-8f63-fc5d3aa1214b": {
+   "id": "b0247169-a1a6-4e90-8f63-fc5d3aa1214b",
+   "employer": "Babcock",
+   "title": "Digital and Technology Solutions Degree Apprenticeship 2027",
+   "level": "6",
+   "location": "Bristol, Plymouth",
+   "deadline": "2026-12-07",
+   "status": "open",
+   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000058724"
+  },
+  "72c7cd66-6d74-41ea-99c3-1ca70b1cc25f": {
+   "id": "72c7cd66-6d74-41ea-99c3-1ca70b1cc25f",
+   "employer": "Thales",
+   "title": "Level 6 Academy Engineer Degree Apprenticeship (Belfast)",
+   "level": "6",
+   "location": "Belfast",
+   "deadline": "2027-02-17",
+   "status": "open",
+   "apply": "https://higherin.com/jobs/45855/thales/level-6-academy-engineer-degree-apprenticeship"
+  },
+  "3a93e255-00d3-4912-80f1-c3022abc8a4c": {
+   "id": "3a93e255-00d3-4912-80f1-c3022abc8a4c",
+   "employer": "Thales",
+   "title": "2027 Systems Engineering Degree Apprenticeship",
+   "level": "6",
+   "location": "Crawley, Reading",
+   "deadline": "2027-02-17",
+   "status": "open",
+   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000057141"
+  },
+  "b9cb4733-c78a-4cfb-98bd-b68c9ea9321d": {
+   "id": "b9cb4733-c78a-4cfb-98bd-b68c9ea9321d",
+   "employer": "Capgemini",
+   "title": "Engineering Digital and Technology Solutions Degree Apprenticeship 2027",
+   "level": "6",
+   "location": "Telford",
+   "deadline": "2027-01-31",
+   "status": "open",
+   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000059708"
+  },
+  "5b6289ae-f47c-4c1a-b8dc-da0fb0600d8d": {
+   "id": "5b6289ae-f47c-4c1a-b8dc-da0fb0600d8d",
+   "employer": "Goldman Sachs",
+   "title": "2027 Engineering Degree Apprenticeship",
+   "level": "6",
+   "location": "London, Birmingham",
+   "deadline": "",
+   "status": "open",
+   "apply": "https://higher.gs.com/roles/174814"
+  },
+  "8d4ebdfd-0387-48f8-a5a1-e3df6ca6ab1a": {
+   "id": "8d4ebdfd-0387-48f8-a5a1-e3df6ca6ab1a",
+   "employer": "Barclays",
+   "title": "UK Corporate Banking Degree Apprenticeship 2027",
+   "level": "6",
+   "location": "London, Birmingham, Leeds, Belfast",
+   "deadline": "",
+   "status": "open",
+   "apply": "https://search.jobs.barclays/job/london/uk-corporate-banking-degree-apprenticeship-programme-2027-london/13015/100812856416"
+  },
+  "2c6e0d3c-9dd0-43e6-881a-137a0dbfecca": {
+   "id": "2c6e0d3c-9dd0-43e6-881a-137a0dbfecca",
+   "employer": "Saffery",
+   "title": "School Leaver Audit Trainee (ACA) 2027",
+   "level": "7",
+   "location": "London, Bournemouth, Inverness",
+   "deadline": "",
+   "status": "open",
+   "apply": "https://saffery.kallidusrecruit.com/Search.aspx"
+  },
+  "e3814b5b-4194-4836-896f-ddeb56b59734": {
+   "id": "e3814b5b-4194-4836-896f-ddeb56b59734",
+   "employer": "RSM",
+   "title": "Tax School Leaver Programme 2027",
+   "level": "7",
+   "location": "Multiple UK locations",
+   "deadline": "",
+   "status": "open",
+   "apply": "https://www.rsmuk.com/careers/jobs/ec128"
+  },
+  "687dc5b7-ac5c-42d5-bc9f-dc33faafc474": {
+   "id": "687dc5b7-ac5c-42d5-bc9f-dc33faafc474",
+   "employer": "RSM",
+   "title": "Audit School Leaver Programme 2027",
+   "level": "7",
+   "location": "Multiple UK locations",
+   "deadline": "",
+   "status": "open",
+   "apply": "https://www.rsmuk.com/careers/jobs/ec197"
+  },
+  "2c4adff8-21b5-41d8-aa66-ba8b25f96c78": {
+   "id": "2c4adff8-21b5-41d8-aa66-ba8b25f96c78",
+   "employer": "Forvis Mazars",
+   "title": "Tax School Leaver Apprenticeship 2027",
+   "level": "7",
+   "location": "Leeds, Milton Keynes",
+   "deadline": "",
+   "status": "open",
+   "apply": "https://higherin.com/jobs/46292/forvis-mazars/tax-indirect-tax-school-leaver-apprenticeship-leeds-september-2027"
+  },
+  "910ad731-9670-4dcb-8937-8de231e9e8bb": {
+   "id": "910ad731-9670-4dcb-8937-8de231e9e8bb",
+   "employer": "Forvis Mazars",
+   "title": "Audit Mid Market School Leaver Apprenticeship 2027",
+   "level": "7",
+   "location": "Leeds, Glasgow, Milton Keynes",
+   "deadline": "2026-11-30",
+   "status": "open",
+   "apply": "https://higherin.com/jobs/46247/forvis-mazars/audit-mid-market-school-leaver-leeds-september-2027"
+  },
+  "999348b1-4966-461c-95e2-ddba84b35694": {
+   "id": "999348b1-4966-461c-95e2-ddba84b35694",
+   "employer": "PwC",
+   "title": "Flying Start Degree Apprenticeship: Business Management (Belfast)",
+   "level": "6",
+   "location": "Belfast",
+   "deadline": "",
+   "status": "open",
+   "apply": "https://www.pwc.co.uk/careers/early-careers/entry-level/flying-start.html"
+  },
+  "779dfd47-fce4-44f3-abca-c142bec36ef3": {
+   "id": "779dfd47-fce4-44f3-abca-c142bec36ef3",
+   "employer": "PwC",
+   "title": "Flying Start Degree Programme: Accounting",
+   "level": "6",
+   "location": "London, Manchester, Newcastle, Reading",
+   "deadline": "2027-01-13",
+   "status": "open",
+   "apply": "https://www.pwc.co.uk/careers/early-careers/entry-level/flying-start.html"
+  },
+  "55b1a553-17e9-4a1f-8d9a-0fb277c8063d": {
+   "id": "55b1a553-17e9-4a1f-8d9a-0fb277c8063d",
+   "employer": "EY",
+   "title": "Audit Apprenticeship Programme 2027",
+   "level": "7",
+   "location": "Multiple UK locations",
+   "deadline": "",
+   "status": "open",
+   "apply": "https://ukstudents.ey.com/"
+  },
+  "40730a88-3b4a-4d19-8006-cd67eaa321b6": {
+   "id": "40730a88-3b4a-4d19-8006-cd67eaa321b6",
+   "employer": "KPMG",
+   "title": "2027 Tax Apprenticeship",
+   "level": "7",
+   "location": "Reading, Bristol, Glasgow",
+   "deadline": "",
+   "status": "open",
+   "apply": "https://www.kpmgcareers.co.uk/Vacancies/apprenticeshipstaxapprenticeshipreadingautumn2027/c64431b0-934c-5407-5f5b-7afe72394d87"
+  },
+  "574b6df9-1012-4022-8cb9-ce2257d79d69": {
+   "id": "574b6df9-1012-4022-8cb9-ce2257d79d69",
+   "employer": "KPMG",
+   "title": "2027 Audit Apprenticeship",
+   "level": "7",
+   "location": "Multiple UK locations",
+   "deadline": "",
+   "status": "open",
+   "apply": "https://www.kpmgcareers.co.uk/Vacancies/apprenticeshipsauditapprenticeshiplondonautumn2027/638ea412-944f-86c7-dff0-85e72feb1095"
+  },
+  "169c254a-ffac-4328-a284-7b2b48891f23": {
+   "id": "169c254a-ffac-4328-a284-7b2b48891f23",
+   "employer": "BDO",
+   "title": "2027 Audit School Leaver Apprenticeship Programme",
+   "level": "6",
+   "location": "Birmingham, Bristol, Cambridge, Edinburgh, Gatwick, Glasgow, Guildford, Ipswich, Leeds, Liverpool, London, Manchester, Nottingham, Reading, Southampton, United Kingdom",
+   "deadline": "2026-11-15",
+   "status": "closing_soon",
+   "apply": "https://careers.bdo.co.uk/job/birmingham/2027-audit-school-leaver-apprenticeship-programme/1469/45085584192"
+  },
+  "458f015a-2212-450c-901b-3a1d02014b78": {
+   "id": "458f015a-2212-450c-901b-3a1d02014b78",
+   "employer": "BDO",
+   "title": "2027 Audit Technology School Leaver Apprenticeship Programme",
+   "level": "6",
+   "location": "Birmingham, London, Reading, Manchester, United Kingdom",
+   "deadline": "2026-11-15",
+   "status": "closing_soon",
+   "apply": "https://careers.bdo.co.uk/job/birmingham/2027-audit-technology-school-leaver-apprenticeship-programme/1469/45085584064"
+  },
+  "431a4a94-8486-4393-8edf-f3bc59816637": {
+   "id": "431a4a94-8486-4393-8edf-f3bc59816637",
+   "employer": "BDO",
+   "title": "2027 Advisory School Leaver Apprenticeship Programme",
+   "level": "6",
+   "location": "Birmingham, Reading, United Kingdom",
+   "deadline": "2026-11-15",
+   "status": "closing_soon",
+   "apply": "https://careers.bdo.co.uk/job/birmingham/2027-advisory-school-leaver-apprenticeship-programme/1469/45085580736"
+  },
+  "3ca86843-672c-48e7-a3bd-23d22cb711e3": {
+   "id": "3ca86843-672c-48e7-a3bd-23d22cb711e3",
+   "employer": "BDO",
+   "title": "2027 Tax School Leaver Apprenticeship Programme",
+   "level": "6",
+   "location": "Gatwick, Guildford, Ipswich, London, Manchester, Reading, Southampton, United Kingdom",
+   "deadline": "2026-11-15",
+   "status": "closing_soon",
+   "apply": "https://careers.bdo.co.uk/job/united-kingdom/2027-tax-school-leaver-apprenticeship-programme/1469/45085580416"
+  },
   "5972dfb9-03bc-4a6a-89f2-8fe4a459074e": {
    "id": "5972dfb9-03bc-4a6a-89f2-8fe4a459074e",
    "employer": "Airbus",
@@ -141,26 +411,6 @@
    "status": "open",
    "apply": "https://apply.deloitte.co.uk/UKEarlyCareers/SearchJobs/?4934=2772633&4934_format=4380&listFilterMode=1&jobRecordsPerPage=20&"
   },
-  "7250b2b0-9ae1-44ce-ba86-3835e9c8079f": {
-   "id": "7250b2b0-9ae1-44ce-ba86-3835e9c8079f",
-   "employer": "HSBC",
-   "title": "Retail Banking - Rotational Degree Apprenticeship",
-   "level": "6",
-   "location": "Leeds, Birmingham, United Kingdom",
-   "deadline": "2026-11-01",
-   "status": "closing_soon",
-   "apply": "https://www.hsbc.com/careers/students-and-graduates/find-a-programme?page=1&take=20&programme-type=degree-apprenticeship"
-  },
-  "27dd6277-42aa-4b4d-8702-ea9cc4d223cb": {
-   "id": "27dd6277-42aa-4b4d-8702-ea9cc4d223cb",
-   "employer": "HSBC",
-   "title": "Relationship Management - Commercial Banking - Degree Apprenticeship",
-   "level": "6",
-   "location": "Manchester, London, Bristol, Birmingham, United Kingdom",
-   "deadline": "2026-11-01",
-   "status": "closing_soon",
-   "apply": "https://www.hsbc.com/careers/students-and-graduates/find-a-programme?page=1&take=20&programme-type=degree-apprenticeship"
-  },
   "cab4d332-792b-4917-8365-90baccf2ac0c": {
    "id": "cab4d332-792b-4917-8365-90baccf2ac0c",
    "employer": "Barclays",
@@ -251,235 +501,45 @@
    "status": "open",
    "apply": "https://www.kpmgcareers.co.uk/Vacancies/apprenticeshipstaxapprenticeshipmanchesterautumn2027/3eda499c-0701-0b4c-828d-0d50e9511461"
   },
-  "22461afb-83b3-45bb-b074-7482cf87f225": {
-   "id": "22461afb-83b3-45bb-b074-7482cf87f225",
-   "employer": "KPMG",
-   "title": "Tax Apprenticeship Birmingham Autumn 2027",
-   "level": "7",
-   "location": "Birmingham",
-   "deadline": "",
-   "status": "open",
-   "apply": "https://www.kpmgcareers.co.uk/Vacancies/apprenticeshipstaxapprenticeshipbirminghamautumn2027/7c41ffcf-d518-ca44-ffe7-a499f672090e"
-  },
-  "b10cf6ce-b1a3-4e0d-9a3e-dff250a178d4": {
-   "id": "b10cf6ce-b1a3-4e0d-9a3e-dff250a178d4",
-   "employer": "KPMG",
-   "title": "Tax Apprenticeship Leeds Autumn 2027",
-   "level": "7",
-   "location": "Leeds",
-   "deadline": "",
-   "status": "open",
-   "apply": "https://www.kpmgcareers.co.uk/Vacancies/apprenticeshipstaxapprenticeshipleedsautumn2027/b52cb116-84a4-da22-3515-3491c4a9e46f"
-  },
-  "1d362583-30c5-4197-b688-cf695bef3a31": {
-   "id": "1d362583-30c5-4197-b688-cf695bef3a31",
-   "employer": "KPMG",
-   "title": "Tax Apprenticeship Bristol Autumn 2027",
-   "level": "7",
-   "location": "Bristol",
-   "deadline": "",
-   "status": "open",
-   "apply": "https://www.kpmgcareers.co.uk/Vacancies/apprenticeshipstaxapprenticeshipbristolautumn2027/05535102-b525-2c44-857f-9368f7006e33"
-  },
-  "484bc2bc-18c2-49fd-afb5-647c13d5c581": {
-   "id": "484bc2bc-18c2-49fd-afb5-647c13d5c581",
-   "employer": "KPMG",
-   "title": "Tax Apprenticeship Glasgow Autumn 2027",
-   "level": "7",
-   "location": "Glasgow",
-   "deadline": "",
-   "status": "open",
-   "apply": "https://www.kpmgcareers.co.uk/Vacancies/apprenticeshipstaxapprenticeshipglasgowautumn2027/"
-  },
-  "bd798137-fed6-41ff-a1f1-a08501f7b3ee": {
-   "id": "bd798137-fed6-41ff-a1f1-a08501f7b3ee",
-   "employer": "KPMG",
-   "title": "Audit Apprenticeship South Coast - Southampton Autumn 2027",
-   "level": "7",
-   "location": "South Coast - Southampton",
-   "deadline": "",
-   "status": "open",
-   "apply": "https://www.kpmgcareers.co.uk/Vacancies/apprenticeshipsauditapprenticeshipsouthcoastsouthamptonautumn2027/71723265-1410-f418-da02-66b29cb8f7ab"
-  },
-  "6f381021-3e07-48cb-ae82-63f5b7754b41": {
-   "id": "6f381021-3e07-48cb-ae82-63f5b7754b41",
-   "employer": "KPMG",
-   "title": "Audit Apprenticeship Leeds Autumn 2027",
-   "level": "7",
-   "location": "Leeds",
-   "deadline": "",
-   "status": "open",
-   "apply": "https://www.kpmgcareers.co.uk/Vacancies/apprenticeshipsauditapprenticeshipleedsautumn2027/5921b81d-9d95-a73b-bea5-993dc5ed188b"
-  },
-  "ad2abd63-beda-4309-9621-b38eb227967e": {
-   "id": "ad2abd63-beda-4309-9621-b38eb227967e",
-   "employer": "KPMG",
-   "title": "Audit Apprenticeship Birmingham Autumn 2027",
-   "level": "7",
-   "location": "Birmingham",
-   "deadline": "",
-   "status": "open",
-   "apply": "https://www.kpmgcareers.co.uk/Vacancies/apprenticeshipsauditapprenticeshipbirminghamautumn2027/8872be52-feb2-dfe6-ef92-3acd573fc15f"
-  },
-  "5bbce685-5e23-428a-b7de-563fb9b38e9b": {
-   "id": "5bbce685-5e23-428a-b7de-563fb9b38e9b",
-   "employer": "KPMG",
-   "title": "Audit Apprenticeship Nottingham Autumn 2027",
-   "level": "7",
-   "location": "Nottingham",
-   "deadline": "",
-   "status": "open",
-   "apply": "https://www.kpmgcareers.co.uk/Vacancies/apprenticeshipsauditapprenticeshipnottinghamautumn2027/90366067-9b68-f1f2-8c3b-0e10b5275214"
-  },
-  "3d67f9dc-0d60-4b58-99c4-6c1ebca19317": {
-   "id": "3d67f9dc-0d60-4b58-99c4-6c1ebca19317",
-   "employer": "KPMG",
-   "title": "Audit Apprenticeship Milton Keynes Autumn 2027",
-   "level": "7",
-   "location": "Milton Keynes",
-   "deadline": "",
-   "status": "open",
-   "apply": "https://www.kpmgcareers.co.uk/Vacancies/apprenticeshipsauditapprenticeshipmiltonkeynesautumn2027/1f36c891-ea7e-7925-fe56-d19991ce601f"
-  },
-  "c2a16bbc-cbb3-40fd-8280-7f349f4f221f": {
-   "id": "c2a16bbc-cbb3-40fd-8280-7f349f4f221f",
-   "employer": "KPMG",
-   "title": "Audit Apprenticeship Watford Autumn 2027",
-   "level": "7",
-   "location": "Watford",
-   "deadline": "",
-   "status": "open",
-   "apply": "https://www.kpmgcareers.co.uk/Vacancies/apprenticeshipsauditapprenticeshipwatfordautumn2027/7a6c3f15-d223-0fd9-c470-312dab3fc457"
-  },
-  "e93e8d93-36d6-43c7-bf34-eda82fbe2524": {
-   "id": "e93e8d93-36d6-43c7-bf34-eda82fbe2524",
-   "employer": "KPMG",
-   "title": "Audit Apprenticeship Newcastle Autumn 2027",
-   "level": "7",
-   "location": "Newcastle",
-   "deadline": "",
-   "status": "open",
-   "apply": "https://www.kpmgcareers.co.uk/Vacancies/apprenticeshipsauditapprenticeshipnewcastleautumn2027/3aad091a-bd3c-225d-e794-944772070368"
-  },
-  "1fadf8c9-bc3b-42eb-b787-d40d26720061": {
-   "id": "1fadf8c9-bc3b-42eb-b787-d40d26720061",
-   "employer": "KPMG",
-   "title": "Audit Apprenticeship Glasgow Autumn 2027",
-   "level": "7",
-   "location": "Glasgow",
-   "deadline": "",
-   "status": "open",
-   "apply": "https://www.kpmgcareers.co.uk/Vacancies/apprenticeshipsauditapprenticeshipglasgowautumn2027/1d66ec5b-2d8c-8cb5-13ff-2e0ac19fbab6"
-  },
-  "6c65e687-1c52-4ec5-9628-ee6bfbd49f4e": {
-   "id": "6c65e687-1c52-4ec5-9628-ee6bfbd49f4e",
-   "employer": "KPMG",
-   "title": "Audit Apprenticeship Manchester Autumn 2027",
-   "level": "7",
-   "location": "Manchester",
-   "deadline": "",
-   "status": "open",
-   "apply": "https://www.kpmgcareers.co.uk/Vacancies/apprenticeshipsauditapprenticeshipmanchesterautumn2027/d9990e4d-23b5-e423-a471-6961d3ea18a0"
-  },
-  "8a1b5ff1-52e3-44aa-8014-8d04bb995a3d": {
-   "id": "8a1b5ff1-52e3-44aa-8014-8d04bb995a3d",
-   "employer": "KPMG",
-   "title": "Audit Apprenticeship London Autumn 2027",
-   "level": "7",
-   "location": "London",
-   "deadline": "",
-   "status": "open",
-   "apply": "https://www.kpmgcareers.co.uk/Vacancies/apprenticeshipsauditapprenticeshiplondonautumn2027/638ea412-944f-86c7-dff0-85e72feb1095"
-  },
-  "3f10f78d-2317-4689-9dd0-9ab808e120e1": {
-   "id": "3f10f78d-2317-4689-9dd0-9ab808e120e1",
-   "employer": "KPMG",
-   "title": "Audit Apprenticeship Gibraltar Autumn 2027",
-   "level": "7",
-   "location": "Gibraltar",
-   "deadline": "",
-   "status": "open",
-   "apply": "https://www.kpmgcareers.co.uk/Vacancies/apprenticeshipsauditapprenticeshipgibraltarautumn2027/a71a458d-66a4-0283-b52f-32fef2893b7d"
-  },
-  "bbdd2b20-4947-4baa-8669-40fab6320eaf": {
-   "id": "bbdd2b20-4947-4baa-8669-40fab6320eaf",
-   "employer": "KPMG",
-   "title": "Audit Apprenticeship Edinburgh Autumn 2027",
-   "level": "7",
-   "location": "Edinburgh",
-   "deadline": "",
-   "status": "open",
-   "apply": "https://www.kpmgcareers.co.uk/Vacancies/apprenticeshipsauditapprenticeshipedinburghautumn2027/d22891e2-0015-8e51-5053-ab2df7dae50f"
-  },
-  "a9fe8c24-b76d-4bd9-bf88-9008920bdbdc": {
-   "id": "a9fe8c24-b76d-4bd9-bf88-9008920bdbdc",
-   "employer": "KPMG",
-   "title": "Audit Apprenticeship Bristol Autumn 2027",
-   "level": "7",
-   "location": "Bristol",
-   "deadline": "",
-   "status": "open",
-   "apply": "https://www.kpmgcareers.co.uk/Vacancies/apprenticeshipsauditapprenticeshipbristolautumn2027/116efbee-001d-ea56-c69c-d28c7033a081"
-  },
-  "c80f635a-fc9c-4ed8-834b-97298ba59cd1": {
-   "id": "c80f635a-fc9c-4ed8-834b-97298ba59cd1",
-   "employer": "KPMG",
-   "title": "Audit Apprenticeship Reading Autumn 2027",
-   "level": "7",
-   "location": "Reading",
-   "deadline": "",
-   "status": "open",
-   "apply": "https://www.kpmgcareers.co.uk/Vacancies/apprenticeshipsauditapprenticeshipreadingautumn2027/b368bb7b-f5c4-1f2c-3dc4-42513ebdbc96"
-  },
-  "7f56b10c-be86-4e7c-9e31-8cc24b2d5202": {
-   "id": "7f56b10c-be86-4e7c-9e31-8cc24b2d5202",
-   "employer": "Broadfield",
-   "title": "London Solicitor Apprenticeship 2027",
-   "level": "7",
-   "location": "London",
-   "deadline": "2027-02-14",
-   "status": "open",
-   "apply": "https://broadfieldlaw.com/uk/early-careers/legal-apprenticeships/"
-  },
-  "bea85119-a7c7-4bd9-bce6-5c04c9cbf183": {
-   "id": "bea85119-a7c7-4bd9-bce6-5c04c9cbf183",
-   "employer": "PwC",
-   "title": "Flying Start Degree Programme – Accounting (London)",
+  "0cb83c9c-affd-431c-a41a-977770305f1c": {
+   "id": "0cb83c9c-affd-431c-a41a-977770305f1c",
+   "employer": "Capgemini",
+   "title": "SAP Digital and Technology Solutions Degree Apprenticeship 2027",
    "level": "6",
-   "location": "London",
-   "deadline": "2027-01-13",
-   "status": "open",
-   "apply": "https://www.ucas.com/explore/courses/5f83ddd9-8a1e-45f4-8509-9f2ec32980b6/accountancy---flying-start-degree-programme?studyYear=2027"
+   "location": "Hove",
+   "deadline": "2026-10-31",
+   "status": "reference_only",
+   "apply": "https://targetjobs.co.uk/jobs/sap-digital-and-technology-solutions-degree-apprenticeship-2027-252751"
   },
-  "a45f8e7d-f6e4-4df1-8eed-46f2176854ad": {
-   "id": "a45f8e7d-f6e4-4df1-8eed-46f2176854ad",
-   "employer": "PwC",
-   "title": "Flying Start Degree Programme – Accounting (Newcastle)",
+  "bab1fd98-925c-4251-8b0f-01693fd3b9da": {
+   "id": "bab1fd98-925c-4251-8b0f-01693fd3b9da",
+   "employer": "Barclays",
+   "title": "2027 Technology Analyst Degree Apprenticeship",
    "level": "6",
-   "location": "Newcastle",
-   "deadline": "2027-01-14",
-   "status": "open",
-   "apply": "https://www.ucas.com/explore/courses/24450412-774b-3a4c-8caa-e6d126b9c36a/business-accounting-and-finance-with-work-placements---flying-start-degree-programme?optionId=4e1cab28-6006-4f59-a070-bacd6ae84b47"
+   "location": "Knutsford, Glasgow",
+   "deadline": "2026-10-31",
+   "status": "reference_only",
+   "apply": "https://search.jobs.barclays/job/knutsford/2027-technology-analyst-degree-apprenticeship-programme-knutsford/13015/100411085472"
   },
-  "b8d2a97d-7307-43da-9da6-11aa6076fb1a": {
-   "id": "b8d2a97d-7307-43da-9da6-11aa6076fb1a",
-   "employer": "PwC",
-   "title": "Flying Start Degree Programme – Accounting (Reading)",
+  "8ae0d9f6-f3d6-4693-b684-769e6d968921": {
+   "id": "8ae0d9f6-f3d6-4693-b684-769e6d968921",
+   "employer": "Barclays",
+   "title": "2027 Technology Developer Degree Apprenticeship",
    "level": "6",
-   "location": "Reading",
-   "deadline": "2027-01-13",
-   "status": "open",
-   "apply": "https://www.ucas.com/explore/courses/8323334c-453d-ad0e-5d22-bf772e232795/accounting-and-business---flying-start-degree-programme?studyYear=2027"
+   "location": "Knutsford, Northampton, Glasgow",
+   "deadline": "2026-10-31",
+   "status": "reference_only",
+   "apply": "https://search.jobs.barclays/job/knutsford/2027-technology-developer-degree-apprenticeship-programme-knutsford/13015/100411086976"
   },
-  "a0ab6a33-b8a1-4129-8795-3e650ea3159a": {
-   "id": "a0ab6a33-b8a1-4129-8795-3e650ea3159a",
-   "employer": "PwC",
-   "title": "Flying Start Degree Programme – Accounting (Manchester)",
+  "31b2bf45-828b-4d89-9d82-1d891a4a2793": {
+   "id": "31b2bf45-828b-4d89-9d82-1d891a4a2793",
+   "employer": "Barclays",
+   "title": "2027 Business Banking Degree Apprenticeship",
    "level": "6",
-   "location": "Manchester",
-   "deadline": "2027-01-13",
-   "status": "open",
-   "apply": "https://www.ucas.com/explore/courses/c61e42d8-b6b4-447a-a37c-35c38e170dae/business-accounting-with-industrial-professional-experience?studyYear=2027"
+   "location": "London, Manchester, Northampton",
+   "deadline": "2026-10-31",
+   "status": "reference_only",
+   "apply": "https://search.jobs.barclays/job/northampton/2027-business-banking-degree-apprenticeship-programme-northampton/13015/100491335424"
   },
   "9af4cf88-8eeb-4f2f-8856-286c2e25f9ca": {
    "id": "9af4cf88-8eeb-4f2f-8856-286c2e25f9ca",
@@ -690,6 +750,26 @@
    "deadline": "2026-10-12",
    "status": "reference_only",
    "apply": "https://apply.deloitte.co.uk/UKEarlyCareers/JobDetail/Business-Transformation-Consulting-Customer-Products/25179"
+  },
+  "7250b2b0-9ae1-44ce-ba86-3835e9c8079f": {
+   "id": "7250b2b0-9ae1-44ce-ba86-3835e9c8079f",
+   "employer": "HSBC",
+   "title": "Retail Banking - Rotational Degree Apprenticeship",
+   "level": "6",
+   "location": "Leeds, Birmingham, United Kingdom",
+   "deadline": "2026-11-01",
+   "status": "reference_only",
+   "apply": "https://www.hsbc.com/careers/students-and-graduates/find-a-programme?page=1&take=20&programme-type=degree-apprenticeship"
+  },
+  "27dd6277-42aa-4b4d-8702-ea9cc4d223cb": {
+   "id": "27dd6277-42aa-4b4d-8702-ea9cc4d223cb",
+   "employer": "HSBC",
+   "title": "Relationship Management - Commercial Banking - Degree Apprenticeship",
+   "level": "6",
+   "location": "Manchester, London, Bristol, Birmingham, United Kingdom",
+   "deadline": "2026-11-01",
+   "status": "reference_only",
+   "apply": "https://www.hsbc.com/careers/students-and-graduates/find-a-programme?page=1&take=20&programme-type=degree-apprenticeship"
   },
   "ac66109e-87a4-47d6-a3d5-7c9fb7f52bf5": {
    "id": "ac66109e-87a4-47d6-a3d5-7c9fb7f52bf5",
@@ -917,46 +997,6 @@
    "title": "Manufacturing  Engineer Degree Apprenticeship",
    "level": "6",
    "location": "Sunderland",
-   "deadline": "2026-01-30",
-   "status": "reference_only",
-   "apply": ""
-  },
-  "594efe82-c579-44f7-a322-6cf3b67a17eb": {
-   "id": "594efe82-c579-44f7-a322-6cf3b67a17eb",
-   "employer": "BAE Systems",
-   "title": "Manufacturing  Engineer Degree Apprenticeship",
-   "level": "6",
-   "location": "Barrow-in-Furness",
-   "deadline": "2026-01-30",
-   "status": "reference_only",
-   "apply": ""
-  },
-  "d45d9f02-d22f-4210-abce-dc6ff14b59c5": {
-   "id": "d45d9f02-d22f-4210-abce-dc6ff14b59c5",
-   "employer": "BAE Systems",
-   "title": "Manufacturing  Engineer Degree Apprenticeship",
-   "level": "6",
-   "location": "Glasgow",
-   "deadline": "2026-01-30",
-   "status": "reference_only",
-   "apply": ""
-  },
-  "b2d9ee6b-ccc0-4f55-ba67-33bc94b1fd8a": {
-   "id": "b2d9ee6b-ccc0-4f55-ba67-33bc94b1fd8a",
-   "employer": "BAE Systems",
-   "title": "Aerospace Engineer Degree Apprenticeship",
-   "level": "6",
-   "location": "Samlesbury, Brough",
-   "deadline": "2026-01-30",
-   "status": "reference_only",
-   "apply": ""
-  },
-  "88b82521-9eb9-44f9-a054-e77aea59c77b": {
-   "id": "88b82521-9eb9-44f9-a054-e77aea59c77b",
-   "employer": "BAE Systems",
-   "title": "Naval Architect and Weights Engineer Degree Apprenticeship",
-   "level": "6",
-   "location": "Cumbria",
    "deadline": "2026-01-30",
    "status": "reference_only",
    "apply": ""
