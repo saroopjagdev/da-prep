@@ -60,7 +60,7 @@ export async function postJson<T>(url: string, body?: unknown, method = "POST"):
     body: body === undefined ? undefined : JSON.stringify(body),
   });
   const data = await res.json().catch(() => ({}));
-  if (!res.ok) throw new Error(data.error ?? "Something went wrong");
+  if (!res.ok) throw Object.assign(new Error(data.error ?? "Something went wrong"), { status: res.status });
   savePass(data);
   return data as T;
 }

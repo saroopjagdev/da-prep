@@ -33,7 +33,10 @@ const chain = (table: string, op: string, args: unknown[]) => {
   };
   return p;
 };
+const rpcCalls: { name: string; args: { p_event: string; p_campaign: string } }[] = [];
+const counted = () => rpcCalls.map((c) => (c.args.p_campaign ? `${c.args.p_event}:${c.args.p_campaign}` : c.args.p_event));
 const fakeDb = {
+  rpc: async (name: string, args: { p_event: string; p_campaign: string }) => (rpcCalls.push({ name, args }), { error: null }),
   from: (table: string) => ({
     upsert: (...a: unknown[]) => chain(table, "upsert", a),
     update: (...a: unknown[]) => chain(table, "update", a),
@@ -53,6 +56,7 @@ const goodPrice = { id: "price_pro", active: true, unit_amount: 999, currency: "
 
 beforeEach(() => {
   calls.length = 0;
+  rpcCalls.length = 0;
   dbError = null;
   badSig = false;
   profileRow = null;
@@ -224,5 +228,52 @@ describe("checkout", () => {
     profileRow = { plan: "pro" };
     expect((await buy(ok)).status).toBe(409);
     expect(sessionCreate).not.toHaveBeenCalled();
+  });
+});
+
+describe("what the server counts, so a checkout that goes nowhere is visible", () => {
+  const buy = (body: unknown) => checkout(new Request("http://x/api/stripe/checkout", { method: "POST", body: JSON.stringify(body) }));
+  const ok = { startNow: true, acceptTerms: true };
+  beforeEach(() => {
+    vi.stubEnv("STRIPE_PRICE_ID", "price_pro");
+    vi.stubEnv("STRIPE_PRICE_MONTHLY", "");
+  });
+
+  it("counts a created payment page, with no reason", async () => {
+    expect((await buy(ok)).status).toBe(200);
+    expect(counted()).toEqual(["checkout_session"]);
+  });
+
+  it.each([
+    ["unticked", async () => buy({ startNow: true }), 400],
+    ["already-pro", async () => ((profileRow = { plan: "pro" }), buy(ok)), 409],
+    ["price-mismatch", async () => (priceRetrieve.mockResolvedValue({ ...goodPrice, unit_amount: 1700 }), buy(ok)), 503],
+    ["price-unreadable", async () => (priceRetrieve.mockRejectedValue(new Error("x")), buy(ok)), 503],
+    ["stripe-error", async () => (sessionCreate.mockRejectedValue(new Error("stripe down")), buy(ok)), 502],
+  ])("counts a refusal with its reason: %s", async (reason, run, status) => {
+    const res = await run();
+    expect(res.status).toBe(status);
+    expect((await res.json()).reason).toBe(reason);
+    expect(counted()).toEqual([`checkout_refused:${reason}`]);
+  });
+
+  it("counts Pro starting only after the database write works", async () => {
+    event = { type: "checkout.session.completed", data: { object: { mode: "subscription", payment_status: "paid", client_reference_id: "u1", customer: "cus_1" } } };
+    await hook();
+    expect(counted()).toEqual(["pro_started"]);
+    rpcCalls.length = 0;
+    dbError = { message: "boom" };
+    await hook();
+    expect(counted()).toEqual([]);
+  });
+
+  it("counts Pro ending when a subscription ends, but not on an ordinary update", async () => {
+    event = { type: "customer.subscription.deleted", data: { object: { customer: "cus_1", status: "active" } } };
+    await hook();
+    expect(counted()).toEqual(["pro_ended"]);
+    rpcCalls.length = 0;
+    event = { type: "customer.subscription.updated", data: { object: { customer: "cus_1", status: "incomplete" } } };
+    await hook();
+    expect(counted()).toEqual([]);
   });
 });
