@@ -1,15 +1,105 @@
 {
- "checked": "2026-11-02",
+ "checked": "2026-11-09",
  "jobs": {
-  "58ad0f0f-f94f-436d-a9dc-214347fdc9c5": {
-   "id": "58ad0f0f-f94f-436d-a9dc-214347fdc9c5",
-   "employer": "Michelmores",
-   "title": "Solicitor Apprenticeship 2027",
+  "8111f380-4b4f-4cce-af37-1d9bc930c6b2": {
+   "id": "8111f380-4b4f-4cce-af37-1d9bc930c6b2",
+   "employer": "MHA",
+   "title": "Audit and Accounts Junior AAT/ACA Apprenticeship 2027",
    "level": "7",
-   "location": "Exeter, Bristol",
-   "deadline": "2026-11-05",
-   "status": "closing_soon",
-   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000056390"
+   "location": "Manchester, Lancaster, Preston, Kendal",
+   "deadline": "2027-01-11",
+   "status": "open",
+   "apply": "https://careers.mha.co.uk/job/Manchester-Audit-Junior-AATACA-%28Apprenticeship%29-Manchester-September-2027-M2-3FX/1367897855/"
+  },
+  "df8438c0-93c7-4bcd-ab46-1c48f64a4952": {
+   "id": "df8438c0-93c7-4bcd-ab46-1c48f64a4952",
+   "employer": "AWE",
+   "title": "Electronic Design Level 6 Apprenticeship 2027",
+   "level": "6",
+   "location": "Aldermaston, Burghfield",
+   "deadline": "2027-01-10",
+   "status": "open",
+   "apply": "https://higherin.com/jobs/46016/awe/electronic-design-level-6-apprenticeship-2027"
+  },
+  "9a63f16e-c0fd-4fa7-9696-668d335fc8f8": {
+   "id": "9a63f16e-c0fd-4fa7-9696-668d335fc8f8",
+   "employer": "AWE",
+   "title": "Building Services Asset Engineering Level 6 Apprenticeship 2027",
+   "level": "6",
+   "location": "Aldermaston, Burghfield",
+   "deadline": "2026-12-20",
+   "status": "open",
+   "apply": "https://higherin.com/jobs/46012/awe/building-services-asset-engineering-level-6-apprenticeship-2027"
+  },
+  "8ed7ecf5-15c0-40a7-933e-96e0c22132f3": {
+   "id": "8ed7ecf5-15c0-40a7-933e-96e0c22132f3",
+   "employer": "AWE",
+   "title": "Manufacturing Engineer Level 6 Apprenticeship 2027",
+   "level": "6",
+   "location": "Aldermaston, Burghfield",
+   "deadline": "2026-12-20",
+   "status": "open",
+   "apply": "https://higherin.com/jobs/46019/awe/manufacturing-engineer-level-6-apprenticeship-2027"
+  },
+  "84013fd8-ea3c-47ca-a09c-ae9c502547d9": {
+   "id": "84013fd8-ea3c-47ca-a09c-ae9c502547d9",
+   "employer": "Linklaters",
+   "title": "Solicitor Apprenticeship Programme 2027",
+   "level": "7",
+   "location": "London",
+   "deadline": "2027-02-12",
+   "status": "open",
+   "apply": "https://apply.candidats.io/f7f2dbe0-43d3-4a10-b327-fc9d2520c849"
+  },
+  "9a1ed638-0139-4a2e-bc55-de9c3e419e95": {
+   "id": "9a1ed638-0139-4a2e-bc55-de9c3e419e95",
+   "employer": "Freshfields",
+   "title": "UK Solicitor Apprenticeship Programme 2027",
+   "level": "7",
+   "location": "London",
+   "deadline": "2027-01-28",
+   "status": "open",
+   "apply": "https://www.freshfields.com/en/your-career/united-kingdom/early-careers/solicitor-apprenticeship-program"
+  },
+  "0bea4053-d938-4bd5-98a1-9fdeca54fb03": {
+   "id": "0bea4053-d938-4bd5-98a1-9fdeca54fb03",
+   "employer": "Hogan Lovells Cadwalader",
+   "title": "2027 Solicitor Apprenticeship",
+   "level": "7",
+   "location": "London",
+   "deadline": "2027-01-31",
+   "status": "open",
+   "apply": "https://apply.candidats.io/b1576638-e528-4248-8cce-b5192a84b795"
+  },
+  "78cecf87-7e83-4213-9049-ad554483cc3b": {
+   "id": "78cecf87-7e83-4213-9049-ad554483cc3b",
+   "employer": "Lloyds Banking Group",
+   "title": "Colleague User Experience Professional Degree Apprenticeship 2027",
+   "level": "6",
+   "location": "Leeds",
+   "deadline": "2027-01-12",
+   "status": "open",
+   "apply": "https://www.lloydsbankinggrouptalent.com/our-opportunities/apprenticeships/colleague-user-experience-professional-degree-apprenticeship/"
+  },
+  "c2a3c011-638d-4de8-ab84-64717d86aff6": {
+   "id": "c2a3c011-638d-4de8-ab84-64717d86aff6",
+   "employer": "Lloyds Banking Group",
+   "title": "Accounting Professional and Finance Degree Apprenticeship 2027",
+   "level": "6",
+   "location": "Bristol, Leeds, Halifax",
+   "deadline": "2026-12-01",
+   "status": "open",
+   "apply": "https://lbg.wd3.myworkdayjobs.com/LBG_Careers/job/Bristol/Accounting-and-Finance-Degree-Apprenticeship---Bristol_164870"
+  },
+  "6e996820-6ecc-48ab-a758-71ef8f605fe8": {
+   "id": "6e996820-6ecc-48ab-a758-71ef8f605fe8",
+   "employer": "Lloyds Banking Group",
+   "title": "Digital and Technology Solutions Degree Apprenticeship 2027",
+   "level": "6",
+   "location": "Manchester",
+   "deadline": "2026-12-15",
+   "status": "open",
+   "apply": "https://lbg.wd3.myworkdayjobs.com/LBG_Careers/job/Manchester/Digital---Technology-Solutions-Degree-Apprenticeship---Manchester_164903"
   },
   "e8536708-1d53-4434-8c13-600ee343cf2c": {
    "id": "e8536708-1d53-4434-8c13-600ee343cf2c",
@@ -411,95 +501,25 @@
    "status": "open",
    "apply": "https://apply.deloitte.co.uk/UKEarlyCareers/SearchJobs/?4934=2772633&4934_format=4380&listFilterMode=1&jobRecordsPerPage=20&"
   },
-  "cab4d332-792b-4917-8365-90baccf2ac0c": {
-   "id": "cab4d332-792b-4917-8365-90baccf2ac0c",
-   "employer": "Barclays",
-   "title": "Global Transaction Banking Degree Apprenticeship Programme 2027 – London",
+  "5fc93154-198e-4883-a21e-daaa6b6a120b": {
+   "id": "5fc93154-198e-4883-a21e-daaa6b6a120b",
+   "employer": "AWE",
+   "title": "Data Scientist Level 6 Apprenticeship 2027",
    "level": "6",
-   "location": "London",
-   "deadline": "",
-   "status": "open",
-   "apply": "https://search.jobs.barclays/job/london/global-transaction-banking-degree-apprenticeship-programme-2027-london/13015/JR-0000124291"
+   "location": "Aldermaston, Burghfield",
+   "deadline": "2026-11-08",
+   "status": "reference_only",
+   "apply": "https://higherin.com/jobs/46014/awe/data-scientist-level-6-apprenticeship-2027"
   },
-  "ee77ed02-cf8c-45c2-8be1-8d3615b6397f": {
-   "id": "ee77ed02-cf8c-45c2-8be1-8d3615b6397f",
-   "employer": "Barclays",
-   "title": "Global Transaction Banking Degree Apprenticeship Programme 2027 – Northampton",
-   "level": "6",
-   "location": "Northampton",
-   "deadline": "",
-   "status": "open",
-   "apply": "https://search.jobs.barclays/job/northampton/global-transaction-banking-degree-apprenticeship-programme-2027-northampton/13015/JR-0000124677"
-  },
-  "f1b3552c-f891-4723-9d8b-5451db427e51": {
-   "id": "f1b3552c-f891-4723-9d8b-5451db427e51",
-   "employer": "Barclays",
-   "title": "UK Corporate Banking Degree Apprenticeship Programme 2027 – London",
-   "level": "6",
-   "location": "London",
-   "deadline": "",
-   "status": "open",
-   "apply": "https://search.jobs.barclays/job/london/uk-corporate-banking-degree-apprenticeship-programme-2027-london/13015/JR-0000124379"
-  },
-  "8659a2d2-b357-4cc3-bb1b-50f0d99c69d1": {
-   "id": "8659a2d2-b357-4cc3-bb1b-50f0d99c69d1",
-   "employer": "Barclays",
-   "title": "UK Corporate Banking Degree Apprenticeship Programme 2027 – Birmingham",
-   "level": "6",
-   "location": "Birmingham",
-   "deadline": "",
-   "status": "open",
-   "apply": "https://search.jobs.barclays/job/birmingham/uk-corporate-banking-degree-apprenticeship-programme-2027-birmingham/13015/JR-0000124391"
-  },
-  "9c864a72-9d81-4abe-a72a-4339dd605993": {
-   "id": "9c864a72-9d81-4abe-a72a-4339dd605993",
-   "employer": "Barclays",
-   "title": "UK Corporate Banking Degree Apprenticeship Programme 2027 – Leeds",
-   "level": "6",
-   "location": "Leeds",
-   "deadline": "",
-   "status": "open",
-   "apply": "https://search.jobs.barclays/job/leeds/uk-corporate-banking-degree-apprenticeship-programme-2027-leeds/13015/JR-0000125017"
-  },
-  "c3939241-e142-444e-be91-828f56c2b9ec": {
-   "id": "c3939241-e142-444e-be91-828f56c2b9ec",
-   "employer": "KPMG",
-   "title": "Tax Apprenticeship Edinburgh Autumn 2027",
+  "58ad0f0f-f94f-436d-a9dc-214347fdc9c5": {
+   "id": "58ad0f0f-f94f-436d-a9dc-214347fdc9c5",
+   "employer": "Michelmores",
+   "title": "Solicitor Apprenticeship 2027",
    "level": "7",
-   "location": "Edinburgh",
-   "deadline": "",
-   "status": "open",
-   "apply": "https://www.kpmgcareers.co.uk/Vacancies/apprenticeshipstaxapprenticeshipedinburghautumn2027/befb001d-a1bb-10fd-bbad-a1e6c0109551"
-  },
-  "7908ee17-75d3-4d6b-92d7-70b9aae5c65f": {
-   "id": "7908ee17-75d3-4d6b-92d7-70b9aae5c65f",
-   "employer": "KPMG",
-   "title": "Tax Apprenticeship Reading Autumn 2027",
-   "level": "7",
-   "location": "Reading",
-   "deadline": "",
-   "status": "open",
-   "apply": "https://www.kpmgcareers.co.uk/Vacancies/apprenticeshipstaxapprenticeshipreadingautumn2027/c64431b0-934c-5407-5f5b-7afe72394d87"
-  },
-  "98d174b4-539e-4372-8132-3764a54bc482": {
-   "id": "98d174b4-539e-4372-8132-3764a54bc482",
-   "employer": "KPMG",
-   "title": "Tax Apprenticeship London Autumn 2027",
-   "level": "7",
-   "location": "London",
-   "deadline": "",
-   "status": "open",
-   "apply": "https://www.kpmgcareers.co.uk/Vacancies/apprenticeshipstaxapprenticeshiplondonautumn2027/838895db-fc79-5f5b-8ac9-39173e5869a8"
-  },
-  "44b476e0-dd2f-4ac8-ba18-d5f0b73ea82b": {
-   "id": "44b476e0-dd2f-4ac8-ba18-d5f0b73ea82b",
-   "employer": "KPMG",
-   "title": "Tax Apprenticeship Manchester Autumn 2027",
-   "level": "7",
-   "location": "Manchester",
-   "deadline": "",
-   "status": "open",
-   "apply": "https://www.kpmgcareers.co.uk/Vacancies/apprenticeshipstaxapprenticeshipmanchesterautumn2027/3eda499c-0701-0b4c-828d-0d50e9511461"
+   "location": "Exeter, Bristol",
+   "deadline": "2026-11-05",
+   "status": "reference_only",
+   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000056390"
   },
   "0cb83c9c-affd-431c-a41a-977770305f1c": {
    "id": "0cb83c9c-affd-431c-a41a-977770305f1c",
@@ -978,26 +998,6 @@
    "level": "6",
    "location": "Crawley",
    "deadline": "2026-02-12",
-   "status": "reference_only",
-   "apply": ""
-  },
-  "284861ff-84c4-4db1-9c07-f6d68325bded": {
-   "id": "284861ff-84c4-4db1-9c07-f6d68325bded",
-   "employer": "EDF",
-   "title": "Nucelar Engineering Degree Apprenticeship",
-   "level": "6",
-   "location": "Gloucester",
-   "deadline": "2026-02-23",
-   "status": "reference_only",
-   "apply": ""
-  },
-  "12b82db2-43e3-4d2f-81e2-19e2bbc07538": {
-   "id": "12b82db2-43e3-4d2f-81e2-19e2bbc07538",
-   "employer": "BAE Systems",
-   "title": "Manufacturing  Engineer Degree Apprenticeship",
-   "level": "6",
-   "location": "Sunderland",
-   "deadline": "2026-01-30",
    "status": "reference_only",
    "apply": ""
   }

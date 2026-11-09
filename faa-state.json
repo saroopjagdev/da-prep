@@ -1,5 +1,5 @@
 {
- "checked": "2026-11-02",
+ "checked": "2026-11-09",
  "jobs": {
   "2000026593": {
    "id": "2000026593",
@@ -10,26 +10,6 @@
    "deadline": "2027-03-15",
    "posted": "2026-09-23",
    "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000026593"
-  },
-  "2000046706": {
-   "id": "2000046706",
-   "employer": "SKELLY & COUCH LIMITED ",
-   "title": "Skelly & Couch Limited - Building, Environment & Services Engineering Level 6 Degree Apprenticeship",
-   "level": "6",
-   "location": "23 WENLOCK ROAD N1",
-   "deadline": "2026-11-02",
-   "posted": "2026-10-19",
-   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000046706"
-  },
-  "2000049834": {
-   "id": "2000049834",
-   "employer": "MY LOCAL SOLICITOR LTD ",
-   "title": "Apprentice Solicitor",
-   "level": "7",
-   "location": "MALPAS SY14",
-   "deadline": "2026-11-03",
-   "posted": "2026-09-21",
-   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000049834"
   },
   "2000050834": {
    "id": "2000050834",
@@ -50,26 +30,6 @@
    "deadline": "2027-04-01",
    "posted": "2026-09-02",
    "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000051163"
-  },
-  "2000053348": {
-   "id": "2000053348",
-   "employer": "CAD21",
-   "title": "Mechanical Design Engineer Apprentice",
-   "level": "6",
-   "location": "Birmingham B3",
-   "deadline": "2026-12-01",
-   "posted": "2026-10-08",
-   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000053348"
-  },
-  "2000053381": {
-   "id": "2000053381",
-   "employer": "CAD21",
-   "title": "Electrical Design Engineer Apprentice",
-   "level": "6",
-   "location": "Birmingham B3",
-   "deadline": "2026-12-01",
-   "posted": "2026-10-08",
-   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000053381"
   },
   "2000054164": {
    "id": "2000054164",
@@ -100,46 +60,6 @@
    "deadline": "2027-01-11",
    "posted": "2026-09-17",
    "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000054175"
-  },
-  "2000054425": {
-   "id": "2000054425",
-   "employer": "HOARE LEA LLP",
-   "title": "2027 Building Services Design Engineer-  Degree Apprentice - Bournemouth",
-   "level": "6",
-   "location": "11 Old School Close BH22",
-   "deadline": "2026-11-06",
-   "posted": "2026-10-08",
-   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000054425"
-  },
-  "2000054429": {
-   "id": "2000054429",
-   "employer": "HOARE LEA LLP",
-   "title": "2027 Building Services Design Engineer-  Degree Apprentice - Cambridge",
-   "level": "6",
-   "location": "Cambridge CB2",
-   "deadline": "2026-11-06",
-   "posted": "2026-10-08",
-   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000054429"
-  },
-  "2000054431": {
-   "id": "2000054431",
-   "employer": "HOARE LEA LLP",
-   "title": "2027 Building Services Design Engineer-  Degree Apprentice - Oxford",
-   "level": "6",
-   "location": "Oxford OX2",
-   "deadline": "2026-11-06",
-   "posted": "2026-10-08",
-   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000054431"
-  },
-  "2000054432": {
-   "id": "2000054432",
-   "employer": "HOARE LEA LLP",
-   "title": "2027 Building Services Design Engineer-  Degree Apprentice - Birmingham",
-   "level": "6",
-   "location": "Birmingham B3",
-   "deadline": "2026-11-06",
-   "posted": "2026-10-08",
-   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000054432"
   },
   "2000055810": {
    "id": "2000055810",
@@ -180,16 +100,6 @@
    "deadline": "2027-02-19",
    "posted": "2026-10-02",
    "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000055815"
-  },
-  "2000056390": {
-   "id": "2000056390",
-   "employer": "MICHELMORES LLP",
-   "title": "Solicitor Apprenticeship - Exeter",
-   "level": "7",
-   "location": "Bristol BS1 +1 more",
-   "deadline": "2026-11-05",
-   "posted": "2026-09-30",
-   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000056390"
   },
   "2000056571": {
    "id": "2000056571",
@@ -581,16 +491,6 @@
    "posted": "2026-10-12",
    "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000058598"
   },
-  "2000058648": {
-   "id": "2000058648",
-   "employer": "AWE PLC",
-   "title": "Data Scientist Level 6 Apprenticeship",
-   "level": "6",
-   "location": "Reading RG7",
-   "deadline": "2026-11-08",
-   "posted": "2026-10-15",
-   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000058648"
-  },
   "2000058692": {
    "id": "2000058692",
    "employer": "CAVENDISH NUCLEAR LIMITED",
@@ -667,7 +567,7 @@
    "title": "Mechanical Engineering Degree Apprenticeship",
    "level": "6",
    "location": "Warrington WA3",
-   "deadline": "2026-12-07",
+   "deadline": "2026-11-09",
    "posted": "2026-10-15",
    "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000058711"
   },
@@ -677,7 +577,7 @@
    "title": "Mechanical Engineering Degree Apprenticeship",
    "level": "6",
    "location": "Leicester LE3",
-   "deadline": "2026-12-07",
+   "deadline": "2026-11-09",
    "posted": "2026-10-15",
    "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000058712"
   },
@@ -1041,26 +941,6 @@
    "posted": "2026-10-21",
    "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000060218"
   },
-  "2000060227": {
-   "id": "2000060227",
-   "employer": "Animal and Plant Health Agency",
-   "title": "Assistant Scientific Officer ID5050 Apprenticeship",
-   "level": "6",
-   "location": "Loughborough LE12",
-   "deadline": "2026-11-02",
-   "posted": "2026-10-20",
-   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000060227"
-  },
-  "2000060259": {
-   "id": "2000060259",
-   "employer": "Horizon Healthcare",
-   "title": "Registered Nursing Associate / Registered Nurse Degree Apprentice (Step-Up Route)",
-   "level": "6",
-   "location": "DERBY DE1",
-   "deadline": "2026-11-04",
-   "posted": "2026-10-22",
-   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000060259"
-  },
   "2000060460": {
    "id": "2000060460",
    "employer": "GCA (UK) LTD ",
@@ -1110,6 +990,16 @@
    "deadline": "2027-01-18",
    "posted": "2026-10-27",
    "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000061231"
+  },
+  "2000061339": {
+   "id": "2000061339",
+   "employer": "FGP Surveyors Limited",
+   "title": "BSc(Hons) Rural Practice Chartered Surveyor Degree Apprenticeship and Pathway to MRICS Qualification",
+   "level": "6",
+   "location": "KNUTSFORD WA16",
+   "deadline": "2027-04-01",
+   "posted": "2026-11-06",
+   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000061339"
   },
   "2000061396": {
    "id": "2000061396",
@@ -1171,25 +1061,275 @@
    "posted": "2026-11-02",
    "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000061787"
   },
-  "2000061806": {
-   "id": "2000061806",
-   "employer": "Murphy ",
-   "title": "Civil Engineering Degree Apprenticeship",
+  "2000062012": {
+   "id": "2000062012",
+   "employer": "ROKE MANOR RESEARCH LIMITED",
+   "title": "Embedded Software - Degree Apprentice",
    "level": "6",
-   "location": "Golborne WA3 +1 more",
-   "deadline": "2026-11-09",
+   "location": "Romsey SO51",
+   "deadline": "2026-11-13",
    "posted": "2026-11-02",
-   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000061806"
+   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000062012"
   },
-  "2000061978": {
-   "id": "2000061978",
+  "2000062205": {
+   "id": "2000062205",
+   "employer": "BBC Public Service",
+   "title": "Journalist Apprenticeship - Level 6 - BBC Radio Northampton - Northampton",
+   "level": "6",
+   "location": "BBC Northampton, Broadcasting House, Abington Street, Northampton, NN1",
+   "deadline": "2026-11-24",
+   "posted": "2026-11-04",
+   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000062205"
+  },
+  "2000062213": {
+   "id": "2000062213",
+   "employer": "Higgs LLP",
+   "title": "Solicitor Apprenticeship 2027 intake",
+   "level": "7",
+   "location": "Brierley Hill DY5",
+   "deadline": "2027-01-31",
+   "posted": "2026-11-03",
+   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000062213"
+  },
+  "2000062222": {
+   "id": "2000062222",
+   "employer": "BBC Public Service",
+   "title": "Journalist Apprenticeship - Level 6 - BBC Three Counties Radio - Dunstable",
+   "level": "6",
+   "location": "Dunstable LU5",
+   "deadline": "2026-11-24",
+   "posted": "2026-11-04",
+   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000062222"
+  },
+  "2000062397": {
+   "id": "2000062397",
+   "employer": "DENBRE LTD. ",
+   "title": "Site Manager Apprenticeship",
+   "level": "6",
+   "location": "London W3",
+   "deadline": "2026-11-17",
+   "posted": "2026-11-03",
+   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000062397"
+  },
+  "2000062488": {
+   "id": "2000062488",
+   "employer": "COCA-COLA EUROPACIFIC PARTNERS PLC",
+   "title": "Commercial Degree Apprenticeship",
+   "level": "6",
+   "location": "Uxbridge UB8",
+   "deadline": "2026-11-20",
+   "posted": "2026-11-04",
+   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000062488"
+  },
+  "2000062496": {
+   "id": "2000062496",
+   "employer": "Method Consulting Llp",
+   "title": "Building Services Engineer Apprentice",
+   "level": "6",
+   "location": "Swindon SN1",
+   "deadline": "2027-01-30",
+   "posted": "2026-11-04",
+   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000062496"
+  },
+  "2000062504": {
+   "id": "2000062504",
+   "employer": "Method Consulting Llp",
+   "title": "Sustainability Consultant Apprentice",
+   "level": "6",
+   "location": "Swindon SN1",
+   "deadline": "2027-01-30",
+   "posted": "2026-11-04",
+   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000062504"
+  },
+  "2000062570": {
+   "id": "2000062570",
    "employer": "BBC Public Service",
    "title": "Broadcast and Media Systems Engineer Degree Apprenticeship - Level 6 -  Wood Norton",
    "level": "6",
-   "location": "Evesham WR11",
+   "location": "Worcester WR11",
    "deadline": "2026-11-24",
-   "posted": "2026-11-02",
-   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000061978"
+   "posted": "2026-11-04",
+   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000062570"
+  },
+  "2000062605": {
+   "id": "2000062605",
+   "employer": "ALMAC PHARMA SERVICES LIMITED",
+   "title": "Higher Level Apprentice (Analytical Operations)",
+   "level": "6",
+   "location": "8 Bakewell Road LE11",
+   "deadline": "2026-11-21",
+   "posted": "2026-11-04",
+   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000062605"
+  },
+  "2000062635": {
+   "id": "2000062635",
+   "employer": "Lloyds Banking Group",
+   "title": "Accounting and Finance Degree Apprenticeship - West Yorkshire (Leeds and Halifax)",
+   "level": "6",
+   "location": "Leeds LS1",
+   "deadline": "2026-12-01",
+   "posted": "2026-11-04",
+   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000062635"
+  },
+  "2000062654": {
+   "id": "2000062654",
+   "employer": "Lloyds Banking Group",
+   "title": "Accounting and Finance Degree Apprenticeship - Bristol",
+   "level": "6",
+   "location": "Bristol BS1",
+   "deadline": "2026-12-01",
+   "posted": "2026-11-04",
+   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000062654"
+  },
+  "2000062674": {
+   "id": "2000062674",
+   "employer": "Lloyds Banking Group",
+   "title": "Consumer Financial Services Professional Apprentice - Leeds",
+   "level": "6",
+   "location": "Leeds LS1",
+   "deadline": "2026-12-15",
+   "posted": "2026-11-04",
+   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000062674"
+  },
+  "2000062682": {
+   "id": "2000062682",
+   "employer": "Lloyds Banking Group",
+   "title": "Consumer Financial Services Professional Apprentice - Birmingham",
+   "level": "6",
+   "location": "Birmingham B1",
+   "deadline": "2026-12-01",
+   "posted": "2026-11-04",
+   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000062682"
+  },
+  "2000062683": {
+   "id": "2000062683",
+   "employer": "Lloyds Banking Group",
+   "title": "Consumer Financial Services Professional Apprentice - London",
+   "level": "6",
+   "location": "London EC2V",
+   "deadline": "2026-12-01",
+   "posted": "2026-11-04",
+   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000062683"
+  },
+  "2000062685": {
+   "id": "2000062685",
+   "employer": "Lloyds Banking Group",
+   "title": "Consumer Financial Services Professional Apprentice - Edinburgh",
+   "level": "6",
+   "location": "Edinburgh EH3",
+   "deadline": "2027-01-26",
+   "posted": "2026-11-04",
+   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000062685"
+  },
+  "2000062691": {
+   "id": "2000062691",
+   "employer": "Lloyds Banking Group",
+   "title": "Consumer Financial Services Professional Apprentice - Bristol",
+   "level": "6",
+   "location": "Bristol BS1",
+   "deadline": "2026-12-29",
+   "posted": "2026-11-04",
+   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000062691"
+  },
+  "2000062758": {
+   "id": "2000062758",
+   "employer": "Lloyds Banking Group",
+   "title": "Job Posting Title Colleague User Experience (UX) Professional Degree Apprenticeship - Leeds",
+   "level": "6",
+   "location": "Leeds LS1",
+   "deadline": "2027-01-12",
+   "posted": "2026-11-05",
+   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000062758"
+  },
+  "2000062769": {
+   "id": "2000062769",
+   "employer": "Lloyds Banking Group",
+   "title": "Job Posting Title Digital & Technology Solutions Degree Apprenticeship - Manchester",
+   "level": "6",
+   "location": "Manchester M1",
+   "deadline": "2026-12-15",
+   "posted": "2026-11-05",
+   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000062769"
+  },
+  "2000062775": {
+   "id": "2000062775",
+   "employer": "QIAGEN MANCHESTER LIMITED",
+   "title": "Apprentice Technical Assistant",
+   "level": "6",
+   "location": "CityLabs 2.0 M13",
+   "deadline": "2026-11-23",
+   "posted": "2026-11-05",
+   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000062775"
+  },
+  "2000062874": {
+   "id": "2000062874",
+   "employer": "TKMS ATLAS UK LIMITED",
+   "title": "Engineering - Electrical/Electronics Apprentice",
+   "level": "6",
+   "location": "Dorchester DT2",
+   "deadline": "2027-02-19",
+   "posted": "2026-11-05",
+   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000062874"
+  },
+  "2000062883": {
+   "id": "2000062883",
+   "employer": "TKMS ATLAS UK LIMITED",
+   "title": "Engineering - Mechanical Apprentice",
+   "level": "6",
+   "location": "Dorchester DT2",
+   "deadline": "2027-02-19",
+   "posted": "2026-11-05",
+   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000062883"
+  },
+  "2000062884": {
+   "id": "2000062884",
+   "employer": "TKMS ATLAS UK LIMITED",
+   "title": "Engineering - Sonar Apprentice",
+   "level": "6",
+   "location": "Dorchester DT2",
+   "deadline": "2027-02-19",
+   "posted": "2026-11-05",
+   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000062884"
+  },
+  "2000062888": {
+   "id": "2000062888",
+   "employer": "TKMS ATLAS UK LIMITED",
+   "title": "Engineering - Test & Acceptance Apprentice",
+   "level": "6",
+   "location": "Dorchester DT2",
+   "deadline": "2027-02-19",
+   "posted": "2026-11-05",
+   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000062888"
+  },
+  "2000062889": {
+   "id": "2000062889",
+   "employer": "TKMS ATLAS UK LIMITED",
+   "title": "Engineering - Software Apprentice",
+   "level": "6",
+   "location": "Dorchester DT2",
+   "deadline": "2027-02-19",
+   "posted": "2026-11-05",
+   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000062889"
+  },
+  "2000062981": {
+   "id": "2000062981",
+   "employer": "FGP Surveyors Limited",
+   "title": "MProf Rural Practice Chartered Surveyor Degree Apprenticeship and Pathway to MRICS 100% England",
+   "level": "6",
+   "location": "KNUTSFORD WA16",
+   "deadline": "2027-04-01",
+   "posted": "2026-11-06",
+   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000062981"
+  },
+  "2000062991": {
+   "id": "2000062991",
+   "employer": "EDWARDS LIMITED",
+   "title": "Mechanical L6 Apprenticeship (Degree )",
+   "level": "6",
+   "location": "Clevedon BS21",
+   "deadline": "2027-01-15",
+   "posted": "2026-11-06",
+   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000062991"
   }
  }
 }
