@@ -1,3 +1,12 @@
 {
-  "crons": [{ "path": "/api/alerts/run", "schedule": "0 7 * * *" }]
+  "crons": [
+    {
+      "path": "/api/alerts/run",
+      "schedule": "0 7 * * *"
+    },
+    {
+      "path": "/api/social/linkedin/run",
+      "schedule": "0 8 * * 1-5"
+    }
+  ]
 }
