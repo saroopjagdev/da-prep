@@ -22,15 +22,16 @@ const byClosing = (a: OpportunityRow, b: OpportunityRow) => (a.closesIso ?? "999
 function Table({ rows, caption }: { rows: OpportunityRow[]; caption: string }) {
   return (
     <div className="overflow-x-auto rounded-xl border border-line">
-      <table className="w-full min-w-[34rem] text-left text-sm">
+      {/* [overflow-wrap:normal]: the site-wide "anywhere" would let a column shrink to one letter wide when another cell is long. */}
+      <table className="w-full text-left md:min-w-[40rem] text-sm [overflow-wrap:normal]">
         <caption className="sr-only">{caption}</caption>
         <thead className="bg-navy/5 text-xs uppercase tracking-wide text-muted">
           <tr>
-            <th scope="col" className="px-3 py-2">Employer</th>
-            <th scope="col" className="px-3 py-2">Programme</th>
-            <th scope="col" className="px-3 py-2">Opens</th>
-            <th scope="col" className="px-3 py-2">Closes</th>
-            <th scope="col" className="px-3 py-2">Last checked</th>
+            <th scope="col" className="min-w-[8rem] px-3 py-2">Employer</th>
+            <th scope="col" className="min-w-[10rem] px-3 py-2">Programme</th>
+            <th scope="col" className="hidden min-w-[7rem] px-3 py-2 md:table-cell">Opens</th>
+            <th scope="col" className="hidden min-w-[9rem] px-3 py-2 md:table-cell">Closes</th>
+            <th scope="col" className="hidden px-3 py-2 md:table-cell">Last checked</th>
           </tr>
         </thead>
         <tbody>
@@ -44,11 +45,16 @@ function Table({ rows, caption }: { rows: OpportunityRow[]; caption: string }) {
                 ) : (
                   r.name
                 )}
+                {/* On a phone the dates sit under the name, so nothing important is off-screen. */}
+                <span className="mt-1 block text-xs font-normal text-muted md:hidden">
+                  {r.opens ? `Opens ${r.opens} · ` : ""}
+                  Closes {r.rolling ? "when full (rolling)" : r.closes || "not stated"}
+                </span>
               </td>
               <td className="px-3 py-2 text-muted">{r.programmes[0] ?? ""}</td>
-              <td className="whitespace-nowrap px-3 py-2">{r.opens || "Not stated"}</td>
-              <td className="whitespace-nowrap px-3 py-2">{r.rolling ? "Rolling, closes when full" : r.closes || "Not stated"}</td>
-              <td className="whitespace-nowrap px-3 py-2 text-muted">{r.checked ? formatWhen(r.checked) : r.verified ? formatWhen(r.verified) : "Not yet"}</td>
+              <td className="hidden px-3 py-2 md:table-cell">{r.opens || "Not stated"}</td>
+              <td className="hidden px-3 py-2 md:table-cell">{r.rolling ? "Rolling, closes when full" : r.closes || "Not stated"}</td>
+              <td className="hidden whitespace-nowrap px-3 py-2 text-muted md:table-cell">{r.checked ? formatWhen(r.checked) : r.verified ? formatWhen(r.verified) : "Not yet"}</td>
             </tr>
           ))}
         </tbody>
