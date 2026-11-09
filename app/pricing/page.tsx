@@ -196,7 +196,7 @@ export default function Pricing() {
             <Link href="/terms" className="underline">
               terms
             </Link>
-            . Pro is bought by an adult: you must be 18 or over, or a parent or guardian must have agreed and be paying.
+            .
           </p>
           <fieldset className="space-y-2 text-sm">
             <legend className="sr-only">Confirm before paying</legend>
@@ -240,7 +240,7 @@ export default function Pricing() {
         {[
           ["Can I cancel?", "Yes, any time from this page. Pro stays on until the end of the month you have paid for, and you have a 14-day right to cancel (see the terms)."],
           ["What happens to my tracker if I stop paying?", "Nothing. Your tracker, notes and scores stay on your free account."],
-          ["I'm under 18. Can I buy it?", "Pro is bought by an adult, so a parent or guardian must agree and pay. The button above sends them a short explanation."],
+          ["Can a parent or guardian pay for me?", "Yes. The button above sends them a short explanation of what Pro is and how to cancel."],
           ["Do I need Pro to use the tracker?", "No. The tracker and deadline emails are free with an account."],
         ].map(([q, a]) => (
           <details key={q} className="rounded-lg border border-line px-3 py-2 text-sm">

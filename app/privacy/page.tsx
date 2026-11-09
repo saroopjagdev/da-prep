@@ -66,7 +66,7 @@ export default function Privacy() {
           <strong>If you ask for deadline emails:</strong> the employers you chose to follow in the tracker, which emails we have already sent you (so nothing is sent twice) and a private code in the unsubscribe link. We email you when a followed employer opens and a week before it closes, and use your account email address to do it. Every email has a one-click link to stop them all, and everything here is deleted if you delete your account (consent, which you can withdraw at any time).
         </li>
         <li>
-          <strong>If you buy Pro:</strong> a Stripe customer ID and your plan. When you pay we also record, with the payment, that you confirmed the payer is 18 or over, that you
+          <strong>If you buy Pro:</strong> a Stripe customer ID and your plan. When you pay we also record, with the payment, that you
           asked Pro to start straight away and that you accepted the terms. Stripe holds your payment details.
         </li>
         <li>

@@ -44,7 +44,7 @@ export default function Parents() {
         <h2 id="paying" className="text-lg font-semibold">How paying and cancelling work</h2>
         <ul className="list-disc space-y-1 pl-5 text-sm">
           <li>Payment is taken by Stripe, so Level6 never sees card details. Pro starts as soon as payment goes through.</li>
-          <li>Pro is bought by an adult: you pay with your own payment method, or give your child permission to use it.</li>
+          <li>You pay with your own payment method, or give your child permission to use it.</li>
           <li>You can cancel at any time from the Plans page, and Pro stays on until the end of the month you have paid for.</li>
           <li>You have a 14-day right to cancel. If you do, you are refunded minus a fair amount for the time Pro was used.</li>
           <li>Full details are in the <Link href="/terms" className="underline">terms</Link> and the <Link href="/privacy" className="underline">privacy notice</Link>.</li>
