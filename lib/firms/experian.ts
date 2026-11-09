@@ -4,7 +4,6 @@ const EXP_PROCESS = "https://www.experian.com/careers/early-careers/uk-ireland/o
 const EXP_APPR = "https://www.experian.com/careers/early-careers/uk-ireland/apprenticeships";
 const EXP_JOB = "https://jobs.experian.com/job/software-engineer-degree-apprentice-in-nottingham-england-jid-3862";
 const EXP_TESTS = "https://www.practiceaptitudetests.com/top-employer-profiles/experian-assessments/";
-const EXP_TJ = "https://targetjobs.co.uk/organisations/experian";
 
 export const experian: FirmProfile = {
   slug: "experian",

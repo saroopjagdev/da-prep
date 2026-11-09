@@ -1,6 +1,5 @@
 import type { FirmProfile } from "./types";
 
-const CISCO_PROG = "https://www.cisco.com/c/en_uk/about/our-programmes.html";
 const CISCO_SEARCH = "https://uk.indeed.com/q-cisco-apprentice-jobs.html";
 const CISCO_TSR = "https://www.thestudentroom.co.uk/showthread.php?t=7655783";
 const CISCO_DEGREE = "https://uk.indeed.com/Degree-Apprenticeship-Cisco-jobs";

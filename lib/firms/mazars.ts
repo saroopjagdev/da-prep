@@ -22,7 +22,7 @@ export const forvisMazars: FirmProfile = {
   },
   timeline: {
     notes: "Vacancies advertised with 1 September 2025 and 1 September 2026 start dates. Closing dates not verified.",
-    source: "https://www.prospects.ac.uk/employer-profiles/forvis-mazars-19300/jobs/ac-risk-consulting-industry-services-school-leaver-apprentice-1-september-2026-london-2705184",
+    source: FM_SEL,
   },
   stages: [
     {
@@ -106,6 +106,7 @@ export const forvisMazars: FirmProfile = {
   officialLinks: [FM_SEL, "https://careers-uk.forvismazars.com/faqs/", FM_TJ],
   lastVerified: "2026-10-03",
   gaps: [
+    "The 1 September 2025 and 2026 start dates came from vacancy adverts that have since closed and no archived copy exists, so the timeline now cites the selection-process page, which does not state them (checked 9 November 2026).",
     "Entry requirements (UCAS/GCSE), salary and closing dates not found; vacancy pages redirected.",
     "Live video interview length and question count not stated.",
     "Assessment centre exact timings and exercise content beyond the three named activities not verified; official page itself listed activities only in a search excerpt.",

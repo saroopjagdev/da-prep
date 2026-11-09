@@ -3,8 +3,6 @@ import type { FirmProfile } from "./types";
 const BT_FAQ = "https://jobs.bt.com/content/Apprenticeship-FAQs/";
 const BT_HOME = "https://jobs.bt.com/content/Apprenticeships---BT-Group/";
 const BT_ENG = "https://jobs.bt.com/content/Engineering---Apprenticeships/";
-const BT_TJ = "https://targetjobs.co.uk/careers-advice/interviews-and-assessment-centres/what-expect-bts-assessment-centre";
-const BT_ACHQ = "https://www.assessmentcentrehq.com/bt-test/";
 const BT_GD = "https://www.glassdoor.co.uk/Interview/BT-Group-Apprentice-Interview-Questions-EI_IE3463.0,8_KO9,19.htm";
 
 export const bt: FirmProfile = {
