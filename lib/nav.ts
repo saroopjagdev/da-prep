@@ -22,6 +22,7 @@ export const NAV_GROUPS: NavGroup[] = [
       { href: "/practice", label: "Practice tests", blurb: "General practice with explanations, plus employer-style replicas with real formats and timings" },
       { href: "/games", label: "Practice games", blurb: "Balloon, card, memory and reaction games like the ones employers use" },
       { href: "/review", label: "CV and statement review", blurb: "Marked feedback on your CV, personal statement or application answers" },
+      { href: "/cover-letter", label: "Cover letter planner", blurb: "Plan each paragraph for an employer, with its values and prompts" },
       { href: "/stories", label: "Stories bank", blurb: "Reusable STAR examples" },
       { href: "/progress", label: "Progress", blurb: "Scores, STAR coverage and past interviews" },
     ],

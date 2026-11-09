@@ -44,6 +44,41 @@ test("a firm-specific text interview reaches marked feedback", async ({ page }) 
   await expect(page.getByRole("meter")).toHaveCount(6);
 });
 
+test("a text interview can ask one follow-up question after an answer, then moves on", async ({ page }) => {
+  await signedIn(page);
+  await page.goto("/interview?firm=morgan-stanley");
+  await page.getByRole("button", { name: "Commercial awareness" }).click();
+  await page.getByLabel("Ask me one follow-up question after each answer").check();
+  await page.getByRole("button", { name: /start interview/i }).click();
+  await expect(page.getByText("Question 1 of 5")).toBeVisible();
+  const box = page.getByLabel("Your answer", { exact: true });
+  const ask = page.getByRole("button", { name: /submit and get a follow-up/i });
+  await expect(async () => {
+    await box.fill("I follow interest rate news and how it affects clients borrowing and trading.");
+    await expect(ask).toBeEnabled({ timeout: 1000 });
+  }).toPass();
+  await ask.click();
+  await expect(page.getByText("Follow-up question", { exact: true })).toBeVisible();
+  await page.getByLabel("Your answer to the follow-up question").fill("I measured it by reading the Bank of England decision each month.");
+  await page.getByRole("button", { name: /next question/i }).click();
+  await expect(page.getByText("Question 2 of 5")).toBeVisible();
+  await expect(page.getByText("Follow-up question", { exact: true })).toBeHidden();
+});
+
+test("the cover letter planner shows an employer's values, counts words and copies the letter", async ({ page, context }) => {
+  await context.grantPermissions(["clipboard-read", "clipboard-write"]).catch(() => undefined);
+  await page.goto("/cover-letter");
+  await expect(page.getByRole("heading", { level: 1, name: "Cover letter planner" })).toBeVisible();
+  await page.getByRole("combobox", { name: /^Employer/ }).selectOption({ label: "Barclays" });
+  await expect(page.getByRole("heading", { name: /What Barclays looks for/ })).toBeVisible();
+  await page.getByLabel("Your name (for the sign-off)").fill("Alex Smith");
+  await page.locator("#part-0").fill("I am applying for the degree apprenticeship because I enjoy numbers and teamwork.");
+  await expect(page.getByText("13 words").first()).toBeVisible();
+  await expect(page.getByLabel("Your letter").getByText("Yours sincerely,")).toBeVisible();
+  await expect(page.getByLabel("Your letter").getByText("Alex Smith")).toBeVisible();
+  await expect(page.getByRole("button", { name: "Copy letter" })).toBeEnabled();
+});
+
 test("a practice test can be completed and reviewed", async ({ page }) => {
   await signedIn(page);
   await page.goto("/tests/capp-critical");
@@ -129,7 +164,7 @@ test("unknown pages show a friendly 404", async ({ page }) => {
   await expect(page.getByRole("heading", { level: 1 })).toBeVisible();
 });
 
-const PAGES = ["/", "/opportunities", "/sectors/finance", "/sectors/finance/calendar", "/sectors/finance/myths", "/employers/ubs", "/deadlines", "/learn", "/learn/degree-apprenticeship-vs-university", "/tests/hsbc-simulate", "/mock/natwest", "/mock/santander", "/interview", "/tests", "/games", "/games/provider/arctic-shores", "/games/balloon", "/employers", "/tracker", "/review", "/cv", "/pricing", "/privacy", "/terms", "/accessibility"];
+const PAGES = ["/", "/opportunities", "/sectors/finance", "/sectors/finance/calendar", "/sectors/finance/myths", "/employers/ubs", "/deadlines", "/learn", "/learn/degree-apprenticeship-vs-university", "/tests/hsbc-simulate", "/mock/natwest", "/mock/santander", "/interview", "/tests", "/games", "/games/provider/arctic-shores", "/games/balloon", "/employers", "/tracker", "/review", "/cv", "/cover-letter", "/pricing", "/privacy", "/terms", "/accessibility"];
 
 for (const path of PAGES) {
   test(`no automatically detectable accessibility problems on ${path}`, async ({ page }) => {
