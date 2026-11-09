@@ -5,7 +5,6 @@ import type { FirmProfile } from "./types";
 const CITI = "https://jobs.citi.com/early-career-programs-apprenticeships";
 const COO = "https://www.brightnetwork.co.uk/graduate-jobs/citi/markets-coo-apprentice";
 const IOS = "https://www.findapprenticeship.service.gov.uk/apprenticeship/VAC2000014540";
-const BELFAST_OPS = "https://jobs.citi.com/job/belfast/market-operations-apprentice/287/91193953088";
 const GF = "https://www.graduatesfirst.com/citi-assessment-tests";
 const PRINCIPLES = "https://www.citigroup.com/rcs/citigpa/storage/public/comp_philo.pdf";
 
@@ -80,9 +79,10 @@ export const citi: FirmProfile = {
     "Use Citi's three Leadership Principles (ownership, pride, succeeding together) in your examples.",
     "For Markets and Operations roles, be ready to explain in plain words what happens after a trade is agreed (checking, settling and fixing problems).",
   ],
-  officialLinks: [CITI, IOS, BELFAST_OPS, PRINCIPLES],
+  officialLinks: [CITI, IOS, PRINCIPLES],
   lastVerified: "2026-10-02",
   gaps: [
+    "The Belfast Market Operations apprentice advert used in the research has closed and no archived copy exists, so it is no longer linked (checked 9 November 2026).",
     "Which London roles are Level 6 (degree) versus Level 3/4 for 2027.",
     "Official online test provider.",
     "Salaries (Citi says 'full-time salary and benefits').",

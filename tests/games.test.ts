@@ -39,7 +39,10 @@ describe("balloon", () => {
   it("is the same for the same seed and bursts somewhere between 1 and the maximum", () => {
     expect(balloonBursts(7)).toEqual(balloonBursts(7));
     expect(balloonBursts(7)).not.toEqual(balloonBursts(8));
-    for (const b of balloonBursts(3, 500)) expect(b).toBeGreaterThanOrEqual(1), expect(b).toBeLessThanOrEqual(BALLOON.maxPumps);
+    for (const b of balloonBursts(3, 500)) {
+      expect(b).toBeGreaterThanOrEqual(1);
+      expect(b).toBeLessThanOrEqual(BALLOON.maxPumps);
+    }
   });
   it("banks only the balloons that did not burst", () => {
     const s = summariseBalloon([{ pumps: 4, popped: false }, { pumps: 9, popped: true }, { pumps: 6, popped: false }]);

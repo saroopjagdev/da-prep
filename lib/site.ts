@@ -38,6 +38,7 @@ export const PUBLIC_PATHS = [
   "/employers",
   "/review",
   "/cv",
+  "/cover-letter",
   "/sectors",
   "/guide",
   "/learn",

@@ -18,6 +18,7 @@ import { postJson, transcribeBlob } from "@/lib/api";
 import { track } from "@/lib/funnel";
 import { diag } from "@/lib/diag";
 import { VIDEO_PRESETS, getPreset, mmss, spoken } from "@/lib/hirevue";
+import { analyseDelivery } from "@/lib/delivery";
 import { FIRM_GROUPS, type FirmOption } from "@/lib/firms/groups";
 import { MAX_QUESTIONS, RUBRIC, STAGE_LABEL, STAGES, type ScoreResult, type Stage, type Turn } from "@/lib/interview";
 import { useSector } from "@/lib/prefs";
@@ -49,6 +50,13 @@ function InterviewInner({
   const [phase, setPhase] = useState<Phase>("setup");
   const [mode, setMode] = useState<Mode>(initialMode);
   const [readAloud, setReadAloud] = useState(false);
+  // Text mode: ask one probing follow-up after each answer, as a real interviewer would.
+  const [followUpsOn, setFollowUpsOn] = useState(false);
+  const [followUp, setFollowUp] = useState("");
+  const [fuAnswer, setFuAnswer] = useState("");
+  // Seconds spoken on each scored video answer, in order, for the delivery feedback.
+  const [spokenSecs, setSpokenSecs] = useState<number[]>([]);
+  const spokenRef = useRef(0);
   const [dictate, setDictate] = useState(false);
   const [jobAd, setJobAd] = useState("");
   const [cv, setCv] = useState("");
@@ -196,6 +204,9 @@ function InterviewInner({
       const q = await fetchQuestion([], adOverride);
       setPractice(false);
       setPracticeUrl("");
+      setFollowUp("");
+      setFuAnswer("");
+      setSpokenSecs([]);
       setHistory([]);
       setQuestion(q);
       setAnswer("");
@@ -213,15 +224,41 @@ function InterviewInner({
     if (busy) return;
     dictation.stop();
     setRunning(false);
-    const h = [...history, { question, answer: answerRef.current.trim() || "(no answer given)" }];
-    setBusy(true);
     setError("");
+    // First press in text mode with follow-ups on: fetch one follow-up question and wait for its answer.
+    if (followUpsOn && mode !== "video" && !practice && !followUp && answerRef.current.trim().length >= 5) {
+      setBusy(true);
+      try {
+        const { question: fu } = await postJson<{ question: string }>("/api/interview/followup", {
+          jobAd,
+          stage,
+          sector: sector ?? undefined,
+          question,
+          answer: answerRef.current.trim(),
+          ...firmFields,
+        });
+        setFollowUp(fu);
+      } catch (e) {
+        setError((e as Error).message);
+      } finally {
+        setBusy(false);
+      }
+      return;
+    }
+    const base = answerRef.current.trim() || "(no answer given)";
+    const full = followUp
+      ? `${base}\n\nFollow-up question: ${followUp}\nFollow-up answer: ${fuAnswer.trim() || "(no answer given)"}`.slice(0, 4000)
+      : base;
+    const h = [...history, { question, answer: full }];
+    const secs = mode === "video" ? [...spokenSecs, spokenRef.current] : spokenSecs;
+    setBusy(true);
     try {
       if (h.length >= total) {
         setPhase("scoring");
         const r = await postJson<ScoreResult>("/api/interview/score", { jobAd, stage, turns: h, ...firmFields });
         setResult(r);
         setHistory(h);
+        setSpokenSecs(secs);
         if (sessions.items.length === 0) track("first_mock");
         sessions.update((prev) => [
           {
@@ -251,8 +288,11 @@ function InterviewInner({
       } else {
         const q = await fetchQuestion(h);
         setHistory(h);
+        setSpokenSecs(secs);
         setQuestion(q);
         setAnswer("");
+        setFollowUp("");
+        setFuAnswer("");
         setRetakesLeft(preset.retakes);
         resetTimer();
       }
@@ -318,6 +358,7 @@ function InterviewInner({
   async function finishVideoAnswer() {
     if (vstate !== "recording") return;
     diag("answer-finish", { secondsLeft: left, systemMuted: recorder.muted });
+    spokenRef.current = Math.max(0, preset.answerSeconds - left);
     setWasMuted(recorder.muted);
     setRunning(false);
     captions.stop();
@@ -370,6 +411,9 @@ function InterviewInner({
     setResult(null);
     setQuestion("");
     setAnswer("");
+    setFollowUp("");
+    setFuAnswer("");
+    setSpokenSecs([]);
     resetTimer();
     void recorder.stop();
   }
@@ -587,6 +631,20 @@ function InterviewInner({
                 transcribed so it can be marked. Your recording is sent to OpenAI to be transcribed and is not stored by
                 this site.
               </p>
+              <ul className="space-y-1 rounded-md border border-line bg-soft p-3 text-sm" aria-label="What happens to your recording">
+                <li>
+                  <strong>Camera:</strong> the picture stays on your device. It is never recorded or uploaded.
+                </li>
+                <li>
+                  <strong>Voice:</strong> sent once to be turned into text, then discarded. We keep only the transcript you confirm.
+                </li>
+                <li>
+                  <strong>Nothing to delete:</strong> there is no recording on our side, and you can ask to delete your other data at any time.{" "}
+                  <Link href="/privacy" className="underline">
+                    Privacy notice
+                  </Link>
+                </li>
+              </ul>
               {supportProblem && (
                 <p role="alert" className="callout bg-coral-50 text-coral-600">
                   {supportProblem}
@@ -655,6 +713,10 @@ function InterviewInner({
             </label>
             {mode === "text" && (
               <>
+                <label className="flex items-center gap-2">
+                  <input type="checkbox" className="accent-brand-600" checked={followUpsOn} onChange={(e) => setFollowUpsOn(e.target.checked)} />
+                  Ask me one follow-up question after each answer
+                </label>
                 <label className="flex items-center gap-2">
                   <input type="checkbox" className="accent-brand-600" checked={dictate} onChange={(e) => setDictate(e.target.checked)} />
                   Dictate answers with my microphone{" "}
@@ -772,6 +834,7 @@ function InterviewInner({
               <p className="text-sm text-muted">
                 <strong className="text-ink">You said:</strong> {t.answer}
               </p>
+              {mode === "video" && spokenSecs[i] !== undefined && <DeliveryNote text={t.answer} seconds={spokenSecs[i]} limit={preset.answerSeconds} />}
               <p className="text-sm">{r.feedback}</p>
               <div className="flex flex-wrap gap-2 text-xs font-semibold">
                 {(["situation", "task", "action", "result"] as const).map((k) => (
@@ -1049,6 +1112,20 @@ function InterviewInner({
               {dictation.listening ? "Stop dictating" : "Dictate with microphone"}
             </button>
           )}
+          {followUp && (
+            <div className="space-y-2 rounded-lg border border-brand-100 bg-brand-50 p-4">
+              <p className="text-sm font-bold text-brand-700">Follow-up question</p>
+              <p className="font-semibold">{followUp}</p>
+              <textarea
+                className="input h-28 bg-white"
+                aria-label="Your answer to the follow-up question"
+                placeholder="Answer the follow-up here."
+                value={fuAnswer}
+                onChange={(e) => setFuAnswer(e.target.value)}
+                maxLength={1500}
+              />
+            </div>
+          )}
           {errorBox}
           <div>
             <button
@@ -1056,11 +1133,47 @@ function InterviewInner({
               disabled={busy || (!video && answer.trim().length < 5)}
               className="btn btn-primary"
             >
-              {busy ? "Thinking..." : isLast ? "Finish and get feedback" : video ? "Submit early" : "Next question"}
+              {busy
+                ? "Thinking..."
+                : followUpsOn && !video && !followUp
+                  ? "Submit and get a follow-up"
+                  : isLast
+                    ? "Finish and get feedback"
+                    : video
+                      ? "Submit early"
+                      : "Next question"}
             </button>
           </div>
         </>
       )}
+    </div>
+  );
+}
+
+/** Pace, filler words and time used for one spoken answer, worked out from the transcript on this device. */
+function DeliveryNote({ text, seconds, limit }: { text: string; seconds: number; limit: number }) {
+  const d = analyseDelivery(text, seconds, limit);
+  const paceText = d.pace === null ? null : `${d.wpm} words a minute (${d.pace === "good" ? "a good pace" : d.pace === "fast" ? "fast" : "slow"})`;
+  return (
+    <div className="rounded-md border border-line bg-soft p-3 text-xs" aria-label="How you delivered this answer">
+      <p className="font-bold text-ink">How you delivered it</p>
+      <ul className="mt-1 flex flex-wrap gap-x-4 gap-y-1 text-muted">
+        <li>
+          Time: {seconds} of {limit} seconds
+        </li>
+        {paceText && <li>Pace: {paceText}</li>}
+        <li>
+          Fillers: {d.fillerTotal === 0 ? "none found" : d.fillers.map((f) => `${f.word} ×${f.count}`).join(", ")}
+        </li>
+      </ul>
+      {d.tips.map((t) => (
+        <p key={t} className="mt-1 text-ink/80">
+          {t}
+        </p>
+      ))}
+      <p className="mt-1 text-muted">
+        Worked out from your transcript. Transcription can leave out some ums and uhs, so the real count may be higher. Pauses and eye contact are not measured.
+      </p>
     </div>
   );
 }
