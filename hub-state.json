@@ -111,16 +111,6 @@
    "status": "open",
    "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000055814"
   },
-  "2832669b-bccf-4e1d-99aa-d311bb22d6aa": {
-   "id": "2832669b-bccf-4e1d-99aa-d311bb22d6aa",
-   "employer": "Burges Salmon",
-   "title": "Legal Apprenticeship 2027 (Solicitor)",
-   "level": "7",
-   "location": "Bristol",
-   "deadline": "2026-11-09",
-   "status": "closing_soon",
-   "apply": "https://careers.burges-salmon.com/jobs/vacancy/legal-apprenticeship-2027-1557-bristol/1575/description/action/apply?_channelid=15"
-  },
   "ec26b0d9-b11d-4f25-945f-b24c70d4e67c": {
    "id": "ec26b0d9-b11d-4f25-945f-b24c70d4e67c",
    "employer": "Mayer Brown",
@@ -501,6 +491,16 @@
    "status": "open",
    "apply": "https://apply.deloitte.co.uk/UKEarlyCareers/SearchJobs/?4934=2772633&4934_format=4380&listFilterMode=1&jobRecordsPerPage=20&"
   },
+  "cab4d332-792b-4917-8365-90baccf2ac0c": {
+   "id": "cab4d332-792b-4917-8365-90baccf2ac0c",
+   "employer": "Barclays",
+   "title": "Global Transaction Banking Degree Apprenticeship Programme 2027 – London",
+   "level": "6",
+   "location": "London",
+   "deadline": "",
+   "status": "open",
+   "apply": "https://search.jobs.barclays/job/london/global-transaction-banking-degree-apprenticeship-programme-2027-london/13015/JR-0000124291"
+  },
   "5fc93154-198e-4883-a21e-daaa6b6a120b": {
    "id": "5fc93154-198e-4883-a21e-daaa6b6a120b",
    "employer": "AWE",
@@ -520,6 +520,16 @@
    "deadline": "2026-11-05",
    "status": "reference_only",
    "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000056390"
+  },
+  "2832669b-bccf-4e1d-99aa-d311bb22d6aa": {
+   "id": "2832669b-bccf-4e1d-99aa-d311bb22d6aa",
+   "employer": "Burges Salmon",
+   "title": "Legal Apprenticeship 2027 (Solicitor)",
+   "level": "7",
+   "location": "Bristol",
+   "deadline": "2026-11-09",
+   "status": "reference_only",
+   "apply": "https://careers.burges-salmon.com/jobs/vacancy/legal-apprenticeship-2027-1557-bristol/1575/description/action/apply?_channelid=15"
   },
   "0cb83c9c-affd-431c-a41a-977770305f1c": {
    "id": "0cb83c9c-affd-431c-a41a-977770305f1c",
@@ -901,6 +911,16 @@
    "status": "reference_only",
    "apply": "https://isw.changeworknow.co.uk/crowe/vms/e/careers/search/new?page=1"
   },
+  "3071f98c-62ea-4f91-8c3e-c4879c1c9d0a": {
+   "id": "3071f98c-62ea-4f91-8c3e-c4879c1c9d0a",
+   "employer": "Burges Salmon",
+   "title": "Legal Apprenticeship 2027",
+   "level": "7",
+   "location": "Bristol",
+   "deadline": "2026-11-09",
+   "status": "reference_only",
+   "apply": "https://www.burges-salmon.com/jobs/legal-apprenticeship-2027/"
+  },
   "90509b34-309d-4433-977a-1bc147faa278": {
    "id": "90509b34-309d-4433-977a-1bc147faa278",
    "employer": "Cummins",
@@ -978,26 +998,6 @@
    "level": "6",
    "location": "West Midlands and Halewood",
    "deadline": "2026-02-13",
-   "status": "reference_only",
-   "apply": ""
-  },
-  "411e103a-d6dd-48d8-9f78-52f225955676": {
-   "id": "411e103a-d6dd-48d8-9f78-52f225955676",
-   "employer": "JLR",
-   "title": "Finance Degree Apprenticeship",
-   "level": "7",
-   "location": "UK",
-   "deadline": "2026-02-13",
-   "status": "reference_only",
-   "apply": ""
-  },
-  "f0b861ad-007c-4069-bf42-1836774b7457": {
-   "id": "f0b861ad-007c-4069-bf42-1836774b7457",
-   "employer": "Thales",
-   "title": "Applied Professional Engineering Degree Apprenticeship",
-   "level": "6",
-   "location": "Crawley",
-   "deadline": "2026-02-12",
    "status": "reference_only",
    "apply": ""
   }
