@@ -50,7 +50,15 @@ export const LEGAL_LINKS: NavLink[] = [
 export type HeaderItem = { label: string; href: string; links?: NavLink[] };
 const group = (label: string) => NAV_GROUPS.find((g) => g.label === label)!.links;
 export const HEADER_ITEMS: HeaderItem[] = [
-  { label: "Tracker", href: "/opportunities" },
+  {
+    label: "Tracker",
+    href: "/opportunities",
+    links: [
+      { href: "/opportunities", label: "Opportunities tracker", blurb: "Who is open now, opening soon or closed, across every sector" },
+      { href: "/opportunities?mine=1", label: "My tracker", blurb: "Track where you have applied, your stage, notes and closing dates" },
+      { href: "/deadlines", label: "Deadlines", blurb: "Who is open and when they close, to print or share" },
+    ],
+  },
   { label: "Practise", href: "/interview", links: group("Practise") },
   {
     label: "Learn",
@@ -58,7 +66,6 @@ export const HEADER_ITEMS: HeaderItem[] = [
     links: [
       { href: "/employers", label: "Employer guides", blurb: "Every employer's process, tests and interview, stage by stage" },
       ...group("Learn").filter((l) => l.href !== "/faq"),
-      { href: "/deadlines", label: "Deadlines", blurb: "Who is open and when they close, to print or share" },
     ],
   },
   { label: "Pricing", href: "/pricing" },
