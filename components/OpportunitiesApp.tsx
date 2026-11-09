@@ -189,7 +189,7 @@ export default function OpportunitiesApp({ rows }: { rows: OpportunityRow[] }) {
       {!canTrack && (
         <p role="note" className="callout bg-brand-50 text-sm">
           You are viewing the list. Create a free account to track your applications, set reminders for closing dates and keep notes, saved and synced across devices.{" "}
-          <Link href="/login?mode=signup" className="font-semibold underline">
+          <Link href="/login?mode=signup&next=/opportunities" className="font-semibold underline">
             Create a free account
           </Link>
         </p>
@@ -392,7 +392,7 @@ export default function OpportunitiesApp({ rows }: { rows: OpportunityRow[] }) {
                   <tr className="border-t border-line align-top hover:bg-soft/60">
                     <td className="px-3 py-2">
                       {!canTrack ? (
-                        <Link href="/login?mode=signup" className="whitespace-nowrap text-xs font-semibold text-brand-700 underline-offset-2 hover:underline">
+                        <Link href="/login?mode=signup&next=/opportunities" className="whitespace-nowrap text-xs font-semibold text-brand-700 underline-offset-2 hover:underline">
                           Sign up to track
                         </Link>
                       ) : (

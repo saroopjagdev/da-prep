@@ -31,6 +31,8 @@ export const FUNNEL_EVENTS = [
   "game_complete", // they finished one
   "checkout_error", // they pressed Continue to payment and the page got an error back (the label says which kind)
   "checkout_return", // they came back from the payment page (the Plans page opened with ?success)
+  "dash_track", // they tapped Track on an employer from the home page
+  "dash_upgrade_click", // they pressed the upgrade button on the home page
 ] as const;
 
 /**
