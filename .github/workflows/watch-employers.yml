@@ -1,12 +1,14 @@
 name: watch-employers
 
-# Every Monday: re-read the employer pages we cite, and open an issue listing the ones whose opening or closing wording
-# changed. It also checks two vacancy lists for leads (ApprenticeHub's public job list and, once FAA_API_KEY is set, the
-# official Find an apprenticeship feed) and opens a second issue with new employers, new roles and changed closing dates.
-# Nothing is edited automatically; a person reads each flagged page and updates the dates.
+# Every day: re-read the employer pages we cite, and report the ones whose opening or closing wording changed. It also
+# checks two vacancy lists for leads (ApprenticeHub's public job list and, once FAA_API_KEY is set, the official Find an
+# apprenticeship feed) and reports new employers, new roles and changed closing dates.
+# Each kind of report goes into ONE open issue: the first change opens it, later days add a comment, and closing the issue
+# (once the dates are updated) starts the next one. Nothing is edited automatically; a person reads each flagged page and
+# updates the dates. GitHub often starts scheduled runs a few hours late, so the 05:00 UTC slot lands mid-morning.
 on:
   schedule:
-    - cron: "0 6 * * 1"
+    - cron: "0 5 * * *"
   workflow_dispatch:
 
 permissions:
@@ -60,7 +62,12 @@ jobs:
         run: |
           if grep -q "^## Changed" data/watch/report.md; then
             head -c 60000 data/watch/report.md > /tmp/body.md
-            gh issue create --title "Employer pages changed ($(date -u +%F))" --body-file /tmp/body.md
+            open=$(gh issue list --state open --search "Employer pages changed in:title" --json number,title -q '[.[] | select(.title | startswith("Employer pages changed"))][0].number // empty')
+            if [ -n "$open" ]; then
+              gh issue comment "$open" --body-file /tmp/body.md
+            else
+              gh issue create --title "Employer pages changed ($(date -u +%F))" --body-file /tmp/body.md
+            fi
           else
             echo "nothing changed"
           fi
@@ -74,7 +81,12 @@ jobs:
           # Only worth an issue once a baseline exists, and only when something actually moved.
           if [ -f /tmp/leads.md ] && grep -qE "^## (Employers we do not list yet|Deadline or status changed|Closing date changed|New roles)" /tmp/leads.md && ! grep -q "First run: this is the baseline" /tmp/leads.md; then
             head -c 60000 /tmp/leads.md > /tmp/leads-body.md
-            gh issue create --title "Vacancy leads ($(date -u +%F))" --body-file /tmp/leads-body.md
+            open=$(gh issue list --state open --search "Vacancy leads in:title" --json number,title -q '[.[] | select(.title | startswith("Vacancy leads"))][0].number // empty')
+            if [ -n "$open" ]; then
+              gh issue comment "$open" --body-file /tmp/leads-body.md
+            else
+              gh issue create --title "Vacancy leads ($(date -u +%F))" --body-file /tmp/leads-body.md
+            fi
           else
             echo "no new leads"
           fi

@@ -160,6 +160,21 @@ test("opportunities are grouped by sector", async ({ page }) => {
   await expect(page.locator("tbody th[scope='colgroup']").first()).toContainText("Engineering");
 });
 
+test("opportunities scroll straight through with no Show more, and each sector folds away", async ({ page }) => {
+  await signedIn(page);
+  await page.goto("/opportunities");
+  await expect(page.getByRole("button", { name: /show more/i })).toHaveCount(0);
+  expect(await page.locator("tbody tr select[aria-label^='My status for']").count()).toBeGreaterThan(100);
+  const first = page.locator("tbody th[scope='colgroup'] button").first();
+  const rowsBefore = await page.locator("tbody tr select[aria-label^='My status for']").count();
+  await first.click();
+  await expect(first).toHaveAttribute("aria-expanded", "false");
+  expect(await page.locator("tbody tr select[aria-label^='My status for']").count()).toBeLessThan(rowsBefore);
+  await first.click();
+  await expect(first).toHaveAttribute("aria-expanded", "true");
+  await expect(page.locator("tbody tr select[aria-label^='My status for']")).toHaveCount(rowsBefore);
+});
+
 test("employer guides and mock processes live together on one page, grouped by sector with a search box", async ({ page }) => {
   await page.goto("/employers");
   await expect(page.getByRole("heading", { level: 1, name: "Employer guides" })).toBeVisible();
