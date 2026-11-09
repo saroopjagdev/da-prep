@@ -10,6 +10,7 @@ let signedIn: { id: string } | null = null;
 function from(table: string) {
   const rows = () => (db[table] ??= []);
   return {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars -- keeps the real client's call signature
     select(_cols?: string, _opts?: unknown) {
       const filters: [string, unknown][] = [];
       const match = () => rows().filter((r) => filters.every(([c, v]) => r[c] === v));

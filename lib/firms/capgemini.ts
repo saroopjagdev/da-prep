@@ -6,8 +6,6 @@ const CAP_INVENT = "https://www.capgemini.com/gb-en/careers/career-paths/careers
 const CAP_INDEED = "https://uk.indeed.com/career-advice/finding-a-job/capgemini-apprenticeship";
 const CAP_WIKIJOB = "https://www.wikijob.co.uk/interview-advice/company-interview-questions/capgemini";
 const CAP_GD = "https://www.glassdoor.co.uk/Interview/Capgemini-Digital-Technology-Solutions-Degree-Apprentice-Interview-Questions-EI_IE3803.0,9_KO10,56.htm";
-const CAP_DEBUT = "https://debut.careers/strengths-based-interview-capgemini/";
-const CAP_JTP = "https://www.jobtestprep.co.uk/capgemini-assessment";
 
 export const capgemini: FirmProfile = {
   slug: "capgemini",

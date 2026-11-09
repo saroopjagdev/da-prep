@@ -44,6 +44,41 @@ test("a firm-specific text interview reaches marked feedback", async ({ page }) 
   await expect(page.getByRole("meter")).toHaveCount(6);
 });
 
+test("a text interview can ask one follow-up question after an answer, then moves on", async ({ page }) => {
+  await signedIn(page);
+  await page.goto("/interview?firm=morgan-stanley");
+  await page.getByRole("button", { name: "Commercial awareness" }).click();
+  await page.getByLabel("Ask me one follow-up question after each answer").check();
+  await page.getByRole("button", { name: /start interview/i }).click();
+  await expect(page.getByText("Question 1 of 5")).toBeVisible();
+  const box = page.getByLabel("Your answer", { exact: true });
+  const ask = page.getByRole("button", { name: /submit and get a follow-up/i });
+  await expect(async () => {
+    await box.fill("I follow interest rate news and how it affects clients borrowing and trading.");
+    await expect(ask).toBeEnabled({ timeout: 1000 });
+  }).toPass();
+  await ask.click();
+  await expect(page.getByText("Follow-up question", { exact: true })).toBeVisible();
+  await page.getByLabel("Your answer to the follow-up question").fill("I measured it by reading the Bank of England decision each month.");
+  await page.getByRole("button", { name: /next question/i }).click();
+  await expect(page.getByText("Question 2 of 5")).toBeVisible();
+  await expect(page.getByText("Follow-up question", { exact: true })).toBeHidden();
+});
+
+test("the cover letter planner shows an employer's values, counts words and copies the letter", async ({ page, context }) => {
+  await context.grantPermissions(["clipboard-read", "clipboard-write"]).catch(() => undefined);
+  await page.goto("/cover-letter");
+  await expect(page.getByRole("heading", { level: 1, name: "Cover letter planner" })).toBeVisible();
+  await page.getByRole("combobox", { name: /^Employer/ }).selectOption({ label: "Barclays" });
+  await expect(page.getByRole("heading", { name: /What Barclays looks for/ })).toBeVisible();
+  await page.getByLabel("Your name (for the sign-off)").fill("Alex Smith");
+  await page.locator("#part-0").fill("I am applying for the degree apprenticeship because I enjoy numbers and teamwork.");
+  await expect(page.getByText("13 words").first()).toBeVisible();
+  await expect(page.getByLabel("Your letter").getByText("Yours sincerely,")).toBeVisible();
+  await expect(page.getByLabel("Your letter").getByText("Alex Smith")).toBeVisible();
+  await expect(page.getByRole("button", { name: "Copy letter" })).toBeEnabled();
+});
+
 test("a practice test can be completed and reviewed", async ({ page }) => {
   await signedIn(page);
   await page.goto("/tests/capp-critical");
@@ -96,8 +131,8 @@ test("the My tracker menu link works from the page you are already on", async ({
   await clearRuns(page);
   await page.reload();
   await page.locator("tbody tr").filter({ hasText: "Barclays" }).first().getByLabel("My status for Barclays").selectOption("Interested");
-  // The header has a plain Tracker link; "My tracker" is in the footer's Employers column.
-  await page.getByRole("contentinfo").getByRole("link", { name: "My tracker" }).click();
+  await page.getByRole("navigation").getByRole("link", { name: "Tracker", exact: true }).first().hover();
+  await page.getByRole("link", { name: /My tracker/ }).first().click();
   await expect(page.getByRole("button", { name: /My tracker/ })).toHaveAttribute("aria-pressed", "true");
   await expect(page.getByLabel(/My status for/)).toHaveCount(1);
 });
@@ -129,7 +164,7 @@ test("unknown pages show a friendly 404", async ({ page }) => {
   await expect(page.getByRole("heading", { level: 1 })).toBeVisible();
 });
 
-const PAGES = ["/", "/opportunities", "/sectors/finance", "/sectors/finance/calendar", "/sectors/finance/myths", "/employers/ubs", "/deadlines", "/learn", "/learn/degree-apprenticeship-vs-university", "/tests/hsbc-simulate", "/mock/natwest", "/mock/santander", "/interview", "/tests", "/games", "/games/provider/arctic-shores", "/games/balloon", "/employers", "/tracker", "/review", "/cv", "/pricing", "/privacy", "/terms", "/accessibility"];
+const PAGES = ["/", "/opportunities", "/sectors/finance", "/sectors/finance/calendar", "/sectors/finance/myths", "/employers/ubs", "/deadlines", "/learn", "/learn/degree-apprenticeship-vs-university", "/tests/hsbc-simulate", "/mock/natwest", "/mock/santander", "/interview", "/tests", "/games", "/games/provider/arctic-shores", "/games/balloon", "/employers", "/tracker", "/review", "/cv", "/cover-letter", "/pricing", "/privacy", "/terms", "/accessibility"];
 
 for (const path of PAGES) {
   test(`no automatically detectable accessibility problems on ${path}`, async ({ page }) => {
@@ -199,7 +234,7 @@ test("the old mock index and guides filter links go to the employer guides page"
 
 test("a new visitor sees the pitch with a way to start, and opportunities still follows ?q=", async ({ page }) => {
   await page.goto("/");
-  await expect(page.getByRole("heading", { level: 1, name: /Know every stage/ })).toBeVisible();
+  await expect(page.getByRole("heading", { level: 1, name: /Know every stage before you apply/ })).toBeVisible();
   await expect(page.getByRole("link", { name: /See who is open now/ })).toBeVisible();
   await expect(page.getByText("Your dashboard")).toBeHidden();
   await page.goto("/opportunities?q=natwest");
@@ -214,17 +249,17 @@ test("a signed-in person gets the dashboard instead of the pitch, and /?pitch=1 
   await signedIn(page);
   await page.goto("/");
   await expect(page.getByRole("heading", { level: 1, name: "Your dashboard" })).toBeVisible();
-  await expect(page.getByRole("heading", { name: /Know every stage/ })).toBeHidden();
+  await expect(page.getByRole("heading", { name: /Know every stage before you apply/ })).toBeHidden();
   await expect(page.getByLabel("Open now").first()).toBeVisible();
   await page.goto("/?pitch=1");
-  await expect(page.getByRole("heading", { level: 1, name: /Know every stage/ })).toBeVisible();
+  await expect(page.getByRole("heading", { level: 1, name: /Know every stage before you apply/ })).toBeVisible();
   await expect(page.getByRole("heading", { name: "Your dashboard" })).toBeHidden();
 });
 
 test("saved practice and a tracker without an account still get the landing page, not the dashboard", async ({ page }) => {
   await withActivity(page);
   await page.goto("/");
-  await expect(page.getByRole("heading", { level: 1, name: /Know every stage/ })).toBeVisible();
+  await expect(page.getByRole("heading", { level: 1, name: /Know every stage before you apply/ })).toBeVisible();
   await expect(page.getByRole("heading", { name: "Your dashboard" })).toBeHidden();
 });
 
@@ -246,10 +281,10 @@ const openMenu = async (page: Page, isMobile: boolean) => {
   if (isMobile) await page.getByRole("button", { name: "Menu" }).click();
 };
 
-test("the header offers Plans to visitors and Go Pro to free members", async ({ page, isMobile }) => {
+test("the header offers Pricing to visitors and Go Pro to free members", async ({ page, isMobile }) => {
   await page.goto("/");
   await openMenu(page, isMobile);
-  await expect(page.getByRole("link", { name: "Plans" }).first()).toHaveAttribute("href", "/pricing");
+  await expect(page.getByRole("link", { name: "Pricing", exact: true }).first()).toHaveAttribute("href", "/pricing");
   await signedIn(page);
   await usage(page, { used: 0, limit: 2 });
   await page.goto("/opportunities");
@@ -720,12 +755,14 @@ test("after creating an account the form says what to do next, with an inbox lin
   await expect(page.getByRole("button", { name: "Create free account" })).toBeVisible();
 });
 
-test("the header puts Tracker, Pricing and FAQ up front with Practise and Learn menus, and the old groups are gone", async ({ page, isMobile }) => {
+test("the header puts Tracker, Pricing, FAQ and sign-in up front, and the old confusing groups are gone", async ({ page, isMobile }) => {
   test.skip(isMobile, "the dropdowns are the desktop navigation");
   await page.goto("/");
   const nav = page.getByRole("navigation").first();
   for (const name of ["Tracker", "Practise", "Learn", "Pricing", "FAQ"]) await expect(nav.getByRole("link", { name, exact: true }).first()).toBeVisible();
-  for (const name of ["Prepare", "My prep", "Employers"]) await expect(nav.getByRole("link", { name, exact: true })).toHaveCount(0);
+  for (const name of ["Prepare", "My prep", "Employers", "Home"]) await expect(nav.getByRole("link", { name, exact: true })).toHaveCount(0);
+  await expect(nav.getByRole("link", { name: "Log in" })).toBeVisible();
+  await expect(nav.getByRole("link", { name: "Sign up free" })).toBeVisible();
   await nav.getByRole("link", { name: "Practise", exact: true }).first().hover();
   await expect(page.getByRole("link", { name: /Stories bank/ }).first()).toBeVisible();
 });

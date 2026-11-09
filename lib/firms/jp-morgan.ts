@@ -5,7 +5,6 @@ import type { FirmProfile } from "./types";
 const JPM_OFFICIAL = "https://www.jpmorganchase.com/careers/explore-opportunities/programs/financial-services-apprenticeship";
 const TSR_OFFER26 = "https://www.thestudentroom.co.uk/showthread.php?t=7633223";
 const TSR_OFFER26_P2 = "https://www.thestudentroom.co.uk/showthread.php?t=7633223&page=2";
-const TSR_2026 = "https://www.thestudentroom.co.uk/showthread.php?t=7625533";
 const TSR_2025_OPEN = "https://www.thestudentroom.co.uk/showthread.php?t=7530383";
 const JPM_PRINCIPLES = "https://www.jpmorganchase.com/about/business-principles";
 

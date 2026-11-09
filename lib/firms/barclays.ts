@@ -5,9 +5,7 @@ const B_OFFICIAL = "https://search.jobs.barclays/apprentice-application-journey"
 const B_PROGS = "https://search.jobs.barclays/apprenticeship-programmes";
 const B_VALUES = "https://home.barclays/who-we-are/our-strategy/purpose-and-values/";
 const TSR_HIGHER = "https://www.thestudentroom.co.uk/showthread.php?t=7538333";
-const TSR_HIGHER_P4 = "https://www.thestudentroom.co.uk/showthread.php?t=7538333&page=4";
 const TSR_HIGHER_P5 = "https://www.thestudentroom.co.uk/showthread.php?t=7538333&page=5";
-const TSR_2025 = "https://www.thestudentroom.co.uk/showthread.php?t=7552128";
 const B_BB_2027 = "https://search.jobs.barclays/job/london/2027-business-banking-degree-apprenticeship-programme-london/13015/100411086720";
 const B_CB_2027 = "https://search.jobs.barclays/job/london/uk-corporate-banking-degree-apprenticeship-programme-2027-london/13015/100812856416";
 
