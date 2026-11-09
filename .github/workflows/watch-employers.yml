@@ -4,8 +4,13 @@ name: watch-employers
 # checks two vacancy lists for leads (ApprenticeHub's public job list and, once FAA_API_KEY is set, the official Find an
 # apprenticeship feed) and reports new employers, new roles and changed closing dates.
 # Each kind of report goes into ONE open issue: the first change opens it, later days add a comment, and closing the issue
-# (once the dates are updated) starts the next one. Nothing is edited automatically; a person reads each flagged page and
-# updates the dates. GitHub often starts scheduled runs a few hours late, so the 05:00 UTC slot lands mid-morning.
+# (once the dates are updated) starts the next one. GitHub often starts scheduled runs a few hours late, so the 05:00 UTC
+# slot lands mid-morning.
+#
+# The last steps keep lib/opportunities.ts current (rules in scripts/tracker-sync-lib.mjs, plan in docs/tracker-freshness.md):
+# what the watchers PROVE (a government advert still listed or closed, an employer page whose dates wording is unchanged)
+# goes into one pull request, "auto/tracker-sync", for a person to merge. Everything they cannot prove goes into one rolling
+# issue, "Tracker rows to re-read". The workflow never pushes to master.
 on:
   schedule:
     - cron: "0 5 * * *"
@@ -14,6 +19,7 @@ on:
 permissions:
   contents: write
   issues: write
+  pull-requests: write
 
 jobs:
   watch:
@@ -89,4 +95,53 @@ jobs:
             fi
           else
             echo "no new leads"
+          fi
+      - name: Apply what the watchers proved to the tracker
+        run: |
+          # Start from master (the snapshot step left us on watch-data) and give the date rules enough snapshot history.
+          git fetch --no-tags --depth=200 origin watch-data master
+          git checkout -f -B auto/tracker-sync origin/master
+          node scripts/tracker-sync.mjs
+      - name: Check the tracker data still passes its tests
+        run: |
+          if git diff --quiet lib/opportunities.ts; then echo "no tracker change"; exit 0; fi
+          npm ci
+          npx vitest run tests/opportunities.test.ts tests/deadlines.test.ts tests/listings.test.ts tests/tracker-sync.test.ts
+      - name: Open or update the tracker pull request
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if git diff --quiet lib/opportunities.ts; then echo "no tracker change"; exit 0; fi
+          git add lib/opportunities.ts
+          git commit -m "Tracker: dates confirmed by the daily check ($(date -u +%F))" -m "$(cat data/watch/sync-report.md)"
+          # A branch only this workflow writes to, rebuilt from master every day.
+          git push --force origin auto/tracker-sync
+          {
+            echo "Written by the daily watcher. Every change below was proved by a source the row already cites; read the report, then merge."
+            echo
+            cat data/watch/sync-report.md
+          } > /tmp/pr-body.md
+          open=$(gh pr list --head auto/tracker-sync --state open --json number -q '.[0].number // empty')
+          if [ -n "$open" ]; then
+            gh pr edit "$open" --body-file /tmp/pr-body.md
+          elif ! gh pr create --base master --head auto/tracker-sync --title "Tracker: dates confirmed by the daily check" --body-file /tmp/pr-body.md; then
+            # Needs Settings > Actions > General > "Allow GitHub Actions to create and approve pull requests". Until then, leave a link.
+            echo "Could not open the pull request: https://github.com/${{ github.repository }}/compare/master...auto/tracker-sync?expand=1" | tee /tmp/compare.md
+            waiting=$(gh issue list --state open --search "Tracker changes ready to merge in:title" --json number -q '.[0].number // empty')
+            if [ -z "$waiting" ]; then gh issue create --title "Tracker changes ready to merge" --body-file /tmp/compare.md || true; fi
+          fi
+      - name: Keep one issue listing the rows that still need a person
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          open=$(gh issue list --state open --search "Tracker rows to re-read in:title" --json number,title -q '[.[] | select(.title | startswith("Tracker rows to re-read"))][0].number // empty')
+          if grep -qE "^## (Needs a person|Rows not checked)" data/watch/sync-report.md; then
+            {
+              echo "Rewritten every day. Read each page, update the row in lib/opportunities.ts (set \`checked\` to the day you read it), and from the next day the daily check keeps it current while the page is unchanged."
+              echo
+              awk '/^## (Needs a person|Rows not checked)/{p=1} p' data/watch/sync-report.md | head -c 55000
+            } > /tmp/reread.md
+            if [ -n "$open" ]; then gh issue edit "$open" --body-file /tmp/reread.md; else gh issue create --title "Tracker rows to re-read" --body-file /tmp/reread.md; fi
+          elif [ -n "$open" ]; then
+            gh issue close "$open" --comment "Every row was confirmed by the daily check."
           fi

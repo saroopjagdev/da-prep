@@ -33,7 +33,7 @@ To research an employer and move it up:
 3. For employers worth a full guide (stages, tests, reported questions), add `lib/firms/<slug>.ts` and register it in `lib/firms/index.ts`. The same `WINDOWS` entry then uses `slug`.
 4. `npm test` checks every entry has a source, valid dates and a check date.
 
-What we learned: large employers mostly advertise on their own sites (the government's Find an Apprenticeship search returned 0 results for Barclays), many publish no dates until they open (September to November), and search-engine summaries mix in previous cycles. Expect 2 to 4 page reads per employer. Re-check open rows every week or two in the application season.
+What we learned: large employers mostly advertise on their own sites (the government's Find an Apprenticeship search returned 0 results for Barclays), many publish no dates until they open (September to November), and search-engine summaries mix in previous cycles. Expect 2 to 4 page reads per employer. Re-check open rows every week or two in the application season. Since 9 Nov 2026 a daily job does the provable part for you (government adverts, unchanged employer pages) in one pull request, and lists the rest in the issue "Tracker rows to re-read": see `docs/tracker-freshness.md`.
 
 Do not copy another tracker's dates, stages or assessment providers. Those are their compiled research and cannot be traced to a source we can cite.
 
