@@ -28,7 +28,6 @@ const CHIP: Record<OppStatus, string> = {
 const OPP_STATUSES: OppStatus[] = ["open", "opening-soon", "not-announced", "closed", "not-confirmed"];
 const NOT_APPLIED = "Not applied";
 const MINE_COLOUR: Partial<Record<Status, string>> = { Offer: "bg-mint-50 text-mint-700", Rejected: "bg-coral-50 text-coral-600" };
-const PAGE = 60;
 
 // Employers are grouped under their main sector, in this order; one with several sectors sits under the first.
 const SECTOR_ORDER: SectorId[] = ["finance", "digital", "engineering", "construction", "public", "business", "law"];
@@ -54,7 +53,8 @@ export default function OpportunitiesApp({ rows }: { rows: OpportunityRow[] }) {
   const [sector, setSector] = useState<SectorId | "all">("all");
   const [status, setStatus] = useState<OppStatus | "all">("all");
   const [onlyMine, setOnlyMine] = useState(false);
-  const [shown, setShown] = useState(PAGE);
+  // Sector sections the reader has folded away. Everything else is on the page, so it scrolls straight through.
+  const [collapsed, setCollapsed] = useState<Set<SectorId>>(new Set());
   const [open, setOpen] = useState<string | null>(null);
   const [kept, setKept] = useState("");
   const [own, setOwn] = useState({ employer: "", role: "", deadline: "" });
@@ -174,7 +174,15 @@ export default function OpportunitiesApp({ rows }: { rows: OpportunityRow[] }) {
     URL.revokeObjectURL(url);
   }
 
-  const reset = () => setShown(PAGE);
+  // A new search or filter opens every section again, so nothing that matches is hidden behind a fold.
+  const reset = () => setCollapsed(new Set());
+  const toggleGroup = (g: SectorId) =>
+    setCollapsed((prev) => {
+      const next = new Set(prev);
+      if (next.has(g)) next.delete(g);
+      else next.add(g);
+      return next;
+    });
 
   return (
     <div className="space-y-3">
@@ -300,12 +308,13 @@ export default function OpportunitiesApp({ rows }: { rows: OpportunityRow[] }) {
             </tr>
           </thead>
           <tbody>
-            {grouped.slice(0, shown).map((r, i, shownRows) => {
+            {grouped.map((r, i) => {
               const a = mine(apps, r);
               const key = r.slug ?? r.name;
               const expanded = open === key && a;
               const overdue = a && a.deadline && a.deadline < today && a.status === "Interested";
-              const startsGroup = i === 0 || groupOf(shownRows[i - 1]) !== groupOf(r);
+              const startsGroup = i === 0 || groupOf(grouped[i - 1]) !== groupOf(r);
+              const folded = collapsed.has(groupOf(r));
                 const actions = (
                   <span className="inline-flex flex-wrap items-center justify-end gap-x-1.5 gap-y-1.5">
               {r.slug ? (
@@ -364,11 +373,22 @@ export default function OpportunitiesApp({ rows }: { rows: OpportunityRow[] }) {
                 <Fragment key={key}>
                   {startsGroup && (
                     <tr className="border-t border-line bg-brand-50">
-                      <th scope="colgroup" colSpan={7} className="px-3 py-2 text-left text-sm font-bold text-brand-700">
-                        {SECTOR_BY_ID[groupOf(r)].name} <span className="font-normal text-muted">({perSector.get(groupOf(r))})</span>
+                      <th scope="colgroup" colSpan={7} className="p-0 text-left text-sm font-bold text-brand-700">
+                        <button
+                          type="button"
+                          onClick={() => toggleGroup(groupOf(r))}
+                          aria-expanded={!folded}
+                          className="flex w-full items-center gap-2 px-3 py-2 text-left hover:bg-brand-100/60"
+                        >
+                          <span aria-hidden className="inline-block w-3 text-xs">
+                            {folded ? "▸" : "▾"}
+                          </span>
+                          {SECTOR_BY_ID[groupOf(r)].name} <span className="font-normal text-muted">({perSector.get(groupOf(r))})</span>
+                        </button>
                       </th>
                     </tr>
                   )}
+                  {!folded && (
                   <tr className="border-t border-line align-top hover:bg-soft/60">
                     <td className="px-3 py-2">
                       {!canTrack ? (
@@ -437,7 +457,8 @@ export default function OpportunitiesApp({ rows }: { rows: OpportunityRow[] }) {
                     </td>
                     <td className="hidden px-3 py-2 text-right text-xs md:table-cell md:min-w-52">{actions}</td>
                   </tr>
-                  {expanded && a && (
+                  )}
+                  {!folded && expanded && a && (
                     <tr className="bg-soft/50">
                       <td colSpan={7} className="px-3 py-3">
                         <div className="grid gap-3 sm:grid-cols-2">
@@ -496,11 +517,6 @@ export default function OpportunitiesApp({ rows }: { rows: OpportunityRow[] }) {
         {filtered.length} {filtered.length === 1 ? "employer" : "employers"}
         {!(enabled && user) && ". Your list is saved in this browser only: sign in to sync it."}
       </p>
-      {filtered.length > shown && (
-        <button className="btn btn-secondary" onClick={() => setShown((n) => n + PAGE)}>
-          Show more ({filtered.length - shown} left)
-        </button>
-      )}
       {onlyMine && loaded && apps.length === 0 && <p className="text-sm text-muted">Nothing in your list yet. Set a status on any employer to add it.</p>}
 
       {onlyMine && unlisted.length > 0 && (
