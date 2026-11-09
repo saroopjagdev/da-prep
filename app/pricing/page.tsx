@@ -37,9 +37,12 @@ export default function Pricing() {
 
   useEffect(() => {
     // Reading the URL needs the browser, so this can't be initial state without a hydration mismatch.
+    const back = new URLSearchParams(window.location.search).has("success");
     // eslint-disable-next-line react-hooks/set-state-in-effect
-    setSuccess(new URLSearchParams(window.location.search).has("success"));
+    setSuccess(back);
     track("pricing_view", { oncePerLoad: true });
+    // Back from the payment page. The server counts pro_started when the payment is confirmed; this is the browser's side of it.
+    if (back) track("checkout_return", { oncePerLoad: true });
   }, []);
 
   useEffect(() => {
@@ -62,6 +65,9 @@ export default function Pricing() {
       const { url } = await postJson<{ url: string }>("/api/stripe/checkout", { startNow, acceptTerms });
       window.location.href = url;
     } catch (e) {
+      // The label is the HTTP status, or "network" when the request never got an answer. The server counts the reason.
+      const status = (e as { status?: number })?.status;
+      track("checkout_error", { label: status ? `http-${status}` : "network" });
       setError((e as Error).message);
       setBusy(false);
     }

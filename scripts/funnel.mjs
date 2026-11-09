@@ -16,7 +16,7 @@ if (!base || !key) throw new Error("Set NEXT_PUBLIC_SUPABASE_URL and SUPABASE_SE
 
 const days = Number(process.argv[2] ?? 14);
 const since = new Date(Date.now() - days * 86_400_000).toISOString().slice(0, 10);
-const res = await fetch(`${base}/rest/v1/funnel_daily?select=day,event,source,n&day=gte.${since}&order=day.desc`, { headers: { apikey: key, Authorization: `Bearer ${key}` } });
+const res = await fetch(`${base}/rest/v1/funnel_daily?select=day,event,source,campaign,n&day=gte.${since}&order=day.desc`, { headers: { apikey: key, Authorization: `Bearer ${key}` } });
 if (!res.ok) throw new Error(`${res.status} ${await res.text()}`);
 const rows = await res.json();
 
@@ -38,6 +38,31 @@ console.log(
   `\nLast ${days} days: ${sum(rows, "landing_view")} landing views, ${sum(rows, "hero_signup_submit")} signup submits (${pct(sum(rows, "hero_signup_submit"), sum(rows, "landing_view"))}), ` +
     `${sum(rows, "signed_in")} signed in, ${sum(rows, "pricing_view")} pricing views, ${sum(rows, "limit_hit")} upgrade prompts shown, ${sum(rows, "checkout_start")} checkouts started.`,
 );
+
+// The path from an upgrade prompt to a paying member. The "(server)" steps are counted by our server, so they show what the
+// browser cannot: whether a click on Continue to payment reached Stripe, and why not when it did not.
+const label = (r) => r.campaign || "";
+const withLabels = (event) => {
+  const by = {};
+  for (const r of rows.filter((x) => x.event === event)) by[label(r) || "(none)"] = (by[label(r) || "(none)"] ?? 0) + r.n;
+  const parts = Object.entries(by).sort((a, b) => b[1] - a[1]).map(([k, n]) => `${k} ${n}`);
+  return parts.length ? `  [${parts.join(", ")}]` : "";
+};
+console.log(`\nCheckout path, last ${days} days:`);
+for (const [event, note] of [
+  ["limit_hit", "upgrade prompt shown"],
+  ["pricing_view", "Plans page opened"],
+  ["checkout_start", "pressed Continue to payment"],
+  ["checkout_session", "payment page created (server)"],
+  ["checkout_refused", "server said no (server) - reasons"],
+  ["checkout_error", "page showed an error - HTTP status"],
+  ["checkout_return", "came back from the payment page"],
+  ["pro_started", "payment confirmed, now Pro (server)"],
+  ["pro_ended", "subscription ended (server)"],
+]) console.log(`  ${pad(sum(rows, event), 6)}${pad(note, 40)}${event === "checkout_refused" || event === "checkout_error" ? withLabels(event) : ""}`);
+const started = sum(rows, "checkout_start");
+const reached = sum(rows, "checkout_session");
+if (started && reached < started) console.log(`  ! ${started - reached} of ${started} clicks on Continue to payment did not produce a payment page. If checkout_refused and checkout_error are both empty, the server never received them.`);
 
 // Where visits began and how they came. A visit is counted once, on the page it began on (visit_* events).
 const visits = rows.filter((r) => r.event.startsWith("visit_"));

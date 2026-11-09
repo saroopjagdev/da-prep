@@ -29,7 +29,23 @@ export const FUNNEL_EVENTS = [
   "parent_share_click", // they pressed the button to send the plan to a parent or guardian
   "game_start", // they started a practice game
   "game_complete", // they finished one
+  "checkout_error", // they pressed Continue to payment and the page got an error back (the label says which kind)
+  "checkout_return", // they came back from the payment page (the Plans page opened with ?success)
 ] as const;
+
+/**
+ * Steps only our own server counts, so nobody can send them to /api/event. They close the gap between "pressed Continue to
+ * payment" and "became a Pro member", which the browser cannot see. The label (the campaign column) says why a checkout
+ * was refused, for example "already-pro" or "price-mismatch".
+ */
+export const SERVER_EVENTS = [
+  "checkout_session", // a Stripe payment page was created
+  "checkout_refused", // the server declined to create one (label: why)
+  "pro_started", // the payment arrived and the account became Pro
+  "pro_ended", // a subscription ended or lapsed and the account went back to Free
+] as const;
+
+export type ServerFunnelEvent = (typeof SERVER_EVENTS)[number];
 
 export type FunnelEvent = (typeof FUNNEL_EVENTS)[number];
 
@@ -141,7 +157,7 @@ const campaign = () => (currentCampaign ??= campaignFrom(window.location.search)
  * Count one step. Fire and forget; failures are ignored. Nothing is stored in the browser: the same event is only sent
  * once per page load (a module-level Set), and the request carries no identifier, only the coarse source label.
  */
-export function track(event: FunnelEvent, opts: { oncePerLoad?: boolean } = {}) {
+export function track(event: FunnelEvent, opts: { oncePerLoad?: boolean; /** A short reason or detail, stored in the campaign column. */ label?: string } = {}) {
   if (typeof window === "undefined") return;
   if (opts.oncePerLoad) {
     if (sent.has(event)) return;
@@ -151,7 +167,7 @@ export function track(event: FunnelEvent, opts: { oncePerLoad?: boolean } = {}) 
     void fetch("/api/event", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ event, source: source(), campaign: campaign() }),
+      body: JSON.stringify({ event, source: source(), campaign: cleanCampaign(opts.label) || campaign() }),
       keepalive: true,
     }).catch(() => {});
   } catch {

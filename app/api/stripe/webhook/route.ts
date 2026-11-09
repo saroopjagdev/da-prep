@@ -1,5 +1,6 @@
 import Stripe from "stripe";
 import { admin } from "@/lib/server/auth";
+import { countServer } from "@/lib/server/funnel";
 
 // Subscription states that should keep Pro access. past_due keeps it while Stripe retries the card.
 const ACTIVE = new Set<Stripe.Subscription.Status>(["active", "trialing", "past_due"]);
@@ -30,6 +31,7 @@ export async function POST(req: Request) {
     // Only grant Pro once the money has actually arrived (bank-based methods can complete as "unpaid" first).
     if (uid && s.mode === "subscription" && s.payment_status === "paid") {
       ({ error } = await db.from("profiles").upsert({ id: uid, plan: "pro", stripe_customer_id: idOf(s.customer) }));
+      if (!error) await countServer("pro_started");
     }
   } else if (event.type === "customer.subscription.updated" || event.type === "customer.subscription.deleted") {
     const sub = event.data.object as Stripe.Subscription;
@@ -39,6 +41,8 @@ export async function POST(req: Request) {
     const uid = sub.metadata?.user_id;
     if (uid) ({ error } = await db.from("profiles").update({ plan }).eq("id", uid));
     else if (customer) ({ error } = await db.from("profiles").update({ plan }).eq("stripe_customer_id", customer));
+    const ended = event.type === "customer.subscription.deleted" || ["canceled", "unpaid", "incomplete_expired"].includes(sub.status);
+    if (!error && plan === "free" && ended) await countServer("pro_ended");
   }
   if (error) {
     // A non-2xx makes Stripe retry, so a transient database failure doesn't leave someone paid but on Free.
