@@ -210,6 +210,17 @@ test("opportunities scroll straight through with no Show more, and each sector f
   await expect(page.locator("tbody tr select[aria-label^='My status for']")).toHaveCount(rowsBefore);
 });
 
+test("the deadlines table never squeezes a column, and on a phone the closing date sits under the employer", async ({ page, isMobile }) => {
+  await page.goto("/deadlines");
+  const table = page.getByRole("table", { name: /open now/i });
+  await expect(table.locator("tbody tr").first()).toBeVisible();
+  // A long closing note once made one column huge and crushed the others to a letter wide.
+  const widths = await table.locator("thead th:visible").evaluateAll((ths) => ths.map((t) => t.getBoundingClientRect().width));
+  expect(Math.min(...widths)).toBeGreaterThan(70);
+  expect(await page.evaluate(() => document.documentElement.scrollWidth > window.innerWidth)).toBe(false);
+  if (isMobile) await expect(table.locator("tbody tr").first().getByText(/Closes /)).toBeVisible();
+});
+
 test("employer guides and mock processes live together on one page, grouped by sector with a search box", async ({ page }) => {
   await page.goto("/employers");
   await expect(page.getByRole("heading", { level: 1, name: "Employer guides" })).toBeVisible();
