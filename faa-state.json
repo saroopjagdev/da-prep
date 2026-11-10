@@ -1,5 +1,5 @@
 {
- "checked": "2026-11-09",
+ "checked": "2026-11-10",
  "jobs": {
   "2000026593": {
    "id": "2000026593",
@@ -561,26 +561,6 @@
    "posted": "2026-10-15",
    "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000058708"
   },
-  "2000058711": {
-   "id": "2000058711",
-   "employer": "CAVENDISH NUCLEAR LIMITED",
-   "title": "Mechanical Engineering Degree Apprenticeship",
-   "level": "6",
-   "location": "Warrington WA3",
-   "deadline": "2026-11-09",
-   "posted": "2026-10-15",
-   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000058711"
-  },
-  "2000058712": {
-   "id": "2000058712",
-   "employer": "CAVENDISH NUCLEAR LIMITED",
-   "title": "Mechanical Engineering Degree Apprenticeship",
-   "level": "6",
-   "location": "Leicester LE3",
-   "deadline": "2026-11-09",
-   "posted": "2026-10-15",
-   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000058712"
-  },
   "2000058714": {
    "id": "2000058714",
    "employer": "CAVENDISH NUCLEAR LIMITED",
@@ -1011,16 +991,6 @@
    "posted": "2026-10-28",
    "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000061396"
   },
-  "2000061590": {
-   "id": "2000061590",
-   "employer": "Derby City Council",
-   "title": "Public Health Apprentice Level 6",
-   "level": "6",
-   "location": "Derby DE1",
-   "deadline": "2026-11-09",
-   "posted": "2026-10-29",
-   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000061590"
-  },
   "2000061719": {
    "id": "2000061719",
    "employer": "PAUL BASHAM ASSOCIATES LTD ",
@@ -1350,6 +1320,186 @@
    "deadline": "2026-11-23",
    "posted": "2026-11-09",
    "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000063202"
+  },
+  "2000063227": {
+   "id": "2000063227",
+   "employer": "Yunex Traffic",
+   "title": "Degree Apprentice - Software Engineering",
+   "level": "6",
+   "location": "CHRISTCHURCH BH23",
+   "deadline": "2026-12-31",
+   "posted": "2026-11-09",
+   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000063227"
+  },
+  "2000063233": {
+   "id": "2000063233",
+   "employer": "Yunex Traffic",
+   "title": "Degree Apprentice - Data Analytics Engineer",
+   "level": "6",
+   "location": "CHRISTCHURCH BH23",
+   "deadline": "2026-12-31",
+   "posted": "2026-11-09",
+   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000063233"
+  },
+  "2000063275": {
+   "id": "2000063275",
+   "employer": "AMAZON UK SERVICES LTD.",
+   "title": "Automation Engineering Apprentice - Yorkshire & Humber",
+   "level": "6",
+   "location": "Doncaster DN11 +3 more",
+   "deadline": "2027-02-01",
+   "posted": "2026-11-09",
+   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000063275"
+  },
+  "2000063283": {
+   "id": "2000063283",
+   "employer": "AMAZON UK SERVICES LTD.",
+   "title": "Automation Engineering Apprentice - North West",
+   "level": "6",
+   "location": "Bolton BL5 +2 more",
+   "deadline": "2027-02-01",
+   "posted": "2026-11-09",
+   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000063283"
+  },
+  "2000063284": {
+   "id": "2000063284",
+   "employer": "AMAZON UK SERVICES LTD.",
+   "title": "Automation Engineering Apprentice - North East",
+   "level": "6",
+   "location": "Stockton-on-Tees TS22 +1 more",
+   "deadline": "2027-02-01",
+   "posted": "2026-11-09",
+   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000063284"
+  },
+  "2000063286": {
+   "id": "2000063286",
+   "employer": "AMAZON UK SERVICES LTD.",
+   "title": "Automation Engineering Apprentice - London",
+   "level": "6",
+   "location": "Enfield EN3",
+   "deadline": "2027-02-01",
+   "posted": "2026-11-09",
+   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000063286"
+  },
+  "2000063287": {
+   "id": "2000063287",
+   "employer": "AMAZON UK SERVICES LTD.",
+   "title": "Automation Engineering Apprentice - Minworth",
+   "level": "6",
+   "location": "Sutton Coldfield B76",
+   "deadline": "2027-02-01",
+   "posted": "2026-11-09",
+   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000063287"
+  },
+  "2000063290": {
+   "id": "2000063290",
+   "employer": "AMAZON UK SERVICES LTD.",
+   "title": "Automation Engineering Apprentice - East Midlands",
+   "level": "6",
+   "location": "BHX2, Robson Wy, Ellistown, Coalville LE67 +2 more",
+   "deadline": "2027-02-01",
+   "posted": "2026-11-09",
+   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000063290"
+  },
+  "2000063293": {
+   "id": "2000063293",
+   "employer": "AMAZON UK SERVICES LTD.",
+   "title": "Finance Apprentice (Fixed Term Contract)",
+   "level": "7",
+   "location": "London EC2A +1 more",
+   "deadline": "2027-02-01",
+   "posted": "2026-11-09",
+   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000063293"
+  },
+  "2000063307": {
+   "id": "2000063307",
+   "employer": "AMAZON UK SERVICES LTD.",
+   "title": "Cyber Security Apprentice (Fixed Term Contract)",
+   "level": "6",
+   "location": "London EC1A +1 more",
+   "deadline": "2027-02-01",
+   "posted": "2026-11-09",
+   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000063307"
+  },
+  "2000063310": {
+   "id": "2000063310",
+   "employer": "AMAZON UK SERVICES LTD.",
+   "title": "Cyber Security Apprentice (Fixed Term Contract)",
+   "level": "6",
+   "location": "Manchester M4",
+   "deadline": "2027-02-01",
+   "posted": "2026-11-09",
+   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000063310"
+  },
+  "2000063385": {
+   "id": "2000063385",
+   "employer": "HOLLIS GLOBAL LIMITED",
+   "title": "Building Surveying Assistant Apprenticeship",
+   "level": "6",
+   "location": "Bristol BS8",
+   "deadline": "2026-11-30",
+   "posted": "2026-11-10",
+   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000063385"
+  },
+  "2000063426": {
+   "id": "2000063426",
+   "employer": "AMAZON UK SERVICES LTD.",
+   "title": "Software Development Engineer Apprentice (42-Month Fixed Term Contract)",
+   "level": "6",
+   "location": "Worship Street EC2A",
+   "deadline": "2026-12-21",
+   "posted": "2026-11-10",
+   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000063426"
+  },
+  "2000063431": {
+   "id": "2000063431",
+   "employer": "AMAZON UK SERVICES LTD.",
+   "title": "Solutions Architect Apprentice (42-Month Fixed Term Contract)",
+   "level": "6",
+   "location": "London EC1A",
+   "deadline": "2026-12-21",
+   "posted": "2026-11-10",
+   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000063431"
+  },
+  "2000063552": {
+   "id": "2000063552",
+   "employer": "TKMS ATLAS UK LIMITED",
+   "title": "Engineering - Sonar Apprentice",
+   "level": "6",
+   "location": "Dorchester DT2",
+   "deadline": "2027-02-19",
+   "posted": "2026-11-10",
+   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000063552"
+  },
+  "2000063555": {
+   "id": "2000063555",
+   "employer": "TKMS ATLAS UK LIMITED",
+   "title": "Engineering - Software Apprentice",
+   "level": "6",
+   "location": "Dorchester DT2",
+   "deadline": "2027-02-19",
+   "posted": "2026-11-10",
+   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000063555"
+  },
+  "2000063557": {
+   "id": "2000063557",
+   "employer": "TKMS ATLAS UK LIMITED",
+   "title": "Engineering - Test & Acceptance Apprentice",
+   "level": "6",
+   "location": "Dorchester DT2",
+   "deadline": "2027-02-19",
+   "posted": "2026-11-10",
+   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000063557"
+  },
+  "2000063558": {
+   "id": "2000063558",
+   "employer": "TKMS ATLAS UK LIMITED",
+   "title": "Engineering - Mechanical Apprentice",
+   "level": "6",
+   "location": "Dorchester DT2",
+   "deadline": "2027-02-19",
+   "posted": "2026-11-10",
+   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000063558"
   }
  }
 }
