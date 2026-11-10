@@ -247,7 +247,7 @@ test("a new visitor sees the pitch with a way to start, and opportunities still 
   await page.goto("/");
   await expect(page.getByRole("heading", { level: 1, name: /Know every stage before you apply/ })).toBeVisible();
   await expect(page.getByRole("link", { name: /See who is open now/ })).toBeVisible();
-  await expect(page.getByText("Your dashboard")).toBeHidden();
+  await expect(page.getByText("Your next steps")).toBeHidden();
   await page.goto("/opportunities?q=natwest");
   await expect(page.getByLabel("Search employers or programmes")).toHaveValue("natwest");
   await expect(page.locator("tbody tr").filter({ hasText: "NatWest Group" }).getByText("Not open yet", { exact: true }).filter({ visible: true })).toBeVisible();
@@ -259,25 +259,25 @@ const withActivity = (page: Page) =>
 test("a signed-in person gets the dashboard instead of the pitch, and /?pitch=1 shows the pitch", async ({ page }) => {
   await signedIn(page);
   await page.goto("/");
-  await expect(page.getByRole("heading", { level: 1, name: "Your dashboard" })).toBeVisible();
+  await expect(page.getByRole("heading", { level: 1, name: "Your next steps" })).toBeVisible();
   await expect(page.getByRole("heading", { name: /Know every stage before you apply/ })).toBeHidden();
-  await expect(page.getByLabel("Open now").first()).toBeVisible();
+  await expect(page.getByRole("region", { name: "Start here" })).toBeVisible();
   await page.goto("/?pitch=1");
   await expect(page.getByRole("heading", { level: 1, name: /Know every stage before you apply/ })).toBeVisible();
-  await expect(page.getByRole("heading", { name: "Your dashboard" })).toBeHidden();
+  await expect(page.getByRole("heading", { name: "Your next steps" })).toBeHidden();
 });
 
 test("saved practice and a tracker without an account still get the landing page, not the dashboard", async ({ page }) => {
   await withActivity(page);
   await page.goto("/");
   await expect(page.getByRole("heading", { level: 1, name: /Know every stage before you apply/ })).toBeVisible();
-  await expect(page.getByRole("heading", { name: "Your dashboard" })).toBeHidden();
+  await expect(page.getByRole("heading", { name: "Your next steps" })).toBeHidden();
 });
 
 test("the dashboard has no accessibility problems", async ({ page }) => {
   await signedIn(page);
   await page.goto("/");
-  await expect(page.getByRole("heading", { level: 1, name: "Your dashboard" })).toBeVisible();
+  await expect(page.getByRole("heading", { level: 1, name: "Your next steps" })).toBeVisible();
   await page.waitForTimeout(800); // let the fade-in finish, or axe reads blended colours
   const result = await new AxeBuilder({ page }).analyze();
   expect(result.violations.map((v) => v.id)).toEqual([]);
@@ -474,6 +474,8 @@ test("without an account the opportunities list is view-only", async ({ page }) 
   await expect(page.locator("tbody tr").first()).toBeVisible();
   await expect(page.getByLabel(/My status for/)).toHaveCount(0);
   await expect(page.getByRole("link", { name: "Sign up to track" }).first()).toBeVisible();
+  // After signing up they come back to the tracker they were using, not the home page.
+  await expect(page.getByRole("link", { name: "Sign up to track" }).first()).toHaveAttribute("href", "/login?mode=signup&next=/opportunities");
   await expect(page.getByRole("button", { name: /My tracker/ })).toHaveCount(0);
 });
 
@@ -733,13 +735,42 @@ test("a new member can start a mock interview in one click with a sample advert"
   await expect(page.getByText("Question 1 of 5")).toBeVisible();
 });
 
-test("a brand-new member's dashboard offers one clear first step, with the checklist tucked underneath", async ({ page }) => {
+test("a brand-new member's home asks them to pick employers, and tapping Track adds one to the tracker", async ({ page }) => {
   await signedIn(page);
   await page.goto("/");
-  await expect(page.getByRole("heading", { name: "Start here: get your first marked answer" })).toBeVisible();
-  await expect(page.getByRole("link", { name: /Answer a question/ })).toHaveAttribute("href", "/interview");
-  await page.getByText(/Your prep checklist/).click();
-  await expect(page.getByRole("link", { name: "Track 3 applications" })).toBeVisible();
+  await expect(page.getByRole("heading", { name: "Pick the employers you are aiming for" })).toBeVisible();
+  const first = page.getByRole("region", { name: "Start here" }).getByRole("button", { name: /^Track / }).first();
+  const employer = ((await first.getAttribute("aria-label")) ?? "").replace(/^Track /, "");
+  expect(employer).not.toBe("");
+  await first.click();
+  await expect(page.getByRole("heading", { name: "Track 2 more to build your list" })).toBeVisible();
+  await expect(page.getByRole("region", { name: "Your applications" })).toContainText(employer);
+  await page.goto("/opportunities?mine=1");
+  await expect(page.getByLabel(/My status for/)).toHaveCount(1);
+});
+
+const fakeUsage = (u: object) => (page: Page) => page.route("**/api/usage", (route) => route.fulfill({ json: u }));
+const free = (used: number) => ({ plan: "free", enforced: true, interviews: { used, limit: 1 }, practice: { used, limit: 1 }, reviews: { used: 0, limit: 1 }, bonus: { unlocked: false, extra: 2, steps: { applied: false, interview: false, practice: false } } });
+
+test("the home page offers Pro once a free allowance is used up, shows what is left before that, and nothing to a Pro member", async ({ page }) => {
+  await signedIn(page);
+  await fakeUsage(free(0))(page);
+  await page.goto("/");
+  await expect(page.getByRole("link", { name: "See what Pro adds" })).toHaveAttribute("href", "/pricing");
+  await expect(page.getByText("1 of 1 free left").first()).toBeVisible();
+  await expect(page.getByRole("link", { name: /Unlock Pro/ })).toHaveCount(0);
+
+  await page.unroute("**/api/usage");
+  await fakeUsage(free(1))(page);
+  await page.reload();
+  await expect(page.getByRole("link", { name: /Unlock Pro: / })).toHaveAttribute("href", "/pricing");
+  await expect(page.getByText("Used up").first()).toBeVisible();
+
+  await page.unroute("**/api/usage");
+  await fakeUsage({ plan: "pro", enforced: true })(page);
+  await page.reload();
+  await expect(page.getByText("Pro is on.")).toBeVisible();
+  await expect(page.getByRole("link", { name: /Unlock Pro|See what Pro adds/ })).toHaveCount(0);
 });
 
 test("after creating an account the form says what to do next, with an inbox link, a resend and a way back", async ({ page }) => {

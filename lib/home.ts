@@ -16,12 +16,12 @@ export function homeStats() {
   };
 }
 
-export type OpenNow = Pick<OpportunityRow, "name" | "slug" | "sectors" | "closes" | "rolling">;
+export type OpenNow = Pick<OpportunityRow, "name" | "slug" | "sectors" | "closes" | "closesIso" | "rolling" | "hasMock" | "template">;
 
 /** Employers with applications open right now that have a guide, soonest-closing first, for the landing page and the dashboard. */
 export function openNow(today = new Date(), limit = 8): OpenNow[] {
   return opportunityRows(today)
     .filter((r) => r.status === "open" && r.slug)
     .slice(0, limit)
-    .map(({ name, slug, sectors, closes, rolling }) => ({ name, slug, sectors: sectors as SectorId[], closes, rolling }));
+    .map(({ name, slug, sectors, closes, closesIso, rolling, hasMock, template }) => ({ name, slug, sectors: sectors as SectorId[], closes, closesIso, rolling, hasMock, template }));
 }
