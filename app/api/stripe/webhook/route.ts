@@ -1,4 +1,5 @@
 import Stripe from "stripe";
+import { PASS_PLAN } from "@/lib/plans";
 import { admin } from "@/lib/server/auth";
 import { countServer } from "@/lib/server/funnel";
 
@@ -32,6 +33,10 @@ export async function POST(req: Request) {
     if (uid && s.mode === "subscription" && s.payment_status === "paid") {
       ({ error } = await db.from("profiles").upsert({ id: uid, plan: "pro", stripe_customer_id: idOf(s.customer) }));
       if (!error) await countServer("pro_started");
+    } else if (uid && s.mode === "payment" && s.metadata?.plan === "pass" && s.payment_status === "paid") {
+      // A Season Pass: Pro until the end of its period. The daily job (lib/server/passes.ts) ends it after that.
+      ({ error } = await db.from("profiles").upsert({ id: uid, plan: "pro", stripe_customer_id: idOf(s.customer), pro_until: `${PASS_PLAN.until}T23:59:59Z` }));
+      if (!error) await countServer("pro_started", "pass");
     }
   } else if (event.type === "customer.subscription.updated" || event.type === "customer.subscription.deleted") {
     const sub = event.data.object as Stripe.Subscription;
@@ -43,6 +48,14 @@ export async function POST(req: Request) {
     else if (customer) ({ error } = await db.from("profiles").update({ plan }).eq("stripe_customer_id", customer));
     const ended = event.type === "customer.subscription.deleted" || ["canceled", "unpaid", "incomplete_expired"].includes(sub.status);
     if (!error && plan === "free" && ended) await countServer("pro_ended");
+  } else if (event.type === "charge.refunded") {
+    // A fully refunded Season Pass ends the pass. Only passes carry plan metadata on the charge; subscription refunds are left alone.
+    const c = event.data.object as Stripe.Charge;
+    const customer = idOf(c.customer);
+    if (c.refunded && c.metadata?.plan === "pass" && customer) {
+      ({ error } = await db.from("profiles").update({ plan: "free", pro_until: null }).eq("stripe_customer_id", customer).not("pro_until", "is", null));
+      if (!error) await countServer("pro_ended", "pass-refund");
+    }
   }
   if (error) {
     // A non-2xx makes Stripe retry, so a transient database failure doesn't leave someone paid but on Free.

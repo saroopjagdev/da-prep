@@ -1,3 +1,4 @@
+import { PASS_PLAN, passOffered } from "@/lib/plans";
 import { pageMeta } from "@/lib/site";
 import { CONTACT_EMAIL, LEGAL_UPDATED, OPERATOR_NAME } from "@/lib/legal";
 
@@ -71,6 +72,14 @@ export default function Terms() {
         within 14 days of buying; if you do, we will refund you minus a proportionate amount for the time you have
         already had Pro. To cancel or ask for a refund, contact us. Nothing here affects your statutory rights.
       </p>
+      {passOffered() && (
+        <p>
+          The {PASS_PLAN.name} is a one-off payment of {PASS_PLAN.price} (shown before you pay) that gives you Pro until {PASS_PLAN.untilText}. It
+          does not renew and there is nothing to cancel. Your 14-day right to cancel applies in the same way: if you cancel within 14 days
+          of buying, we refund you minus a proportionate amount for the days you have had Pro, and Pro ends when you are refunded. After
+          {" "}{PASS_PLAN.untilText} your account returns to the free plan with everything you saved kept.
+        </p>
+      )}
 
       <h2 className="text-base font-semibold">Deleting your account</h2>
       <p>

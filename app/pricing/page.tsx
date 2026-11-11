@@ -6,7 +6,7 @@ import { useAuth } from "@/components/AuthProvider";
 import ParentShare from "@/components/ParentShare";
 import { postJson } from "@/lib/api";
 import { track } from "@/lib/funnel";
-import { BONUS_EXTRA, FREE_GAMES, FREE_INTERVIEWS, FREE_PRACTICE, FREE_REVIEWS, FREE_STORIES, PRO_PLAN } from "@/lib/plans";
+import { BONUS_EXTRA, FREE_GAMES, FREE_INTERVIEWS, FREE_PRACTICE, FREE_REVIEWS, FREE_STORIES, PASS_PLAN, PRO_PLAN, passOffered } from "@/lib/plans";
 import { supabase } from "@/lib/supabase";
 
 const FREE = [
@@ -30,6 +30,10 @@ const PRO = [
 export default function Pricing() {
   const { enabled, user } = useAuth();
   const [plan, setPlan] = useState<"free" | "pro" | null>(null);
+  // When the end date is set the plan is a Season Pass (nothing to cancel); monthly subscribers have none.
+  const [proUntil, setProUntil] = useState<string | null>(null);
+  // The Season Pass is offered first when it is switched on: it is the fit for a student who needs Pro for one application season.
+  const [choice, setChoice] = useState<"monthly" | "pass">(passOffered() ? "pass" : "monthly");
   const [startNow, setStartNow] = useState(false);
   const [acceptTerms, setAcceptTerms] = useState(false);
   const [busy, setBusy] = useState(false);
@@ -48,12 +52,19 @@ export default function Pricing() {
 
   useEffect(() => {
     if (!user) return;
-    supabase()
-      ?.from("profiles")
+    const sb = supabase();
+    sb?.from("profiles")
       .select("plan")
       .eq("id", user.id)
       .maybeSingle()
       .then(({ data }) => setPlan((data?.plan as "free" | "pro") ?? "free"));
+    // The pass end date is a separate read: it lives in a column added by the Season Pass migration, and if that is not
+    // there yet this just returns nothing, so a Pro member is never shown as free because of it.
+    sb?.from("profiles")
+      .select("pro_until")
+      .eq("id", user.id)
+      .maybeSingle()
+      .then(({ data }) => setProUntil((data?.pro_until as string | null) ?? null));
   }, [user]);
 
   const ready = startNow && acceptTerms;
@@ -63,7 +74,7 @@ export default function Pricing() {
     setBusy(true);
     track("checkout_start");
     try {
-      const { url } = await postJson<{ url: string }>("/api/stripe/checkout", { startNow, acceptTerms });
+      const { url } = await postJson<{ url: string }>("/api/stripe/checkout", { startNow, acceptTerms, plan: choice });
       window.location.href = url;
     } catch (e) {
       // The label is the HTTP status, or "network" when the request never got an answer. The server counts the reason.
@@ -111,6 +122,14 @@ export default function Pricing() {
           <h2 className="font-semibold">{PRO_PLAN.name}</h2>
           <p className="text-2xl font-bold">{PRO_PLAN.price}</p>
           <p className="text-sm text-muted">{PRO_PLAN.summary}</p>
+          {passOffered() && (
+            <p className="rounded-lg bg-brand-50 p-2 text-sm">
+              <strong>
+                {PASS_PLAN.price} for the {PASS_PLAN.name}.
+              </strong>{" "}
+              {PASS_PLAN.summary}
+            </p>
+          )}
           <ul className="list-disc pl-5 text-sm">
             {PRO.map((f) => (
               <li key={f}>{f}</li>
@@ -169,9 +188,15 @@ export default function Pricing() {
       {plan === "pro" ? (
         <section className="card space-y-2 p-4">
           <p className="font-medium text-mint-600">You&apos;re on Pro.</p>
-          <button onClick={manage} className="btn btn-secondary">
-            Manage or cancel subscription
-          </button>
+          {proUntil ? (
+            <p className="text-sm text-muted">
+              Your {PASS_PLAN.name} runs until {new Date(proUntil).toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" })}. It does not renew.
+            </p>
+          ) : (
+            <button onClick={manage} className="btn btn-secondary">
+              Manage or cancel subscription
+            </button>
+          )}
         </section>
       ) : !(enabled && user) ? (
         <section className="card space-y-3 p-4">
@@ -190,9 +215,30 @@ export default function Pricing() {
           <h2 id="before-you-pay" className="text-lg font-semibold">
             Before you pay
           </h2>
+          {passOffered() && (
+            <fieldset className="grid gap-2 sm:grid-cols-2">
+              <legend className="sr-only">Choose how to pay</legend>
+              {(
+                [
+                  ["pass", `${PASS_PLAN.name}: ${PASS_PLAN.price}`, `One payment, Pro until ${PASS_PLAN.untilText}. No renewal.`],
+                  ["monthly", `${PRO_PLAN.name}: ${PRO_PLAN.price}`, "Renews every month. Cancel any time."],
+                ] as const
+              ).map(([k, title, sub]) => (
+                <label key={k} className={`flex cursor-pointer items-start gap-2 rounded-xl border p-3 text-sm ${choice === k ? "border-brand-600 bg-brand-50" : "border-line"}`}>
+                  <input type="radio" name="plan" className="mt-1 accent-brand-600" checked={choice === k} onChange={() => setChoice(k)} />
+                  <span>
+                    <span className="block font-semibold">{title}</span>
+                    <span className="block text-muted">{sub}</span>
+                  </span>
+                </label>
+              ))}
+            </fieldset>
+          )}
           <p className="text-sm">
-            {PRO_PLAN.name}: {PRO_PLAN.price}, renewing until you cancel. Pro starts as soon as payment goes through, and you can
-            cancel any time from this page. Full details, including your 14-day right to cancel and who you&apos;re buying
+            {choice === "pass"
+              ? `${PASS_PLAN.name}: ${PASS_PLAN.price} once. ${PASS_PLAN.summary} Pro starts as soon as payment goes through.`
+              : `${PRO_PLAN.name}: ${PRO_PLAN.price}, renewing until you cancel. Pro starts as soon as payment goes through, and you can cancel any time from this page.`}{" "}
+            Full details, including your 14-day right to cancel and who you&apos;re buying
             from, are in the{" "}
             <Link href="/terms" className="underline">
               terms
@@ -224,7 +270,7 @@ export default function Pricing() {
             </label>
           </fieldset>
           <button onClick={checkout} disabled={!ready || busy} className="btn btn-primary">
-            {busy ? "Opening secure payment…" : `Continue to payment: ${PRO_PLAN.price}`}
+            {busy ? "Opening secure payment…" : `Continue to payment: ${choice === "pass" ? PASS_PLAN.price : PRO_PLAN.price}`}
           </button>
           {!ready && <p className="text-xs text-muted">Tick both boxes to continue.</p>}
           <div className="border-t border-line pt-3">

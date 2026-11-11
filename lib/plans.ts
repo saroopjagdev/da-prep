@@ -11,10 +11,31 @@ export const PRO_PLAN = {
     "Renews every month until you cancel. Cancel any time from your account; Pro stays on until the end of the month you've paid for.",
 } as const;
 
+/**
+ * The Season Pass: one payment, Pro until the end of the application year, no renewal. Off until a Stripe price exists
+ * (STRIPE_PRICE_PASS, checked against this like the monthly price) and NEXT_PUBLIC_PASS_ENABLED is "true", so deploying
+ * this changes nothing on its own. The daily job (lib/server/passes.ts) ends it after `until`.
+ */
+export const PASS_PLAN = {
+  name: "Season Pass",
+  price: "£39",
+  pence: 3900,
+  currency: "gbp",
+  /** The last day of Pro on a pass (inclusive), and how it reads on the site. */
+  until: "2027-08-31",
+  untilText: "31 August 2027",
+  summary: "One payment. Pro until 31 August 2027. It does not renew, so there is nothing to cancel.",
+} as const;
+
+/** Whether the pass is offered on the site. The server also needs STRIPE_PRICE_PASS before it will take payment. */
+export const passOffered = () => process.env.NEXT_PUBLIC_PASS_ENABLED === "true";
+
 /** Everything the buyer must confirm before checkout. The server re-checks these and records them with the payment. */
 export const checkoutInput = z.object({
   startNow: z.literal(true),
   acceptTerms: z.literal(true),
+  /** Which plan: the monthly subscription (default) or the one-off Season Pass. */
+  plan: z.enum(["monthly", "pass"]).default("monthly"),
 });
 
 export { CONTACT_EMAIL as CONTACT, OPERATOR_NAME as OPERATOR } from "@/lib/legal";

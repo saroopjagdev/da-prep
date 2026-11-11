@@ -28,6 +28,7 @@ const chain = (table: string, op: string, args: unknown[]) => {
   const result = { error: dbError, data: profileRow };
   const p: Record<string, unknown> = {
     eq: (...a: unknown[]) => (calls.push({ op: "eq", table, args: a }), p),
+    not: (...a: unknown[]) => (calls.push({ op: "not", table, args: a }), p),
     maybeSingle: async () => result,
     then: (res: (v: unknown) => unknown) => Promise.resolve(result).then(res),
   };
@@ -275,5 +276,82 @@ describe("what the server counts, so a checkout that goes nowhere is visible", (
     event = { type: "customer.subscription.updated", data: { object: { customer: "cus_1", status: "incomplete" } } };
     await hook();
     expect(counted()).toEqual([]);
+  });
+});
+
+describe("the Season Pass", () => {
+  const buy = (body: unknown) => checkout(new Request("http://x/api/stripe/checkout", { method: "POST", body: JSON.stringify(body) }));
+  const pass = { startNow: true, acceptTerms: true, plan: "pass" };
+  const passPrice = { id: "price_pass", active: true, unit_amount: 3900, currency: "gbp", recurring: null };
+  beforeEach(() => {
+    vi.stubEnv("STRIPE_PRICE_ID", "price_pro");
+    vi.stubEnv("STRIPE_PRICE_PASS", "price_pass");
+    priceRetrieve.mockResolvedValue(passPrice);
+  });
+
+  it("takes one payment, with no subscription, and records that it is a pass", async () => {
+    expect((await buy(pass)).status).toBe(200);
+    const arg = sessionCreate.mock.calls[0][0];
+    expect(priceRetrieve).toHaveBeenCalledWith("price_pass");
+    expect(arg).toMatchObject({ mode: "payment", line_items: [{ price: "price_pass", quantity: 1 }], client_reference_id: "u1", customer_creation: "always" });
+    expect(arg.metadata).toMatchObject({ plan: "pass", immediate_start_requested: "yes", terms_accepted: "yes" });
+    expect(arg.payment_intent_data.metadata.plan).toBe("pass");
+    expect(arg.subscription_data).toBeUndefined();
+    expect(counted()).toEqual(["checkout_session:pass"]);
+  });
+
+  it("cannot be bought until its Stripe price is set", async () => {
+    vi.stubEnv("STRIPE_PRICE_PASS", "");
+    expect((await buy(pass)).status).toBe(503);
+    expect(sessionCreate).not.toHaveBeenCalled();
+  });
+
+  it.each([
+    ["a recurring price", { ...passPrice, recurring: { interval: "month" } }],
+    ["the wrong amount", { ...passPrice, unit_amount: 4900 }],
+    ["the wrong currency", { ...passPrice, currency: "usd" }],
+    ["an archived price", { ...passPrice, active: false }],
+  ])("refuses to take money when the pass price is %s", async (_name, price) => {
+    priceRetrieve.mockResolvedValue(price);
+    expect((await buy(pass)).status).toBe(503);
+    expect(sessionCreate).not.toHaveBeenCalled();
+  });
+
+  it("still sells the monthly plan when no plan is given, and never sells to someone already on Pro", async () => {
+    priceRetrieve.mockResolvedValue(goodPrice);
+    expect((await buy({ startNow: true, acceptTerms: true })).status).toBe(200);
+    expect(sessionCreate.mock.calls[0][0]).toMatchObject({ mode: "subscription" });
+    profileRow = { plan: "pro" };
+    expect((await buy(pass)).status).toBe(409);
+  });
+
+  it("grants Pro until the end date when a pass is paid, and counts it", async () => {
+    event = { type: "checkout.session.completed", data: { object: { mode: "payment", payment_status: "paid", client_reference_id: "u1", customer: "cus_1", metadata: { plan: "pass" } } } };
+    expect((await hook()).status).toBe(200);
+    expect(calls[0]).toMatchObject({ op: "upsert", table: "profiles", args: [{ id: "u1", plan: "pro", stripe_customer_id: "cus_1", pro_until: "2027-08-31T23:59:59Z" }] });
+    expect(counted()).toEqual(["pro_started:pass"]);
+  });
+
+  it("does not grant anything for an unpaid pass or a one-off payment that is not a pass", async () => {
+    event = { type: "checkout.session.completed", data: { object: { mode: "payment", payment_status: "unpaid", client_reference_id: "u1", customer: "cus_1", metadata: { plan: "pass" } } } };
+    await hook();
+    event = { type: "checkout.session.completed", data: { object: { mode: "payment", payment_status: "paid", client_reference_id: "u1", customer: "cus_1", metadata: {} } } };
+    await hook();
+    expect(calls).toHaveLength(0);
+  });
+
+  it("ends a pass when its payment is fully refunded, and leaves other refunds alone", async () => {
+    event = { type: "charge.refunded", data: { object: { refunded: true, customer: "cus_1", metadata: { plan: "pass" } } } };
+    await hook();
+    expect(calls[0]).toMatchObject({ op: "update", table: "profiles", args: [{ plan: "free", pro_until: null }] });
+    expect(calls.some((c) => c.op === "not" && c.args[0] === "pro_until")).toBe(true);
+    expect(counted()).toEqual(["pro_ended:pass-refund"]);
+
+    calls.length = 0;
+    event = { type: "charge.refunded", data: { object: { refunded: true, customer: "cus_1", metadata: {} } } };
+    await hook();
+    event = { type: "charge.refunded", data: { object: { refunded: false, customer: "cus_1", metadata: { plan: "pass" } } } };
+    await hook();
+    expect(calls).toHaveLength(0);
   });
 });
