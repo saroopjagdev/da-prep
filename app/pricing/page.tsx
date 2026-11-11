@@ -6,22 +6,23 @@ import { useAuth } from "@/components/AuthProvider";
 import ParentShare from "@/components/ParentShare";
 import { postJson } from "@/lib/api";
 import { track } from "@/lib/funnel";
-import { BONUS_EXTRA, FREE_INTERVIEWS, FREE_PRACTICE, FREE_REVIEWS, PRO_PLAN } from "@/lib/plans";
+import { BONUS_EXTRA, FREE_GAMES, FREE_INTERVIEWS, FREE_PRACTICE, FREE_REVIEWS, FREE_STORIES, PRO_PLAN } from "@/lib/plans";
 import { supabase } from "@/lib/supabase";
 
 const FREE = [
   `${FREE_PRACTICE} practice test`,
   `${FREE_REVIEWS} CV, cover letter or statement review`,
   `${FREE_INTERVIEWS} AI mock interview, marked out of 100 with feedback`,
+  `${FREE_GAMES} practice game round and ${FREE_STORIES} AI-drafted STAR story`,
   `${BONUS_EXTRA} more of each when you do any two of: apply through the tracker, take a mock interview, start a practice test`,
   "Your own tracker, saved and synced",
   "Your scores and progress, kept for you",
 ];
 const PRO = [
-  "Unlimited practice tests",
+  "Unlimited practice tests and practice games",
   "Unlimited AI mock interviews, within fair-use limits (up to 25 marked interviews a day)",
   "Every firm mock process, stage by stage",
-  "CV and statement review, within fair-use limits (up to 40 a day)",
+  "CV and statement review and AI-drafted STAR stories, within fair-use limits (up to 40 a day)",
   "Everything in Free",
 ];
 

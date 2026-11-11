@@ -694,6 +694,16 @@ test("Flashback, Shape reaction and Block sequence start and take input", async 
   await expect(page.getByRole("status").filter({ hasText: /Correct\.|Not quite/ })).toBeVisible();
 });
 
+test("a free member whose game round is used up is offered Pro, not a second round", async ({ page }) => {
+  await signedIn(page);
+  await page.route("**/api/games/start", (route) => route.fulfill({ status: 402, json: { error: "You've used your free game round." } }));
+  await page.goto("/games/reaction");
+  await page.getByRole("button", { name: "Start" }).click();
+  await expect(page.getByRole("heading", { name: /You have used your 1 free game round/ })).toBeVisible();
+  await expect(page.getByRole("link", { name: "See Pro" })).toHaveAttribute("href", "/pricing");
+  await expect(page.getByText("Shape 1 of 40")).toHaveCount(0);
+});
+
 test("the tracker's row actions are on screen without scrolling sideways, on a laptop and a phone", async ({ page }) => {
   await signedIn(page);
   await page.route("**/api/alerts", (route) => route.fulfill({ json: { keys: [] } }));

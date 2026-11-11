@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { PRO_PLAN, FREE_INTERVIEWS, FREE_PRACTICE, FREE_REVIEWS } from "@/lib/plans";
+import { PRO_PLAN, FREE_GAMES, FREE_INTERVIEWS, FREE_PRACTICE, FREE_REVIEWS } from "@/lib/plans";
 import { pageMeta } from "@/lib/site";
 
 export const metadata = pageMeta({
@@ -29,7 +29,7 @@ export default function Parents() {
         <h2 id="free" className="text-lg font-semibold">What is free</h2>
         <ul className="list-disc space-y-1 pl-5 text-sm">
           <li>The list of employers, their guides and closing dates, with no account.</li>
-          <li>A free account (for ages 16 and over, no card): the application tracker with deadline emails, plus {FREE_PRACTICE} practice test, {FREE_REVIEWS} CV or statement review and {FREE_INTERVIEWS} AI mock interview, with a little more once they have tried it properly.</li>
+          <li>A free account (for ages 16 and over, no card): the application tracker with deadline emails, plus {FREE_PRACTICE} practice test, {FREE_REVIEWS} CV or statement review, {FREE_INTERVIEWS} AI mock interview and {FREE_GAMES} practice game round, with a little more once they have tried it properly.</li>
         </ul>
       </section>
 

@@ -28,10 +28,12 @@ export const FREE_INTERVIEWS = 1; // marked AI mock interviews (text or video, w
 export const FREE_MOCK_PROCESSES = 0; // whole firm mock processes: these are Pro
 export const FREE_PRACTICE = 1; // practice tests, counted on the account when a test is started
 export const FREE_REVIEWS = 1; // statement, answer or CV reviews
+export const FREE_GAMES = 1; // practice game rounds, counted on the account when a round is started
+export const FREE_STORIES = 1; // AI-drafted STAR stories (saving and editing your own stories stays free)
 
 /**
  * The engagement reward: a free account that has tried the product properly gets BONUS_EXTRA more of each allowance
- * above (interviews, practice tests, reviews), once. "Tried it properly" is any TWO of: applying to an employer
+ * above (interviews, practice tests, reviews, game rounds, story drafts), once. "Tried it properly" is any TWO of: applying to an employer
  * through the tracker (following its Apply link), taking a marked mock interview, and starting a practice test. (It was
  * all three until 19 October 2026; nobody got there, because people who track and people who practise are different
  * groups.) Mock processes stay Pro-only. The server checks this on every use, from the counts on the account.

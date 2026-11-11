@@ -3,6 +3,7 @@ import { mockStar } from "@/lib/mocks";
 import { starInput, starOutput, starSystem, starUser } from "@/lib/writing";
 import { guardAi } from "@/lib/server/guard";
 import { screenText } from "@/lib/server/safety";
+import { consumeStory } from "@/lib/server/usage";
 
 export const maxDuration = 60;
 
@@ -13,6 +14,9 @@ export async function POST(req: Request) {
   if (!parsed.success) return Response.json({ error: "Invalid input" }, { status: 400 });
   const blocked = await screenText(parsed.data.notes);
   if (blocked) return blocked;
+  // A drafted story counts against the free allowance (Pro has fair-use limits only). Counted after the safety check so blocked text is free.
+  const usage = await consumeStory(req);
+  if (!usage.ok) return Response.json({ error: usage.error }, { status: usage.status });
   try {
     const out = await askJson({
       system: starSystem(),

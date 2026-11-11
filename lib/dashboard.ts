@@ -104,7 +104,7 @@ export const URGENT_PROMPTS = new Set([
 export const STARTER_TARGET = 3;
 
 export type Allowance = {
-  key: "interviews" | "reviews" | "practice";
+  key: "interviews" | "reviews" | "practice" | "games" | "stories";
   label: string;
   used: number;
   limit: number;
@@ -128,6 +128,8 @@ export function allowances(usage: Usage | null): Allowance[] {
       label: "CV and statement reviews",
       ...usage.reviews,
     });
+  if (usage.games) out.push({ key: "games", label: "Practice games", ...usage.games });
+  if (usage.stories) out.push({ key: "stories", label: "Story drafts", ...usage.stories });
   return out;
 }
 

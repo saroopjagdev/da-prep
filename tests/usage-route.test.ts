@@ -46,6 +46,8 @@ describe("GET /api/usage", () => {
       interviews: { used: 1, limit: 1 },
       reviews: { used: 2, limit: 1 },
       practice: { used: 0, limit: 1 },
+      games: { used: 0, limit: 1 },
+      stories: { used: 0, limit: 1 },
       bonus: { unlocked: false, extra: 2, steps: { applied: false, interview: true, practice: false } },
     });
   });

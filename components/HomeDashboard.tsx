@@ -525,6 +525,13 @@ export default function HomeDashboard({ open }: { open: OpenNow[] }) {
                     a: by("reviews"),
                   },
                   {
+                    href: "/games",
+                    icon: "compass",
+                    title: "Practice games",
+                    sub: "Short tasks like the ones some employers use",
+                    a: by("games"),
+                  },
+                  {
                     href: "/employers",
                     icon: "board",
                     title: "Firm mock processes",

@@ -1,5 +1,5 @@
 import { admin, userFromRequest } from "@/lib/server/auth";
-import { BONUS_EXTRA, FREE_INTERVIEWS, FREE_MOCK_PROCESSES, FREE_PERIOD, FREE_PRACTICE, FREE_REVIEWS, withBonus } from "@/lib/plans";
+import { BONUS_EXTRA, FREE_GAMES, FREE_INTERVIEWS, FREE_MOCK_PROCESSES, FREE_PERIOD, FREE_PRACTICE, FREE_REVIEWS, FREE_STORIES, withBonus } from "@/lib/plans";
 import { limitsEnforced } from "@/lib/server/guard";
 
 export { FREE_INTERVIEWS, FREE_REVIEWS };
@@ -11,7 +11,7 @@ type Result = { ok: true } | { ok: false; status: number; error: string };
 /** Count one use against a free allowance. Only enforced when limits are enforced (see limitsEnforced); otherwise always allowed. */
 async function consume(
   req: Request,
-  rpc: "consume_interview" | "consume_review" | "consume_practice",
+  rpc: "consume_interview" | "consume_review" | "consume_practice" | "consume_game" | "consume_story",
   period: string,
   base: number,
   signIn: string,
@@ -100,3 +100,25 @@ export async function markApplied(req: Request): Promise<Result> {
   }
   return { ok: true };
 }
+
+/** Count one practice game round against the caller's free allowance. */
+export const consumeGame = (req: Request) =>
+  consume(
+    req,
+    "consume_game",
+    FREE_PERIOD,
+    FREE_GAMES,
+    "Create a free account to play practice games.",
+    `You've used your free game round${FREE_GAMES === 1 ? "" : "s"}. ${UNLOCK_HINT} Or upgrade to Pro for unlimited practice games.`,
+  );
+
+/** Count one AI-drafted STAR story against the caller's free allowance. */
+export const consumeStory = (req: Request) =>
+  consume(
+    req,
+    "consume_story",
+    FREE_PERIOD,
+    FREE_STORIES,
+    "Sign in to build a story.",
+    `You've used your free story draft${FREE_STORIES === 1 ? "" : "s"}. ${UNLOCK_HINT} Or upgrade to Pro for more (fair-use limits apply).`,
+  );

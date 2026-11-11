@@ -8,6 +8,7 @@ vi.mock("@/lib/ai", () => ({ askJson: (...a: unknown[]) => askJson(...a), mockEn
 vi.mock("@/lib/server/usage", () => ({
   consumeInterview: (...a: unknown[]) => consumeInterview(...a),
   consumeReview: (...a: unknown[]) => consumeReview(...a),
+  consumeStory: async () => ({ ok: true }),
 }));
 
 import { DELETE as deleteAccount } from "@/app/api/account/route";

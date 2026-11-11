@@ -1,7 +1,9 @@
 "use client";
 
+import Link from "next/link";
 import RequireAccount from "@/components/RequireAccount";
 import { useState } from "react";
+import { track } from "@/lib/funnel";
 import { postJson } from "@/lib/api";
 import { useCollection } from "@/lib/store";
 import { COMPETENCIES, type Story } from "@/lib/types";
@@ -16,11 +18,13 @@ function StoriesInner() {
   const [tip, setTip] = useState("");
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState("");
+  const [capped, setCapped] = useState(false);
   const [filter, setFilter] = useState("All");
 
   async function build() {
     setBusy(true);
     setError("");
+    setCapped(false);
     setTip("");
     try {
       const out = await postJson<Omit<Draft, "title" | "competencies"> & { tip: string }>("/api/star", {
@@ -31,6 +35,11 @@ function StoriesInner() {
       setTip(out.tip);
     } catch (e) {
       setError((e as Error).message);
+      // 402 is the free allowance being used up: the same moment as a practice test or interview, so count it the same way.
+      if ((e as { status?: number }).status === 402) {
+        setCapped(true);
+        track("limit_hit");
+      }
     } finally {
       setBusy(false);
     }
@@ -119,6 +128,12 @@ function StoriesInner() {
             </button>
             {tip && <p className="text-muted">Tip: {tip}</p>}
             {error && <p className="text-coral-600">{error}</p>}
+            {capped && (
+              <Link href="/pricing" className="btn btn-primary">
+                See Pro
+              </Link>
+            )}
+            {capped && <p className="text-muted">Writing and saving your own stories stays free.</p>}
           </div>
         </details>
         {(["situation", "task", "action", "result"] as const).map(field)}
