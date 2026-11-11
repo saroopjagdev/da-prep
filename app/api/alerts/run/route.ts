@@ -2,6 +2,7 @@ import { rateLimit } from "@/lib/rateLimit";
 import { clientIp } from "@/lib/server/guard";
 import { runAlerts } from "@/lib/server/alerts";
 import { runNudges } from "@/lib/server/nudges";
+import { expirePasses } from "@/lib/server/passes";
 
 export const dynamic = "force-dynamic";
 // A run can take a while when many emails are due.
@@ -24,5 +25,8 @@ export async function GET(req: Request) {
   // The first-steps email rides on the same daily job; it does nothing unless NUDGES_ENABLED is "true".
   const nudges = await runNudges();
   console.log("first-steps emails", JSON.stringify(nudges));
-  return Response.json({ ...result, nudges });
+  // Season Passes that have run out go back to free (monthly subscribers have no end date and are not touched).
+  const passes = await expirePasses();
+  console.log("season passes", JSON.stringify(passes));
+  return Response.json({ ...result, nudges, passes });
 }

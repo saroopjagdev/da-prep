@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { PRO_PLAN, FREE_GAMES, FREE_INTERVIEWS, FREE_PRACTICE, FREE_REVIEWS } from "@/lib/plans";
+import { PASS_PLAN, PRO_PLAN, FREE_GAMES, FREE_INTERVIEWS, FREE_PRACTICE, FREE_REVIEWS, passOffered } from "@/lib/plans";
 import { pageMeta } from "@/lib/site";
 
 export const metadata = pageMeta({
@@ -45,6 +45,11 @@ export default function Parents() {
         <ul className="list-disc space-y-1 pl-5 text-sm">
           <li>Payment is taken by Stripe, so Level6 never sees card details. Pro starts as soon as payment goes through.</li>
           <li>You pay with your own payment method, or give your child permission to use it.</li>
+          {passOffered() && (
+            <li>
+              There is a one-off option: the {PASS_PLAN.name}, {PASS_PLAN.price} for Pro until {PASS_PLAN.untilText}. It does not renew, so there is nothing to remember to cancel.
+            </li>
+          )}
           <li>You can cancel at any time from the Plans page, and Pro stays on until the end of the month you have paid for.</li>
           <li>You have a 14-day right to cancel. If you do, you are refunded minus a fair amount for the time Pro was used.</li>
           <li>Full details are in the <Link href="/terms" className="underline">terms</Link> and the <Link href="/privacy" className="underline">privacy notice</Link>.</li>
