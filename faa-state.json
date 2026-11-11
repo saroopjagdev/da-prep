@@ -1,5 +1,5 @@
 {
- "checked": "2026-11-10",
+ "checked": "2026-11-11",
  "jobs": {
   "2000026593": {
    "id": "2000026593",
@@ -1081,16 +1081,6 @@
    "posted": "2026-11-03",
    "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000062397"
   },
-  "2000062488": {
-   "id": "2000062488",
-   "employer": "COCA-COLA EUROPACIFIC PARTNERS PLC",
-   "title": "Commercial Degree Apprenticeship",
-   "level": "6",
-   "location": "Uxbridge UB8",
-   "deadline": "2026-11-20",
-   "posted": "2026-11-04",
-   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000062488"
-  },
   "2000062496": {
    "id": "2000062496",
    "employer": "Method Consulting Llp",
@@ -1500,6 +1490,36 @@
    "deadline": "2027-02-19",
    "posted": "2026-11-10",
    "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000063558"
+  },
+  "2000063559": {
+   "id": "2000063559",
+   "employer": "TKMS ATLAS UK LIMITED",
+   "title": "Engineering - Electrical/Electronics Apprentice",
+   "level": "6",
+   "location": "Dorchester DT2",
+   "deadline": "2027-02-19",
+   "posted": "2026-11-10",
+   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000063559"
+  },
+  "2000063573": {
+   "id": "2000063573",
+   "employer": "AMAZON UK SERVICES LTD.",
+   "title": "Data Analyst Degree Apprentice (42 month Fixed Term Contract)",
+   "level": "6",
+   "location": "Worship Street EC2A",
+   "deadline": "2027-02-01",
+   "posted": "2026-11-10",
+   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000063573"
+  },
+  "2000063579": {
+   "id": "2000063579",
+   "employer": "AMAZON UK SERVICES LTD.",
+   "title": "Project Manager Degree Apprentice (42-month Fixed term contract)",
+   "level": "6",
+   "location": "London EC2A +1 more",
+   "deadline": "2027-02-01",
+   "posted": "2026-11-10",
+   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000063579"
   }
  }
 }
