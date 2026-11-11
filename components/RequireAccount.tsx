@@ -5,12 +5,13 @@ import { usePathname } from "next/navigation";
 import { useEffect } from "react";
 import { useAuth } from "@/components/AuthProvider";
 import { track } from "@/lib/funnel";
-import { BONUS_EXTRA, FREE_INTERVIEWS, FREE_PRACTICE, FREE_REVIEWS } from "@/lib/plans";
+import { BONUS_EXTRA, FREE_GAMES, FREE_INTERVIEWS, FREE_PRACTICE, FREE_REVIEWS } from "@/lib/plans";
 
 const PERKS = [
   `${FREE_PRACTICE} free practice test`,
   `${FREE_REVIEWS} free CV and statement review`,
   `${FREE_INTERVIEWS} free AI mock interview, marked out of 100`,
+  `${FREE_GAMES} free practice game round`,
   `${BONUS_EXTRA} more of each when you do any two of: use the tracker, take a mock interview, start a practice test`,
   "Your tracker, saved and synced across devices",
   "Your scores and progress, kept for you",

@@ -10,6 +10,8 @@ export type Usage = {
   interviews?: { used: number; limit: number };
   reviews?: { used: number; limit: number };
   practice?: { used: number; limit: number };
+  games?: { used: number; limit: number };
+  stories?: { used: number; limit: number };
   /** The engagement reward (limits above already include it once unlocked): the three steps and how far along they are. */
   bonus?: { unlocked: boolean; extra: number; steps: { applied: boolean; interview: boolean; practice: boolean } };
 };

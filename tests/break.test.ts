@@ -10,7 +10,7 @@ vi.mock("@/lib/ai", () => ({
   transcribeModel: () => "test",
   mockEnabled: () => false,
 }));
-vi.mock("@/lib/server/usage", () => ({ consumeInterview: async () => ({ ok: true }), consumeReview: async () => ({ ok: true }) }));
+vi.mock("@/lib/server/usage", () => ({ consumeInterview: async () => ({ ok: true }), consumeReview: async () => ({ ok: true }), consumeStory: async () => ({ ok: true }) }));
 
 import { POST as next } from "@/app/api/interview/next/route";
 import { POST as score } from "@/app/api/interview/score/route";

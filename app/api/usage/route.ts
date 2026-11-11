@@ -1,4 +1,4 @@
-import { BONUS_EXTRA, FREE_INTERVIEWS, FREE_PERIOD, FREE_PRACTICE, FREE_REVIEWS, bonusSteps, bonusUnlocked, withBonus } from "@/lib/plans";
+import { BONUS_EXTRA, FREE_GAMES, FREE_INTERVIEWS, FREE_PERIOD, FREE_PRACTICE, FREE_REVIEWS, FREE_STORIES, bonusSteps, bonusUnlocked, withBonus } from "@/lib/plans";
 import { admin, userFromRequest } from "@/lib/server/auth";
 import { limitsEnforced } from "@/lib/server/guard";
 
@@ -15,7 +15,7 @@ export async function GET(req: Request) {
 
   const [{ data: profile }, { data: counts }] = await Promise.all([
     a.from("profiles").select("plan").eq("id", user.id).maybeSingle(),
-    a.from("usage").select("interviews, reviews, practice, applied").eq("user_id", user.id).eq("period", FREE_PERIOD).maybeSingle(),
+    a.from("usage").select("interviews, reviews, practice, games, stories, applied").eq("user_id", user.id).eq("period", FREE_PERIOD).maybeSingle(),
   ]);
   if (profile?.plan === "pro") return Response.json({ plan: "pro", enforced: true });
   return Response.json({
@@ -24,6 +24,8 @@ export async function GET(req: Request) {
     interviews: { used: counts?.interviews ?? 0, limit: withBonus(FREE_INTERVIEWS, counts) },
     reviews: { used: counts?.reviews ?? 0, limit: withBonus(FREE_REVIEWS, counts) },
     practice: { used: counts?.practice ?? 0, limit: withBonus(FREE_PRACTICE, counts) },
+    games: { used: counts?.games ?? 0, limit: withBonus(FREE_GAMES, counts) },
+    stories: { used: counts?.stories ?? 0, limit: withBonus(FREE_STORIES, counts) },
     bonus: { unlocked: bonusUnlocked(counts), extra: BONUS_EXTRA, steps: bonusSteps(counts) },
   });
 }

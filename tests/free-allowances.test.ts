@@ -15,8 +15,8 @@ vi.mock("@/lib/server/auth", () => ({
   userFromRequest: async () => ({ id: "u1" }),
 }));
 
-import { BONUS_EXTRA, BONUS_STEPS_NEEDED, FREE_INTERVIEWS, FREE_MOCK_PROCESSES, FREE_PERIOD, FREE_PRACTICE, FREE_REVIEWS } from "@/lib/plans";
-import { consumeInterview, consumeMockProcess, consumePractice, consumeReview, markApplied } from "@/lib/server/usage";
+import { BONUS_EXTRA, BONUS_STEPS_NEEDED, FREE_GAMES, FREE_INTERVIEWS, FREE_MOCK_PROCESSES, FREE_PERIOD, FREE_PRACTICE, FREE_REVIEWS, FREE_STORIES } from "@/lib/plans";
+import { consumeGame, consumeInterview, consumeMockProcess, consumePractice, consumeReview, consumeStory, markApplied } from "@/lib/server/usage";
 
 const req = new Request("http://x/api");
 
@@ -35,6 +35,31 @@ describe("free allowances", () => {
     expect(rpc).toHaveBeenCalledWith("consume_interview", { p_uid: "u1", p_period: FREE_PERIOD, p_limit: 1 });
     expect(rpc).toHaveBeenCalledWith("consume_practice", { p_uid: "u1", p_period: FREE_PERIOD, p_limit: 1 });
     expect(rpc).toHaveBeenCalledWith("consume_review", { p_uid: "u1", p_period: FREE_PERIOD, p_limit: 1 });
+  });
+
+  it("gives free accounts one practice game round and one AI story draft in total, counted on the server", async () => {
+    expect([FREE_GAMES, FREE_STORIES]).toEqual([1, 1]);
+    await consumeGame(req);
+    await consumeStory(req);
+    expect(rpc).toHaveBeenCalledWith("consume_game", { p_uid: "u1", p_period: FREE_PERIOD, p_limit: 1 });
+    expect(rpc).toHaveBeenCalledWith("consume_story", { p_uid: "u1", p_period: FREE_PERIOD, p_limit: 1 });
+  });
+
+  it("adds the engagement reward to games and story drafts like every other allowance", async () => {
+    counts = { applied: true, interviews: 1, practice: 0 }; // two of the three steps
+    await consumeGame(req);
+    await consumeStory(req);
+    expect(rpc).toHaveBeenCalledWith("consume_game", { p_uid: "u1", p_period: FREE_PERIOD, p_limit: 1 + BONUS_EXTRA });
+    expect(rpc).toHaveBeenCalledWith("consume_story", { p_uid: "u1", p_period: FREE_PERIOD, p_limit: 1 + BONUS_EXTRA });
+  });
+
+  it("says a game round or story draft is used up, with how to unlock more", async () => {
+    rpc.mockResolvedValue({ data: false, error: null });
+    for (const [res, what] of [[await consumeGame(req), /free game round\./], [await consumeStory(req), /free story draft\./]] as const) {
+      expect(res).toMatchObject({ ok: false, status: 402 });
+      expect((res as { error: string }).error).toMatch(what);
+      expect((res as { error: string }).error).toMatch(/apply to an employer through the tracker/);
+    }
   });
 
   it("keeps whole firm mock processes for Pro, bonus or not", async () => {

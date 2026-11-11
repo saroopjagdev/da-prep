@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useState } from "react";
+import PracticeLimitCard from "@/components/PracticeLimitCard";
 import { useUsage } from "@/components/useUsage";
 import Balloon from "@/components/games/Balloon";
 import Cards from "@/components/games/Cards";
@@ -11,6 +12,7 @@ import Money from "@/components/games/Money";
 import Tower from "@/components/games/Tower";
 import type { GameComponent, GameResult } from "@/components/games/types";
 import { GAME_DISCLAIMER, GAMES, type Game } from "@/lib/games/catalog";
+import { postJson } from "@/lib/api";
 import { track } from "@/lib/funnel";
 
 const COMPONENTS: Record<string, GameComponent> = {
@@ -32,9 +34,32 @@ type Phase = { name: "intro" } | { name: "play"; seed: number } | { name: "done"
 export default function GamePlayer({ game }: { game: Game }) {
   const [phase, setPhase] = useState<Phase>({ name: "intro" });
   const usage = useUsage();
+  const [busy, setBusy] = useState(false);
+  const [blocked, setBlocked] = useState(false);
+  const [error, setError] = useState("");
   const Play = COMPONENTS[game.id];
   if (!Play) return null;
   const others = GAMES.filter((g) => g.id !== game.id).slice(0, 4);
+
+  /** Every round, first or replay, is counted on the account by the server before it starts, so it cannot be reset from the browser. */
+  async function begin() {
+    setError("");
+    setBusy(true);
+    try {
+      await postJson("/api/games/start");
+      track("game_start");
+      setPhase({ name: "play", seed: Date.now() % 1_000_000_000 });
+    } catch (e) {
+      if ((e as { status?: number }).status === 402) setBlocked(true);
+      else setError((e as Error).message);
+    } finally {
+      setBusy(false);
+    }
+  }
+
+  if (blocked) {
+    return <PracticeLimitCard limit={usage?.games?.limit ?? 1} noun="game round" body="Pro gives unlimited practice games, unlimited practice tests and AI mock interviews, and every firm mock process." />;
+  }
 
   if (phase.name === "play") {
     return (
@@ -76,8 +101,8 @@ export default function GamePlayer({ game }: { game: Game }) {
               : "Employers do not publish pass marks for tasks like this, so use your numbers to compare your own attempts."}
           </p>
           <div className="flex flex-wrap gap-3">
-            <button type="button" className="btn btn-primary" onClick={() => setPhase({ name: "play", seed: Date.now() % 1_000_000_000 })}>
-              Play again
+            <button type="button" className="btn btn-primary" onClick={begin} disabled={busy}>
+              {busy ? "Starting…" : "Play again"}
             </button>
             <Link href="/games" className="btn btn-secondary">
               All games
@@ -134,13 +159,16 @@ export default function GamePlayer({ game }: { game: Game }) {
       <button
         type="button"
         className="btn btn-primary"
-        onClick={() => {
-          track("game_start");
-          setPhase({ name: "play", seed: Date.now() % 1_000_000_000 });
-        }}
+        onClick={begin}
+        disabled={busy}
       >
-        Start
+        {busy ? "Starting…" : "Start"}
       </button>
+      {error && (
+        <p role="alert" className="text-sm text-coral-600">
+          {error}
+        </p>
+      )}
       <p className="text-xs text-muted">{GAME_DISCLAIMER}</p>
     </section>
   );
