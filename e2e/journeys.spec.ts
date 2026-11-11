@@ -571,6 +571,25 @@ test("practice games need an account: a visitor sees what the game is and a sign
   await expect(page.getByText(/Appetite for risk/)).toBeVisible();
 });
 
+// Every playable game, not just one: a visitor never gets a Start button, whichever game or provider page they arrive on.
+for (const id of ["balloon", "cards", "tower", "digit-span", "flashback", "reaction", "sequence", "keypress", "money", "stroop"]) {
+  test(`the ${id} game is behind the account gate for a visitor`, async ({ page }) => {
+    await page.goto(`/games/${id}`);
+    await expect(page.getByRole("heading", { name: /^Create a free account to play / })).toBeVisible();
+    await expect(page.getByRole("button", { name: /^(Start|Play|Begin)/ })).toHaveCount(0);
+    await expect(page.getByRole("link", { name: "Create a free account" }).first()).toHaveAttribute("href", new RegExp(`^/login\\?mode=signup&next=%2Fgames%2F${id}$`));
+  });
+}
+
+test("the Neurosight page is an explainer only: its games lead to the sign-up gate", async ({ page }) => {
+  await page.goto("/games/provider/neurosight");
+  await expect(page.getByRole("heading", { level: 1, name: /Neurosight practice/ })).toBeVisible();
+  await expect(page.getByRole("button", { name: /^(Start|Play|Begin)/ })).toHaveCount(0);
+  await page.getByRole("link", { name: /Flashback|Digit span|Shape reaction/i }).first().click();
+  await expect(page).toHaveURL(/\/games\/(flashback|digit-span|reaction)$/);
+  await expect(page.getByRole("heading", { name: /^Create a free account to play / })).toBeVisible();
+});
+
 test("a signed-in member can play Four decks to the end and see their numbers and the disclaimer", async ({ page }) => {
   await signedIn(page);
   await page.goto("/games/cards");
