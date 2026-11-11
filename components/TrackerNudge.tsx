@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useUsage } from "@/components/useUsage";
+import { proOffer } from "@/lib/dashboard";
 import { track } from "@/lib/funnel";
 import { PRO_PLAN } from "@/lib/plans";
 import { pipelineCounts, type TrackerPrompt } from "@/lib/tracker-prompts";
@@ -46,6 +47,7 @@ export default function TrackerNudge({
   }, [key, hidden]);
 
   const counts = pipelineCounts(apps).filter((c) => c.n > 0);
+  const offer = proOffer(prompt, usage);
   if (!apps.length) return null;
 
   return (
@@ -65,14 +67,22 @@ export default function TrackerNudge({
           <div className="min-w-0 flex-1 space-y-1">
             <p className="font-semibold">{prompt.title}</p>
             <p className="text-sm">{prompt.body}</p>
+            {offer && <p className="text-sm text-muted">{offer.body}</p>}
             <div className="flex flex-wrap items-center gap-3 pt-1">
               <Link href={prompt.href} className="btn btn-primary" onClick={() => track("tracker_prompt_click")}>
                 {prompt.cta}
               </Link>
-              {prompt.pro && usage?.plan === "free" && (
-                <Link href="/pricing" className="text-sm font-semibold underline">
-                  Part of Pro ({PRO_PLAN.price}): see what it includes
+              {offer ? (
+                <Link href="/pricing" className="text-sm font-semibold underline" onClick={() => track("pro_offer_click", { label: offer.surface })}>
+                  {offer.cta} ({PRO_PLAN.price})
                 </Link>
+              ) : (
+                prompt.pro &&
+                usage?.plan === "free" && (
+                  <Link href="/pricing" className="text-sm font-semibold underline">
+                    Part of Pro ({PRO_PLAN.price}): see what it includes
+                  </Link>
+                )
               )}
               {canFollow && (
                 <button type="button" className="btn btn-secondary" onClick={onFollow}>

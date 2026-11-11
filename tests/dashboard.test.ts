@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import type { Usage } from "@/components/useUsage";
-import { allowances, countdown, daysLeft, left, limitReached, pipelineRows, shortDate } from "@/lib/dashboard";
+import { allowances, countdown, daysLeft, left, limitReached, pipelineRows, proOffer, shortDate } from "@/lib/dashboard";
 import type { Application, Status } from "@/lib/types";
 
 const TODAY = "2026-11-10";
@@ -59,4 +59,34 @@ describe("free allowances and the upgrade moment", () => {
     expect(limitReached({ plan: "pro", enforced: true })).toBe(false);
   });
   it("never shows a negative number left", () => expect(left({ used: 3, limit: 1 })).toBe(0));
+});
+
+describe("the Pro offer for the stage someone has reached", () => {
+  const free = (o: Partial<Usage> = {}): Usage => ({ plan: "free", enforced: true, interviews: { used: 0, limit: 1 }, practice: { used: 0, limit: 1 }, reviews: { used: 0, limit: 1 }, ...o });
+  const p = (key: string, extra: object = {}) => ({ key, employer: "Arup", ...extra });
+
+  it("names the employer and what is left for online tests", () => {
+    const o = proOffer(p("online-tests"), free())!;
+    expect(o.headline).toBe("Online tests at Arup");
+    expect(o.body).toContain("1 free practice test left");
+    expect(o.urgent).toBe(false);
+    expect(o.surface).toBe("stage-online-tests");
+  });
+  it("turns urgent once the free practice is used up", () => {
+    const o = proOffer(p("online-tests"), free({ practice: { used: 1, limit: 1 } }))!;
+    expect(o.urgent).toBe(true);
+    expect(o.body).toContain("used your free practice tests");
+  });
+  it("offers mock interviews for a video interview, and the whole process for an assessment centre with a mock", () => {
+    expect(proOffer(p("video-interview"), free())!.body).toContain("1 free marked mock interview left");
+    expect(proOffer(p("assessment-centre", { pro: true }), free())!.body).toContain("whole Arup process");
+    expect(proOffer(p("assessment-centre"), free())!.body).toContain("every firm mock process");
+  });
+  it("makes no offer to Pro members, when limits are off, or for stages where practice is not the next need", () => {
+    expect(proOffer(p("online-tests"), { plan: "pro", enforced: true })).toBeNull();
+    expect(proOffer(p("online-tests"), { ...free(), enforced: false })).toBeNull();
+    expect(proOffer(p("online-tests"), null)).toBeNull();
+    expect(proOffer(p("saved-first"), free())).toBeNull();
+    expect(proOffer(null, free())).toBeNull();
+  });
 });

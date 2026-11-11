@@ -12,6 +12,7 @@ import {
   left,
   limitReached,
   pipelineRows,
+  proOffer,
   shortDate,
   STARTER_TARGET,
   URGENT_PROMPTS,
@@ -160,6 +161,8 @@ export default function HomeDashboard({ open }: { open: OpenNow[] }) {
     return o?.hasMock && o.slug ? `/mock/${o.slug}` : null;
   });
   const urgent = Boolean(prompt && URGENT_PROMPTS.has(prompt.key));
+  // The Pro offer that goes with the stage they have reached (online tests, video interview, assessment centre).
+  const offer = proOffer(prompt, usage);
   const starter = !urgent && tracked.length < STARTER_TARGET;
 
   function trackIt(o: OpenNow) {
@@ -383,6 +386,25 @@ export default function HomeDashboard({ open }: { open: OpenNow[] }) {
                 </Link>
                 {prompt?.pro && usage?.plan === "free" && <ProBadge />}
               </div>
+              {offer && (
+                <div
+                  className={`mt-4 rounded-xl p-4 ${offer.urgent ? "bg-white text-navy" : "bg-white/10"}`}
+                  role="note"
+                  aria-label="Pro for this stage"
+                >
+                  <p className={`text-sm ${offer.urgent ? "text-navy" : "text-white/90"}`}>{offer.body}</p>
+                  <Link
+                    href="/pricing"
+                    onClick={() => track("pro_offer_click", { label: offer.surface })}
+                    className={`mt-2 inline-flex items-center gap-2 rounded-lg px-4 py-2 text-sm font-bold ${
+                      offer.urgent ? "bg-navy text-white hover:bg-navy/90" : "bg-white text-navy hover:bg-brand-50"
+                    }`}
+                  >
+                    {offer.cta}
+                    <Icon name="arrow" className="h-4 w-4" />
+                  </Link>
+                </div>
+              )}
             </section>
           )}
 
