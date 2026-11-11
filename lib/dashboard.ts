@@ -3,6 +3,7 @@
 // soonest, turns closing dates into a countdown, and decides when a free allowance running out should become an upgrade
 // prompt (the prompt follows a blocked action or a first result, never a timer).
 import type { Usage } from "@/components/useUsage";
+import type { TrackerPrompt } from "@/lib/tracker-prompts";
 import type { Application, Status } from "@/lib/types";
 
 const DAY = 86_400_000;
@@ -140,3 +141,64 @@ export const limitReached = (usage: Usage | null) =>
 /** How many of an allowance is left, never below zero. */
 export const left = (a: Pick<Allowance, "used" | "limit">) =>
   Math.max(0, a.limit - a.used);
+
+export type ProOffer = {
+  headline: string;
+  body: string;
+  cta: string;
+  /** The allowance for this stage is gone, so the offer is a way forward and not just a nudge. */
+  urgent: boolean;
+  /** Which stage prompted it, for counting clicks. */
+  surface: string;
+};
+
+const plural = (n: number, word: string) => `${n} ${word}${n === 1 ? "" : "s"}`;
+
+/**
+ * A Pro offer that belongs to the stage someone has reached, so it arrives when the need is real (an online test, a video
+ * interview or an assessment centre at a named employer) and says what they have left. Null for Pro members, when limits
+ * are off, and for stages where practice is not what they need next.
+ */
+export function proOffer(prompt: Pick<TrackerPrompt, "key" | "employer" | "pro"> | null, usage: Usage | null): ProOffer | null {
+  if (!prompt || !usage || usage.plan !== "free" || !usage.enforced) return null;
+  const who = prompt.employer ?? "your next stage";
+  const get = (key: Allowance["key"]) => allowances(usage).find((a) => a.key === key);
+  if (prompt.key === "online-tests") {
+    const a = get("practice");
+    const n = a ? left(a) : 0;
+    return {
+      headline: `Online tests at ${who}`,
+      body: n > 0
+        ? `You have ${plural(n, "free practice test")} left. Pro gives unlimited practice, so you can repeat each format until it feels easy.`
+        : "You have used your free practice tests. Pro gives unlimited practice, so you can repeat each format until it feels easy.",
+      cta: "Unlock unlimited practice",
+      urgent: n === 0,
+      surface: "stage-online-tests",
+    };
+  }
+  if (prompt.key === "video-interview") {
+    const a = get("interviews");
+    const n = a ? left(a) : 0;
+    return {
+      headline: `Video interview at ${who}`,
+      body: n > 0
+        ? `You have ${plural(n, "free marked mock interview")} left. Pro gives unlimited ones, each marked out of 100 with what to fix.`
+        : "You have used your free marked mock interview. Pro gives unlimited ones, each marked out of 100 with what to fix.",
+      cta: "Unlock unlimited mock interviews",
+      urgent: n === 0,
+      surface: "stage-video-interview",
+    };
+  }
+  if (prompt.key === "assessment-centre") {
+    return {
+      headline: `Assessment centre at ${who}`,
+      body: prompt.pro
+        ? `Pro runs the whole ${who} process stage by stage, timed like the real thing and marked, plus unlimited mock interviews.`
+        : "Pro gives unlimited mock interviews and every firm mock process, so you can rehearse each exercise before the day.",
+      cta: "See what Pro includes",
+      urgent: false,
+      surface: "stage-assessment-centre",
+    };
+  }
+  return null;
+}

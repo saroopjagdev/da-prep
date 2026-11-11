@@ -33,6 +33,7 @@ export const FUNNEL_EVENTS = [
   "checkout_return", // they came back from the payment page (the Plans page opened with ?success)
   "dash_track", // they tapped Track on an employer from the home page
   "dash_upgrade_click", // they pressed the upgrade button on the home page
+  "pro_offer_click", // they followed a Pro offer shown for a stage or a mock process (the label says which)
 ] as const;
 
 /**

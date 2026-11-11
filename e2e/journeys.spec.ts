@@ -713,6 +713,42 @@ test("Flashback, Shape reaction and Block sequence start and take input", async 
   await expect(page.getByRole("status").filter({ hasText: /Correct\.|Not quite/ })).toBeVisible();
 });
 
+test("a free member with an application at the online tests stage is offered Pro for that stage, with what is left", async ({ page }) => {
+  await signedIn(page);
+  await fakeUsage(free(0))(page);
+  await page.addInitScript(() => localStorage.setItem("da-prep:applications", JSON.stringify([{ id: "a1", employer: "Arup", role: "Civil Engineering", deadline: "", status: "Online tests", notes: "" }])));
+  await page.goto("/");
+  await expect(page.getByRole("heading", { name: "Online tests for Arup" })).toBeVisible();
+  const note = page.getByRole("note", { name: "Pro for this stage" });
+  await expect(note).toContainText("1 free practice test left");
+  await expect(note.getByRole("link", { name: /Unlock unlimited practice/ })).toHaveAttribute("href", "/pricing");
+
+  await page.unroute("**/api/usage");
+  await fakeUsage(free(1))(page);
+  await page.reload();
+  await expect(page.getByRole("note", { name: "Pro for this stage" })).toContainText("used your free practice tests");
+
+  await page.unroute("**/api/usage");
+  await fakeUsage({ plan: "pro", enforced: true })(page);
+  await page.reload();
+  await expect(page.getByRole("note", { name: "Pro for this stage" })).toHaveCount(0);
+});
+
+test("a free member sees what a firm mock process contains, with a sample question, before any marked stage; a Pro member does not", async ({ page }) => {
+  await signedIn(page);
+  await fakeUsage(free(0))(page);
+  await page.goto("/mock/natwest");
+  const panel = page.getByRole("region", { name: "Part of Pro" });
+  await expect(panel.getByRole("heading", { name: /Run the whole .* process/ })).toBeVisible();
+  await expect(panel.getByText(/Sample question/)).toBeVisible();
+  await expect(panel.getByRole("link", { name: /Unlock Pro/ })).toHaveAttribute("href", "/pricing");
+
+  await page.unroute("**/api/usage");
+  await fakeUsage({ plan: "pro", enforced: true })(page);
+  await page.reload();
+  await expect(page.getByRole("region", { name: "Part of Pro" })).toHaveCount(0);
+});
+
 test("a free member whose game round is used up is offered Pro, not a second round", async ({ page }) => {
   await signedIn(page);
   await page.route("**/api/games/start", (route) => route.fulfill({ status: 402, json: { error: "You've used your free game round." } }));
