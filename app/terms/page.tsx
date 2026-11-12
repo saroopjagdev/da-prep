@@ -74,10 +74,10 @@ export default function Terms() {
       </p>
       {passOffered() && (
         <p>
-          The {PASS_PLAN.name} is a one-off payment of {PASS_PLAN.price} (shown before you pay) that gives you Pro until {PASS_PLAN.untilText}. It
+          The {PASS_PLAN.name} is a one-off payment of {PASS_PLAN.price} (shown before you pay) that gives you Pro for {PASS_PLAN.lengthText} from the day you buy it. It
           does not renew and there is nothing to cancel. Your 14-day right to cancel applies in the same way: if you cancel within 14 days
-          of buying, we refund you minus a proportionate amount for the days you have had Pro, and Pro ends when you are refunded. After
-          {" "}{PASS_PLAN.untilText} your account returns to the free plan with everything you saved kept.
+          of buying, we refund you minus a proportionate amount for the days you have had Pro, and Pro ends when you are refunded. When
+          the {PASS_PLAN.lengthText} are up your account returns to the free plan with everything you saved kept.
         </p>
       )}
 

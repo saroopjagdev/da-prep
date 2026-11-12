@@ -1,5 +1,5 @@
 import Stripe from "stripe";
-import { PASS_PLAN } from "@/lib/plans";
+import { passEnds } from "@/lib/plans";
 import { admin } from "@/lib/server/auth";
 import { countServer } from "@/lib/server/funnel";
 
@@ -34,8 +34,9 @@ export async function POST(req: Request) {
       ({ error } = await db.from("profiles").upsert({ id: uid, plan: "pro", stripe_customer_id: idOf(s.customer) }));
       if (!error) await countServer("pro_started");
     } else if (uid && s.mode === "payment" && s.metadata?.plan === "pass" && s.payment_status === "paid") {
-      // A Season Pass: Pro until the end of its period. The daily job (lib/server/passes.ts) ends it after that.
-      ({ error } = await db.from("profiles").upsert({ id: uid, plan: "pro", stripe_customer_id: idOf(s.customer), pro_until: `${PASS_PLAN.until}T23:59:59Z` }));
+      // A Season Pass: Pro for a fixed length from the day it was bought. The daily job (lib/server/passes.ts) ends it after that.
+      const bought = s.created ? new Date(s.created * 1000) : new Date();
+      ({ error } = await db.from("profiles").upsert({ id: uid, plan: "pro", stripe_customer_id: idOf(s.customer), pro_until: passEnds(bought).toISOString() }));
       if (!error) await countServer("pro_started", "pass");
     }
   } else if (event.type === "customer.subscription.updated" || event.type === "customer.subscription.deleted") {
