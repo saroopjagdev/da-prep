@@ -1,6 +1,96 @@
 {
- "checked": "2026-11-11",
+ "checked": "2026-11-12",
  "jobs": {
+  "2873ca67-31b3-48af-809c-0a51a7e62695": {
+   "id": "2873ca67-31b3-48af-809c-0a51a7e62695",
+   "employer": "Accenture",
+   "title": "London Technology Degree Apprenticeship 2027",
+   "level": "6",
+   "location": "London",
+   "deadline": "",
+   "status": "open",
+   "apply": "https://accenture.pinpointhq.com/postings/0f0d4251-2c54-4614-8be7-f0042813b9d3"
+  },
+  "97d76ed2-b069-4947-8c8c-3f47a0bce2de": {
+   "id": "97d76ed2-b069-4947-8c8c-3f47a0bce2de",
+   "employer": "Bates Wells",
+   "title": "Solicitor Apprenticeship 2027",
+   "level": "7",
+   "location": "London",
+   "deadline": "2026-12-04",
+   "status": "open",
+   "apply": "https://bateswells.grad.allhires.com/app/"
+  },
+  "4c62ec59-02ec-4b41-8160-de4dea35ab0e": {
+   "id": "4c62ec59-02ec-4b41-8160-de4dea35ab0e",
+   "employer": "White & Case",
+   "title": "Launch into Law Solicitor Apprenticeship 2027",
+   "level": "7",
+   "location": "London",
+   "deadline": "2027-01-03",
+   "status": "open",
+   "apply": "https://www.apply4law.com/whitecase"
+  },
+  "fee790bc-5e01-4a59-a9b0-c7d13f3488ca": {
+   "id": "fee790bc-5e01-4a59-a9b0-c7d13f3488ca",
+   "employer": "Unilever",
+   "title": "Technology Management Degree Apprenticeship (DTS) 2027",
+   "level": "6",
+   "location": "Port Sunlight, Kingston upon Thames",
+   "deadline": "",
+   "status": "open",
+   "apply": "https://higherin.com/jobs/43095/unilever/register-your-interest-digital-technology-solutions-technology-management-degree-apprenticeship-2027"
+  },
+  "6482ab7b-2aad-4342-8c21-1b70d85f487f": {
+   "id": "6482ab7b-2aad-4342-8c21-1b70d85f487f",
+   "employer": "Unilever",
+   "title": "Digital Marketing Degree Apprenticeship 2027",
+   "level": "6",
+   "location": "Kingston upon Thames",
+   "deadline": "",
+   "status": "open",
+   "apply": "https://higherin.com/jobs/43096/unilever/register-your-interest-digital-marketing-degree-apprenticeship-2027"
+  },
+  "b62fe570-0c05-48cc-9fbb-420634dcb7df": {
+   "id": "b62fe570-0c05-48cc-9fbb-420634dcb7df",
+   "employer": "BBC",
+   "title": "Software Engineering Degree Apprenticeship 2027",
+   "level": "6",
+   "location": "London",
+   "deadline": "2026-11-24",
+   "status": "closing_soon",
+   "apply": "https://careers.bbc.co.uk/search/?locale=en_GB&searchResultView=LIST"
+  },
+  "5c0b94a1-f8fd-42af-9eb8-b65c2cde60a9": {
+   "id": "5c0b94a1-f8fd-42af-9eb8-b65c2cde60a9",
+   "employer": "BBC",
+   "title": "Broadcast and Media Systems Engineer Degree Apprenticeship 2027",
+   "level": "6",
+   "location": "Wood Norton, Worcestershire",
+   "deadline": "2026-11-24",
+   "status": "closing_soon",
+   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/VAC2000062570"
+  },
+  "3a564153-2e9d-4a28-b952-6df388e67dbc": {
+   "id": "3a564153-2e9d-4a28-b952-6df388e67dbc",
+   "employer": "Lloyds Banking Group",
+   "title": "Software Development Graduate Apprenticeship (Scotland) 2027",
+   "level": "6",
+   "location": "Edinburgh",
+   "deadline": "2027-01-26",
+   "status": "open",
+   "apply": "https://lbg.wd3.myworkdayjobs.com/LBG_Careers/job/Edinburgh/Software-Development-Graduate-Apprenticeship---Edinburgh_164882"
+  },
+  "17d832b8-3fc9-48d9-a046-ba181fa16573": {
+   "id": "17d832b8-3fc9-48d9-a046-ba181fa16573",
+   "employer": "Lloyds Banking Group",
+   "title": "Accountancy Graduate Apprenticeship (Scotland) 2027",
+   "level": "7",
+   "location": "Edinburgh",
+   "deadline": "2027-01-26",
+   "status": "open",
+   "apply": "https://lbg.wd3.myworkdayjobs.com/LBG_Careers/job/Edinburgh/Accountancy-Graduate-Apprenticeship---Edinburgh_164867"
+  },
   "8111f380-4b4f-4cce-af37-1d9bc930c6b2": {
    "id": "8111f380-4b4f-4cce-af37-1d9bc930c6b2",
    "employer": "MHA",
@@ -410,96 +500,6 @@
    "deadline": "2027-02-21",
    "status": "open",
    "apply": "https://www.tlt.com/careers/"
-  },
-  "e5cd589e-aff8-4c9c-a7a8-476a76c009fc": {
-   "id": "e5cd589e-aff8-4c9c-a7a8-476a76c009fc",
-   "employer": "Weightmans",
-   "title": "Solicitor Degree Apprenticeship",
-   "level": "7",
-   "location": "",
-   "deadline": "",
-   "status": "open",
-   "apply": "https://www.weightmans.com/careers/early-careers/apprenticeships/"
-  },
-  "9eb4c1b7-e018-4066-bf72-372c1972861f": {
-   "id": "9eb4c1b7-e018-4066-bf72-372c1972861f",
-   "employer": "Grant Thornton",
-   "title": "Financial Services Audit School Leaver Programme",
-   "level": "6",
-   "location": "London, United Kingdom",
-   "deadline": "",
-   "status": "open",
-   "apply": "https://www.grantthornton.co.uk/careers/early-careers-job-search/?jobPostingGrouping=Apprenticeship#career-results"
-  },
-  "c844bf5d-f456-4482-8a98-63f320f21e66": {
-   "id": "c844bf5d-f456-4482-8a98-63f320f21e66",
-   "employer": "Grant Thornton",
-   "title": "IT Audit School Leaver Programme",
-   "level": "6",
-   "location": "London, United Kingdom",
-   "deadline": "",
-   "status": "open",
-   "apply": "https://www.grantthornton.co.uk/careers/early-careers-job-search/?jobPostingGrouping=Apprenticeship#career-results"
-  },
-  "ed50727d-1ef0-4929-ab9e-b723c806c50d": {
-   "id": "ed50727d-1ef0-4929-ab9e-b723c806c50d",
-   "employer": "Grant Thornton",
-   "title": "Not for Profit Audit School Leaver Programme",
-   "level": "6",
-   "location": "London, Birmingham, United Kingdom",
-   "deadline": "",
-   "status": "open",
-   "apply": "https://www.grantthornton.co.uk/careers/early-careers-job-search/?jobPostingGrouping=Apprenticeship#career-results"
-  },
-  "bc9a8441-0bb0-41e8-bb7d-a2802ed47401": {
-   "id": "bc9a8441-0bb0-41e8-bb7d-a2802ed47401",
-   "employer": "Grant Thornton",
-   "title": "Pension Audit School Leaver Programme",
-   "level": "6",
-   "location": "Manchester, United Kingdom",
-   "deadline": "",
-   "status": "open",
-   "apply": "https://www.grantthornton.co.uk/careers/early-careers-job-search/?jobPostingGrouping=Apprenticeship#career-results"
-  },
-  "5a300a3d-227a-467f-8e62-9f1c9806dd75": {
-   "id": "5a300a3d-227a-467f-8e62-9f1c9806dd75",
-   "employer": "Grant Thornton",
-   "title": "Public Sector Audit School Leaver Programme",
-   "level": "6",
-   "location": "Manchester, London, Liverpool, Leeds, Glasgow, Bristol, Birmingham, United Kingdom",
-   "deadline": "",
-   "status": "open",
-   "apply": "https://www.grantthornton.co.uk/careers/early-careers-job-search/?jobPostingGrouping=Apprenticeship#career-results"
-  },
-  "bd2862eb-094a-4767-9fcc-99a6237d78d3": {
-   "id": "bd2862eb-094a-4767-9fcc-99a6237d78d3",
-   "employer": "Grant Thornton",
-   "title": "Tax School Leaver Programme",
-   "level": "6",
-   "location": "Manchester, Birmingham, London, United Kingdom",
-   "deadline": "",
-   "status": "open",
-   "apply": "https://www.grantthornton.co.uk/careers/early-careers-job-search/?jobPostingGrouping=Apprenticeship#career-results"
-  },
-  "d084683b-8238-42e1-a2c7-33c1e7a3c83c": {
-   "id": "d084683b-8238-42e1-a2c7-33c1e7a3c83c",
-   "employer": "Deloitte",
-   "title": "BrightStart Higher Apprenticeship - Audit & Assurance",
-   "level": "6",
-   "location": "Multiple locations across the UK (including Leeds, London, Manchester, Birmingham, Bristol and others)",
-   "deadline": "",
-   "status": "open",
-   "apply": "https://apply.deloitte.co.uk/UKEarlyCareers/SearchJobs/?4934=2772633&4934_format=4380&listFilterMode=1&jobRecordsPerPage=20&"
-  },
-  "cab4d332-792b-4917-8365-90baccf2ac0c": {
-   "id": "cab4d332-792b-4917-8365-90baccf2ac0c",
-   "employer": "Barclays",
-   "title": "Global Transaction Banking Degree Apprenticeship Programme 2027 – London",
-   "level": "6",
-   "location": "London",
-   "deadline": "",
-   "status": "open",
-   "apply": "https://search.jobs.barclays/job/london/global-transaction-banking-degree-apprenticeship-programme-2027-london/13015/JR-0000124291"
   },
   "5fc93154-198e-4883-a21e-daaa6b6a120b": {
    "id": "5fc93154-198e-4883-a21e-daaa6b6a120b",

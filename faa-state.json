@@ -1,5 +1,5 @@
 {
- "checked": "2026-11-11",
+ "checked": "2026-11-12",
  "jobs": {
   "2000026593": {
    "id": "2000026593",
@@ -777,19 +777,9 @@
    "title": "IT Trainee Apprentice (Portland Fuel Limited)",
    "level": "6",
    "location": "YORK YO1",
-   "deadline": "2026-11-14",
+   "deadline": "2026-11-28",
    "posted": "2026-10-15",
    "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000059234"
-  },
-  "2000059253": {
-   "id": "2000059253",
-   "employer": "BARD PHARMACEUTICALS LIMITED",
-   "title": "Quality Control Laboratory Technician Apprentice",
-   "level": "6",
-   "location": "Cambridge CB4",
-   "deadline": "2026-11-11",
-   "posted": "2026-10-15",
-   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000059253"
   },
   "2000059344": {
    "id": "2000059344",
@@ -980,16 +970,6 @@
    "deadline": "2027-04-01",
    "posted": "2026-11-06",
    "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000061339"
-  },
-  "2000061396": {
-   "id": "2000061396",
-   "employer": "Cogent Ssc Limited",
-   "title": "Data Scientist Degree Apprentice - Pfizer",
-   "level": "6",
-   "location": "Sandwich CT13",
-   "deadline": "2026-11-11",
-   "posted": "2026-10-28",
-   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000061396"
   },
   "2000061719": {
    "id": "2000061719",
@@ -1227,7 +1207,7 @@
    "title": "Engineering - Electrical/Electronics Apprentice",
    "level": "6",
    "location": "Dorchester DT2",
-   "deadline": "2027-02-19",
+   "deadline": "2026-11-12",
    "posted": "2026-11-05",
    "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000062874"
   },
@@ -1237,7 +1217,7 @@
    "title": "Engineering - Mechanical Apprentice",
    "level": "6",
    "location": "Dorchester DT2",
-   "deadline": "2027-02-19",
+   "deadline": "2026-11-12",
    "posted": "2026-11-05",
    "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000062883"
   },
@@ -1247,7 +1227,7 @@
    "title": "Engineering - Sonar Apprentice",
    "level": "6",
    "location": "Dorchester DT2",
-   "deadline": "2027-02-19",
+   "deadline": "2026-11-12",
    "posted": "2026-11-05",
    "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000062884"
   },
@@ -1257,7 +1237,7 @@
    "title": "Engineering - Test & Acceptance Apprentice",
    "level": "6",
    "location": "Dorchester DT2",
-   "deadline": "2027-02-19",
+   "deadline": "2026-11-12",
    "posted": "2026-11-05",
    "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000062888"
   },
@@ -1267,7 +1247,7 @@
    "title": "Engineering - Software Apprentice",
    "level": "6",
    "location": "Dorchester DT2",
-   "deadline": "2027-02-19",
+   "deadline": "2026-11-12",
    "posted": "2026-11-05",
    "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000062889"
   },
@@ -1531,6 +1511,16 @@
    "posted": "2026-11-11",
    "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000063765"
   },
+  "2000063853": {
+   "id": "2000063853",
+   "employer": "AMAZON UK SERVICES LTD.",
+   "title": "Future Operations Leader - Degree Apprenticeship South East (37-month fixed term contract)",
+   "level": "6",
+   "location": "Belvedere DA17 +5 more",
+   "deadline": "2027-02-01",
+   "posted": "2026-11-12",
+   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000063853"
+  },
   "2000063863": {
    "id": "2000063863",
    "employer": "EN:Able Futures CIC",
@@ -1550,6 +1540,86 @@
    "deadline": "2026-12-15",
    "posted": "2026-11-11",
    "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000063890"
+  },
+  "2000063974": {
+   "id": "2000063974",
+   "employer": "AMAZON UK SERVICES LTD.",
+   "title": "Future Operations Leader - Degree Apprenticeship East Midlands (37-month fixed term contract)",
+   "level": "6",
+   "location": "Amazon EMA1, Derby DE74 +6 more",
+   "deadline": "2027-02-01",
+   "posted": "2026-11-12",
+   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000063974"
+  },
+  "2000063976": {
+   "id": "2000063976",
+   "employer": "AMAZON UK SERVICES LTD.",
+   "title": "Future Operations Leader - Degree Apprenticeship North West (37-month fixed term contract)",
+   "level": "6",
+   "location": "Altrincham M90 +7 more",
+   "deadline": "2027-02-01",
+   "posted": "2026-11-12",
+   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000063976"
+  },
+  "2000063979": {
+   "id": "2000063979",
+   "employer": "AMAZON UK SERVICES LTD.",
+   "title": "Future Operations Leader - Degree Apprenticeship Yorkshire & Humber (37-month fixed term contract)",
+   "level": "6",
+   "location": "Altrincham M90 +7 more",
+   "deadline": "2027-02-01",
+   "posted": "2026-11-12",
+   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000063979"
+  },
+  "2000063981": {
+   "id": "2000063981",
+   "employer": "AMAZON UK SERVICES LTD.",
+   "title": "Future Operations Leader - Degree Apprenticeship West Midlands (37-month fixed term contract)",
+   "level": "6",
+   "location": "Sayer Dr CV5 +3 more",
+   "deadline": "2027-02-01",
+   "posted": "2026-11-12",
+   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000063981"
+  },
+  "2000063983": {
+   "id": "2000063983",
+   "employer": "AMAZON UK SERVICES LTD.",
+   "title": "Future Operations Leader - Degree Apprenticeship East (37-month fixed term contract)",
+   "level": "6",
+   "location": "Basildon SS14 +3 more",
+   "deadline": "2027-02-01",
+   "posted": "2026-11-12",
+   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000063983"
+  },
+  "2000063986": {
+   "id": "2000063986",
+   "employer": "AMAZON UK SERVICES LTD.",
+   "title": "Future Operations Leader - Degree Apprenticeship North East (37-month fixed term contract)",
+   "level": "6",
+   "location": "Stockton-on-Tees TS22 +3 more",
+   "deadline": "2027-02-01",
+   "posted": "2026-11-12",
+   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000063986"
+  },
+  "2000063990": {
+   "id": "2000063990",
+   "employer": "AMAZON UK SERVICES LTD.",
+   "title": "Future Operations Leader - Degree Apprenticeship South West (37-month fixed term contract)",
+   "level": "6",
+   "location": "Bristol BS35 +1 more",
+   "deadline": "2027-02-01",
+   "posted": "2026-11-12",
+   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000063990"
+  },
+  "2000063991": {
+   "id": "2000063991",
+   "employer": "AMAZON UK SERVICES LTD.",
+   "title": "Future Operations Leader - Degree Apprenticeship London (37-month fixed term contract)",
+   "level": "6",
+   "location": "Enfield EN3",
+   "deadline": "2027-02-01",
+   "posted": "2026-11-12",
+   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000063991"
   }
  }
 }
