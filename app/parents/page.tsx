@@ -47,7 +47,7 @@ export default function Parents() {
           <li>You pay with your own payment method, or give your child permission to use it.</li>
           {passOffered() && (
             <li>
-              There is a one-off option: the {PASS_PLAN.name}, {PASS_PLAN.price} for Pro until {PASS_PLAN.untilText}. It does not renew, so there is nothing to remember to cancel.
+              There is a one-off option: the {PASS_PLAN.name}, {PASS_PLAN.price} for {PASS_PLAN.lengthText} of Pro. It does not renew, so there is nothing to remember to cancel.
             </li>
           )}
           <li>You can cancel at any time from the Plans page, and Pro stays on until the end of the month you have paid for.</li>

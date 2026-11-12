@@ -12,7 +12,7 @@ export const PRO_PLAN = {
 } as const;
 
 /**
- * The Season Pass: one payment, Pro until the end of the application year, no renewal. Off until a Stripe price exists
+ * The Season Pass: one payment, Pro for a fixed length from the day of purchase, no renewal. Off until a Stripe price exists
  * (STRIPE_PRICE_PASS, checked against this like the monthly price) and NEXT_PUBLIC_PASS_ENABLED is "true", so deploying
  * this changes nothing on its own. The daily job (lib/server/passes.ts) ends it after `until`.
  */
@@ -21,11 +21,21 @@ export const PASS_PLAN = {
   price: "£39",
   pence: 3900,
   currency: "gbp",
-  /** The last day of Pro on a pass (inclusive), and how it reads on the site. */
-  until: "2027-08-31",
-  untilText: "31 August 2027",
-  summary: "One payment. Pro until 31 August 2027. It does not renew, so there is nothing to cancel.",
+  /** How long a pass lasts, counted from the day it is bought, and how that reads on the site. */
+  months: 6,
+  lengthText: "6 months",
+  summary: "One payment. Pro for 6 months from the day you buy it. It does not renew, so there is nothing to cancel.",
 } as const;
+
+/**
+ * When a pass bought at `from` ends: the same moment PASS_PLAN.months later. A pass bought on the 31st ends on the last
+ * day of a shorter month (31 August plus six months is 28 February, not 3 March).
+ */
+export function passEnds(from: Date): Date {
+  const d = new Date(Date.UTC(from.getUTCFullYear(), from.getUTCMonth() + PASS_PLAN.months, from.getUTCDate(), from.getUTCHours(), from.getUTCMinutes(), from.getUTCSeconds()));
+  if (d.getUTCDate() !== from.getUTCDate()) d.setUTCDate(0);
+  return d;
+}
 
 /** Whether the pass is offered on the site. The server also needs STRIPE_PRICE_PASS before it will take payment. */
 export const passOffered = () => process.env.NEXT_PUBLIC_PASS_ENABLED === "true";

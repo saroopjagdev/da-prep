@@ -220,7 +220,7 @@ export default function Pricing() {
               <legend className="sr-only">Choose how to pay</legend>
               {(
                 [
-                  ["pass", `${PASS_PLAN.name}: ${PASS_PLAN.price}`, `One payment, Pro until ${PASS_PLAN.untilText}. No renewal.`],
+                  ["pass", `${PASS_PLAN.name}: ${PASS_PLAN.price}`, `One payment, Pro for ${PASS_PLAN.lengthText}. No renewal.`],
                   ["monthly", `${PRO_PLAN.name}: ${PRO_PLAN.price}`, "Renews every month. Cancel any time."],
                 ] as const
               ).map(([k, title, sub]) => (

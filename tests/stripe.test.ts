@@ -325,10 +325,11 @@ describe("the Season Pass", () => {
     expect((await buy(pass)).status).toBe(409);
   });
 
-  it("grants Pro until the end date when a pass is paid, and counts it", async () => {
-    event = { type: "checkout.session.completed", data: { object: { mode: "payment", payment_status: "paid", client_reference_id: "u1", customer: "cus_1", metadata: { plan: "pass" } } } };
+  it("grants Pro for the fixed length from the day it was bought when a pass is paid, and counts it", async () => {
+    // Bought on 12 November 2026 at 10:00 UTC: six months later is 12 May 2027 at 10:00 UTC.
+    event = { type: "checkout.session.completed", data: { object: { mode: "payment", payment_status: "paid", client_reference_id: "u1", customer: "cus_1", created: Date.UTC(2026, 10, 12, 10) / 1000, metadata: { plan: "pass" } } } };
     expect((await hook()).status).toBe(200);
-    expect(calls[0]).toMatchObject({ op: "upsert", table: "profiles", args: [{ id: "u1", plan: "pro", stripe_customer_id: "cus_1", pro_until: "2027-08-31T23:59:59Z" }] });
+    expect(calls[0]).toMatchObject({ op: "upsert", table: "profiles", args: [{ id: "u1", plan: "pro", stripe_customer_id: "cus_1", pro_until: "2027-05-12T10:00:00.000Z" }] });
     expect(counted()).toEqual(["pro_started:pass"]);
   });
 
