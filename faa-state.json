@@ -1,5 +1,5 @@
 {
- "checked": "2026-11-12",
+ "checked": "2026-11-13",
  "jobs": {
   "2000026593": {
    "id": "2000026593",
@@ -911,16 +911,6 @@
    "posted": "2026-10-21",
    "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000060218"
   },
-  "2000060460": {
-   "id": "2000060460",
-   "employer": "GCA (UK) LTD ",
-   "title": "Civil Engineering Apprenticeship",
-   "level": "6",
-   "location": "Derby DE1",
-   "deadline": "2026-11-12",
-   "posted": "2026-10-22",
-   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000060460"
-  },
   "2000060574": {
    "id": "2000060574",
    "employer": "PAUL BASHAM ASSOCIATES LTD ",
@@ -1200,56 +1190,6 @@
    "deadline": "2026-11-23",
    "posted": "2026-11-05",
    "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000062775"
-  },
-  "2000062874": {
-   "id": "2000062874",
-   "employer": "TKMS ATLAS UK LIMITED",
-   "title": "Engineering - Electrical/Electronics Apprentice",
-   "level": "6",
-   "location": "Dorchester DT2",
-   "deadline": "2026-11-12",
-   "posted": "2026-11-05",
-   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000062874"
-  },
-  "2000062883": {
-   "id": "2000062883",
-   "employer": "TKMS ATLAS UK LIMITED",
-   "title": "Engineering - Mechanical Apprentice",
-   "level": "6",
-   "location": "Dorchester DT2",
-   "deadline": "2026-11-12",
-   "posted": "2026-11-05",
-   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000062883"
-  },
-  "2000062884": {
-   "id": "2000062884",
-   "employer": "TKMS ATLAS UK LIMITED",
-   "title": "Engineering - Sonar Apprentice",
-   "level": "6",
-   "location": "Dorchester DT2",
-   "deadline": "2026-11-12",
-   "posted": "2026-11-05",
-   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000062884"
-  },
-  "2000062888": {
-   "id": "2000062888",
-   "employer": "TKMS ATLAS UK LIMITED",
-   "title": "Engineering - Test & Acceptance Apprentice",
-   "level": "6",
-   "location": "Dorchester DT2",
-   "deadline": "2026-11-12",
-   "posted": "2026-11-05",
-   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000062888"
-  },
-  "2000062889": {
-   "id": "2000062889",
-   "employer": "TKMS ATLAS UK LIMITED",
-   "title": "Engineering - Software Apprentice",
-   "level": "6",
-   "location": "Dorchester DT2",
-   "deadline": "2026-11-12",
-   "posted": "2026-11-05",
-   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000062889"
   },
   "2000062981": {
    "id": "2000062981",
@@ -1541,6 +1481,16 @@
    "posted": "2026-11-11",
    "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000063890"
   },
+  "2000063947": {
+   "id": "2000063947",
+   "employer": "ASSURE TECHNICAL LIMITED ",
+   "title": "Cyber Security & Digital Solutions - Degree Apprenticeship",
+   "level": "6",
+   "location": "COLWALL WR13",
+   "deadline": "2026-12-18",
+   "posted": "2026-11-12",
+   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000063947"
+  },
   "2000063974": {
    "id": "2000063974",
    "employer": "AMAZON UK SERVICES LTD.",
@@ -1620,6 +1570,16 @@
    "deadline": "2027-02-01",
    "posted": "2026-11-12",
    "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000063991"
+  },
+  "2000064065": {
+   "id": "2000064065",
+   "employer": "SIEMENS MOBILITY LIMITED",
+   "title": "Rail Signalling - Degree Apprentice (Level 6)",
+   "level": "6",
+   "location": "Manchester M1",
+   "deadline": "2026-12-31",
+   "posted": "2026-11-12",
+   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000064065"
   }
  }
 }
