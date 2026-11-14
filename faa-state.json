@@ -1,5 +1,5 @@
 {
- "checked": "2026-11-13",
+ "checked": "2026-11-14",
  "jobs": {
   "2000026593": {
    "id": "2000026593",
@@ -1001,16 +1001,6 @@
    "posted": "2026-11-02",
    "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000061787"
   },
-  "2000062012": {
-   "id": "2000062012",
-   "employer": "ROKE MANOR RESEARCH LIMITED",
-   "title": "Embedded Software - Degree Apprentice",
-   "level": "6",
-   "location": "Romsey SO51",
-   "deadline": "2026-11-13",
-   "posted": "2026-11-02",
-   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000062012"
-  },
   "2000062205": {
    "id": "2000062205",
    "employer": "BBC Public Service",
@@ -1481,16 +1471,6 @@
    "posted": "2026-11-11",
    "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000063890"
   },
-  "2000063947": {
-   "id": "2000063947",
-   "employer": "ASSURE TECHNICAL LIMITED ",
-   "title": "Cyber Security & Digital Solutions - Degree Apprenticeship",
-   "level": "6",
-   "location": "COLWALL WR13",
-   "deadline": "2026-12-18",
-   "posted": "2026-11-12",
-   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000063947"
-  },
   "2000063974": {
    "id": "2000063974",
    "employer": "AMAZON UK SERVICES LTD.",
@@ -1580,6 +1560,46 @@
    "deadline": "2026-12-31",
    "posted": "2026-11-12",
    "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000064065"
+  },
+  "2000064086": {
+   "id": "2000064086",
+   "employer": "SIEMENS MOBILITY LIMITED",
+   "title": "Rail Signalling - Degree Apprentice (Level 6)",
+   "level": "6",
+   "location": "London Road DE24",
+   "deadline": "2026-12-31",
+   "posted": "2026-11-13",
+   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000064086"
+  },
+  "2000064133": {
+   "id": "2000064133",
+   "employer": "SIEMENS MOBILITY LIMITED",
+   "title": "Rail Signalling - Degree Apprentice (Level 6)",
+   "level": "6",
+   "location": "Birmingham B4",
+   "deadline": "2026-12-31",
+   "posted": "2026-11-13",
+   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000064133"
+  },
+  "2000064134": {
+   "id": "2000064134",
+   "employer": "SIEMENS MOBILITY LIMITED",
+   "title": "Rail Signalling - Degree Apprentice (Level 6)",
+   "level": "6",
+   "location": "Chippenham Wiltshire SN15",
+   "deadline": "2026-12-31",
+   "posted": "2026-11-13",
+   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000064134"
+  },
+  "2000064135": {
+   "id": "2000064135",
+   "employer": "SIEMENS MOBILITY LIMITED",
+   "title": "Rail Signalling - Degree Apprentice (Level 6)",
+   "level": "6",
+   "location": "York YO1",
+   "deadline": "2026-12-31",
+   "posted": "2026-11-13",
+   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000064135"
   }
  }
 }
