@@ -1,5 +1,5 @@
 {
- "checked": "2026-11-14",
+ "checked": "2026-11-15",
  "jobs": {
   "2873ca67-31b3-48af-809c-0a51a7e62695": {
    "id": "2873ca67-31b3-48af-809c-0a51a7e62695",
@@ -401,46 +401,6 @@
    "status": "open",
    "apply": "https://www.kpmgcareers.co.uk/Vacancies/apprenticeshipsauditapprenticeshiplondonautumn2027/638ea412-944f-86c7-dff0-85e72feb1095"
   },
-  "169c254a-ffac-4328-a284-7b2b48891f23": {
-   "id": "169c254a-ffac-4328-a284-7b2b48891f23",
-   "employer": "BDO",
-   "title": "2027 Audit School Leaver Apprenticeship Programme",
-   "level": "6",
-   "location": "Birmingham, Bristol, Cambridge, Edinburgh, Gatwick, Glasgow, Guildford, Ipswich, Leeds, Liverpool, London, Manchester, Nottingham, Reading, Southampton, United Kingdom",
-   "deadline": "2026-11-15",
-   "status": "closing_soon",
-   "apply": "https://careers.bdo.co.uk/job/birmingham/2027-audit-school-leaver-apprenticeship-programme/1469/45085584192"
-  },
-  "458f015a-2212-450c-901b-3a1d02014b78": {
-   "id": "458f015a-2212-450c-901b-3a1d02014b78",
-   "employer": "BDO",
-   "title": "2027 Audit Technology School Leaver Apprenticeship Programme",
-   "level": "6",
-   "location": "Birmingham, London, Reading, Manchester, United Kingdom",
-   "deadline": "2026-11-15",
-   "status": "closing_soon",
-   "apply": "https://careers.bdo.co.uk/job/birmingham/2027-audit-technology-school-leaver-apprenticeship-programme/1469/45085584064"
-  },
-  "431a4a94-8486-4393-8edf-f3bc59816637": {
-   "id": "431a4a94-8486-4393-8edf-f3bc59816637",
-   "employer": "BDO",
-   "title": "2027 Advisory School Leaver Apprenticeship Programme",
-   "level": "6",
-   "location": "Birmingham, Reading, United Kingdom",
-   "deadline": "2026-11-15",
-   "status": "closing_soon",
-   "apply": "https://careers.bdo.co.uk/job/birmingham/2027-advisory-school-leaver-apprenticeship-programme/1469/45085580736"
-  },
-  "3ca86843-672c-48e7-a3bd-23d22cb711e3": {
-   "id": "3ca86843-672c-48e7-a3bd-23d22cb711e3",
-   "employer": "BDO",
-   "title": "2027 Tax School Leaver Apprenticeship Programme",
-   "level": "6",
-   "location": "Gatwick, Guildford, Ipswich, London, Manchester, Reading, Southampton, United Kingdom",
-   "deadline": "2026-11-15",
-   "status": "closing_soon",
-   "apply": "https://careers.bdo.co.uk/job/united-kingdom/2027-tax-school-leaver-apprenticeship-programme/1469/45085580416"
-  },
   "5972dfb9-03bc-4a6a-89f2-8fe4a459074e": {
    "id": "5972dfb9-03bc-4a6a-89f2-8fe4a459074e",
    "employer": "Airbus",
@@ -500,6 +460,46 @@
    "deadline": "2027-02-21",
    "status": "open",
    "apply": "https://www.tlt.com/careers/"
+  },
+  "e5cd589e-aff8-4c9c-a7a8-476a76c009fc": {
+   "id": "e5cd589e-aff8-4c9c-a7a8-476a76c009fc",
+   "employer": "Weightmans",
+   "title": "Solicitor Degree Apprenticeship",
+   "level": "7",
+   "location": "",
+   "deadline": "",
+   "status": "open",
+   "apply": "https://www.weightmans.com/careers/early-careers/apprenticeships/"
+  },
+  "9eb4c1b7-e018-4066-bf72-372c1972861f": {
+   "id": "9eb4c1b7-e018-4066-bf72-372c1972861f",
+   "employer": "Grant Thornton",
+   "title": "Financial Services Audit School Leaver Programme",
+   "level": "6",
+   "location": "London, United Kingdom",
+   "deadline": "",
+   "status": "open",
+   "apply": "https://www.grantthornton.co.uk/careers/early-careers-job-search/?jobPostingGrouping=Apprenticeship#career-results"
+  },
+  "c844bf5d-f456-4482-8a98-63f320f21e66": {
+   "id": "c844bf5d-f456-4482-8a98-63f320f21e66",
+   "employer": "Grant Thornton",
+   "title": "IT Audit School Leaver Programme",
+   "level": "6",
+   "location": "London, United Kingdom",
+   "deadline": "",
+   "status": "open",
+   "apply": "https://www.grantthornton.co.uk/careers/early-careers-job-search/?jobPostingGrouping=Apprenticeship#career-results"
+  },
+  "ed50727d-1ef0-4929-ab9e-b723c806c50d": {
+   "id": "ed50727d-1ef0-4929-ab9e-b723c806c50d",
+   "employer": "Grant Thornton",
+   "title": "Not for Profit Audit School Leaver Programme",
+   "level": "6",
+   "location": "London, Birmingham, United Kingdom",
+   "deadline": "",
+   "status": "open",
+   "apply": "https://www.grantthornton.co.uk/careers/early-careers-job-search/?jobPostingGrouping=Apprenticeship#career-results"
   },
   "5fc93154-198e-4883-a21e-daaa6b6a120b": {
    "id": "5fc93154-198e-4883-a21e-daaa6b6a120b",
@@ -570,6 +570,46 @@
    "deadline": "2026-10-31",
    "status": "reference_only",
    "apply": "https://search.jobs.barclays/job/northampton/2027-business-banking-degree-apprenticeship-programme-northampton/13015/100491335424"
+  },
+  "169c254a-ffac-4328-a284-7b2b48891f23": {
+   "id": "169c254a-ffac-4328-a284-7b2b48891f23",
+   "employer": "BDO",
+   "title": "2027 Audit School Leaver Apprenticeship Programme",
+   "level": "6",
+   "location": "Birmingham, Bristol, Cambridge, Edinburgh, Gatwick, Glasgow, Guildford, Ipswich, Leeds, Liverpool, London, Manchester, Nottingham, Reading, Southampton, United Kingdom",
+   "deadline": "2026-11-15",
+   "status": "reference_only",
+   "apply": "https://careers.bdo.co.uk/job/birmingham/2027-audit-school-leaver-apprenticeship-programme/1469/45085584192"
+  },
+  "458f015a-2212-450c-901b-3a1d02014b78": {
+   "id": "458f015a-2212-450c-901b-3a1d02014b78",
+   "employer": "BDO",
+   "title": "2027 Audit Technology School Leaver Apprenticeship Programme",
+   "level": "6",
+   "location": "Birmingham, London, Reading, Manchester, United Kingdom",
+   "deadline": "2026-11-15",
+   "status": "reference_only",
+   "apply": "https://careers.bdo.co.uk/job/birmingham/2027-audit-technology-school-leaver-apprenticeship-programme/1469/45085584064"
+  },
+  "431a4a94-8486-4393-8edf-f3bc59816637": {
+   "id": "431a4a94-8486-4393-8edf-f3bc59816637",
+   "employer": "BDO",
+   "title": "2027 Advisory School Leaver Apprenticeship Programme",
+   "level": "6",
+   "location": "Birmingham, Reading, United Kingdom",
+   "deadline": "2026-11-15",
+   "status": "reference_only",
+   "apply": "https://careers.bdo.co.uk/job/birmingham/2027-advisory-school-leaver-apprenticeship-programme/1469/45085580736"
+  },
+  "3ca86843-672c-48e7-a3bd-23d22cb711e3": {
+   "id": "3ca86843-672c-48e7-a3bd-23d22cb711e3",
+   "employer": "BDO",
+   "title": "2027 Tax School Leaver Apprenticeship Programme",
+   "level": "6",
+   "location": "Gatwick, Guildford, Ipswich, London, Manchester, Reading, Southampton, United Kingdom",
+   "deadline": "2026-11-15",
+   "status": "reference_only",
+   "apply": "https://careers.bdo.co.uk/job/united-kingdom/2027-tax-school-leaver-apprenticeship-programme/1469/45085580416"
   },
   "9af4cf88-8eeb-4f2f-8856-286c2e25f9ca": {
    "id": "9af4cf88-8eeb-4f2f-8856-286c2e25f9ca",
@@ -958,46 +998,6 @@
    "level": "6",
    "location": "Filton, Bristol",
    "deadline": "2026-02-28",
-   "status": "reference_only",
-   "apply": ""
-  },
-  "bf7ce685-d8c4-4cc7-9a99-3a411b5224fc": {
-   "id": "bf7ce685-d8c4-4cc7-9a99-3a411b5224fc",
-   "employer": "Airbus",
-   "title": "Supply Chain Logistics & Planning Business Degree Apprenticeship",
-   "level": "6",
-   "location": "Broughton",
-   "deadline": "2026-02-28",
-   "status": "reference_only",
-   "apply": ""
-  },
-  "f47e43e3-7a75-4462-9b9f-ffc51e46614a": {
-   "id": "f47e43e3-7a75-4462-9b9f-ffc51e46614a",
-   "employer": "JLR",
-   "title": "Digital and Technology Solutions Degree Apprenticeship",
-   "level": "6",
-   "location": "West Midlands (primarily Gaydon and Whitley)",
-   "deadline": "2026-02-13",
-   "status": "reference_only",
-   "apply": ""
-  },
-  "49c935cf-3db5-4d83-949c-876f7511901e": {
-   "id": "49c935cf-3db5-4d83-949c-876f7511901e",
-   "employer": "JLR",
-   "title": "Supply Chain and Procurement Degree Apprenticeship",
-   "level": "6",
-   "location": "West Midlands",
-   "deadline": "2026-02-13",
-   "status": "reference_only",
-   "apply": ""
-  },
-  "669b48dc-e27d-43cb-bc33-619356b6192b": {
-   "id": "669b48dc-e27d-43cb-bc33-619356b6192b",
-   "employer": "JLR",
-   "title": "Applied Professional Engineering Programme Degree Apprenticeship",
-   "level": "6",
-   "location": "West Midlands and Halewood",
-   "deadline": "2026-02-13",
    "status": "reference_only",
    "apply": ""
   }
