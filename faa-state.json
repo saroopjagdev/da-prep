@@ -1,5 +1,5 @@
 {
- "checked": "2026-11-15",
+ "checked": "2026-11-16",
  "jobs": {
   "2000026593": {
    "id": "2000026593",
@@ -1600,6 +1600,106 @@
    "deadline": "2026-12-31",
    "posted": "2026-11-13",
    "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000064135"
+  },
+  "2000064161": {
+   "id": "2000064161",
+   "employer": "CISCO INTERNATIONAL LIMITED",
+   "title": "Cisco IT Degree Apprentice (Level 6)",
+   "level": "6",
+   "location": "Feltham TW14",
+   "deadline": "2027-01-24",
+   "posted": "2026-11-16",
+   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000064161"
+  },
+  "2000064221": {
+   "id": "2000064221",
+   "employer": "HORSELL CHILDCARE LIMITED",
+   "title": "Early Years Initial Teacher Training (EYITT) –  Jiminy Cricket Apprenticeship",
+   "level": "6",
+   "location": "WOKING GU21",
+   "deadline": "2027-01-01",
+   "posted": "2026-11-16",
+   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000064221"
+  },
+  "2000064222": {
+   "id": "2000064222",
+   "employer": "LONDON & SURREY MONTESSORI SCHOOLS LTD",
+   "title": "Early Years Initial Teacher Training (EYITT) Dulwich Montessori Nursery Apprentice",
+   "level": "6",
+   "location": "22 Dulwich Wood Park SE19 +2 more",
+   "deadline": "2027-01-01",
+   "posted": "2026-11-16",
+   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000064222"
+  },
+  "2000064228": {
+   "id": "2000064228",
+   "employer": "CISCO INTERNATIONAL LIMITED",
+   "title": "Cisco Sales Degree Apprentice (Level 6)",
+   "level": "6",
+   "location": "Feltham TW14",
+   "deadline": "2027-01-24",
+   "posted": "2026-11-16",
+   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000064228"
+  },
+  "2000064232": {
+   "id": "2000064232",
+   "employer": "CISCO INTERNATIONAL LIMITED",
+   "title": "Cisco Solutions Engineering Sales Degree Apprentice (Level 6)",
+   "level": "6",
+   "location": "Feltham TW14",
+   "deadline": "2027-01-24",
+   "posted": "2026-11-16",
+   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000064232"
+  },
+  "2000064236": {
+   "id": "2000064236",
+   "employer": "Network Rail",
+   "title": "Level 6 Digital & Technology Solutions Apprenticeship",
+   "level": "6",
+   "location": "Milton Keynes MK9",
+   "deadline": "2026-12-21",
+   "posted": "2026-11-16",
+   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000064236"
+  },
+  "2000064248": {
+   "id": "2000064248",
+   "employer": "Network Rail",
+   "title": "Level 6 Rail & Rail Systems Engineering Apprenticeship",
+   "level": "6",
+   "location": "Birmingham B1 +9 more",
+   "deadline": "2026-12-21",
+   "posted": "2026-11-16",
+   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000064248"
+  },
+  "2000064259": {
+   "id": "2000064259",
+   "employer": "SIEMENS MOBILITY LIMITED",
+   "title": "Rail Signalling - Degree Apprentice (Level 6)",
+   "level": "6",
+   "location": "Croydon CR0",
+   "deadline": "2026-12-31",
+   "posted": "2026-11-16",
+   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000064259"
+  },
+  "2000064272": {
+   "id": "2000064272",
+   "employer": "SIEMENS MOBILITY LIMITED",
+   "title": "Electrification - High Voltage & Switch Gear Degree Apprentice - Level 6",
+   "level": "6",
+   "location": "Birmingham B4",
+   "deadline": "2026-12-31",
+   "posted": "2026-11-16",
+   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000064272"
+  },
+  "2000064285": {
+   "id": "2000064285",
+   "employer": "SIEMENS MOBILITY LIMITED",
+   "title": "Electrification - Power Conversion Degree Apprentice - Level 6",
+   "level": "6",
+   "location": "York YO1",
+   "deadline": "2026-12-31",
+   "posted": "2026-11-16",
+   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000064285"
   }
  }
 }

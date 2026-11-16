@@ -1,5 +1,5 @@
 {
- "checked": "2026-11-15",
+ "checked": "2026-11-16",
  "jobs": {
   "2873ca67-31b3-48af-809c-0a51a7e62695": {
    "id": "2873ca67-31b3-48af-809c-0a51a7e62695",
@@ -348,7 +348,7 @@
    "level": "7",
    "location": "Leeds, Glasgow, Milton Keynes",
    "deadline": "2026-11-30",
-   "status": "open",
+   "status": "closing_soon",
    "apply": "https://higherin.com/jobs/46247/forvis-mazars/audit-mid-market-school-leaver-leeds-september-2027"
   },
   "999348b1-4966-461c-95e2-ddba84b35694": {
