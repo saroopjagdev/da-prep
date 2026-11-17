@@ -610,6 +610,12 @@ export default function HomeDashboard({ open }: { open: OpenNow[] }) {
           {!limitReached(usage) && planCard}
         </div>
       </div>
+      <p className="pt-2 text-center text-sm text-muted">
+        How is Level6 going?{" "}
+        <Link href="/feedback" className="font-semibold text-brand-700 underline underline-offset-4">
+          Tell us what is working and what is not
+        </Link>
+      </p>
     </section>
   );
 }

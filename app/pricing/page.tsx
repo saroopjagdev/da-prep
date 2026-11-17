@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useAuth } from "@/components/AuthProvider";
 import ParentShare from "@/components/ParentShare";
+import StudentComments from "@/components/StudentComments";
 import { postJson } from "@/lib/api";
 import { track } from "@/lib/funnel";
 import { BONUS_EXTRA, FREE_GAMES, FREE_INTERVIEWS, FREE_PRACTICE, FREE_REVIEWS, FREE_STORIES, PASS_PLAN, PASS_SAVING_PENCE, PRO_PLAN, passOffered, passSavingText } from "@/lib/plans";
@@ -282,6 +283,8 @@ export default function Pricing() {
         </ul>
         <p className="text-sm text-muted">Free accounts get one marked mock interview. Pro gives you as many as you want.</p>
       </section>
+
+      <StudentComments />
 
       <section className="space-y-2" aria-labelledby="faq">
         <h2 id="faq" className="text-lg font-semibold">

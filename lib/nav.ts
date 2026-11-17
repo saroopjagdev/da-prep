@@ -43,6 +43,7 @@ export const NAV_GROUPS: NavGroup[] = [
 export const LEGAL_LINKS: NavLink[] = [
   { href: "/pricing", label: "Plans" },
   { href: "/about", label: "About and contact" },
+  { href: "/feedback", label: "Feedback" },
   { href: "/privacy", label: "Privacy" },
   { href: "/terms", label: "Terms" },
   { href: "/accessibility", label: "Accessibility" },

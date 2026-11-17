@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
+import AdminFeedback from "@/components/AdminFeedback";
 import { useAuth } from "@/components/AuthProvider";
 import { postJson } from "@/lib/api";
 import { SOURCES } from "@/lib/funnel";
@@ -276,7 +277,10 @@ export default function AdminPage() {
           <Link href="/login" className="underline">Sign in</Link> with an admin account to see this page.
         </p>
       ) : (
-        <Dashboard />
+        <>
+          <Dashboard />
+          <AdminFeedback />
+        </>
       )}
     </div>
   );
