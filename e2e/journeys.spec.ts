@@ -874,13 +874,14 @@ test("the header puts Tracker, Pricing, FAQ and sign-in up front, and the old co
   await expect(page.getByRole("link", { name: /Stories bank/ }).first()).toBeVisible();
 });
 
-test("the plans page tells you who Pro is for and shows the feedback before the payment form", async ({ page }) => {
+test("the plans page puts the payment form first, with who Pro is for and the feedback example below it", async ({ page }) => {
   await signedIn(page);
   await page.goto("/pricing");
   await expect(page.getByRole("heading", { name: "Is Pro for you?" })).toBeVisible();
   const example = (await page.getByRole("heading", { name: "What marked feedback looks like" }).boundingBox())!;
   const pay = (await page.getByRole("heading", { name: "Before you pay" }).boundingBox())!;
-  expect(example.y).toBeLessThan(pay.y);
+  // The payment form used to sit below these; it now comes straight after the plan cards so the way to buy is not buried.
+  expect(pay.y).toBeLessThan(example.y);
 });
 
 test("a free member sees which tracker links lead to Pro", async ({ page }) => {
