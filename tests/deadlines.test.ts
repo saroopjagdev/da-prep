@@ -19,7 +19,9 @@ describe("/deadlines", () => {
     const out = html();
     const open = rows.filter((r) => r.status === "open");
     expect(open.length).toBeGreaterThan(0);
-    for (const r of open) expect(out, r.name).toContain(r.name.replace(/&/g, "&amp;"));
+    // The page is rendered to HTML, so names with an ampersand or an apostrophe appear escaped (St James&#x27;s Place).
+    const escaped = (s: string) => s.replace(/&/g, "&amp;").replace(/'/g, "&#x27;");
+    for (const r of open) expect(out, r.name).toContain(escaped(r.name));
     const closedOnly = rows.find((r) => r.status === "closed" && !open.some((o) => o.name === r.name));
     if (closedOnly) expect(out).not.toContain(`>${closedOnly.name}<`);
   });

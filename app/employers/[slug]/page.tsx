@@ -82,6 +82,14 @@ export default async function FirmPage({ params }: { params: Promise<{ slug: str
           {firm.sector}. Processes change every year, so confirm on the employer&apos;s
           own page.
         </p>
+        <p className="text-xs text-muted">
+          Guide last researched {new Date(`${firm.lastVerified}T00:00:00Z`).toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric", timeZone: "UTC" })}. Opening and closing dates are
+          kept up to date separately on the{" "}
+          <Link href="/opportunities" className="underline">
+            tracker
+          </Link>
+          , which shows when each was last checked.
+        </p>
       </div>
 
       <section className="card p-4 space-y-3" aria-labelledby="glance">

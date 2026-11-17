@@ -6,7 +6,7 @@ import { useAuth } from "@/components/AuthProvider";
 import ParentShare from "@/components/ParentShare";
 import { postJson } from "@/lib/api";
 import { track } from "@/lib/funnel";
-import { BONUS_EXTRA, FREE_GAMES, FREE_INTERVIEWS, FREE_PRACTICE, FREE_REVIEWS, FREE_STORIES, PASS_PLAN, PRO_PLAN, passOffered } from "@/lib/plans";
+import { BONUS_EXTRA, FREE_GAMES, FREE_INTERVIEWS, FREE_PRACTICE, FREE_REVIEWS, FREE_STORIES, PASS_PLAN, PASS_SAVING_PENCE, PRO_PLAN, passOffered, passSavingText } from "@/lib/plans";
 import { supabase } from "@/lib/supabase";
 
 const FREE = [
@@ -99,7 +99,7 @@ export default function Pricing() {
     <div className="mx-auto max-w-3xl space-y-6">
       <div className="space-y-2">
         <h1 className="page-title">Plans</h1>
-        <p className="lead">Free is enough to look around, track your applications and try each tool once. Pro is for when you have specific employers to prepare for.</p>
+        <p className="lead">Start free: track your applications and try each tool. Go Pro when you have specific employers to prepare for.</p>
       </div>
       {success && (
         <p role="status" className="callout bg-mint-50 text-mint-600">
@@ -122,14 +122,6 @@ export default function Pricing() {
           <h2 className="font-semibold">{PRO_PLAN.name}</h2>
           <p className="text-2xl font-bold">{PRO_PLAN.price}</p>
           <p className="text-sm text-muted">{PRO_PLAN.summary}</p>
-          {passOffered() && (
-            <p className="rounded-lg bg-brand-50 p-2 text-sm">
-              <strong>
-                {PASS_PLAN.price} for the {PASS_PLAN.name}.
-              </strong>{" "}
-              {PASS_PLAN.summary}
-            </p>
-          )}
           <ul className="list-disc pl-5 text-sm">
             {PRO.map((f) => (
               <li key={f}>{f}</li>
@@ -137,53 +129,17 @@ export default function Pricing() {
           </ul>
         </section>
       </div>
-
-      <section className="space-y-2" aria-labelledby="who">
-        <h2 id="who" className="text-lg font-semibold">
-          Is Pro for you?
-        </h2>
-        <div className="grid gap-4 sm:grid-cols-2">
-          <div className="card space-y-1 p-4">
-            <p className="font-semibold">Free is enough if you are</p>
-            <ul className="list-disc pl-5 text-sm">
-              <li>still choosing which employers to go for</li>
-              <li>tracking deadlines and getting alerts</li>
-              <li>trying each tool once to see how it works</li>
-            </ul>
-          </div>
-          <div className="card space-y-1 p-4 ring-2 ring-brand-500">
-            <p className="font-semibold">Pro is for you if you</p>
-            <ul className="list-disc pl-5 text-sm">
-              <li>are applying to specific employers and want to run each one&apos;s real stages</li>
-              <li>have an online test, video interview or assessment centre coming up</li>
-              <li>want to redo answers until your score moves, not see one result</li>
-              <li>would rather pay for the weeks you need it: it is monthly and you can cancel any time</li>
-            </ul>
-          </div>
-        </div>
-      </section>
-
-      <section className="card space-y-2 p-5" aria-labelledby="example">
-        <h2 id="example" className="text-lg font-semibold">
-          What marked feedback looks like
-        </h2>
-        <p className="text-xs text-muted">An invented example to show the format, not a real student&apos;s answer.</p>
-        <p className="text-sm">
-          <strong>Question:</strong> Tell us about a time you worked in a team. <strong>Score: 68 out of 100.</strong>
-        </p>
-        <ul className="list-disc space-y-1 pl-5 text-sm">
-          <li>
-            <strong>Strength:</strong> a clear situation and a specific action you took yourself.
-          </li>
-          <li>
-            <strong>To improve:</strong> the result is missing. Say what changed and how you know, with a number if you can.
-          </li>
-          <li>
-            <strong>STAR check:</strong> Situation ✓ Task ✓ Action ✓ Result ✗
-          </li>
-        </ul>
-        <p className="text-sm text-muted">Free accounts get one marked mock interview. Pro gives you as many as you want.</p>
-      </section>
+      {passOffered() && (
+        <section className="card space-y-1 border-l-4 border-brand-600 p-4" aria-labelledby="pass">
+          <p className="text-xs font-semibold uppercase tracking-wide text-brand-600">Best value for one application season</p>
+          <h2 id="pass" className="text-lg font-semibold">
+            {PASS_PLAN.name}: {PASS_PLAN.price} once
+          </h2>
+          <p className="text-sm">
+            Everything in Pro for {PASS_PLAN.lengthText}, from the day you buy it. No renewal, so there is nothing to cancel. {passSavingText()}
+          </p>
+        </section>
+      )}
 
       {plan === "pro" ? (
         <section className="card space-y-2 p-4">
@@ -220,7 +176,7 @@ export default function Pricing() {
               <legend className="sr-only">Choose how to pay</legend>
               {(
                 [
-                  ["pass", `${PASS_PLAN.name}: ${PASS_PLAN.price}`, `One payment, Pro for ${PASS_PLAN.lengthText}. No renewal.`],
+                  ["pass", `${PASS_PLAN.name}: ${PASS_PLAN.price}`, `One payment, Pro for ${PASS_PLAN.lengthText}. No renewal. Saves £${(PASS_SAVING_PENCE / 100).toFixed(2)}.`],
                   ["monthly", `${PRO_PLAN.name}: ${PRO_PLAN.price}`, "Renews every month. Cancel any time."],
                 ] as const
               ).map(([k, title, sub]) => (
@@ -280,12 +236,65 @@ export default function Pricing() {
         </section>
       )}
 
+      <section className="space-y-2" aria-labelledby="who">
+        <h2 id="who" className="text-lg font-semibold">
+          Is Pro for you?
+        </h2>
+        <div className="grid gap-4 sm:grid-cols-2">
+          <div className="card space-y-1 p-4">
+            <p className="font-semibold">Free is enough if you are</p>
+            <ul className="list-disc pl-5 text-sm">
+              <li>still choosing which employers to go for</li>
+              <li>tracking deadlines and getting alerts</li>
+              <li>trying each tool once to see how it works</li>
+            </ul>
+          </div>
+          <div className="card space-y-1 p-4 ring-2 ring-brand-500">
+            <p className="font-semibold">Pro is for you if you</p>
+            <ul className="list-disc pl-5 text-sm">
+              <li>are applying to specific employers and want to run each one&apos;s real stages</li>
+              <li>have an online test, video interview or assessment centre coming up</li>
+              <li>want to redo answers until your score moves, not see one result</li>
+              <li>would rather pay for the weeks you need it: it is monthly and you can cancel any time</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section className="card space-y-2 p-5" aria-labelledby="example">
+        <h2 id="example" className="text-lg font-semibold">
+          What marked feedback looks like
+        </h2>
+        <p className="text-xs text-muted">An invented example to show the format, not a real student&apos;s answer.</p>
+        <p className="text-sm">
+          <strong>Question:</strong> Tell us about a time you worked in a team. <strong>Score: 68 out of 100.</strong>
+        </p>
+        <ul className="list-disc space-y-1 pl-5 text-sm">
+          <li>
+            <strong>Strength:</strong> a clear situation and a specific action you took yourself.
+          </li>
+          <li>
+            <strong>To improve:</strong> the result is missing. Say what changed and how you know, with a number if you can.
+          </li>
+          <li>
+            <strong>STAR check:</strong> Situation ✓ Task ✓ Action ✓ Result ✗
+          </li>
+        </ul>
+        <p className="text-sm text-muted">Free accounts get one marked mock interview. Pro gives you as many as you want.</p>
+      </section>
+
       <section className="space-y-2" aria-labelledby="faq">
         <h2 id="faq" className="text-lg font-semibold">
           Questions
         </h2>
         {[
           ["Can I cancel?", "Yes, any time from this page. Pro stays on until the end of the month you have paid for, and you have a 14-day right to cancel (see the terms)."],
+          ...(passOffered()
+            ? [
+                ["Monthly or Season Pass?", `If you need Pro for one application season, the ${PASS_PLAN.name} is cheaper: ${PASS_PLAN.price} once for ${PASS_PLAN.lengthText}. ${passSavingText()} Monthly suits you if you are not sure how long you will need it.`],
+                ["What happens when my Season Pass ends?", "You go back to a free account. Nothing renews and you are not charged again. Your tracker, notes and scores stay."],
+              ]
+            : []),
           ["What happens to my tracker if I stop paying?", "Nothing. Your tracker, notes and scores stay on your free account."],
           ["Can a parent or guardian pay for me?", "Yes. The button above sends them a short explanation of what Pro is and how to cancel."],
           ["Do I need Pro to use the tracker?", "No. The tracker and deadline emails are free with an account."],
@@ -301,10 +310,6 @@ export default function Pricing() {
           {error}
         </p>
       )}
-      <p className="text-xs text-muted">
-        Limits and payments only apply when this site is configured with accounts and payments. Otherwise everything is
-        free.
-      </p>
     </div>
   );
 }
