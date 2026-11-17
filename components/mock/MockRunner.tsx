@@ -38,6 +38,8 @@ export default function MockRunner({ mock, firmName, tests }: { mock: MockProces
   const [results, setResults] = useState<StageResult[]>([]);
   const [startedAt, setStartedAt] = useState(() => new Date().toISOString());
   const [saved, setSaved] = useState<Saved | null>(null);
+  // When set, one stage is being practised on its own: it never touches the saved full run and is not saved as a mock process.
+  const [single, setSingle] = useState<number | null>(null);
   const scoredOnce = useRef(false);
   const savedRecord = useRef(false);
   const records = useCollection<MockRunRecord>("mocks");
@@ -58,6 +60,7 @@ export default function MockRunner({ mock, firmName, tests }: { mock: MockProces
 
   useEffect(() => {
     if (phase !== "stage" && phase !== "report") return;
+    if (single !== null) return;
     try {
       // Pending scores cannot resume, so they are stored without the pending flag and can be retried.
       const clean = results.map((r) => (r.kind === "qa" ? { ...r, pending: false } : r));
@@ -65,11 +68,11 @@ export default function MockRunner({ mock, firmName, tests }: { mock: MockProces
     } catch {
       /* ignore */
     }
-  }, [phase, stageIdx, results, startedAt, mock.firm]);
+  }, [phase, stageIdx, results, startedAt, mock.firm, single]);
 
   const advance = (idx: number, next: StageResult[]) => {
     setResults(next);
-    if (idx + 1 >= mock.stages.length) setPhase("report");
+    if (single !== null || idx + 1 >= mock.stages.length) setPhase("report");
     else {
       setStageIdx(idx + 1);
       setPhase("stage");
@@ -121,6 +124,18 @@ export default function MockRunner({ mock, firmName, tests }: { mock: MockProces
     setSaved(null);
   }
 
+  // Practise one stage on its own. The stages before it are blank placeholders so the report lines up, and the saved full
+  // run (if any) is left exactly as it was.
+  function startSingle(i: number) {
+    scoredOnce.current = false;
+    savedRecord.current = true; // a single stage is not a whole mock process, so it is not saved as one
+    setResults(Array.from({ length: i }, () => ({ kind: "info" as const })));
+    setStageIdx(i);
+    setStartedAt(new Date().toISOString());
+    setSingle(i);
+    setPhase("stage");
+  }
+
   // Save a compact record once every stage has been scored (or failed).
   const settled = phase === "report" && results.every((r) => r.kind !== "qa" || Boolean(r.score || r.error));
   type Scored = { name: string; kind: "test" | "qa"; score?: number };
@@ -167,6 +182,9 @@ export default function MockRunner({ mock, firmName, tests }: { mock: MockProces
           <p key={n} className="callout bg-brand-50 text-sm">{n}</p>
         ))}
         <p className="text-sm text-muted">
+          Run the whole process in order, or use &ldquo;Just this stage&rdquo; on a test or interview stage to practise only that part. A single stage does not change a run you have paused.
+        </p>
+        <p className="text-sm text-muted">
           Marked against: <strong>{mock.framework.name}</strong>. Each answer is scored by AI, which can be wrong or
           inconsistent, so treat the feedback as practice rather than a prediction of the firm&apos;s decision.
         </p>
@@ -177,6 +195,11 @@ export default function MockRunner({ mock, firmName, tests }: { mock: MockProces
               <span className="flex-1 font-medium">{s.name}</span>
               <span className="chip text-xs">{describeStage(s)}</span>
               {s.note && <span className="chip text-xs">Approximate</span>}
+              {s.kind !== "info" && (
+                <button className="btn btn-secondary !px-3 !py-1 text-xs" onClick={() => startSingle(i)} aria-label={`Practise only stage ${i + 1}: ${s.name}`}>
+                  Just this stage
+                </button>
+              )}
             </li>
           ))}
         </ol>
@@ -186,6 +209,7 @@ export default function MockRunner({ mock, firmName, tests }: { mock: MockProces
               <button
                 className="btn btn-primary"
                 onClick={() => {
+                  setSingle(null);
                   setResults(saved.results);
                   setStageIdx(saved.stageIdx);
                   setStartedAt(saved.startedAt);
@@ -195,12 +219,12 @@ export default function MockRunner({ mock, firmName, tests }: { mock: MockProces
               >
                 Resume at stage {saved.stageIdx + 1}
               </button>
-              <button className="btn btn-secondary" onClick={() => { reset(); setPhase("stage"); }}>
+              <button className="btn btn-secondary" onClick={() => { setSingle(null); reset(); setPhase("stage"); }}>
                 Start over
               </button>
             </>
           ) : (
-            <button className="btn btn-primary" onClick={() => { reset(); setPhase("stage"); }}>
+            <button className="btn btn-primary" onClick={() => { setSingle(null); reset(); setPhase("stage"); }}>
               Start the mock process
             </button>
           )}
@@ -217,6 +241,7 @@ export default function MockRunner({ mock, firmName, tests }: { mock: MockProces
     const header = (
       <p className="mx-auto mb-3 max-w-3xl text-xs font-semibold text-muted">
         {firmName} mock process · stage {stageIdx + 1} of {mock.stages.length}
+        {single !== null && " · practising this stage on its own"}
       </p>
     );
     if (stage.kind === "info") {
@@ -278,7 +303,7 @@ export default function MockRunner({ mock, firmName, tests }: { mock: MockProces
   return (
     <div className="mx-auto max-w-3xl space-y-6">
       <div className="space-y-2 text-center">
-        <h1 className="page-title">{mock.title}: report</h1>
+        <h1 className="page-title">{single !== null ? `${mock.stages[single].name}: report` : `${mock.title}: report`}</h1>
         {overall !== undefined ? (
           <>
             <p className="text-5xl font-bold tabular-nums">{overall}</p>
@@ -334,7 +359,7 @@ export default function MockRunner({ mock, firmName, tests }: { mock: MockProces
                             className="underline"
                             onClick={() => {
                               setResults((all) => all.map((x, j) => (j === i && x.kind === "qa" ? { ...x, pending: true, error: undefined } : x)));
-                              savedRecord.current = false;
+                              savedRecord.current = single !== null;
                               void score(i, s as Extract<MockStage, { kind: "qa" }>, r.turns, false);
                             }}
                           >
@@ -385,9 +410,15 @@ export default function MockRunner({ mock, firmName, tests }: { mock: MockProces
       </ol>
 
       <div className="flex justify-center gap-3">
-        <button className="btn btn-primary" onClick={() => { reset(); setPhase("intro"); }}>
-          Run it again
-        </button>
+        {single !== null ? (
+          <button className="btn btn-primary" onClick={() => { setSingle(null); setResults([]); setStageIdx(0); setPhase("intro"); }}>
+            Back to the stages
+          </button>
+        ) : (
+          <button className="btn btn-primary" onClick={() => { reset(); setPhase("intro"); }}>
+            Run it again
+          </button>
+        )}
         <Link href="/opportunities" className="btn btn-secondary">
           Opportunities tracker
         </Link>

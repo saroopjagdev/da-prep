@@ -109,6 +109,39 @@ test("a bank mock process runs to its report", async ({ page }) => {
   await expect(page.getByText(/: report/)).toBeVisible();
 });
 
+test("one stage of a mock process can be practised on its own, and it leaves no paused run behind", async ({ page }) => {
+  await signedIn(page);
+  await page.goto("/mock/bank-of-america");
+  await clearRuns(page);
+  await page.reload();
+  await page.getByRole("button", { name: /Practise only stage \d+/ }).first().click();
+  await expect(page.getByText(/practising this stage on its own/)).toBeVisible();
+  for (let i = 0; i < 40; i++) {
+    if (await page.getByRole("button", { name: "Back to the stages" }).count()) break;
+    const box = page.locator("main textarea:visible").first();
+    if ((await box.count()) && !(await box.inputValue())) await box.fill("In Year 12 I led a team project; we planned weekly and finished early with top marks.");
+    await page.locator("main .btn-primary:visible:not([disabled])").first().click();
+    await page.waitForTimeout(300);
+  }
+  await expect(page.getByRole("button", { name: "Back to the stages" })).toBeVisible();
+  // A single stage never writes the paused-run slot, so the intro still offers a fresh start rather than a resume.
+  expect(await page.evaluate(() => localStorage.getItem("da-prep:mock-run:bank-of-america"))).toBeNull();
+  await page.getByRole("button", { name: "Back to the stages" }).click();
+  await expect(page.getByRole("button", { name: "Start the mock process" })).toBeVisible();
+});
+
+test("a member gets a Dashboard link in the main menu, and a visitor does not", async ({ page, isMobile }) => {
+  test.skip(isMobile, "the text menu is the desktop navigation");
+  const nav = page.getByRole("navigation", { name: "Main" });
+  await page.goto("/pricing");
+  await expect(nav.getByRole("link", { name: "Pricing" })).toBeVisible();
+  await expect(nav.getByRole("link", { name: "Dashboard", exact: true })).toHaveCount(0);
+  await signedIn(page);
+  await page.goto("/pricing");
+  await nav.getByRole("link", { name: "Dashboard", exact: true }).click();
+  await expect(page).toHaveURL(/\/$/);
+});
+
 test("opportunities: set my status from the row dropdown, add notes, and it survives a reload", async ({ page }) => {
   await signedIn(page);
   await page.goto("/opportunities");
