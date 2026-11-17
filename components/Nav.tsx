@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 import { useAuth } from "@/components/AuthProvider";
 import Logo from "@/components/Logo";
 import { useUsage } from "@/components/useUsage";
-import { HEADER_ITEMS } from "@/lib/nav";
+import { HEADER_ITEMS, type HeaderItem } from "@/lib/nav";
 
 const isActive = (path: string, href: string) => path === href || path.startsWith(`${href}/`);
 
@@ -22,6 +22,9 @@ export default function Nav() {
   }, [path]);
 
   const usage = useUsage();
+  // "/" is the landing page for visitors and the dashboard for members, so only members get a text link back to it
+  // (visitors, and everyone on a phone via the bottom bar, still have the logo).
+  const items: HeaderItem[] = user ? [{ label: "Dashboard", href: "/" }, ...HEADER_ITEMS] : HEADER_ITEMS;
   const account = (
     <>
       {user && usage && usage.plan !== "pro" && (
@@ -48,7 +51,7 @@ export default function Nav() {
         </Link>
 
         <ul className="hidden flex-1 items-center justify-center gap-1 md:flex">
-          {HEADER_ITEMS.map((item) => {
+          {items.map((item) => {
             const links = item.links;
             const active = isActive(path, item.href) || Boolean(links?.some((l) => isActive(path, l.href)));
             const cls = `flex items-center gap-1 rounded-md px-3 py-2 text-sm font-semibold ${active ? "text-brand-700" : "text-ink/75 hover:text-ink"}`;
@@ -105,7 +108,7 @@ export default function Nav() {
 
       {open && (
         <div id="mobile-menu" className="max-h-[70vh] overflow-y-auto border-t border-line bg-white px-4 pb-6 pt-2 md:hidden">
-          {HEADER_ITEMS.map((item) => (
+          {items.map((item) => (
             <div key={item.label} className="py-2">
               {item.links ? (
                 <>

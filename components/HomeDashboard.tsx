@@ -282,8 +282,9 @@ export default function HomeDashboard({ open }: { open: OpenNow[] }) {
         </p>
       </div>
 
-      <div className="grid gap-4 lg:grid-cols-[minmax(0,1.55fr)_minmax(0,1fr)] lg:items-start">
-        <div className="min-w-0 space-y-4">
+      {/* Both columns stretch to the taller one, and the last card in each fills what is left, so their bottoms line up. */}
+      <div className="grid gap-4 lg:grid-cols-[minmax(0,1.55fr)_minmax(0,1fr)]">
+        <div className="flex min-w-0 flex-col gap-4 [&>*:last-child]:flex-1">
           {/* The one thing to do next. */}
           {!apps.loaded ? (
             <div
@@ -516,7 +517,7 @@ export default function HomeDashboard({ open }: { open: OpenNow[] }) {
           )}
         </div>
 
-        <div className="min-w-0 space-y-4">
+        <div className="flex min-w-0 flex-col gap-4 [&>*:last-child]:flex-1">
           <Section title="Practise">
             <ul className="divide-y divide-line">
               {(
