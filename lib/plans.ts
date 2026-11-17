@@ -27,6 +27,10 @@ export const PASS_PLAN = {
   summary: "One payment. Pro for 6 months from the day you buy it. It does not renew, so there is nothing to cancel.",
 } as const;
 
+/** What the pass saves against paying monthly for the same length of time, in pence and as a sentence for the site. */
+export const PASS_SAVING_PENCE = PRO_PLAN.pence * PASS_PLAN.months - PASS_PLAN.pence;
+export const passSavingText = () => `Saves £${(PASS_SAVING_PENCE / 100).toFixed(2)} compared with paying £${(PRO_PLAN.pence / 100).toFixed(2)} a month for ${PASS_PLAN.months} months.`;
+
 /**
  * When a pass bought at `from` ends: the same moment PASS_PLAN.months later. A pass bought on the 31st ends on the last
  * day of a shorter month (31 August plus six months is 28 February, not 3 March).

@@ -7,7 +7,7 @@ import ScoreRing from "@/components/ScoreRing";
 import { FIRMS } from "@/lib/firms";
 import { homeStats, openNow } from "@/lib/home";
 import { logoPath } from "@/lib/logos";
-import { BONUS_EXTRA, FREE_GAMES, FREE_INTERVIEWS, FREE_PRACTICE, FREE_REVIEWS, FREE_STORIES, PRO_PLAN } from "@/lib/plans";
+import { BONUS_EXTRA, FREE_GAMES, FREE_INTERVIEWS, FREE_PRACTICE, FREE_REVIEWS, FREE_STORIES, PASS_PLAN, PRO_PLAN, passOffered } from "@/lib/plans";
 
 // Rebuilt hourly so the "open now" row follows the dates (an opening date passing flips an employer to open).
 export const revalidate = 3600;
@@ -285,7 +285,12 @@ export default function Home() {
             </div>
             <div className="card space-y-2 p-6">
               <h3 className="text-lg font-bold">Pro: {PRO_PLAN.price}</h3>
-              <p className="text-sm text-muted">Unlimited practice tests, games and AI mock interviews, every firm mock process, and much higher CV and statement review limits. Cancel any time.</p>
+              <p className="text-sm text-muted">Unlimited practice tests and games, as many AI mock interviews as you need (fair use), every firm mock process, and much higher CV and statement review limits. Cancel any time.</p>
+              {passOffered() && (
+                <p className="text-sm font-medium">
+                  Or {PASS_PLAN.price} once for the {PASS_PLAN.name}: Pro for {PASS_PLAN.lengthText}, no renewal.
+                </p>
+              )}
               <Link href="/pricing" className="btn btn-secondary mt-2">
                 See plans
               </Link>

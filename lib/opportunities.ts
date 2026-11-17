@@ -465,7 +465,7 @@ export const STATUS_LABEL: Record<Status, string> = {
   "opening-soon": "Opening soon",
   "not-announced": "Not open yet",
   closed: "Closed",
-  "not-confirmed": "Not confirmed",
+  "not-confirmed": "Check their site",
 };
 
 const isFullDate = (s: string) => /^\d{4}-\d{2}-\d{2}$/.test(s);
