@@ -4,6 +4,7 @@ import HeroSignup from "@/components/HeroSignup";
 import HomeSwitch from "@/components/HomeSwitch";
 import Icon from "@/components/Icon";
 import ScoreRing from "@/components/ScoreRing";
+import StudentComments from "@/components/StudentComments";
 import { FIRMS } from "@/lib/firms";
 import { homeStats, openNow } from "@/lib/home";
 import { logoPath } from "@/lib/logos";
@@ -268,6 +269,8 @@ export default function Home() {
             </Link>
           </div>
         </section>
+
+        <StudentComments className="mx-auto max-w-6xl px-4 pt-16" />
 
         {/* Plans */}
         <section className="mx-auto max-w-6xl space-y-8 px-4 py-20" aria-labelledby="plans">

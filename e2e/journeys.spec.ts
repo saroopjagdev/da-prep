@@ -130,6 +130,25 @@ test("one stage of a mock process can be practised on its own, and it leaves no 
   await expect(page.getByRole("button", { name: "Start the mock process" })).toBeVisible();
 });
 
+test("feedback: any member can send it, and the permission to show it is a separate, unticked box", async ({ page }) => {
+  await signedIn(page);
+  let sent: Record<string, unknown> | null = null;
+  await page.route("**/api/feedback", async (route) => {
+    sent = route.request().postDataJSON();
+    await route.fulfill({ json: { ok: true } });
+  });
+  await page.goto("/feedback");
+  await expect(page.getByRole("heading", { name: "Tell us how Level6 is going" })).toBeVisible();
+  const permission = page.getByRole("checkbox", { name: /You may show my comment/ });
+  await expect(permission).not.toBeChecked();
+  await expect(page.getByLabel("Name to show")).toHaveCount(0);
+  await page.getByLabel("1 star").check({ force: true });
+  await page.getByLabel("What is working, and what is not?").fill("The tests were too easy for me.");
+  await page.getByRole("button", { name: "Send feedback" }).click();
+  await expect(page.getByRole("status")).toContainText("Thank you");
+  expect(sent).toMatchObject({ rating: 1, message: "The tests were too easy for me.", mayQuote: false });
+});
+
 test("a member gets a Dashboard link in the main menu, and a visitor does not", async ({ page, isMobile }) => {
   test.skip(isMobile, "the text menu is the desktop navigation");
   const nav = page.getByRole("navigation", { name: "Main" });
