@@ -1770,6 +1770,46 @@
    "deadline": "2027-01-15",
    "posted": "2026-11-17",
    "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000064593"
+  },
+  "2000064595": {
+   "id": "2000064595",
+   "employer": "Arcadis",
+   "title": "Apprentice Quantity Surveyor",
+   "level": "6",
+   "location": "Manchester M1",
+   "deadline": "2027-01-15",
+   "posted": "2026-11-17",
+   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000064595"
+  },
+  "2000064626": {
+   "id": "2000064626",
+   "employer": "PA Consulting",
+   "title": "2027 Apprentice - Digital (Software Development)",
+   "level": "6",
+   "location": "London SW1E +1 more",
+   "deadline": "2026-12-21",
+   "posted": "2026-11-17",
+   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000064626"
+  },
+  "2000064632": {
+   "id": "2000064632",
+   "employer": "PA Consulting",
+   "title": "2027 Apprentice - Human Insight Social Research",
+   "level": "6",
+   "location": "London SW1E",
+   "deadline": "2026-12-11",
+   "posted": "2026-11-17",
+   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000064632"
+  },
+  "2000064647": {
+   "id": "2000064647",
+   "employer": "Arcadis",
+   "title": "Apprentice Project Controls Consultant",
+   "level": "6",
+   "location": "Birmingham B3",
+   "deadline": "2027-01-15",
+   "posted": "2026-11-17",
+   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000064647"
   }
  }
 }

@@ -73,7 +73,7 @@
   },
   "https://opportunities.vodafone.com/job/Register-Your-Interest-Group-UK-Early-Careers-Programmes-2027/1435738733/": {
    "name": "Vodafone",
-   "checked": "2026-11-16",
+   "checked": "2026-11-17",
    "signals": [
     "Register Your Interest: Group UK Early Careers Programmes 2027* Job Details | Vodafone",
     "Register Your Interest: Group UK Early Careers Programmes 2027*",
@@ -666,7 +666,12 @@
   "https://db.recsolu.com/jobs/PzcMmhBPdA4zqOOh4pweDQ?locale=en": {
    "name": "deutsche-bank",
    "checked": "2026-11-17",
-   "signals": []
+   "signals": [
+    "Deutsche Bank Apprenticeship Programme - Investment Banking & Capital Markets - London - 2026",
+    "Please note that to apply for our 2026 Apprenticeship Programme you must graduate from sixth form (school, academy, or college) in 2026 or have graduated in the last 12 months (i.e., in 2025).",
+    "The deadline for submitting applications is Sunday 22nd February 2026, 11:59PM GMT.",
+    "Please note we hire on a rolling basis, and we may close the role prior to the deadline if we receive a significant number of applications. If the role is due to close early, the deadline will be updated 48 hours in advance. Please apply early to ensure your application is considered."
+   ]
   },
   "https://careers.db.com/School-leavers-uk/tdi-apprenticeship-programme/": {
    "name": "deutsche-bank",
