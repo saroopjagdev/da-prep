@@ -1,16 +1,6 @@
 {
- "checked": "2026-11-16",
+ "checked": "2026-11-17",
  "jobs": {
-  "2000026593": {
-   "id": "2000026593",
-   "employer": "C C GEOTECHNICAL LTD ",
-   "title": "Civil Engineering Apprenticeship",
-   "level": "6",
-   "location": "DELTIC WAY L33",
-   "deadline": "2027-03-15",
-   "posted": "2026-09-23",
-   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000026593"
-  },
   "2000050834": {
    "id": "2000050834",
    "employer": "WM MORRISON SUPERMARKETS P L C",
@@ -120,16 +110,6 @@
    "deadline": "2027-02-21",
    "posted": "2026-10-13",
    "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000056706"
-  },
-  "2000056924": {
-   "id": "2000056924",
-   "employer": "ForGood.Tech",
-   "title": "Digital Technology Apprentice (ForGood.Tech)",
-   "level": "6",
-   "location": "Rugeley WS15",
-   "deadline": "2026-11-21",
-   "posted": "2026-10-06",
-   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000056924"
   },
   "2000057112": {
    "id": "2000057112",
@@ -1231,16 +1211,6 @@
    "posted": "2026-11-09",
    "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000063227"
   },
-  "2000063233": {
-   "id": "2000063233",
-   "employer": "Yunex Traffic",
-   "title": "Degree Apprentice - Data Analytics Engineer",
-   "level": "6",
-   "location": "CHRISTCHURCH BH23",
-   "deadline": "2026-12-31",
-   "posted": "2026-11-09",
-   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000063233"
-  },
   "2000063275": {
    "id": "2000063275",
    "employer": "AMAZON UK SERVICES LTD.",
@@ -1450,16 +1420,6 @@
    "deadline": "2027-02-01",
    "posted": "2026-11-12",
    "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000063853"
-  },
-  "2000063863": {
-   "id": "2000063863",
-   "employer": "EN:Able Futures CIC",
-   "title": "Apprentice Procurement & Quantity Surveying Officer",
-   "level": "6",
-   "location": "Carbrook S9",
-   "deadline": "2026-12-20",
-   "posted": "2026-11-11",
-   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000063863"
   },
   "2000063890": {
    "id": "2000063890",
@@ -1700,6 +1660,116 @@
    "deadline": "2026-12-31",
    "posted": "2026-11-16",
    "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000064285"
+  },
+  "2000064315": {
+   "id": "2000064315",
+   "employer": "Network Rail",
+   "title": "Level 6 Project Management Apprenticeship",
+   "level": "6",
+   "location": "York YO1",
+   "deadline": "2026-12-21",
+   "posted": "2026-11-16",
+   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000064315"
+  },
+  "2000064420": {
+   "id": "2000064420",
+   "employer": "FGP Surveyors Limited",
+   "title": "Geospatial Mapping and Science Apprenticeship Degree (Level 6)",
+   "level": "6",
+   "location": "KNUTSFORD WA16",
+   "deadline": "2027-04-01",
+   "posted": "2026-11-17",
+   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000064420"
+  },
+  "2000064423": {
+   "id": "2000064423",
+   "employer": "FGP Surveyors Limited",
+   "title": "MProf Rural Practice Chartered Surveyor Degree Apprenticeship and Pathways to MRICS 50:50 Eng/Edinbu",
+   "level": "6",
+   "location": "KNUTSFORD WA16",
+   "deadline": "2027-04-01",
+   "posted": "2026-11-17",
+   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000064423"
+  },
+  "2000064489": {
+   "id": "2000064489",
+   "employer": "BAM NUTTALL LIMITED",
+   "title": "Civil Engineering Technical Apprenticeship 2027 - Social Infrastructure -  North East",
+   "level": "6",
+   "location": "Newcastle Business Park NE4",
+   "deadline": "2027-01-03",
+   "posted": "2026-11-17",
+   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000064489"
+  },
+  "2000064499": {
+   "id": "2000064499",
+   "employer": "BAM NUTTALL LIMITED",
+   "title": "Civil Engineering Technical Apprenticeship 2027 - HS2 - EKFB",
+   "level": "6",
+   "location": "Calvert MK18",
+   "deadline": "2027-01-03",
+   "posted": "2026-11-17",
+   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000064499"
+  },
+  "2000064533": {
+   "id": "2000064533",
+   "employer": "BAM NUTTALL LIMITED",
+   "title": "Civil Engineering Technical Apprenticeship 2027 - Social Infrastructure -  Southern England",
+   "level": "6",
+   "location": "national",
+   "deadline": "2027-01-03",
+   "posted": "2026-11-17",
+   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000064533"
+  },
+  "2000064541": {
+   "id": "2000064541",
+   "employer": "Arcadis",
+   "title": "Apprentice Quantity Surveyor",
+   "level": "6",
+   "location": "Birmingham B3",
+   "deadline": "2027-01-15",
+   "posted": "2026-11-17",
+   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000064541"
+  },
+  "2000064544": {
+   "id": "2000064544",
+   "employer": "BAM NUTTALL LIMITED",
+   "title": "Civil Engineering Technical Apprenticeship 2027 - Social Infrastructure -  Cornwall/Devon",
+   "level": "6",
+   "location": "national",
+   "deadline": "2027-01-03",
+   "posted": "2026-11-17",
+   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000064544"
+  },
+  "2000064560": {
+   "id": "2000064560",
+   "employer": "BAM CONSTRUCT UK LIMITED",
+   "title": "Civil Engineering Technical Apprenticeship 2027 - Midlands",
+   "level": "6",
+   "location": "FORE 2, 2, Huskisson Way B90",
+   "deadline": "2027-01-03",
+   "posted": "2026-11-17",
+   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000064560"
+  },
+  "2000064590": {
+   "id": "2000064590",
+   "employer": "Arcadis",
+   "title": "Apprentice Quantity Surveyor",
+   "level": "6",
+   "location": "Bristol BS2",
+   "deadline": "2027-01-15",
+   "posted": "2026-11-17",
+   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000064590"
+  },
+  "2000064593": {
+   "id": "2000064593",
+   "employer": "Arcadis",
+   "title": "Apprentice Quantity Surveyor",
+   "level": "6",
+   "location": "London EC3M",
+   "deadline": "2027-01-15",
+   "posted": "2026-11-17",
+   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000064593"
   }
  }
 }

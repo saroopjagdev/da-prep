@@ -1,5 +1,5 @@
 {
- "checked": "2026-11-16",
+ "checked": "2026-11-17",
  "jobs": {
   "2873ca67-31b3-48af-809c-0a51a7e62695": {
    "id": "2873ca67-31b3-48af-809c-0a51a7e62695",
@@ -178,7 +178,7 @@
    "level": "6",
    "location": "Bristol, Leeds, Halifax",
    "deadline": "2026-12-01",
-   "status": "open",
+   "status": "closing_soon",
    "apply": "https://lbg.wd3.myworkdayjobs.com/LBG_Careers/job/Bristol/Accounting-and-Finance-Degree-Apprenticeship---Bristol_164870"
   },
   "6e996820-6ecc-48ab-a758-71ef8f605fe8": {
