@@ -1,6 +1,136 @@
 {
- "checked": "2026-11-17",
+ "checked": "2026-11-18",
  "jobs": {
+  "7f949662-465a-43cb-a95e-1216afb54e93": {
+   "id": "7f949662-465a-43cb-a95e-1216afb54e93",
+   "employer": "PA Consulting",
+   "title": "Data Science Degree Apprenticeship 2027",
+   "level": "6",
+   "location": "London, Belfast",
+   "deadline": "",
+   "status": "open",
+   "apply": "https://www.paconsulting.com/careers/early-careers/uk-apprenticeships"
+  },
+  "6b8e4ccf-a2ea-4bb3-b599-e404bbc874de": {
+   "id": "6b8e4ccf-a2ea-4bb3-b599-e404bbc874de",
+   "employer": "PA Consulting",
+   "title": "Digital Software Degree Apprenticeship 2027",
+   "level": "6",
+   "location": "London, Belfast, Manchester",
+   "deadline": "",
+   "status": "open",
+   "apply": "https://www.paconsulting.com/careers/early-careers/uk-apprenticeships"
+  },
+  "1486db83-99a7-4a3f-9f55-0616fd965946": {
+   "id": "1486db83-99a7-4a3f-9f55-0616fd965946",
+   "employer": "Stantec",
+   "title": "Degree Apprentice Civil and Structural Engineer 2027",
+   "level": "6",
+   "location": "Multiple UK locations",
+   "deadline": "",
+   "status": "open",
+   "apply": "https://stantec.jobs/campaigns/apprenticeships/jobs/"
+  },
+  "67ab411b-e569-48a8-a4f6-18b4df3895da": {
+   "id": "67ab411b-e569-48a8-a4f6-18b4df3895da",
+   "employer": "Thales",
+   "title": "2027 Integration and Testing Engineering Degree Apprenticeship",
+   "level": "6",
+   "location": "Crawley",
+   "deadline": "2027-02-17",
+   "status": "open",
+   "apply": "https://thales.wd3.myworkdayjobs.com/Careers/job/Crawley/XMLNAME-2027-Integration-and-Testing-Production-Repair-Engineering-Apprentice---Level-6-Electrical-and-Electronic-Engineering_R0337723"
+  },
+  "0592b3f4-93dd-49aa-93fb-70813f07c846": {
+   "id": "0592b3f4-93dd-49aa-93fb-70813f07c846",
+   "employer": "Oliver Wyman",
+   "title": "Data & Analytics Degree Apprenticeship 2027",
+   "level": "6",
+   "location": "Newcastle",
+   "deadline": "2027-03-12",
+   "status": "open",
+   "apply": "https://mmc.wd1.myworkdayjobs.com/MMC/job/Newcastle---Bank/Oliver-Wyman---Data---Analytics-Apprenticeship-2027---Newcastle_R_369738-1"
+  },
+  "95ded116-90a7-4f41-a3c9-223b6682b56f": {
+   "id": "95ded116-90a7-4f41-a3c9-223b6682b56f",
+   "employer": "Forsters",
+   "title": "Solicitor Apprenticeship 2027",
+   "level": "7",
+   "location": "London",
+   "deadline": "2027-02-01",
+   "status": "open",
+   "apply": "https://forsters.grad.allhires.com/app/"
+  },
+  "ad8860a5-9b10-4cde-a180-4e0a22fbe256": {
+   "id": "ad8860a5-9b10-4cde-a180-4e0a22fbe256",
+   "employer": "Mills & Reeve",
+   "title": "Solicitor Degree Apprenticeship 2027",
+   "level": "7",
+   "location": "Birmingham, Manchester, Norwich",
+   "deadline": "2027-02-18",
+   "status": "open",
+   "apply": "https://www.mills-reeve.com/careers/emerging-talent-be-part-of-it/solicitor-degree-apprenticeships/"
+  },
+  "d8e13189-ee40-498c-985d-62e96c0b9796": {
+   "id": "d8e13189-ee40-498c-985d-62e96c0b9796",
+   "employer": "Bird & Bird",
+   "title": "Solicitor Apprenticeship Programme 2027",
+   "level": "7",
+   "location": "London",
+   "deadline": "2027-01-29",
+   "status": "open",
+   "apply": "https://www.twobirds.com/en/careers/united-kingdom/early-careers/solicitor-apprenticeship-programme"
+  },
+  "bb9096e1-7e25-43e9-b7d1-a8e3387bfde7": {
+   "id": "bb9096e1-7e25-43e9-b7d1-a8e3387bfde7",
+   "employer": "Stephenson Harwood",
+   "title": "Solicitor Apprenticeship 2027",
+   "level": "7",
+   "location": "London",
+   "deadline": "2027-02-15",
+   "status": "open",
+   "apply": "https://www.shlegal.com/careers/early-careers/"
+  },
+  "03002ca0-bba3-4b61-b258-7c383c54146f": {
+   "id": "03002ca0-bba3-4b61-b258-7c383c54146f",
+   "employer": "Reed Smith",
+   "title": "Solicitor Apprenticeship 2027",
+   "level": "7",
+   "location": "London",
+   "deadline": "2027-01-08",
+   "status": "open",
+   "apply": "https://www.reedsmith.com/join-us/united-kingdom/solicitor-apprenticeships/"
+  },
+  "7c286d04-5513-4989-8bf6-8fcf4bf49cac": {
+   "id": "7c286d04-5513-4989-8bf6-8fcf4bf49cac",
+   "employer": "Dentons",
+   "title": "Solicitor Apprenticeship 2027",
+   "level": "7",
+   "location": "London, Milton Keynes",
+   "deadline": "2026-12-18",
+   "status": "open",
+   "apply": "https://ukime-earlycareers.dentons.com/p/10"
+  },
+  "e310cba4-c505-43b8-9c4c-dc93cecb2898": {
+   "id": "e310cba4-c505-43b8-9c4c-dc93cecb2898",
+   "employer": "Eversheds Sutherland",
+   "title": "UK Solicitor Apprenticeship 2027",
+   "level": "7",
+   "location": "London, Birmingham, Manchester, Leeds",
+   "deadline": "2027-01-25",
+   "status": "open",
+   "apply": "https://www.eversheds-sutherland.com/en/united-kingdom/careers/careers-page/students-and-recent-graduates/apprenticeships"
+  },
+  "5adf4841-d003-4707-8b9c-8c1ec16a4f61": {
+   "id": "5adf4841-d003-4707-8b9c-8c1ec16a4f61",
+   "employer": "Slaughter and May",
+   "title": "Solicitor Apprenticeship Programme 2027",
+   "level": "7",
+   "location": "London",
+   "deadline": "2027-01-06",
+   "status": "open",
+   "apply": "https://joinus.slaughterandmay.com/V2/Vacancy"
+  },
   "2873ca67-31b3-48af-809c-0a51a7e62695": {
    "id": "2873ca67-31b3-48af-809c-0a51a7e62695",
    "employer": "Accenture",
@@ -370,136 +500,6 @@
    "deadline": "2027-01-13",
    "status": "open",
    "apply": "https://www.pwc.co.uk/careers/early-careers/entry-level/flying-start.html"
-  },
-  "55b1a553-17e9-4a1f-8d9a-0fb277c8063d": {
-   "id": "55b1a553-17e9-4a1f-8d9a-0fb277c8063d",
-   "employer": "EY",
-   "title": "Audit Apprenticeship Programme 2027",
-   "level": "7",
-   "location": "Multiple UK locations",
-   "deadline": "",
-   "status": "open",
-   "apply": "https://ukstudents.ey.com/"
-  },
-  "40730a88-3b4a-4d19-8006-cd67eaa321b6": {
-   "id": "40730a88-3b4a-4d19-8006-cd67eaa321b6",
-   "employer": "KPMG",
-   "title": "2027 Tax Apprenticeship",
-   "level": "7",
-   "location": "Reading, Bristol, Glasgow",
-   "deadline": "",
-   "status": "open",
-   "apply": "https://www.kpmgcareers.co.uk/Vacancies/apprenticeshipstaxapprenticeshipreadingautumn2027/c64431b0-934c-5407-5f5b-7afe72394d87"
-  },
-  "574b6df9-1012-4022-8cb9-ce2257d79d69": {
-   "id": "574b6df9-1012-4022-8cb9-ce2257d79d69",
-   "employer": "KPMG",
-   "title": "2027 Audit Apprenticeship",
-   "level": "7",
-   "location": "Multiple UK locations",
-   "deadline": "",
-   "status": "open",
-   "apply": "https://www.kpmgcareers.co.uk/Vacancies/apprenticeshipsauditapprenticeshiplondonautumn2027/638ea412-944f-86c7-dff0-85e72feb1095"
-  },
-  "5972dfb9-03bc-4a6a-89f2-8fe4a459074e": {
-   "id": "5972dfb9-03bc-4a6a-89f2-8fe4a459074e",
-   "employer": "Airbus",
-   "title": "Supply Chain (Business Degree) Apprenticeship",
-   "level": "6",
-   "location": "Broughton, North Wales, United Kingdom",
-   "deadline": "2027-01-04",
-   "status": "open",
-   "apply": "https://ag.wd3.myworkdayjobs.com/en-US/Airbus/job/Broughton/Supply-Chain--Business-Degree--Apprenticeship_JR10427958"
-  },
-  "7d5b189a-5863-428d-9914-ede0bf0e4a0f": {
-   "id": "7d5b189a-5863-428d-9914-ede0bf0e4a0f",
-   "employer": "Airbus",
-   "title": "Customer Service Engineering Degree Apprenticeship",
-   "level": "6",
-   "location": "Filton, Bristol, United Kingdom",
-   "deadline": "2027-01-04",
-   "status": "open",
-   "apply": "https://ag.wd3.myworkdayjobs.com/en-US/Airbus/job/Bristol-Area/Customer-Service-Engineering-Degree-Apprenticeship_JR10429178"
-  },
-  "d3a53418-380a-441e-8bed-5d42adbf3f41": {
-   "id": "d3a53418-380a-441e-8bed-5d42adbf3f41",
-   "employer": "Goldman Sachs",
-   "title": "2027 | EMEA | London | FICC & Equities, Sales & Trading | Apprentice Programme",
-   "level": "6",
-   "location": "London, Greater London, England, United Kingdom",
-   "deadline": "",
-   "status": "open",
-   "apply": "https://higher.gs.com/roles/174813"
-  },
-  "ea07090d-b17a-4f87-b6ef-2f24d681cf41": {
-   "id": "ea07090d-b17a-4f87-b6ef-2f24d681cf41",
-   "employer": "Goldman Sachs",
-   "title": "2027 | EMEA | Birmingham | Engineering | Apprentice Programme",
-   "level": "6",
-   "location": "Birmingham, West Midlands, England, United Kingdom",
-   "deadline": "",
-   "status": "open",
-   "apply": "https://higher.gs.com/roles/174815"
-  },
-  "fbbdf01e-73bc-406e-9cf8-7d96d005948f": {
-   "id": "fbbdf01e-73bc-406e-9cf8-7d96d005948f",
-   "employer": "Goldman Sachs",
-   "title": "2027 | EMEA | London | Engineering | Apprentice Programme",
-   "level": "6",
-   "location": "London, Greater London, England, United Kingdom",
-   "deadline": "",
-   "status": "open",
-   "apply": "https://higher.gs.com/roles/174814"
-  },
-  "11208ba4-70bd-49ab-8c7b-667ca1f0cfa2": {
-   "id": "11208ba4-70bd-49ab-8c7b-667ca1f0cfa2",
-   "employer": "TLT",
-   "title": "Legal Solicitor Apprenticeship 2027",
-   "level": "7",
-   "location": "Bristol / London / Manchester / Birmingham, United Kingdom",
-   "deadline": "2027-02-21",
-   "status": "open",
-   "apply": "https://www.tlt.com/careers/"
-  },
-  "e5cd589e-aff8-4c9c-a7a8-476a76c009fc": {
-   "id": "e5cd589e-aff8-4c9c-a7a8-476a76c009fc",
-   "employer": "Weightmans",
-   "title": "Solicitor Degree Apprenticeship",
-   "level": "7",
-   "location": "",
-   "deadline": "",
-   "status": "open",
-   "apply": "https://www.weightmans.com/careers/early-careers/apprenticeships/"
-  },
-  "9eb4c1b7-e018-4066-bf72-372c1972861f": {
-   "id": "9eb4c1b7-e018-4066-bf72-372c1972861f",
-   "employer": "Grant Thornton",
-   "title": "Financial Services Audit School Leaver Programme",
-   "level": "6",
-   "location": "London, United Kingdom",
-   "deadline": "",
-   "status": "open",
-   "apply": "https://www.grantthornton.co.uk/careers/early-careers-job-search/?jobPostingGrouping=Apprenticeship#career-results"
-  },
-  "c844bf5d-f456-4482-8a98-63f320f21e66": {
-   "id": "c844bf5d-f456-4482-8a98-63f320f21e66",
-   "employer": "Grant Thornton",
-   "title": "IT Audit School Leaver Programme",
-   "level": "6",
-   "location": "London, United Kingdom",
-   "deadline": "",
-   "status": "open",
-   "apply": "https://www.grantthornton.co.uk/careers/early-careers-job-search/?jobPostingGrouping=Apprenticeship#career-results"
-  },
-  "ed50727d-1ef0-4929-ab9e-b723c806c50d": {
-   "id": "ed50727d-1ef0-4929-ab9e-b723c806c50d",
-   "employer": "Grant Thornton",
-   "title": "Not for Profit Audit School Leaver Programme",
-   "level": "6",
-   "location": "London, Birmingham, United Kingdom",
-   "deadline": "",
-   "status": "open",
-   "apply": "https://www.grantthornton.co.uk/careers/early-careers-job-search/?jobPostingGrouping=Apprenticeship#career-results"
   },
   "5fc93154-198e-4883-a21e-daaa6b6a120b": {
    "id": "5fc93154-198e-4883-a21e-daaa6b6a120b",
