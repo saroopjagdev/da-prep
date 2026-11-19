@@ -256,7 +256,7 @@ export default function Pricing() {
             <thead className="bg-navy/5 text-xs uppercase tracking-wide text-muted">
               <tr>
                 <th scope="col" className="px-3 py-2">
-                  &nbsp;
+                  What you get
                 </th>
                 <th scope="col" className="px-3 py-2">
                   Free
