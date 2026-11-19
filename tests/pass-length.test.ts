@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { PASS_PLAN, PASS_SAVING_PENCE, passEnds, passSavingText } from "@/lib/plans";
+import { PASS_PER_MONTH_PENCE, PASS_PLAN, PASS_SAVING_PENCE, passEnds, passSavingText } from "@/lib/plans";
 
 describe("how long a Season Pass lasts", () => {
   it("is six months from the moment it was bought", () => {
@@ -25,5 +25,9 @@ describe("what the Season Pass saves", () => {
     expect(PASS_SAVING_PENCE).toBe(2094);
     expect(passSavingText()).toContain("£20.94");
     expect(passSavingText()).toContain("£9.99 a month for 6 months");
+  });
+
+  it("works out at £6.50 a month over its six months", () => {
+    expect(PASS_PER_MONTH_PENCE).toBe(650);
   });
 });

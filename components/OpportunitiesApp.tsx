@@ -159,6 +159,9 @@ export default function OpportunitiesApp({ rows }: { rows: OpportunityRow[] }) {
   const grouped = sector === "all" ? [...filtered].sort((a, b) => rank(a) - rank(b)) : filtered;
   const perSector = new Map<SectorId, number>();
   for (const r of grouped) perSector.set(groupOf(r), (perSector.get(groupOf(r)) ?? 0) + 1);
+  // How many in each group are open now, so a long group says whether it is worth opening.
+  const openPerSector = new Map<SectorId, number>();
+  for (const r of grouped) if (r.status === "open") openPerSector.set(groupOf(r), (openPerSector.get(groupOf(r)) ?? 0) + 1);
   const closingSoon = apps.filter((a) => {
     if (!a.deadline || a.status !== "Interested") return false;
     const days = (Date.parse(a.deadline) - Date.parse(today)) / 86_400_000;
@@ -383,7 +386,12 @@ export default function OpportunitiesApp({ rows }: { rows: OpportunityRow[] }) {
                           <span aria-hidden className="inline-block w-3 text-xs">
                             {folded ? "▸" : "▾"}
                           </span>
-                          {SECTOR_BY_ID[groupOf(r)].name} <span className="font-normal text-muted">({perSector.get(groupOf(r))})</span>
+                          {SECTOR_BY_ID[groupOf(r)].name}{" "}
+                          <span className="font-normal text-muted">
+                            ({perSector.get(groupOf(r))}
+                            {(openPerSector.get(groupOf(r)) ?? 0) > 0 && ` · ${openPerSector.get(groupOf(r))} open`})
+                            {(openPerSector.get(groupOf(r)) ?? 0) === 0 && ")"}
+                          </span>
                         </button>
                       </th>
                     </tr>

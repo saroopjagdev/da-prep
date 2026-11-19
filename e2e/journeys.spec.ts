@@ -231,7 +231,7 @@ for (const path of PAGES) {
 test("related pages share tabs: tests and feedback", async ({ page }) => {
   await signedIn(page);
   await page.goto("/practice");
-  await page.getByRole("navigation", { name: "Practice tests" }).getByRole("link", { name: "Employer replicas" }).click();
+  await page.getByRole("navigation", { name: "Practice tests" }).getByRole("link", { name: "Employer-style tests" }).click();
   await expect(page).toHaveURL(/\/tests$/);
   await page.goto("/cv");
   await page.getByRole("navigation", { name: "CV and statement review" }).getByRole("link", { name: "Statement and answers" }).click();
@@ -934,6 +934,34 @@ test("the plans page puts the payment form first, with who Pro is for and the fe
   const pay = (await page.getByRole("heading", { name: "Before you pay" }).boundingBox())!;
   // The payment form used to sit below these; it now comes straight after the plan cards so the way to buy is not buried.
   expect(pay.y).toBeLessThan(example.y);
+});
+
+test("plans: a short comparison of Free and Pro sits under the payment form", async ({ page }) => {
+  await page.goto("/pricing");
+  const table = page.getByRole("table", { name: "Free and Pro compared" });
+  await expect(table).toBeVisible();
+  await expect(table.getByRole("row", { name: /Firm mock processes/ })).toContainText("Not included");
+  await expect(page.getByRole("heading", { name: "Questions" })).toBeVisible();
+  await expect(page.locator("main details")).toHaveCount(3);
+});
+
+test("practice tests are grouped by provider, every test is still listed, and the jargon is gone", async ({ page }) => {
+  await page.goto("/tests");
+  await expect(page.getByRole("heading", { level: 1, name: "Employer-style practice tests" })).toBeVisible();
+  await expect(page.getByRole("heading", { level: 2, name: "SHL Verify style" })).toBeVisible();
+  await expect(page.getByRole("heading", { level: 2, name: "Situational judgement" })).toBeVisible();
+  expect(await page.getByRole("link", { name: "Start", exact: true }).count()).toBeGreaterThanOrEqual(20);
+  await expect(page.getByText("Same format as:").first()).toBeVisible();
+  await expect(page.getByText(/Replicates:/)).toHaveCount(0);
+});
+
+test("an employer guide has an On this page list that jumps to its sections", async ({ page }) => {
+  await page.goto("/employers/barclays");
+  const toc = page.getByRole("navigation", { name: "On this page" });
+  await expect(toc.getByRole("link", { name: "Process" })).toBeVisible();
+  await toc.getByRole("link", { name: "Process" }).click();
+  await expect(page).toHaveURL(/#process$/);
+  await expect(page.locator("#process")).toBeVisible();
 });
 
 test("a free member sees which tracker links lead to Pro", async ({ page }) => {

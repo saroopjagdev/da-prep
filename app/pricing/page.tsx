@@ -7,24 +7,37 @@ import ParentShare from "@/components/ParentShare";
 import StudentComments from "@/components/StudentComments";
 import { postJson } from "@/lib/api";
 import { track } from "@/lib/funnel";
-import { BONUS_EXTRA, FREE_GAMES, FREE_INTERVIEWS, FREE_PRACTICE, FREE_REVIEWS, FREE_STORIES, PASS_PLAN, PASS_SAVING_PENCE, PRO_PLAN, passOffered, passSavingText } from "@/lib/plans";
+import {
+  BONUS_EXTRA,
+  FREE_GAMES,
+  FREE_INTERVIEWS,
+  FREE_PRACTICE,
+  FREE_REVIEWS,
+  FREE_STORIES,
+  PASS_PER_MONTH_PENCE,
+  PASS_PLAN,
+  PASS_SAVING_PENCE,
+  PRO_PLAN,
+  passOffered,
+} from "@/lib/plans";
 import { supabase } from "@/lib/supabase";
 
-const FREE = [
-  `${FREE_PRACTICE} practice test`,
-  `${FREE_REVIEWS} CV, cover letter or statement review`,
-  `${FREE_INTERVIEWS} AI mock interview, marked out of 100 with feedback`,
-  `${FREE_GAMES} practice game round and ${FREE_STORIES} AI-drafted STAR story`,
+const pounds = (pence: number) => `£${(pence / 100).toFixed(2)}`;
+
+// The cards say the point in a line each; the detail sits in the comparison table below them.
+const FREE_POINTS = [
+  "Your own tracker and deadline emails",
+  `${FREE_PRACTICE} practice test, ${FREE_INTERVIEWS} marked mock interview, ${FREE_REVIEWS} CV review, ${FREE_GAMES} game round and ${FREE_STORIES} AI-drafted story`,
   `${BONUS_EXTRA} more of each when you do any two of: apply through the tracker, take a mock interview, start a practice test`,
-  "Your own tracker, saved and synced",
-  "Your scores and progress, kept for you",
 ];
-const PRO = [
-  "Unlimited practice tests and practice games",
-  "Unlimited AI mock interviews, within fair-use limits (up to 25 marked interviews a day)",
-  "Every firm mock process, stage by stage",
-  "CV and statement review and AI-drafted STAR stories, within fair-use limits (up to 40 a day)",
-  "Everything in Free",
+const PRO_POINTS = ["Unlimited practice tests and games", "AI mock interviews and CV reviews, within fair use", "Every firm mock process, stage by stage"];
+const COMPARE: [string, string, string][] = [
+  ["Tracker, deadline emails, employer guides", "Included", "Included"],
+  ["Practice tests", `${FREE_PRACTICE} (+${BONUS_EXTRA})`, "Unlimited"],
+  ["Mock interviews, marked out of 100", `${FREE_INTERVIEWS} (+${BONUS_EXTRA})`, "Up to 25 a day"],
+  ["CV and statement reviews, AI stories", `${FREE_REVIEWS} (+${BONUS_EXTRA})`, "Up to 40 a day"],
+  ["Practice games", `${FREE_GAMES} (+${BONUS_EXTRA})`, "Unlimited"],
+  ["Firm mock processes", "Not included", "Included"],
 ];
 
 // Pre-contract information and the cancellation wording are a draft for legal review before launch (docs/LAUNCH.md).
@@ -69,6 +82,7 @@ export default function Pricing() {
   }, [user]);
 
   const ready = startNow && acceptTerms;
+  const pass = choice === "pass" && passOffered();
 
   async function checkout() {
     setError("");
@@ -100,7 +114,7 @@ export default function Pricing() {
     <div className="mx-auto max-w-3xl space-y-6">
       <div className="space-y-2">
         <h1 className="page-title">Plans</h1>
-        <p className="lead">Start free: track your applications and try each tool. Go Pro when you have specific employers to prepare for.</p>
+        <p className="lead">Start free. Go Pro when you have specific employers to prepare for.</p>
       </div>
       {success && (
         <p role="status" className="callout bg-mint-50 text-mint-600">
@@ -108,39 +122,53 @@ export default function Pricing() {
         </p>
       )}
 
+      {passOffered() && (
+        <fieldset>
+          <legend className="sr-only">Choose how to pay for Pro</legend>
+          <div className="inline-flex rounded-xl border border-line bg-white p-1 text-sm" role="radiogroup" aria-label="Choose how to pay for Pro">
+            {(
+              [
+                ["pass", `${PASS_PLAN.name} · ${PASS_PLAN.lengthText}`],
+                ["monthly", "Monthly"],
+              ] as const
+            ).map(([k, label]) => (
+              <label key={k} className={`flex cursor-pointer items-center gap-2 rounded-lg px-4 py-1.5 font-semibold focus-within:ring-2 focus-within:ring-brand-500 ${choice === k ? "bg-brand-600 text-white" : "text-ink/75 hover:text-ink"}`}>
+                <input type="radio" name="plan" className="sr-only" checked={choice === k} onChange={() => setChoice(k)} />
+                {label}
+                {k === "pass" && <span className={`rounded px-1.5 py-0.5 text-[10px] font-bold uppercase ${choice === k ? "bg-white/20" : "bg-sun-50 text-sun-700"}`}>Best value</span>}
+              </label>
+            ))}
+          </div>
+        </fieldset>
+      )}
+
       <div className="grid gap-4 sm:grid-cols-2">
         <section className="card space-y-2 p-4">
           <h2 className="font-semibold">Free account</h2>
           <p className="text-2xl font-bold">£0</p>
-          <p className="text-sm text-muted">Needs an email address, no card. These are yours to use in total; they do not renew. The list of who is open and the employer guides need no account; the tracker needs a free one.</p>
-          <ul className="list-disc pl-5 text-sm">
-            {FREE.map((f) => (
+          <p className="text-sm text-muted">No card. Yours to use in total, not renewed each month.</p>
+          <ul className="list-disc space-y-1 pl-5 text-sm">
+            {FREE_POINTS.map((f) => (
               <li key={f}>{f}</li>
             ))}
           </ul>
         </section>
         <section className="card space-y-2 p-4 ring-2 ring-brand-500">
-          <h2 className="font-semibold">{PRO_PLAN.name}</h2>
-          <p className="text-2xl font-bold">{PRO_PLAN.price}</p>
-          <p className="text-sm text-muted">{PRO_PLAN.summary}</p>
-          <ul className="list-disc pl-5 text-sm">
-            {PRO.map((f) => (
+          <h2 className="font-semibold">{pass ? `Pro · ${PASS_PLAN.name}` : "Pro"}</h2>
+          <p className="text-2xl font-bold">{pass ? `${PASS_PLAN.price} once` : PRO_PLAN.price}</p>
+          <p className="text-sm text-muted">
+            {pass
+              ? `About ${pounds(PASS_PER_MONTH_PENCE)} a month for ${PASS_PLAN.lengthText}. Saves ${pounds(PASS_SAVING_PENCE)} against monthly. No renewal, so nothing to cancel.`
+              : "Renews every month until you cancel. Pro stays on until the end of the month you've paid for."}
+          </p>
+          <ul className="list-disc space-y-1 pl-5 text-sm">
+            {PRO_POINTS.map((f) => (
               <li key={f}>{f}</li>
             ))}
+            <li>Everything in Free</li>
           </ul>
         </section>
       </div>
-      {passOffered() && (
-        <section className="card space-y-1 border-l-4 border-brand-600 p-4" aria-labelledby="pass">
-          <p className="text-xs font-semibold uppercase tracking-wide text-brand-600">Best value for one application season</p>
-          <h2 id="pass" className="text-lg font-semibold">
-            {PASS_PLAN.name}: {PASS_PLAN.price} once
-          </h2>
-          <p className="text-sm">
-            Everything in Pro for {PASS_PLAN.lengthText}, from the day you buy it. No renewal, so there is nothing to cancel. {passSavingText()}
-          </p>
-        </section>
-      )}
 
       {plan === "pro" ? (
         <section className="card space-y-2 p-4">
@@ -172,31 +200,11 @@ export default function Pricing() {
           <h2 id="before-you-pay" className="text-lg font-semibold">
             Before you pay
           </h2>
-          {passOffered() && (
-            <fieldset className="grid gap-2 sm:grid-cols-2">
-              <legend className="sr-only">Choose how to pay</legend>
-              {(
-                [
-                  ["pass", `${PASS_PLAN.name}: ${PASS_PLAN.price}`, `One payment, Pro for ${PASS_PLAN.lengthText}. No renewal. Saves £${(PASS_SAVING_PENCE / 100).toFixed(2)}.`],
-                  ["monthly", `${PRO_PLAN.name}: ${PRO_PLAN.price}`, "Renews every month. Cancel any time."],
-                ] as const
-              ).map(([k, title, sub]) => (
-                <label key={k} className={`flex cursor-pointer items-start gap-2 rounded-xl border p-3 text-sm ${choice === k ? "border-brand-600 bg-brand-50" : "border-line"}`}>
-                  <input type="radio" name="plan" className="mt-1 accent-brand-600" checked={choice === k} onChange={() => setChoice(k)} />
-                  <span>
-                    <span className="block font-semibold">{title}</span>
-                    <span className="block text-muted">{sub}</span>
-                  </span>
-                </label>
-              ))}
-            </fieldset>
-          )}
           <p className="text-sm">
-            {choice === "pass"
-              ? `${PASS_PLAN.name}: ${PASS_PLAN.price} once. ${PASS_PLAN.summary} Pro starts as soon as payment goes through.`
-              : `${PRO_PLAN.name}: ${PRO_PLAN.price}, renewing until you cancel. Pro starts as soon as payment goes through, and you can cancel any time from this page.`}{" "}
-            Full details, including your 14-day right to cancel and who you&apos;re buying
-            from, are in the{" "}
+            {pass
+              ? `${PASS_PLAN.name}: ${PASS_PLAN.price} once, Pro for ${PASS_PLAN.lengthText}, no renewal.`
+              : `${PRO_PLAN.name}: ${PRO_PLAN.price}, renewing until you cancel, which you can do any time from this page.`}{" "}
+            Pro starts as soon as payment goes through. Full details, including your 14-day right to cancel and who you&apos;re buying from, are in the{" "}
             <Link href="/terms" className="underline">
               terms
             </Link>
@@ -227,9 +235,10 @@ export default function Pricing() {
             </label>
           </fieldset>
           <button onClick={checkout} disabled={!ready || busy} className="btn btn-primary">
-            {busy ? "Opening secure payment…" : `Continue to payment: ${choice === "pass" ? PASS_PLAN.price : PRO_PLAN.price}`}
+            {busy ? "Opening secure payment…" : `Continue to payment: ${pass ? PASS_PLAN.price : PRO_PLAN.price}`}
           </button>
           {!ready && <p className="text-xs text-muted">Tick both boxes to continue.</p>}
+          <p className="text-xs text-muted">Secure payment by Stripe. 14-day right to cancel.</p>
           <div className="border-t border-line pt-3">
             <p className="mb-2 text-sm text-muted">Not paying yourself? Send a parent or guardian a short explanation.</p>
             <ParentShare />
@@ -237,29 +246,49 @@ export default function Pricing() {
         </section>
       )}
 
-      <section className="space-y-2" aria-labelledby="who">
+      <section className="space-y-2" aria-labelledby="compare">
+        <h2 id="compare" className="text-lg font-semibold">
+          What each plan includes
+        </h2>
+        <div className="overflow-x-auto rounded-xl border border-line">
+          <table className="w-full text-left text-sm">
+            <caption className="sr-only">Free and Pro compared</caption>
+            <thead className="bg-navy/5 text-xs uppercase tracking-wide text-muted">
+              <tr>
+                <th scope="col" className="px-3 py-2">
+                  What you get
+                </th>
+                <th scope="col" className="px-3 py-2">
+                  Free
+                </th>
+                <th scope="col" className="px-3 py-2">
+                  Pro
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              {COMPARE.map(([what, free, pro]) => (
+                <tr key={what} className="border-t border-line">
+                  <th scope="row" className="px-3 py-2 font-medium">
+                    {what}
+                  </th>
+                  <td className="px-3 py-2 text-muted">{free}</td>
+                  <td className="px-3 py-2 font-medium">{pro}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+        <p className="text-xs text-muted">(+{BONUS_EXTRA}) means that many more once you do any two of: apply through the tracker, take a mock interview, start a practice test.</p>
+      </section>
+
+      <section className="space-y-1" aria-labelledby="who">
         <h2 id="who" className="text-lg font-semibold">
           Is Pro for you?
         </h2>
-        <div className="grid gap-4 sm:grid-cols-2">
-          <div className="card space-y-1 p-4">
-            <p className="font-semibold">Free is enough if you are</p>
-            <ul className="list-disc pl-5 text-sm">
-              <li>still choosing which employers to go for</li>
-              <li>tracking deadlines and getting alerts</li>
-              <li>trying each tool once to see how it works</li>
-            </ul>
-          </div>
-          <div className="card space-y-1 p-4 ring-2 ring-brand-500">
-            <p className="font-semibold">Pro is for you if you</p>
-            <ul className="list-disc pl-5 text-sm">
-              <li>are applying to specific employers and want to run each one&apos;s real stages</li>
-              <li>have an online test, video interview or assessment centre coming up</li>
-              <li>want to redo answers until your score moves, not see one result</li>
-              <li>would rather pay for the weeks you need it: it is monthly and you can cancel any time</li>
-            </ul>
-          </div>
-        </div>
+        <p className="text-sm">
+          Free is plenty while you are choosing employers. Go Pro when you have an online test, video interview or assessment centre coming up and want to redo answers until your score moves.
+        </p>
       </section>
 
       <section className="card space-y-2 p-5" aria-labelledby="example">
@@ -281,7 +310,6 @@ export default function Pricing() {
             <strong>STAR check:</strong> Situation ✓ Task ✓ Action ✓ Result ✗
           </li>
         </ul>
-        <p className="text-sm text-muted">Free accounts get one marked mock interview. Pro gives you as many as you want.</p>
       </section>
 
       <StudentComments />
@@ -292,15 +320,8 @@ export default function Pricing() {
         </h2>
         {[
           ["Can I cancel?", "Yes, any time from this page. Pro stays on until the end of the month you have paid for, and you have a 14-day right to cancel (see the terms)."],
-          ...(passOffered()
-            ? [
-                ["Monthly or Season Pass?", `If you need Pro for one application season, the ${PASS_PLAN.name} is cheaper: ${PASS_PLAN.price} once for ${PASS_PLAN.lengthText}. ${passSavingText()} Monthly suits you if you are not sure how long you will need it.`],
-                ["What happens when my Season Pass ends?", "You go back to a free account. Nothing renews and you are not charged again. Your tracker, notes and scores stay."],
-              ]
-            : []),
           ["What happens to my tracker if I stop paying?", "Nothing. Your tracker, notes and scores stay on your free account."],
           ["Can a parent or guardian pay for me?", "Yes. The button above sends them a short explanation of what Pro is and how to cancel."],
-          ["Do I need Pro to use the tracker?", "No. The tracker and deadline emails are free with an account."],
         ].map(([q, a]) => (
           <details key={q} className="rounded-lg border border-line px-3 py-2 text-sm">
             <summary className="cursor-pointer font-medium">{q}</summary>

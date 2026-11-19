@@ -29,7 +29,9 @@ export const PASS_PLAN = {
 
 /** What the pass saves against paying monthly for the same length of time, in pence and as a sentence for the site. */
 export const PASS_SAVING_PENCE = PRO_PLAN.pence * PASS_PLAN.months - PASS_PLAN.pence;
-export const passSavingText = () => `Saves £${(PASS_SAVING_PENCE / 100).toFixed(2)} compared with paying £${(PRO_PLAN.pence / 100).toFixed(2)} a month for ${PASS_PLAN.months} months.`;
+/** What the pass works out at per month over its length, in pence (so the page can show "about £6.50 a month"). */
+export const PASS_PER_MONTH_PENCE = Math.round(PASS_PLAN.pence / PASS_PLAN.months);
+export const passSavingText =() => `Saves £${(PASS_SAVING_PENCE / 100).toFixed(2)} compared with paying £${(PRO_PLAN.pence / 100).toFixed(2)} a month for ${PASS_PLAN.months} months.`;
 
 /**
  * When a pass bought at `from` ends: the same moment PASS_PLAN.months later. A pass bought on the 31st ends on the last
