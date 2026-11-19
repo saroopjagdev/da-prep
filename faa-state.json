@@ -1,5 +1,5 @@
 {
- "checked": "2026-11-18",
+ "checked": "2026-11-19",
  "jobs": {
   "2000050834": {
    "id": "2000050834",
@@ -901,6 +901,16 @@
    "posted": "2026-10-22",
    "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000060574"
   },
+  "2000060732": {
+   "id": "2000060732",
+   "employer": "Lear Corportation",
+   "title": "Engineering Degree Apprentice",
+   "level": "6",
+   "location": "Coventry CV6",
+   "deadline": "2027-02-26",
+   "posted": "2026-11-18",
+   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000060732"
+  },
   "2000060932": {
    "id": "2000060932",
    "employer": "WM MORRISON SUPERMARKETS P L C",
@@ -1631,6 +1641,16 @@
    "posted": "2026-11-16",
    "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000064259"
   },
+  "2000064271": {
+   "id": "2000064271",
+   "employer": "WSP UK LIMITED",
+   "title": "Civil Engineering Degree Apprenticeship - Shrewsbury (Local Government)",
+   "level": "6",
+   "location": "Abbey Foregate SY2",
+   "deadline": "2027-04-30",
+   "posted": "2026-11-19",
+   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000064271"
+  },
   "2000064272": {
    "id": "2000064272",
    "employer": "SIEMENS MOBILITY LIMITED",
@@ -1651,6 +1671,16 @@
    "posted": "2026-11-16",
    "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000064285"
   },
+  "2000064314": {
+   "id": "2000064314",
+   "employer": "WSP UK LIMITED",
+   "title": "Building Services Degree Apprenticeship - Birmingham (Building Services)",
+   "level": "6",
+   "location": "100 Wharfside Street B1",
+   "deadline": "2027-04-30",
+   "posted": "2026-11-19",
+   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000064314"
+  },
   "2000064315": {
    "id": "2000064315",
    "employer": "Network Rail",
@@ -1660,6 +1690,116 @@
    "deadline": "2026-12-21",
    "posted": "2026-11-16",
    "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000064315"
+  },
+  "2000064316": {
+   "id": "2000064316",
+   "employer": "WSP UK LIMITED",
+   "title": "Rail & Rail Systems Engineering Degree Apprenticeship - Manchester (Rail Engineering Services)",
+   "level": "6",
+   "location": "8 First Street M15",
+   "deadline": "2027-04-30",
+   "posted": "2026-11-19",
+   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000064316"
+  },
+  "2000064317": {
+   "id": "2000064317",
+   "employer": "WSP UK LIMITED",
+   "title": "Civil Engineering Degree Apprenticeship - Birmingham (Roads)",
+   "level": "6",
+   "location": "100 Wharfside Street B1",
+   "deadline": "2027-04-30",
+   "posted": "2026-11-19",
+   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000064317"
+  },
+  "2000064318": {
+   "id": "2000064318",
+   "employer": "WSP UK LIMITED",
+   "title": "Civil Engineering Degree Apprenticeship - Manchester (Roads)",
+   "level": "6",
+   "location": "8 First Street M15",
+   "deadline": "2027-04-30",
+   "posted": "2026-11-19",
+   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000064318"
+  },
+  "2000064322": {
+   "id": "2000064322",
+   "employer": "WSP UK LIMITED",
+   "title": "Civil Engineering Degree Apprenticeship - Liverpool (Roads)",
+   "level": "6",
+   "location": "Tithebarn Street L2",
+   "deadline": "2027-04-30",
+   "posted": "2026-11-19",
+   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000064322"
+  },
+  "2000064344": {
+   "id": "2000064344",
+   "employer": "WSP UK LIMITED",
+   "title": "Electro-Mechanical Engineering Degree Apprenticeship - Birmingham (Energy)",
+   "level": "6",
+   "location": "100 Wharfside Street B1",
+   "deadline": "2027-04-30",
+   "posted": "2026-11-19",
+   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000064344"
+  },
+  "2000064366": {
+   "id": "2000064366",
+   "employer": "WSP UK LIMITED",
+   "title": "Civil Engineering Degree Apprenticeship - Exeter (Bridges)",
+   "level": "6",
+   "location": "Exeter EX4",
+   "deadline": "2027-04-30",
+   "posted": "2026-11-19",
+   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000064366"
+  },
+  "2000064369": {
+   "id": "2000064369",
+   "employer": "WSP UK LIMITED",
+   "title": "Civil Engineering Degree Apprenticeship - Basingstoke (Bridges)",
+   "level": "6",
+   "location": "Basingstoke RG21",
+   "deadline": "2027-04-30",
+   "posted": "2026-11-19",
+   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000064369"
+  },
+  "2000064372": {
+   "id": "2000064372",
+   "employer": "WSP UK LIMITED",
+   "title": "Civil Engineering Degree Apprenticeship - Birmingham (Water)",
+   "level": "6",
+   "location": "100 Wharfside Street B1",
+   "deadline": "2027-04-30",
+   "posted": "2026-11-19",
+   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000064372"
+  },
+  "2000064374": {
+   "id": "2000064374",
+   "employer": "WSP UK LIMITED",
+   "title": "Civil Engineering Degree Apprenticeship - Derby (Water)",
+   "level": "6",
+   "location": "Wyvern Business Park DE21",
+   "deadline": "2027-04-30",
+   "posted": "2026-11-19",
+   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000064374"
+  },
+  "2000064376": {
+   "id": "2000064376",
+   "employer": "WSP UK LIMITED",
+   "title": "Civil Engineering Degree Apprenticeship - Exeter (Water)",
+   "level": "6",
+   "location": "Exeter EX4",
+   "deadline": "2027-04-30",
+   "posted": "2026-11-19",
+   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000064376"
+  },
+  "2000064380": {
+   "id": "2000064380",
+   "employer": "WSP UK LIMITED",
+   "title": "Civil Engineering Degree Apprenticeship - Newcastle (Water)",
+   "level": "6",
+   "location": "Newcastle Upon Tyne NE4",
+   "deadline": "2027-04-30",
+   "posted": "2026-11-19",
+   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000064380"
   },
   "2000064420": {
    "id": "2000064420",
@@ -1940,6 +2080,206 @@
    "deadline": "2027-01-03",
    "posted": "2026-11-18",
    "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000064830"
+  },
+  "2000064862": {
+   "id": "2000064862",
+   "employer": "Arcadis",
+   "title": "Apprentice Structural Engineer",
+   "level": "6",
+   "location": "London EC3M",
+   "deadline": "2027-01-15",
+   "posted": "2026-11-18",
+   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000064862"
+  },
+  "2000064864": {
+   "id": "2000064864",
+   "employer": "Office of Communications (Ofcom)",
+   "title": "Spectrum Engineering Officer Apprentice",
+   "level": "6",
+   "location": "Baldock SG7",
+   "deadline": "2026-12-18",
+   "posted": "2026-11-18",
+   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000064864"
+  },
+  "2000064869": {
+   "id": "2000064869",
+   "employer": "Arcadis",
+   "title": "Apprentice Electrical Building Services Engineer",
+   "level": "6",
+   "location": "Leeds LS1",
+   "deadline": "2027-01-15",
+   "posted": "2026-11-18",
+   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000064869"
+  },
+  "2000064874": {
+   "id": "2000064874",
+   "employer": "Arcadis",
+   "title": "Apprentice Mechanical Building Services Engineer",
+   "level": "6",
+   "location": "Manchester M1",
+   "deadline": "2027-01-15",
+   "posted": "2026-11-18",
+   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000064874"
+  },
+  "2000064987": {
+   "id": "2000064987",
+   "employer": "Seymour Taylor",
+   "title": "Apprentice Accountant – Audit and Accounts",
+   "level": "7",
+   "location": "HIGH WYCOMBE HP11",
+   "deadline": "2026-12-11",
+   "posted": "2026-11-19",
+   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000064987"
+  },
+  "2000065027": {
+   "id": "2000065027",
+   "employer": "WSP UK LIMITED",
+   "title": "Civil Engineering Degree Apprenticeship - Truro (Roads)",
+   "level": "6",
+   "location": "11 High Cross TR1",
+   "deadline": "2027-04-30",
+   "posted": "2026-11-19",
+   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000065027"
+  },
+  "2000065032": {
+   "id": "2000065032",
+   "employer": "SVG IT LTD",
+   "title": "IT Engineer Apprentice",
+   "level": "6",
+   "location": "Stoke-On-Trent ST4",
+   "deadline": "2026-12-20",
+   "posted": "2026-11-19",
+   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000065032"
+  },
+  "2000065045": {
+   "id": "2000065045",
+   "employer": "WSP UK LIMITED",
+   "title": "Civil Engineering Degree Apprenticeship - Exeter (Roads)",
+   "level": "6",
+   "location": "Barnfield Road EX1",
+   "deadline": "2027-04-30",
+   "posted": "2026-11-19",
+   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000065045"
+  },
+  "2000065061": {
+   "id": "2000065061",
+   "employer": "WSP UK LIMITED",
+   "title": "Electrical and Electronic Engineering Degree Apprenticeship - Birmingham (Lighting & Energy)",
+   "level": "6",
+   "location": "100 Wharfside Street B1",
+   "deadline": "2027-04-30",
+   "posted": "2026-11-19",
+   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000065061"
+  },
+  "2000065068": {
+   "id": "2000065068",
+   "employer": "WSP UK LIMITED",
+   "title": "Chartered Surveying Degree Apprenticeship - Manchester (Civil Infrastructure & Utilities)",
+   "level": "6",
+   "location": "8 First Street M15",
+   "deadline": "2027-04-30",
+   "posted": "2026-11-19",
+   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000065068"
+  },
+  "2000065075": {
+   "id": "2000065075",
+   "employer": "WSP UK LIMITED",
+   "title": "Chartered Surveying Degree Apprenticeship - London (Civil Infrastructure & Utilities)",
+   "level": "6",
+   "location": "London WC2A",
+   "deadline": "2027-04-30",
+   "posted": "2026-11-19",
+   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000065075"
+  },
+  "2000065076": {
+   "id": "2000065076",
+   "employer": "WSP UK LIMITED",
+   "title": "Project Management Degree Apprenticeship - Newcastle (Energy)",
+   "level": "6",
+   "location": "Newcastle Upon Tyne NE4",
+   "deadline": "2027-04-30",
+   "posted": "2026-11-19",
+   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000065076"
+  },
+  "2000065082": {
+   "id": "2000065082",
+   "employer": "WSP UK LIMITED",
+   "title": "Project Management Degree Apprenticeship - Basingstoke (Bridges)",
+   "level": "6",
+   "location": "Basing View RG21",
+   "deadline": "2027-04-30",
+   "posted": "2026-11-19",
+   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000065082"
+  },
+  "2000065083": {
+   "id": "2000065083",
+   "employer": "WSP UK LIMITED",
+   "title": "Project Management Degree Apprenticeship - London (Bridges)",
+   "level": "6",
+   "location": "WSP, 11 Westferry Circus, Canary Wharf , London E14",
+   "deadline": "2027-04-30",
+   "posted": "2026-11-19",
+   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000065083"
+  },
+  "2000065087": {
+   "id": "2000065087",
+   "employer": "WSP UK LIMITED",
+   "title": "Project Management Degree Apprenticeship - London (Rail)",
+   "level": "6",
+   "location": "WSP, 11 Westferry Circus, Canary Wharf , London E14",
+   "deadline": "2027-04-30",
+   "posted": "2026-11-19",
+   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000065087"
+  },
+  "2000065088": {
+   "id": "2000065088",
+   "employer": "WSP UK LIMITED",
+   "title": "Project Management Degree Apprenticeship - Birmingham (Rail)",
+   "level": "6",
+   "location": "100 Wharfside Street B1",
+   "deadline": "2027-04-30",
+   "posted": "2026-11-19",
+   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000065088"
+  },
+  "2000065090": {
+   "id": "2000065090",
+   "employer": "WSP UK LIMITED",
+   "title": "Project Management Degree Apprenticeship - Manchester (Rail)",
+   "level": "6",
+   "location": "8 First Street M15",
+   "deadline": "2027-04-30",
+   "posted": "2026-11-19",
+   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000065090"
+  },
+  "2000065092": {
+   "id": "2000065092",
+   "employer": "WSP UK LIMITED",
+   "title": "Civil Engineering Degree Apprenticeship - Bristol (Roads)",
+   "level": "6",
+   "location": "Bristol BS2",
+   "deadline": "2027-04-30",
+   "posted": "2026-11-19",
+   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000065092"
+  },
+  "2000065093": {
+   "id": "2000065093",
+   "employer": "WSP UK LIMITED",
+   "title": "Civil Engineering Degree Apprenticeship - Manchester (Water)",
+   "level": "6",
+   "location": "8 First Street M15",
+   "deadline": "2027-04-30",
+   "posted": "2026-11-19",
+   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000065093"
+  },
+  "2000065096": {
+   "id": "2000065096",
+   "employer": "WSP UK LIMITED",
+   "title": "Civil Engineering Degree Apprenticeship - London (Bridges)",
+   "level": "6",
+   "location": "WSP, 11 Westferry Circus, Canary Wharf , London E14",
+   "deadline": "2027-04-30",
+   "posted": "2026-11-19",
+   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000065096"
   }
  }
 }

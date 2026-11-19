@@ -1,5 +1,5 @@
 {
- "checked": "2026-11-18",
+ "checked": "2026-11-19",
  "jobs": {
   "7f949662-465a-43cb-a95e-1216afb54e93": {
    "id": "7f949662-465a-43cb-a95e-1216afb54e93",
@@ -911,95 +911,95 @@
    "status": "reference_only",
    "apply": "https://search.jobs.barclays/job/knutsford/2027-technology-analyst-degree-apprenticeship-programme-knutsford/13015/JR-0000129131"
   },
-  "1d9f47e0-58d3-4d8f-9344-30dd243b1d60": {
-   "id": "1d9f47e0-58d3-4d8f-9344-30dd243b1d60",
-   "employer": "L'Oréal",
-   "title": "IT Workplace Projects Degree Apprentice",
-   "level": "6",
-   "location": "White City, London",
-   "deadline": "2026-09-30",
+  "c3939241-e142-444e-be91-828f56c2b9ec": {
+   "id": "c3939241-e142-444e-be91-828f56c2b9ec",
+   "employer": "KPMG",
+   "title": "Tax Apprenticeship Edinburgh Autumn 2027",
+   "level": "7",
+   "location": "Edinburgh",
+   "deadline": "",
    "status": "reference_only",
-   "apply": "https://careers.loreal.com/en_US/jobs/JobDetail/Digital-Apprentice-IT-Europe-January-2027/253620"
+   "apply": "https://www.kpmgcareers.co.uk/Vacancies/apprenticeshipstaxapprenticeshipedinburghautumn2027/befb001d-a1bb-10fd-bbad-a1e6c0109551"
   },
-  "287d86ad-5fdc-4061-b1ae-915b8f015734": {
-   "id": "287d86ad-5fdc-4061-b1ae-915b8f015734",
-   "employer": "RSM",
-   "title": "Audit Data Analytics School Leaver",
-   "level": "6",
-   "location": "Multiple Locations, UK",
-   "deadline": "2026-10-19",
+  "7908ee17-75d3-4d6b-92d7-70b9aae5c65f": {
+   "id": "7908ee17-75d3-4d6b-92d7-70b9aae5c65f",
+   "employer": "KPMG",
+   "title": "Tax Apprenticeship Reading Autumn 2027",
+   "level": "7",
+   "location": "Reading",
+   "deadline": "",
    "status": "reference_only",
-   "apply": "https://www.rsmuk.com/careers/jobs?q=tax+school+leaver&page=1"
+   "apply": "https://www.kpmgcareers.co.uk/Vacancies/apprenticeshipstaxapprenticeshipreadingautumn2027/c64431b0-934c-5407-5f5b-7afe72394d87"
   },
-  "2df7d806-2cfc-4843-bed2-afdb9b5a5015": {
-   "id": "2df7d806-2cfc-4843-bed2-afdb9b5a5015",
-   "employer": "RSM",
-   "title": "Tax School Leaver",
-   "level": "6",
-   "location": "Multiple Locations, UK",
-   "deadline": "2026-10-19",
+  "98d174b4-539e-4372-8132-3764a54bc482": {
+   "id": "98d174b4-539e-4372-8132-3764a54bc482",
+   "employer": "KPMG",
+   "title": "Tax Apprenticeship London Autumn 2027",
+   "level": "7",
+   "location": "London",
+   "deadline": "",
    "status": "reference_only",
-   "apply": "https://www.rsmuk.com/careers/jobs?q=tax+school+leaver&page=1"
+   "apply": "https://www.kpmgcareers.co.uk/Vacancies/apprenticeshipstaxapprenticeshiplondonautumn2027/838895db-fc79-5f5b-8ac9-39173e5869a8"
   },
-  "61364d1a-993e-4c68-8ee0-365689ffa87f": {
-   "id": "61364d1a-993e-4c68-8ee0-365689ffa87f",
-   "employer": "Crowe",
-   "title": "Assistant, Audit (School Leaver)",
-   "level": "6",
-   "location": "Multiple Locations, UK",
-   "deadline": "2026-10-19",
+  "44b476e0-dd2f-4ac8-ba18-d5f0b73ea82b": {
+   "id": "44b476e0-dd2f-4ac8-ba18-d5f0b73ea82b",
+   "employer": "KPMG",
+   "title": "Tax Apprenticeship Manchester Autumn 2027",
+   "level": "7",
+   "location": "Manchester",
+   "deadline": "",
    "status": "reference_only",
-   "apply": "https://isw.changeworknow.co.uk/crowe/vms/e/careers/search/new?page=1"
+   "apply": "https://www.kpmgcareers.co.uk/Vacancies/apprenticeshipstaxapprenticeshipmanchesterautumn2027/3eda499c-0701-0b4c-828d-0d50e9511461"
   },
-  "3071f98c-62ea-4f91-8c3e-c4879c1c9d0a": {
-   "id": "3071f98c-62ea-4f91-8c3e-c4879c1c9d0a",
-   "employer": "Burges Salmon",
-   "title": "Legal Apprenticeship 2027",
+  "22461afb-83b3-45bb-b074-7482cf87f225": {
+   "id": "22461afb-83b3-45bb-b074-7482cf87f225",
+   "employer": "KPMG",
+   "title": "Tax Apprenticeship Birmingham Autumn 2027",
+   "level": "7",
+   "location": "Birmingham",
+   "deadline": "",
+   "status": "reference_only",
+   "apply": "https://www.kpmgcareers.co.uk/Vacancies/apprenticeshipstaxapprenticeshipbirminghamautumn2027/7c41ffcf-d518-ca44-ffe7-a499f672090e"
+  },
+  "b10cf6ce-b1a3-4e0d-9a3e-dff250a178d4": {
+   "id": "b10cf6ce-b1a3-4e0d-9a3e-dff250a178d4",
+   "employer": "KPMG",
+   "title": "Tax Apprenticeship Leeds Autumn 2027",
+   "level": "7",
+   "location": "Leeds",
+   "deadline": "",
+   "status": "reference_only",
+   "apply": "https://www.kpmgcareers.co.uk/Vacancies/apprenticeshipstaxapprenticeshipleedsautumn2027/b52cb116-84a4-da22-3515-3491c4a9e46f"
+  },
+  "1d362583-30c5-4197-b688-cf695bef3a31": {
+   "id": "1d362583-30c5-4197-b688-cf695bef3a31",
+   "employer": "KPMG",
+   "title": "Tax Apprenticeship Bristol Autumn 2027",
    "level": "7",
    "location": "Bristol",
-   "deadline": "2026-11-09",
+   "deadline": "",
    "status": "reference_only",
-   "apply": "https://www.burges-salmon.com/jobs/legal-apprenticeship-2027/"
+   "apply": "https://www.kpmgcareers.co.uk/Vacancies/apprenticeshipstaxapprenticeshipbristolautumn2027/05535102-b525-2c44-857f-9368f7006e33"
   },
-  "90509b34-309d-4433-977a-1bc147faa278": {
-   "id": "90509b34-309d-4433-977a-1bc147faa278",
-   "employer": "Cummins",
-   "title": "Engineering Degree Apprenticeship",
-   "level": "6",
-   "location": "Huddersfield",
-   "deadline": "2026-08-13",
+  "484bc2bc-18c2-49fd-afb5-647c13d5c581": {
+   "id": "484bc2bc-18c2-49fd-afb5-647c13d5c581",
+   "employer": "KPMG",
+   "title": "Tax Apprenticeship Glasgow Autumn 2027",
+   "level": "7",
+   "location": "Glasgow",
+   "deadline": "",
    "status": "reference_only",
-   "apply": "https://europeancareers.cummins.jobs/huddersfield-gbr/degree-apprenticeship-customer-engineering-level-6/8EEF85652FFE4BF7911B24844CD2567C/job/"
+   "apply": "https://www.kpmgcareers.co.uk/Vacancies/apprenticeshipstaxapprenticeshipglasgowautumn2027/"
   },
-  "fb752b07-1e53-48b3-a384-2d215ec1b384": {
-   "id": "fb752b07-1e53-48b3-a384-2d215ec1b384",
-   "employer": "Siemens",
-   "title": "Software Design Engineer Degree Apprentice",
-   "level": "6",
-   "location": "Congleton",
-   "deadline": "2026-02-20",
+  "bd798137-fed6-41ff-a1f1-a08501f7b3ee": {
+   "id": "bd798137-fed6-41ff-a1f1-a08501f7b3ee",
+   "employer": "KPMG",
+   "title": "Audit Apprenticeship South Coast - Southampton Autumn 2027",
+   "level": "7",
+   "location": "South Coast - Southampton",
+   "deadline": "",
    "status": "reference_only",
-   "apply": ""
-  },
-  "3e42bd1f-a4ee-4917-b9a8-daef6d745e76": {
-   "id": "3e42bd1f-a4ee-4917-b9a8-daef6d745e76",
-   "employer": "Siemens",
-   "title": "Laboratory Test Engineer Degree Apprentice",
-   "level": "6",
-   "location": "Congleton",
-   "deadline": "2026-02-20",
-   "status": "reference_only",
-   "apply": ""
-  },
-  "c1b1b021-9e95-4240-aa74-3ca6b49b9f05": {
-   "id": "c1b1b021-9e95-4240-aa74-3ca6b49b9f05",
-   "employer": "Airbus",
-   "title": "Supply Chain Operations Degree Apprenticeship",
-   "level": "6",
-   "location": "Filton, Bristol",
-   "deadline": "2026-02-28",
-   "status": "reference_only",
-   "apply": ""
+   "apply": "https://www.kpmgcareers.co.uk/Vacancies/apprenticeshipsauditapprenticeshipsouthcoastsouthamptonautumn2027/71723265-1410-f418-da02-66b29cb8f7ab"
   }
  }
 }
