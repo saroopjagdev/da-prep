@@ -4,7 +4,7 @@ import Link from "next/link";
 export const AREAS = {
   tests: [
     { href: "/practice", label: "General practice" },
-    { href: "/tests", label: "Employer replicas" },
+    { href: "/tests", label: "Employer-style tests" },
     { href: "/games", label: "Games" },
   ],
   feedback: [

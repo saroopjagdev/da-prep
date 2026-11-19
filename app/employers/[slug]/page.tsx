@@ -47,6 +47,21 @@ export default async function FirmPage({ params }: { params: Promise<{ slug: str
   const sourced = extraBlocks(firm);
   const oaTests = extraOaTests(firm);
   const advice = extraAdvice(firm);
+  const slugify = (s: string) => s.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+  // "On this page": the same sections, in the same order, so a long guide can be jumped around without scrolling.
+  const toc: { id: string; label: string }[] = [
+    { id: "glance", label: "At a glance" },
+    ...(firm.dayToDay && firm.dayToDay.length > 0 ? [{ id: "do", label: "What you'd do" }] : []),
+    ...(firm.whyThisFirm && firm.whyThisFirm.length > 0 ? [{ id: "why", label: "Why this firm" }] : []),
+    { id: "programmes", label: "Programmes and entry" },
+    { id: "process", label: "Process" },
+    ...(firm.oa && (oaTests.length > 0 || firm.oa.styleNotes) ? [{ id: "assessment", label: "Online assessment" }] : []),
+    ...sourced.map(({ label }) => ({ id: slugify(label), label })),
+    ...(firm.values.length > 0 ? [{ id: "values", label: "Values" }] : []),
+    ...(firm.questions.length > 0 ? [{ id: "questions", label: "Reported questions" }] : []),
+    ...(advice.length > 0 ? [{ id: "advice", label: "Advice" }] : []),
+  ];
+  const SHOWN_PROGRAMMES = 5;
 
   return (
     <div className="space-y-6">
@@ -92,7 +107,16 @@ export default async function FirmPage({ params }: { params: Promise<{ slug: str
         </p>
       </div>
 
-      <section className="card p-4 space-y-3" aria-labelledby="glance">
+      <nav aria-label="On this page" className="-mt-2 flex flex-wrap items-center gap-x-4 gap-y-1 text-sm">
+        <span className="font-semibold text-muted">On this page:</span>
+        {toc.map((t) => (
+          <a key={t.id} href={`#${t.id}`} className="underline underline-offset-2 hover:text-brand-700">
+            {t.label}
+          </a>
+        ))}
+      </nav>
+
+      <section className="card scroll-mt-20 p-4 space-y-3" aria-labelledby="glance">
         <h2 id="glance" className="font-semibold">
           At a glance
         </h2>
@@ -115,7 +139,7 @@ export default async function FirmPage({ params }: { params: Promise<{ slug: str
       </section>
 
       {firm.dayToDay && firm.dayToDay.length > 0 && (
-        <section className="card p-4 space-y-2">
+        <section id="do" className="card scroll-mt-20 p-4 space-y-2">
           <h2 className="font-semibold">What you&apos;d actually do</h2>
           <ul className="list-disc pl-5 text-sm space-y-1">
             {firm.dayToDay.map((d) => (
@@ -127,7 +151,7 @@ export default async function FirmPage({ params }: { params: Promise<{ slug: str
       )}
 
       {firm.whyThisFirm && firm.whyThisFirm.length > 0 && (
-        <section className="card p-4 space-y-2">
+        <section id="why" className="card scroll-mt-20 p-4 space-y-2">
           <h2 className="font-semibold">Why this firm: talking points</h2>
           <p className="text-sm text-muted">Recent facts you can use in a &quot;why us?&quot; answer. Check for newer news before your interview.</p>
           <ul className="space-y-2 text-sm">
@@ -140,16 +164,29 @@ export default async function FirmPage({ params }: { params: Promise<{ slug: str
         </section>
       )}
 
-      <section className="card p-4 space-y-2">
+      <section id="programmes" className="card scroll-mt-20 p-4 space-y-2">
         <h2 className="font-semibold">Programmes and entry</h2>
         <ul className="list-disc pl-5 text-sm space-y-1">
-          {firm.programmes.map((p) => (
+          {firm.programmes.slice(0, SHOWN_PROGRAMMES).map((p) => (
             <li key={p.name}>
               {p.name} ({p.level}){p.degree && ` · ${p.degree}`}
               {p.locations && ` · ${p.locations.join(", ")}`}
             </li>
           ))}
         </ul>
+        {firm.programmes.length > SHOWN_PROGRAMMES && (
+          <details className="text-sm">
+            <summary className="cursor-pointer font-medium text-brand-700">Show {firm.programmes.length - SHOWN_PROGRAMMES} more programmes</summary>
+            <ul className="mt-2 list-disc space-y-1 pl-5">
+              {firm.programmes.slice(SHOWN_PROGRAMMES).map((p) => (
+                <li key={p.name}>
+                  {p.name} ({p.level}){p.degree && ` · ${p.degree}`}
+                  {p.locations && ` · ${p.locations.join(", ")}`}
+                </li>
+              ))}
+            </ul>
+          </details>
+        )}
         <p className="text-sm">
           {[firm.entry.ucas, firm.entry.predictedGrades, firm.entry.other].filter(Boolean).join(" · ") ||
             "Entry requirements not confirmed."}
@@ -166,7 +203,7 @@ export default async function FirmPage({ params }: { params: Promise<{ slug: str
         </p>
       </section>
 
-      <section className="space-y-3">
+      <section id="process" className="scroll-mt-20 space-y-3">
         <h2 className="font-semibold">Process, stage by stage</h2>
         {[...firm.stages]
           .sort((a, b) => a.order - b.order)
@@ -207,7 +244,7 @@ export default async function FirmPage({ params }: { params: Promise<{ slug: str
       </section>
 
       {firm.oa && (oaTests.length > 0 || firm.oa.styleNotes) && (
-        <section className="card p-4 space-y-2">
+        <section id="assessment" className="card scroll-mt-20 p-4 space-y-2">
           <h2 className="font-semibold">Online assessment: {firm.oa.provider}</h2>
           <ul className="list-disc pl-5 text-sm space-y-1">
             {oaTests.map((t) => (
@@ -224,21 +261,21 @@ export default async function FirmPage({ params }: { params: Promise<{ slug: str
       )}
 
       {sourced.map(({ label, v }) => (
-        <section key={label} className="card p-4 space-y-1">
+        <section key={label} id={slugify(label)} className="card scroll-mt-20 p-4 space-y-1">
           <h2 className="font-semibold">{label}</h2>
           <p className="text-sm">{v.text}</p>
         </section>
       ))}
 
       {firm.values.length > 0 && (
-        <section className="card p-4 space-y-1">
+        <section id="values" className="card scroll-mt-20 p-4 space-y-1">
           <h2 className="font-semibold">Values they assess against</h2>
           <p className="text-sm">{firm.values.join(" · ")}</p>
         </section>
       )}
 
       {firm.questions.length > 0 && (
-        <section className="card p-4 space-y-2">
+        <section id="questions" className="card scroll-mt-20 p-4 space-y-2">
           <h2 className="font-semibold">Questions candidates report</h2>
           <ul className="space-y-2 text-sm">
             {firm.questions.map((q) => (
@@ -251,7 +288,7 @@ export default async function FirmPage({ params }: { params: Promise<{ slug: str
       )}
 
       {advice.length > 0 && (
-        <section className="card p-4 space-y-1">
+        <section id="advice" className="card scroll-mt-20 p-4 space-y-1">
           <h2 className="font-semibold">Advice for this firm</h2>
           <ul className="list-disc pl-5 text-sm space-y-1">
             {advice.map((a) => (
