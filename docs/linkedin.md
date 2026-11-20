@@ -36,8 +36,10 @@ Preview a day safely (nothing is sent): with `LINKEDIN_ENABLED=true` and `LINKED
 
 **2. The Level6 company page (needed for reading and answering comments).**
 1. Create the page at https://www.linkedin.com/company/setup/new/ (you must be a super admin).
-2. On the developer app, request **Community Management API** access (Development tier). LinkedIn reviews this by hand and checks the app is verified by the page. It adds `r_organization_social_feed` and `w_organization_social_feed` (read and reply to comments) and `w_organization_social` (post as the page).
-3. When approved, repeat the OAuth flow with those scopes, set `LINKEDIN_AUTHOR_URN=urn:li:organization:<page id>`, a new token and expiry, and `LINKEDIN_REPLIES_ENABLED=true`.
+2. **Create a second, separate developer app** for the page, linked to the same Page and verified by its admin. LinkedIn only grants Community Management API (Development tier) to a new app that has no other product on it, so it cannot be added to the app from section 1, and a rejected request cannot be retried on the same app (you would make another new app). On the new app's Products tab request **Community Management API**. LinkedIn reviews this by hand and can refuse. The form asks for the organisation's details, the website, the privacy policy URL (https://www.level6.uk/privacy) and what you will use it for. It adds `r_organization_social_feed` and `w_organization_social_feed` (read and reply to comments) and `w_organization_social` (post as the page).
+3. When approved, generate a token for the new app with those scopes, set `LINKEDIN_AUTHOR_URN=urn:li:organization:<page id>` (the number in the page's admin address, `linkedin.com/company/<number>/admin/`), `LINKEDIN_ACCESS_TOKEN` and `LINKEDIN_TOKEN_EXPIRES` from the new app's token, and `LINKEDIN_REPLIES_ENABLED=true`. The job uses one token, so the page app replaces the personal one.
+
+Until it is approved, the job posts from your personal profile (section 1). If you would rather it stayed quiet than post personally, set `LINKEDIN_LIVE` to anything other than `true`.
 
 Reading comments on a personal profile is not available through the API (`r_member_social` is restricted), which is why replies wait for the page.
 
