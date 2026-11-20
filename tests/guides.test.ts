@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { GUIDES, guideBySlug } from "@/lib/guides";
+import { GUIDES, GUIDE_TOPICS, GUIDE_TOPIC_OF, guideBySlug, guidesInTopic } from "@/lib/guides";
 
 describe("guides", () => {
   it("have unique slugs and working related links", () => {
@@ -33,6 +33,12 @@ describe("guides", () => {
       expect(g.sources?.length ?? 0, slug).toBeGreaterThanOrEqual(2);
       for (const s of g.sources ?? []) expect(s.url.startsWith("https://"), `${slug} ${s.url}`).toBe(true);
     }
+  });
+  it("every guide belongs to exactly one topic on the Resources page, and every topic has guides", () => {
+    for (const g of GUIDES) expect(GUIDE_TOPICS.some((t) => t.id === GUIDE_TOPIC_OF[g.slug]), g.slug).toBe(true);
+    for (const slug of Object.keys(GUIDE_TOPIC_OF)) expect(guideBySlug(slug), `unknown guide in the topic map: ${slug}`).toBeDefined();
+    for (const t of GUIDE_TOPICS) expect(guidesInTopic(t.id).length, t.id).toBeGreaterThan(0);
+    expect(GUIDES.map((g) => g.slug).sort()).toEqual(GUIDES.filter((g) => GUIDE_TOPIC_OF[g.slug]).map((g) => g.slug).sort());
   });
   it("the salary guide's minimum-wage arithmetic holds: £8 an hour for 40 hours over 52 weeks", () => {
     expect(8 * 40 * 52).toBe(16640);

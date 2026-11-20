@@ -9,7 +9,7 @@ import { pageMeta } from "@/lib/site";
 export const metadata = pageMeta({
   title: "Degree apprenticeship employer guides and mock processes",
   description:
-    "Every employer we have researched in one place: how its degree apprenticeship process works, the tests and interviews it uses, and a mock process to practise where we have one.",
+    "Every employer we have a page for: full guides on how the process works, the tests and interviews it uses and a mock process to practise, plus shorter pages that say what each employer offers and whether it is degree level.",
   path: "/employers",
 });
 
@@ -18,14 +18,14 @@ export const revalidate = 3600;
 
 export default function Employers() {
   const cards: DirectoryCard[] = opportunityRows(new Date())
-    .filter((r) => r.slug)
+    .filter((r) => r.pageSlug)
     .map((r) => ({
-      slug: r.slug!,
+      slug: r.pageSlug!,
       name: r.name,
       sector: r.sectors[0] ?? "business",
       status: r.status,
       hasMock: Boolean(r.hasMock),
-      logo: logoPath(r.slug!),
+      logo: logoPath(r.pageSlug!),
     }))
     .sort((a, b) => a.name.localeCompare(b.name));
 

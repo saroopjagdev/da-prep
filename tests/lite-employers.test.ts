@@ -42,6 +42,13 @@ describe("short employer pages", () => {
     }
   });
 
+  it("appear in the employer directory, which lists every row with a page of ours", () => {
+    const withPage = opportunityRows(new Date()).filter((r) => r.pageSlug).map((r) => r.pageSlug);
+    for (const l of LITE_EMPLOYERS) expect(withPage, l.slug).toContain(l.slug);
+    // The closed Civil Service Fast Track profile stays reachable by its address but is deliberately not listed as an opportunity.
+    for (const f of FIRMS.filter((x) => x.slug !== "civil-service-fast-track")) expect(withPage, f.slug).toContain(f.slug);
+  });
+
   it("are linked from their tracker rows and listed in the sitemap", () => {
     const rows = opportunityRows(new Date());
     const urls = sitemap().map((u) => u.url);
