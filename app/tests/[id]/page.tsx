@@ -1,6 +1,7 @@
 import { servedCount } from "@/lib/assess/sample";
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import TestAbout from "@/components/assess/TestAbout";
 import TestPlayer from "@/components/assess/TestPlayer";
 import JsonLd from "@/components/JsonLd";
 import { breadcrumbLd } from "@/lib/seo";
@@ -28,12 +29,8 @@ export default async function TestPage({ params }: { params: Promise<{ id: strin
   return (
     <div className="space-y-4">
       <JsonLd data={breadcrumbLd([{ name: "Home", path: "/" }, { name: "Practice tests", path: "/tests" }, { name: test.name, path: `/tests/${test.id}` }])} />
-      <ul className="mx-auto max-w-3xl list-disc space-y-1 pl-5 text-xs text-muted">
-        {test.formatNotes.map((n) => (
-          <li key={n}>{n}</li>
-        ))}
-      </ul>
       <TestPlayer test={test} />
+      <TestAbout test={test} />
     </div>
   );
 }

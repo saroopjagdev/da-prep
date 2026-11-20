@@ -25,6 +25,17 @@ export default function Parents() {
         </p>
       </section>
 
+      <section className="card space-y-1 p-4" aria-labelledby="new-to-it">
+        <h2 id="new-to-it" className="font-semibold">New to degree apprenticeships?</h2>
+        <p className="text-sm text-muted">
+          Our guide for parents and carers answers the questions most families ask: whether it is a real degree, who pays, what an apprentice earns and what to check before applying.{" "}
+          <Link href="/learn/degree-apprenticeships-for-parents" className="underline">
+            Read the parents&apos; guide
+          </Link>
+          .
+        </p>
+      </section>
+
       <section className="space-y-2" aria-labelledby="free">
         <h2 id="free" className="text-lg font-semibold">What is free</h2>
         <ul className="list-disc space-y-1 pl-5 text-sm">

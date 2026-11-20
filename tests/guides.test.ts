@@ -26,6 +26,7 @@ describe("guides", () => {
       "video-interview-tips-hirevue",
       "solicitor-apprenticeship",
       "public-sector-degree-apprenticeships",
+      "degree-apprenticeships-for-parents",
     ]) {
       const g = guideBySlug(slug)!;
       expect(g, slug).toBeDefined();
