@@ -142,11 +142,30 @@ test("feedback: any member can send it, and the permission to show it is a separ
   const permission = page.getByRole("checkbox", { name: /You may show my comment/ });
   await expect(permission).not.toBeChecked();
   await expect(page.getByLabel("Name to show")).toHaveCount(0);
+  // A low rating is collected in full but is never offered for the site: the question changes and the permission box goes.
   await page.getByLabel("1 star").check({ force: true });
-  await page.getByLabel("What is working, and what is not?").fill("The tests were too easy for me.");
+  await expect(permission).toHaveCount(0);
+  await page.getByLabel("What should we fix or do better?").fill("The tests were too easy for me.");
   await page.getByRole("button", { name: "Send feedback" }).click();
   await expect(page.getByRole("status")).toContainText("Thank you");
   expect(sent).toMatchObject({ rating: 1, message: "The tests were too easy for me.", mayQuote: false });
+});
+
+test("feedback: a 4 or 5 star comment can be offered for the site, with a name, and a rating link pre-fills", async ({ page }) => {
+  await signedIn(page);
+  let sent: Record<string, unknown> | null = null;
+  await page.route("**/api/feedback", async (route) => {
+    sent = route.request().postDataJSON();
+    await route.fulfill({ json: { ok: true } });
+  });
+  await page.goto("/feedback?r=5");
+  await expect(page.getByLabel("5 stars")).toBeChecked();
+  await page.getByLabel("What is working, and what is not?").fill("The mock interviews helped a lot.");
+  await page.getByRole("checkbox", { name: /You may show my comment/ }).check();
+  await page.getByLabel("Name to show").fill("Aisha, Year 13");
+  await page.getByRole("button", { name: "Send feedback" }).click();
+  await expect(page.getByRole("status")).toContainText("Thank you");
+  expect(sent).toMatchObject({ rating: 5, mayQuote: true, displayName: "Aisha, Year 13" });
 });
 
 test("a member gets a Dashboard link in the main menu, and a visitor does not", async ({ page, isMobile }) => {
