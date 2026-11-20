@@ -15,6 +15,16 @@ import { pageMeta } from "@/lib/site";
 
 export const generateStaticParams = () => FIRMS.map((f) => ({ slug: f.slug }));
 
+/** The firm sector labels are free text ("Banking / financial services"), so group them into a few families to link similar guides. */
+const FAMILIES: [string, RegExp][] = [
+  ["engineering and defence", /aerospace|defence|engineering|automotive|manufactur|nuclear/i],
+  ["finance", /bank|financ|insurance|wealth|regulat|asset/i],
+  ["technology", /tech|telecom|network|software|data/i],
+  ["professional services", /professional services|consult/i],
+  ["public sector", /public sector|civil service|policing/i],
+];
+const sectorFamily = (sector: string) => FAMILIES.find(([, re]) => re.test(sector))?.[0] ?? sector;
+
 // The application window in the page's search snippet follows the calendar, so rebuild hourly (like the tracker).
 export const revalidate = 3600;
 
@@ -47,6 +57,9 @@ export default async function FirmPage({ params }: { params: Promise<{ slug: str
   const sourced = extraBlocks(firm);
   const oaTests = extraOaTests(firm);
   const advice = extraAdvice(firm);
+  // Other guides in the same sector, so every guide links to a few others (and crawlers can reach them).
+  const family = sectorFamily(firm.sector);
+  const similar = FIRMS.filter((f) => f.slug !== firm.slug && sectorFamily(f.sector) === family).slice(0, 8);
   const slugify = (s: string) => s.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
   // "On this page": the same sections, in the same order, so a long guide can be jumped around without scrolling.
   const toc: { id: string; label: string }[] = [
@@ -295,6 +308,31 @@ export default async function FirmPage({ params }: { params: Promise<{ slug: str
               <li key={a}>{a}</li>
             ))}
           </ul>
+        </section>
+      )}
+
+      {similar.length > 0 && (
+        <section id="similar" className="card scroll-mt-20 p-4 space-y-2">
+          <h2 className="font-semibold">Compare with similar employers</h2>
+          <p className="text-sm text-muted">Other {family} guides on this site, so you can compare processes and dates.</p>
+          <ul className="flex flex-wrap gap-2 text-sm">
+            {similar.map((s) => (
+              <li key={s.slug}>
+                <Link href={`/employers/${s.slug}`} className="btn btn-secondary">
+                  {s.name}
+                </Link>
+              </li>
+            ))}
+          </ul>
+          <p className="text-sm">
+            <Link href="/deadlines" className="underline">
+              See who is open now and when they close
+            </Link>
+            {" · "}
+            <Link href="/employers" className="underline">
+              All employer guides
+            </Link>
+          </p>
         </section>
       )}
     </div>
