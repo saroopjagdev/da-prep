@@ -457,6 +457,24 @@ export const WINDOWS: WindowEntry[] = [
     confidence: "official",
     checked: "2026-10-19",
   },
+  {
+    name: "Government Social Research",
+    source: "https://www.gov.uk/guidance/government-social-research-degree-apprenticeship-programme",
+    state: "not-announced",
+    opensLabel: "Usually January (the 2026 round opened on 13 January 2026)",
+    note: "The page says applications usually open in January each year and start in September, and it showed the programme as closed for applications when we read it. It gives no 2027 date, so check the page and use its notify-me link.",
+    confidence: "official",
+    checked: "2026-11-20",
+  },
+  {
+    name: "NHS",
+    source: "https://www.healthcareers.nhs.uk/career-planning/study-and-training/apprenticeships",
+    opensLabel: "Advertised by individual NHS employers on NHS Jobs",
+    closesLabel: "Set by each employer",
+    note: "NHS Health Careers says vacancies are on the NHS Jobs website, so dates differ by employer and role. The page gives no single opening or closing date.",
+    confidence: "official",
+    checked: "2026-11-20",
+  },
 ];
 
 export type Status = "open" | "opening-soon" | "not-announced" | "closed" | "not-confirmed";

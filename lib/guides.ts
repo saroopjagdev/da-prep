@@ -1047,6 +1047,131 @@ export const GUIDES: Guide[] = [
       { label: "IGotAnOffer: J.P. Morgan HireVue interview (prep site, reported questions)", url: "https://igotanoffer.com/blogs/finance/jpm-hirevue-interview" },
     ],
   },
+  {
+    slug: "solicitor-apprenticeship",
+    title: "Solicitor apprenticeship: how the six-year route works",
+    seoTitle: "Solicitor apprenticeship 2027: how it works, pay and entry",
+    description:
+      "How a solicitor apprenticeship works: the two routes the SRA describes, the SQE, qualifying work experience, real pay and entry requirements from law firm vacancies, and a funding rule to check.",
+    intro:
+      "A solicitor apprenticeship lets you qualify as a solicitor while working and being paid by a law firm. The SRA describes two routes: a trailblazer route that typically takes five to six years, can start after A-levels and gives a Level 7 qualification, and a graduate route that typically takes two to three years and needs a degree. Every apprentice must pass the SQE and meet the SRA's suitability requirements.",
+    sections: [
+      {
+        heading: "The two routes the SRA describes",
+        bullets: [
+          "Trailblazer apprenticeship: typically five to six years, can start after A-levels, and you gain a Level 7 qualification on completion, which is equivalent to a master's degree.",
+          "Graduate apprenticeship: typically two to three years, and entry needs a Level 6 undergraduate degree.",
+          "At least 20% of the training is away from the office, for example one day a week, and time spent working as an apprentice counts as qualifying work experience.",
+          "The SRA says solicitor apprenticeships are not currently available in Wales.",
+        ],
+      },
+      {
+        heading: "What two law firm vacancies show",
+        paragraphs: ["Read from the firms' Find an Apprenticeship vacancy pages on 20 November 2026, for September 2027 starts."],
+        bullets: [
+          "TLT, Legal Solicitor Apprenticeship (Level 7): six years with BPP University, across Birmingham, Bristol, London and Manchester, with ten places. The years run from Junior Paralegal to Paralegal, then Senior Paralegal, then a trainee solicitor stage with four six-month seats. Entry is 128 UCAS points, which the page gives as ABB. Pay is stated only as competitive.",
+          "Trowers & Hamlins, Solicitor Apprenticeship (Level 7): six years with the University of Law, in Exeter, with two places, at £26,000 a year. It is an LLB law degree over the first four years and the SQE in the final year and a half, working four days a week and training one day. Entry is GCSE English and Maths at grade 6 or B, and three A-levels at A, B and B.",
+          "Michelmores advertised a Solicitor Apprenticeship in Exeter and Bristol, but the vacancy had closed and the page gave no level, pay or requirements.",
+        ],
+      },
+      {
+        heading: "The SQE and qualifying work experience",
+        bullets: [
+          "The Solicitors Qualifying Examination is how you qualify under the current system. The SRA says the SQE route needs a degree in any subject or an equivalent level, passing both SQE1 and SQE2, two years of full-time or equivalent qualifying work experience, and the SRA's character and suitability checks.",
+          "In an apprenticeship, the working time counts as qualifying work experience, and the SRA says SQE training and assessment costs are paid from the apprenticeship levy fund.",
+          "The SRA pages we read do not say what SQE1 and SQE2 each test or exactly when you take them during an apprenticeship, so check the SRA site and your firm's programme for that.",
+        ],
+      },
+      {
+        heading: "Entry requirements",
+        paragraphs: [
+          "Employers set their own, shown in each advert. The SRA suggests five GCSEs including Maths and English at grade C or 4 or above and three A-levels at minimum grade C or the equivalent, and says some employers also take people who already have legal training, such as a law degree, the LPC or a Level 3 paralegal apprenticeship. People with prior legal training may need less than the full five to six years.",
+        ],
+      },
+      {
+        heading: "A funding rule to check",
+        paragraphs: [
+          "The SRA page, updated on 28 November 2025, says that from January 2026 government funding for Level 7 apprenticeships is restricted to people aged 21 and under, people aged 16 to 25 who have an education, health and care plan or are care leavers, and existing apprentices. If you are older, ask each firm whether it can offer the apprenticeship to you, and check the current SRA and GOV.UK pages, because funding rules change.",
+        ],
+      },
+      {
+        heading: "Other ways to qualify",
+        bullets: [
+          "The SQE route with a degree, followed by qualifying work experience.",
+          "The Legal Practice Course route, which the SRA says is available until 2032.",
+          "Chartered Legal Executive and other pathways, and routes for qualified lawyers from other places, which the SRA lists on its pathways page.",
+        ],
+      },
+    ],
+    cta: { href: "/sectors/law", label: "Law employers", blurb: "Law firms in our tracker, with the level of each programme and whether it is open." },
+    related: ["apprenticeship-levels-explained", "degree-apprenticeship-entry-requirements", "how-to-apply-for-a-degree-apprenticeship"],
+    updated: "2026-11-20",
+    sources: [
+      { label: "SRA: solicitor apprenticeships (updated 28 November 2025)", url: "https://www.sra.org.uk/become-solicitor/sqe/solicitor-apprenticeships/" },
+      { label: "SRA: the SQE (August 2025)", url: "https://www.sra.org.uk/become-solicitor/sqe/" },
+      { label: "SRA: pathways to qualification (January 2025)", url: "https://www.sra.org.uk/become-solicitor/admission/pathways-qualification/" },
+      { label: "TLT vacancy (Find an Apprenticeship)", url: "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000056706" },
+      { label: "Trowers & Hamlins vacancy (Find an Apprenticeship)", url: "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000055810" },
+      { label: "Michelmores vacancy (Find an Apprenticeship)", url: "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000056390" },
+    ],
+  },
+  {
+    slug: "public-sector-degree-apprenticeships",
+    title: "Public sector degree apprenticeships: government, Civil Service and NHS",
+    seoTitle: "Public sector degree apprenticeships: government and NHS",
+    description:
+      "Degree apprenticeships in government and the NHS: the Government Social Research programme, NHS Level 6 routes, the closed Civil Service Fast Track, nationality rules and where to apply.",
+    intro:
+      "Public sector degree apprenticeships include the Government Social Research degree (four years, University of Kent, usually opening in January) and NHS Level 6 routes in registered nursing, operating department practice and podiatry. The Civil Service Fast Track Apprenticeship has closed, and some public bodies have rules about nationality and residency that private employers do not.",
+    sections: [
+      {
+        heading: "Government Social Research degree apprenticeship",
+        bullets: [
+          "A four-year honours degree in Applied Social Research with the University of Kent, working four days a week in a government department, with about 80% work and 20% learning.",
+          "It is for people without a degree. You need five GCSEs including Maths and English Language at grade 4 or above and at least 96 UCAS points, and you cannot already hold a Level 6 qualification.",
+          "It usually opens in January and starts in September. The 2026 round opened on 13 January 2026, and the page showed it closed when we read it, so watch for 2027.",
+          "Salaries are described as competitive and vary by department; no figure is given.",
+        ],
+      },
+      {
+        heading: "NHS apprenticeships",
+        bullets: [
+          "NHS Health Careers names registered nursing, operating department practice and podiatry degree apprenticeships at Level 6, a nursing associate apprenticeship at Level 5, and healthcare science routes from Level 2 to Level 6.",
+          "Apprenticeships take one to five years. A typical week is about four days on placement and one day at a training centre or college.",
+          "Entry depends on the employer and level: Levels 5 or 6 are likely to need A-levels or equivalent Level 3 qualifications, or relevant experience. Anyone aged 16 or over can apply.",
+          "Vacancies are advertised by individual NHS employers on the NHS Jobs website, so there is no single opening date.",
+        ],
+      },
+      {
+        heading: "The Civil Service",
+        paragraphs: [
+          "The Civil Service Fast Track Apprenticeship is closed: its guidance was withdrawn on 27 November 2020. Our Civil Service guide records what the old process looked like and how current departmental apprenticeships are advertised. If an application asks you to take the Civil Service judgement test, our guide to it covers the format from the official GOV.UK page.",
+        ],
+      },
+      {
+        heading: "Rules that can apply to public sector roles",
+        bullets: [
+          "Government Social Research requires the right to work in the UK, at least three years' UK residence before the apprenticeship starts, and meeting the Civil Service Nationality Rules, and it does not offer sponsorship.",
+          "Some defence and nuclear employers also require security clearance, as several of the engineering vacancies we read state.",
+          "Check the advert for the exact rules before you apply, because they differ by employer.",
+        ],
+      },
+      {
+        heading: "What this guide does not cover",
+        paragraphs: [
+          "We could not read the official apprenticeship pages for the Civil Service careers site, GCHQ, the College of Policing and Network Rail when we checked, and the pages we did read for the Ministry of Defence's equipment organisation and the National Crime Agency gave no programme details. We have not included those, and would rather leave them out than guess.",
+        ],
+      },
+    ],
+    cta: { href: "/sectors/public", label: "Public sector employers", blurb: "Public sector employers in our tracker, with the level of each programme and whether it is open." },
+    related: ["civil-service-judgement-test", "apprenticeship-levels-explained", "degree-apprenticeship-entry-requirements"],
+    updated: "2026-11-20",
+    sources: [
+      { label: "GOV.UK: Government Social Research degree apprenticeship programme (updated 13 January 2026)", url: "https://www.gov.uk/guidance/government-social-research-degree-apprenticeship-programme" },
+      { label: "NHS Health Careers: apprenticeships", url: "https://www.healthcareers.nhs.uk/career-planning/study-and-training/apprenticeships" },
+      { label: "GOV.UK: Civil Service Fast Track Apprenticeship, how to apply (withdrawn 27 November 2020)", url: "https://www.gov.uk/guidance/civil-service-fast-track-apprenticeship-how-to-apply" },
+    ],
+  },
 ];
 
 export const guideBySlug = (slug: string) => GUIDES.find((g) => g.slug === slug);

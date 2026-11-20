@@ -15,8 +15,10 @@ describe("level labels for lists", () => {
     expect(levelInfo({ programmes: ["School Leaver Programme 2027"] })).toEqual({ label: "Level not confirmed", tone: "unknown" });
   });
 
-  it("every sector except law has employers to show, and law falls back to the seed list", () => {
+  it("every sector has employers to show, including law and public sector", () => {
     const rows = opportunityRows(new Date());
-    for (const id of SECTOR_IDS.filter((s) => s !== "law")) expect(rows.filter((r) => r.sectors.includes(id)).length, id).toBeGreaterThan(0);
+    for (const id of SECTOR_IDS) expect(rows.filter((r) => r.sectors.includes(id)).length, id).toBeGreaterThan(0);
+    expect(rows.filter((r) => r.sectors.includes("law")).length).toBeGreaterThanOrEqual(5);
+    expect(rows.filter((r) => r.sectors.includes("public")).length).toBeGreaterThanOrEqual(6);
   });
 });
