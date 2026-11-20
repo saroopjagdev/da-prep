@@ -763,6 +763,83 @@ export const GUIDES: Guide[] = [
       { label: "M&G: routes into M&G FAQs", url: "https://group.mandg.com/careers/routes-into-mandg/faqs" },
     ],
   },
+  {
+    slug: "video-interview-tips-hirevue",
+    title: "HireVue and one-way video interview tips for degree apprenticeships",
+    seoTitle: "HireVue video interview tips for degree apprenticeships",
+    description:
+      "How one-way video interviews work, what HireVue says about question numbers and timing, how to prepare, the questions candidates report, and what to check in your invitation.",
+    intro:
+      "A one-way video interview has you record answers to on-screen questions with no interviewer present. HireVue says most have 5 to 8 questions, about 30 seconds to think and up to 3 minutes to answer, with one practice question you can repeat. The employer sets the exact numbers, and retakes on the real questions are often none.",
+    sections: [
+      {
+        heading: "What to expect",
+        bullets: [
+          "You read or hear a question, get thinking time, then record your answer to the camera. The employer reviews the recording later.",
+          "The employer chooses the number of questions, the thinking time, the answer time and whether you can re-record. Your invitation is the only reliable source for your interview.",
+          "There is one practice question you can redo as often as you like. Use it to check your sound, lighting and framing.",
+          "Employers describe the length differently. Goldman Sachs says its video stage takes about 30 minutes in total.",
+          "Some employers pair a video interview with games or tests in the same stage, so read the whole invitation.",
+        ],
+      },
+      {
+        heading: "Before you record",
+        bullets: [
+          "Use a quiet room, a stable internet connection and a laptop or computer if the invitation allows. Test your camera and microphone.",
+          "Face a window or lamp so your face is lit from the front, and put the camera at eye level.",
+          "Have a glass of water and a blank sheet of paper beside you. Check whether the invitation allows notes, and do not read from a script.",
+          "Close other apps and silence your phone so nothing interrupts the recording.",
+          "If you need adjustments, tell the employer before the stage, not during it.",
+        ],
+      },
+      {
+        heading: "How to answer",
+        bullets: [
+          "Use the thinking time to pick one example and jot three words, not to write sentences.",
+          "For experience questions, use STAR: the situation, your task, what you did and the result. Spend most of your time on what you did and what happened.",
+          "Aim to use most of the answer time without rushing the end. A clear answer that finishes a little early beats one that is cut off mid-sentence.",
+          "Speak to the camera as if to one person. A short pause to think is fine.",
+          "Examples from school, part-time work, sport, volunteering or clubs are fine for most questions, so do not wait until you have a job to talk about.",
+        ],
+      },
+      {
+        heading: "Questions candidates report",
+        paragraphs: [
+          "These come from candidate and prep-site reports, mostly from graduate and internship routes, so treat them as the kind of question to expect and not a script. Employers change their questions.",
+        ],
+        bullets: [
+          "Why this firm, and why this business area or role? Reported for several banks.",
+          "Why an apprenticeship rather than a traditional degree? Reported for J.P. Morgan.",
+          "A time you organised something, and a time something did not go to plan. Reported for UBS degree apprentices.",
+          "Handling several deadlines at once and how you prioritised. A decision made with incomplete information. A time a team project went wrong. Reported for Goldman Sachs.",
+          "A recent news story you followed. A current affairs question is reported for UBS.",
+        ],
+      },
+      {
+        heading: "What about scoring?",
+        paragraphs: [
+          "Employers rarely say whether recordings are scored by software, reviewed by people or both. Do not rely on claims about vocal tone or keywords from prep blogs: HireVue does not publish that. Answer clearly and honestly, with real examples, and check your invitation for anything the employer says about how it reviews recordings.",
+        ],
+      },
+      {
+        heading: "Practise it properly",
+        bullets: [
+          "Record yourself answering one question aloud and watch it back for pace, eye contact and filler words.",
+          "Practise with our timed video interview, which follows the typical 30 seconds to think and about 2 minutes to answer.",
+          "Prepare four or five STAR stories that can be reshaped for different questions, and a short, specific answer to why this employer.",
+        ],
+      },
+    ],
+    cta: { href: "/interview", label: "Practise a video interview", blurb: "Timed one-way video practice with feedback on your answers." },
+    related: ["degree-apprenticeship-interview-questions", "how-to-answer-why-this-company", "assessment-centre-tips"],
+    updated: "2026-11-20",
+    sources: [
+      { label: "HireVue: interview tips for candidates", url: "https://www.hirevue.com/candidates/interview-tips" },
+      { label: "Goldman Sachs: how to prepare", url: "https://www.goldmansachs.com/careers/students/prepare" },
+      { label: "The Student Room: UBS degree apprenticeship thread (candidate reports)", url: "https://www.thestudentroom.co.uk/showthread.php?t=7545577" },
+      { label: "IGotAnOffer: J.P. Morgan HireVue interview (prep site, reported questions)", url: "https://igotanoffer.com/blogs/finance/jpm-hirevue-interview" },
+    ],
+  },
 ];
 
 export const guideBySlug = (slug: string) => GUIDES.find((g) => g.slug === slug);

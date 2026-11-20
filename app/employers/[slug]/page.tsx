@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { FIRMS, getFirm } from "@/lib/firms";
 import { extraAdvice, extraBlocks, extraOaTests } from "@/lib/firms/dedupe";
+import { quickAnswers } from "@/lib/firms/answers";
 import { glance, practiceLinks } from "@/lib/firms/glance";
 import { getGame } from "@/lib/games/catalog";
 import { providersForText } from "@/lib/games/providers";
@@ -68,6 +69,7 @@ export default async function FirmPage({ params }: { params: Promise<{ slug: str
   const sourced = extraBlocks(firm);
   const oaTests = extraOaTests(firm);
   const advice = extraAdvice(firm);
+  const answers = quickAnswers(firm, windowLine(firm.slug));
   // Other guides in the same sector, so every guide links to a few others (and crawlers can reach them).
   const family = sectorFamily(firm.sector);
   const similar = FIRMS.filter((f) => f.slug !== firm.slug && sectorFamily(f.sector) === family).slice(0, 8);
@@ -75,6 +77,7 @@ export default async function FirmPage({ params }: { params: Promise<{ slug: str
   // "On this page": the same sections, in the same order, so a long guide can be jumped around without scrolling.
   const toc: { id: string; label: string }[] = [
     { id: "glance", label: "At a glance" },
+    ...(answers.length > 0 ? [{ id: "answers", label: "Quick answers" }] : []),
     ...(firm.dayToDay && firm.dayToDay.length > 0 ? [{ id: "do", label: "What you'd do" }] : []),
     ...(firm.whyThisFirm && firm.whyThisFirm.length > 0 ? [{ id: "why", label: "Why this firm" }] : []),
     { id: "programmes", label: "Programmes and entry" },
@@ -161,6 +164,23 @@ export default async function FirmPage({ params }: { params: Promise<{ slug: str
           <ShareButton title={`${firm.name} degree apprenticeship guide`} text={`How the ${firm.name} degree apprenticeship application works, with dates and tips`} label="Share this guide" />
         </div>
       </section>
+
+      {answers.length > 0 && (
+        <section id="answers" className="scroll-mt-20 space-y-3" aria-labelledby="answers-h">
+          <h2 id="answers-h" className="text-lg font-semibold">
+            Quick answers about {firm.name}
+          </h2>
+          <dl className="space-y-3 text-sm">
+            {answers.map((a) => (
+              <div key={a.q} className="card p-4">
+                <dt className="font-semibold">{a.q}</dt>
+                <dd className="mt-1 text-muted">{a.a}</dd>
+              </div>
+            ))}
+          </dl>
+          <p className="text-xs text-muted">Built from the sourced sections below, last researched {new Date(`${firm.lastVerified}T00:00:00Z`).toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric", timeZone: "UTC" })}. Confirm dates and requirements on the employer&apos;s own page.</p>
+        </section>
+      )}
 
       {firm.dayToDay && firm.dayToDay.length > 0 && (
         <section id="do" className="card scroll-mt-20 p-4 space-y-2">

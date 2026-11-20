@@ -97,7 +97,23 @@ export const ubs: FirmProfile = {
     { text: "UBS is the world's largest wealth manager and is in the final stretch of integrating Credit Suisse, due to finish around the end of 2026.", source: "https://www.thewealthadvisor.com/article/ubs-says-wealth-management-momentum-holding-credit-suisse-integration-nears-its-end", confidence: "multiple-candidate-reports" },
     { text: "Swiss lawmakers are debating capital rules for UBS's foreign units; CEO Sergio Ermotti called a compromise on one part 'bearable'.", source: "https://www.bloomberg.com/news/articles/2026-09-20/ubs-head-ermotti-calls-at1-capital-compromise-bearable-nzz-says", confidence: "multiple-candidate-reports" },
   ],
-  questions: [],
+  questions: [
+    {
+      stage: "Video interview",
+      question: "Tell us about a time you organised something, and about a time something did not go to plan.",
+      type: "competency",
+      competency: "Organisation and resilience",
+      source: TSR_P2,
+      confidence: "multiple-candidate-reports",
+    },
+    {
+      stage: "Video interview",
+      question: "A current affairs question (the topic is not recorded in the report we found).",
+      type: "other",
+      source: TSR_P2,
+      confidence: "single-report",
+    },
+  ],
   specificAdvice: [
     "Check the grade bar: generally ABB at A level and GCSE Maths 6+, higher than many banks.",
     "Know the big UBS story: it is completing the integration of Credit Suisse (due to finish around the end of 2026) and is the world's largest wealth manager. Check the latest news before interviews.",
