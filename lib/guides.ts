@@ -466,6 +466,303 @@ export const GUIDES: Guide[] = [
       { label: "Intervyo: 2027 consulting and accountancy tracker (third party)", url: "https://www.intervyo.co.uk/tracker/consulting-degree-apprenticeship" },
     ],
   },
+  {
+    slug: "degree-apprenticeship-salary",
+    title: "How much do degree apprentices get paid? Real 2027 salaries",
+    seoTitle: "Degree apprenticeship salary: what you get paid in 2027",
+    description:
+      "What degree apprentices are paid: the legal minimum wage, real salaries from 2027 vacancies, paid study time and holiday, and what to check in an advert.",
+    intro:
+      "A degree apprentice is paid a wage by their employer, never less than the apprentice minimum wage, which is £8 an hour in the first year on the April 2026 rates. The vacancies we read in November 2026 advertised between about £16,640 and £26,000 a year, and in the vacancies we read the degree is described as funded, with no tuition fees for the apprentice.",
+    sections: [
+      {
+        heading: "The legal minimum",
+        bullets: [
+          "The apprentice rate is £8 an hour on the April 2026 rates. It applies to apprentices under 19, and to apprentices aged 19 or over in the first year of their apprenticeship. GOV.UK shows it rising to £8.31 from April 2027.",
+          "After the first year, apprentices aged 19 or over get the minimum wage for their age. GOV.UK's example is a 21-year-old, who gets £12.71 an hour once they have completed year one.",
+          "At £8 an hour for a 40-hour week, the minimum comes to £16,640 a year. That is exactly the bottom of one employer's advertised range below.",
+          "The rates change every 1 April, so check the GOV.UK minimum wage page for the current figure.",
+        ],
+      },
+      {
+        heading: "What employers actually advertised",
+        paragraphs: ["These are the pay figures stated on vacancy pages for 2027 starts, read on 20 November 2026. Several employers state only that pay is competitive, and we have left those out of the figures."],
+        bullets: [
+          "Cranswick, Food Manufacturing Operations (Level 6): £16,640 to £26,436.80 depending on your age, described as above the minimum wage and reviewed annually.",
+          "Unilever, Packaging Professional (Level 6): £18,841.",
+          "Ridge, Elevate degree apprenticeship: £19,000 to £23,000, on a permanent contract.",
+          "Dalcour Maclaren, Chartered Surveyor (Rural, Level 6): £19,500, with a fuller package discussed at interview.",
+          "Molson Coors, Supply Chain (Level 6): £23,500 plus a 5.5% target annual bonus.",
+          "Cavendish Nuclear, Chemical and Process Engineer (Level 6): £23,598.",
+          "Thales, Systems Engineering (Level 6): £24,000, with a pension match and performance-related uplifts.",
+          "Hanson, Quantity Surveyor (Level 6): £25,084.",
+          "Trowers & Hamlins, Solicitor (Level 7): £26,000, reviewed annually.",
+          "Stantec, TLT, Neptune North and AWE state a competitive salary without a figure.",
+        ],
+      },
+      {
+        heading: "Why the numbers differ",
+        paragraphs: [
+          "Pay depends on the sector, the region, your age and the length of the programme. A two-year supply chain route and a six-year solicitor route are not like for like, and an advert with an age-based range (like Cranswick's) pays the youngest apprentices the lowest figure. Compare the total package, not only the salary.",
+        ],
+      },
+      {
+        heading: "Paid study time and holiday",
+        bullets: [
+          "GOV.UK says apprentices must spend at least 20% of their normal working hours on training, and that this training time is paid.",
+          "Apprentices get at least 20 days of paid holiday a year, plus bank holidays.",
+          "Employers add their own benefits. Examples in the vacancies we read include a pension match, private medical insurance, a season ticket loan, an employee share scheme, five weeks' leave and 28 to 31 days' holiday (28 of them including bank holidays at one employer).",
+        ],
+      },
+      {
+        heading: "What to check in an advert",
+        bullets: [
+          "Whether a salary figure is stated, or only that it is competitive. Ask at the application stage if it is missing.",
+          "Whether the figure depends on your age, and whether it rises after the first year.",
+          "Whether there is a bonus, a pension match or other benefits you would otherwise pay for.",
+          "Whether the degree is funded by the employer, so you pay no tuition fees. Every vacancy we read that mentioned this said so, but check each advert.",
+          "Where the job is based, because commuting or moving costs come out of your pay.",
+        ],
+      },
+    ],
+    cta: { href: "/deadlines", label: "See who is open now", blurb: "Closing dates for the 2027 intake, soonest first, with the date each was last checked." },
+    related: ["degree-apprenticeship-vs-university", "what-is-a-degree-apprenticeship", "when-do-degree-apprenticeships-open"],
+    updated: "2026-11-20",
+    sources: [
+      { label: "GOV.UK: National Minimum Wage and National Living Wage rates", url: "https://www.gov.uk/national-minimum-wage-rates" },
+      { label: "GOV.UK: apprentice pay and conditions", url: "https://www.gov.uk/become-apprentice/pay-and-conditions" },
+      { label: "UCAS: degree apprenticeships", url: "https://www.ucas.com/apprenticeships/degree-apprenticeships" },
+      { label: "Cranswick vacancy (Find an Apprenticeship)", url: "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000051163" },
+      { label: "Unilever packaging apprenticeship", url: "https://careers.unilever.com/en/uk-and-ireland-early-careers-apprenticeships-packaging-professional-level-6" },
+      { label: "Ridge: Elevate and Evolve", url: "https://ridge.co.uk/?p=12314" },
+      { label: "Dalcour Maclaren vacancy (Find an Apprenticeship)", url: "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000056571" },
+      { label: "Molson Coors vacancy (Find an Apprenticeship)", url: "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000059137" },
+      { label: "Cavendish Nuclear vacancy (Find an Apprenticeship)", url: "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000058692" },
+      { label: "Thales vacancy (Find an Apprenticeship)", url: "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000057141" },
+      { label: "Hanson vacancy (Find an Apprenticeship)", url: "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000057225" },
+      { label: "Trowers & Hamlins vacancy (Find an Apprenticeship)", url: "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000055810" },
+    ],
+  },
+  {
+    slug: "degree-apprenticeship-entry-requirements",
+    title: "What grades do you need for a degree apprenticeship?",
+    seoTitle: "Degree apprenticeship entry requirements: grades and more",
+    description:
+      "Entry requirements for degree apprenticeships are set by each employer. Real GCSE, A-level and UCAS points examples from 2027 vacancies, plus the non-grade rules to check.",
+    intro:
+      "There is no single entry requirement for degree apprenticeships: each employer sets its own, and UCAS says each vacancy will be different. The 2027 vacancies we read asked for anything from GCSE English and Maths at grade 4 to three A-levels at BBC or ABB, and some added non-grade rules such as security clearance.",
+    sections: [
+      {
+        heading: "What the official sources say",
+        bullets: [
+          "GOV.UK says you must be 16 or over, living in England, and not in full-time education to start an apprenticeship. The Find an apprenticeship page words the last condition more strictly, so check the vacancy.",
+          "UCAS says each degree apprenticeship vacancy is different: some ask for specific grades, and employers also look for skills such as communication and leadership. The page gives no UCAS Tariff minimum.",
+          "A previous qualification, such as a degree, does not stop you starting an apprenticeship, according to GOV.UK.",
+        ],
+      },
+      {
+        heading: "Real examples from 2027 vacancies",
+        paragraphs: ["Read on 20 November 2026 from each employer's vacancy page. Subjects and grades are as the page states them."],
+        bullets: [
+          "Molson Coors (Level 6, supply chain): GCSE English and Maths at grade 4, and you must be over 18.",
+          "Cranswick (Level 6, food manufacturing): GCSE English and Maths at grade 4 or above, and an A-level in any subject at grade C or above.",
+          "Unilever (Level 6, packaging): five GCSEs including English Language and Maths at grade 4 or above, and three A-levels at BBC or above including two STEM subjects, held or predicted.",
+          "Thales (Level 6, systems engineering): five GCSEs including Maths and English, and A-levels in Maths and another STEM subject at BB or above (112 UCAS points).",
+          "Hanson (Level 6, quantity surveying): five GCSEs including Maths, English and Science at grade C or above, and two A-levels including a STEM subject (112 or more UCAS points).",
+          "Stantec (Level 6, civil engineering): GCSE Maths and English at grade 5 or 6 or above, and A-levels at BBC including Maths and an analytical science. A BTEC route needs Maths at Merit or above.",
+          "Cavendish Nuclear (Level 6, chemical and process engineering): GCSEs at grade C including Chemistry, English, Maths and Science, and A-levels in Chemistry and Maths at A or B.",
+          "TLT (Level 7, solicitor): 128 UCAS points, which the page gives as ABB.",
+          "Trowers & Hamlins (Level 7, solicitor): GCSE English and Maths at grade 6 or B, and three A-levels in any subjects at grades A, B and B.",
+          "Neptune North (degree, digital and technology): very strong GCSEs and a minimum of AAA or AAB predicted, with Maths as one of the A-levels.",
+          "Visa: no technical subjects required at school or college, with the process focusing on behaviours and problem solving.",
+        ],
+      },
+      {
+        heading: "The rules that are not grades",
+        bullets: [
+          "Security clearance: some defence and nuclear employers require you to be able to obtain and keep BPSS and SC clearance. Thales says SC typically needs continuous UK residence for the last five years, and Leonardo says five years' permanent residency.",
+          "Right to work: several employers, including Visa, cannot sponsor you if you do not already have the right to work in the UK.",
+          "A driving licence and your own car, as one rural surveying employer requires.",
+          "Age: one employer asks that you are over 18 for health and safety reasons.",
+          "Willingness to relocate or travel, as one quantity surveying employer states.",
+        ],
+      },
+      {
+        heading: "If you are close but not quite there",
+        paragraphs: [
+          "Several employers say other relevant qualifications and experience can be shared and the apprenticeship adjusted. Some accept equivalents, such as a BTEC in place of A-levels, as one engineering employer does. Some employers accept predicted grades at the application stage, as Unilever and Neptune North do, with an offer conditional on your results. If a requirement is unclear, ask the employer before you apply, because a short reply can save you an application.",
+        ],
+      },
+      {
+        heading: "How to use this",
+        bullets: [
+          "Pick the sector first, then read two or three adverts to see the realistic range for the grades they ask.",
+          "Check the subjects as well as the grades: STEM employers often name Maths and another science.",
+          "Apply to several. UCAS says you are free to apply for multiple degree apprenticeships and traditional university courses at the same time.",
+        ],
+      },
+    ],
+    cta: { href: "/sectors", label: "Browse employers by sector", blurb: "Every tracked employer by sector, with the level of its programme and whether it is open." },
+    related: ["what-is-a-degree-apprenticeship", "degree-apprenticeship-vs-university", "degree-apprenticeship-personal-statement"],
+    updated: "2026-11-20",
+    sources: [
+      { label: "GOV.UK: apprenticeships guide", url: "https://www.gov.uk/apprenticeships-guide" },
+      { label: "GOV.UK: find an apprenticeship", url: "https://www.gov.uk/apply-apprenticeship" },
+      { label: "UCAS: degree apprenticeships", url: "https://www.ucas.com/apprenticeships/degree-apprenticeships" },
+      { label: "Molson Coors vacancy (Find an Apprenticeship)", url: "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000059137" },
+      { label: "Cranswick vacancy (Find an Apprenticeship)", url: "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000051163" },
+      { label: "Unilever packaging apprenticeship", url: "https://careers.unilever.com/en/uk-and-ireland-early-careers-apprenticeships-packaging-professional-level-6" },
+      { label: "Thales vacancy (Find an Apprenticeship)", url: "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000057141" },
+      { label: "Hanson vacancy (Find an Apprenticeship)", url: "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000057225" },
+      { label: "Stantec vacancy (Find an Apprenticeship)", url: "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000058198" },
+      { label: "Cavendish Nuclear vacancy (Find an Apprenticeship)", url: "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000058692" },
+      { label: "TLT vacancy (Find an Apprenticeship)", url: "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000056706" },
+      { label: "Trowers & Hamlins vacancy (Find an Apprenticeship)", url: "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000055810" },
+      { label: "Neptune North vacancy", url: "https://job-boards.eu.greenhouse.io/neptunenorth/jobs/4910464101" },
+      { label: "Visa: apprenticeship application process", url: "https://uk.review.visa.com/careers/next-gen-careers/application-process-apprenticeship.html" },
+      { label: "Leonardo apprenticeship opportunities", url: "https://careers.uk.leonardo.com/gb/en/early-careers/apprenticeships/opportunities" },
+    ],
+  },
+  {
+    slug: "apprenticeship-levels-explained",
+    title: "Apprenticeship levels explained: Level 3, 4, 6 and 7",
+    seoTitle: "Apprenticeship levels explained: Level 4 vs Level 6",
+    description:
+      "What Level 2, 3, 4, 5, 6 and 7 apprenticeships mean, which are degree apprenticeships, how long each takes, and how the levels differ in Scotland, Wales and Northern Ireland.",
+    intro:
+      "Apprenticeship levels match school and university qualifications. Level 3 is equal to A-level, Levels 4 and 5 are higher apprenticeships (foundation degree and above), and Levels 6 and 7 are degree apprenticeships that lead to a bachelor's or master's degree. The employer's advert should state the level, and some do not.",
+    sections: [
+      {
+        heading: "The levels at a glance",
+        paragraphs: ["This is GOV.UK's table of apprenticeship levels."],
+        bullets: [
+          "Foundation and intermediate, Level 2: equal to GCSE.",
+          "Advanced, Level 3: equal to A-level.",
+          "Higher, Levels 4, 5, 6 and 7: equal to a foundation degree and above.",
+          "Degree, Levels 6 and 7: equal to a bachelor's or master's degree.",
+        ],
+      },
+      {
+        heading: "Level 4 and 5: higher apprenticeships",
+        paragraphs: [
+          "GOV.UK places Levels 4 and 5 under \"higher\" apprenticeships, equal to a foundation degree and above, and gives the bachelor's or master's equivalent only for Levels 6 and 7. So a Level 4 or 5 apprenticeship is not the same as a degree apprenticeship, and you should check what qualification you finish with. Apprenticeships overall run from 8 months to 6 years, so the length depends on the type and level.",
+        ],
+      },
+      {
+        heading: "Level 6 and 7: degree apprenticeships",
+        bullets: [
+          "UCAS says a degree apprenticeship lets you gain a full undergraduate or master's degree while you work, and lasts three to six years depending on the course level.",
+          "About 20% of your time is study, one or two days a week or in blocks, and about 80% is work, according to UCAS. GOV.UK says at least 20% of working hours must be training.",
+          "Level 6 leads to a bachelor's degree. Level 7 leads to a master's, and in the vacancies we read, the solicitor apprenticeships were Level 7 over six years.",
+          "Some employers label a Level 6 route a graduate apprenticeship, which is the Scottish name, so read what it leads to.",
+        ],
+      },
+      {
+        heading: "One employer, several levels",
+        paragraphs: [
+          "Many employers run more than one level, so \"apprenticeship\" and \"degree apprenticeship\" are not interchangeable. For example, AWE lists Level 3, Levels 4 and 5, and Level 6 (degree) routes, and Leonardo lists roles from Level 2 to Level 6. An employer such as Schroders offers a two-year apprenticeship accredited at Level 3 and Level 4, and we found no degree apprenticeship on its page. Our employer pages say which level an employer offers, or that it is not stated.",
+        ],
+      },
+      {
+        heading: "Eligibility",
+        bullets: [
+          "You must be 16 or over, living in England and not in full-time education, according to GOV.UK.",
+          "Apprenticeships can run from 8 months to 6 years, depending on type and level.",
+          "Relevant experience or qualifications can shorten the training, agreed with the provider and employer.",
+        ],
+      },
+      {
+        heading: "Scotland, Wales and Northern Ireland",
+        bullets: [
+          "England and Wales offer degree apprenticeships, with most options in England, according to UCAS.",
+          "Scotland calls them graduate apprenticeships.",
+          "Northern Ireland offers higher level apprenticeships, mostly Level 5 (foundation degree), with some up to Level 7.",
+          "GOV.UK's apprenticeship rules apply to England. The other nations have separate systems.",
+        ],
+      },
+    ],
+    cta: { href: "/sectors", label: "Browse employers by sector", blurb: "See which employers offer degree level, and which offer other levels." },
+    related: ["what-is-a-degree-apprenticeship", "degree-apprenticeship-vs-university", "degree-apprenticeship-entry-requirements"],
+    updated: "2026-11-20",
+    sources: [
+      { label: "GOV.UK: apprenticeship qualifications and levels", url: "https://www.gov.uk/apprenticeships-guide/qualifications-and-levels" },
+      { label: "GOV.UK: apprenticeships guide", url: "https://www.gov.uk/apprenticeships-guide" },
+      { label: "UCAS: degree apprenticeships", url: "https://www.ucas.com/apprenticeships/degree-apprenticeships" },
+      { label: "AWE: apprenticeships", url: "https://www.awe.co.uk/careers/early-careers/apprenticeships/" },
+      { label: "Leonardo apprenticeship opportunities", url: "https://careers.uk.leonardo.com/gb/en/early-careers/apprenticeships/opportunities" },
+      { label: "Schroders: apprenticeships", url: "https://www.schroders.com/en-gb/uk/individual/about-us/careers/apprenticeships/" },
+    ],
+  },
+  {
+    slug: "how-to-apply-for-a-degree-apprenticeship",
+    title: "How to apply for a degree apprenticeship, step by step",
+    seoTitle: "How to apply for a degree apprenticeship: step by step",
+    description:
+      "How degree apprenticeship applications work: where to find vacancies, how to apply, the stages employers use, how many you can apply for and what to do if you are unsuccessful.",
+    intro:
+      "You apply for a degree apprenticeship much as you would for a job: find a vacancy, create an account, and submit an application to the employer, with no UCAS-style single cycle. Vacancies are advertised through the year, each with its own deadline, and you can apply for several apprenticeships and university courses at once.",
+    sections: [
+      {
+        heading: "Step 1: find vacancies",
+        bullets: [
+          "Search the Find an apprenticeship service on GOV.UK, which covers England.",
+          "UCAS also offers an apprenticeship search, and employers advertise on their own careers pages.",
+          "Use our deadlines page to see which employers are open and which are opening soon.",
+        ],
+      },
+      {
+        heading: "Step 2: read the advert properly",
+        bullets: [
+          "Check the level, the qualification you gain, the length and the start date.",
+          "Check the entry requirements and any rules about residency or security clearance.",
+          "Note the closing date. Many employers fill places as they go, so apply early.",
+        ],
+      },
+      {
+        heading: "Step 3: apply",
+        paragraphs: [
+          "GOV.UK describes three steps: search for an apprenticeship, sign in or create an account, then complete and submit the application. Many vacancy pages we read say to sign in or create an account on Find an apprenticeship, then apply on the employer's own website. UCAS says you apply in the same way you apply for a normal job, with a CV and cover letter, and that each vacancy states its own deadline and start date.",
+        ],
+      },
+      {
+        heading: "Step 4: the stages after you apply",
+        paragraphs: ["The stages depend on the employer, and the advert or careers page should list them. Examples we read:"],
+        bullets: [
+          "Unilever: online application, online assessments (situational judgement, numerical and verbal reasoning), a video interview and an in-person Discovery Centre.",
+          "Neptune North: CV review, a coding assessment, an aptitude assessment, a first-stage interview and an in-person assessment centre.",
+          "AWE: online application, an online assessment with practice available, an assessment centre, an offer and then security clearance.",
+          "Leonardo: an application form with security verification, a one-way video screening, an interview and an offer.",
+        ],
+      },
+      {
+        heading: "How many can you apply for?",
+        paragraphs: [
+          "UCAS says you are free to apply for multiple degree apprenticeships and traditional university courses at the same time. Some employers limit you to one programme, so check: Unilever considers only your first application, and AWE asks you to apply for only one apprenticeship.",
+        ],
+      },
+      {
+        heading: "If you are unsuccessful",
+        bullets: [
+          "Ask for feedback. GOV.UK says you can, and that you can complain if you think you were treated unfairly or discriminated against.",
+          "Some employers let you reapply the next year, as M&G says, so a no is not always final.",
+          "Keep your university applications going in parallel so you keep both options open.",
+        ],
+      },
+    ],
+    cta: { href: "/deadlines", label: "See who is open now", blurb: "Closing dates for the 2027 intake, soonest first, with the date each was last checked." },
+    related: ["when-do-degree-apprenticeships-open", "degree-apprenticeship-personal-statement", "assessment-centre-tips"],
+    updated: "2026-11-20",
+    sources: [
+      { label: "GOV.UK: apply for an apprenticeship", url: "https://www.gov.uk/become-apprentice/apply-for-an-apprenticeship" },
+      { label: "GOV.UK: find an apprenticeship", url: "https://www.gov.uk/apply-apprenticeship" },
+      { label: "UCAS: degree apprenticeships", url: "https://www.ucas.com/apprenticeships/degree-apprenticeships" },
+      { label: "Unilever packaging apprenticeship", url: "https://careers.unilever.com/en/uk-and-ireland-early-careers-apprenticeships-packaging-professional-level-6" },
+      { label: "Neptune North vacancy", url: "https://job-boards.eu.greenhouse.io/neptunenorth/jobs/4910464101" },
+      { label: "AWE: apprenticeships", url: "https://www.awe.co.uk/careers/early-careers/apprenticeships/" },
+      { label: "Leonardo apprenticeship opportunities", url: "https://careers.uk.leonardo.com/gb/en/early-careers/apprenticeships/opportunities" },
+      { label: "M&G: routes into M&G FAQs", url: "https://group.mandg.com/careers/routes-into-mandg/faqs" },
+    ],
+  },
 ];
 
 export const guideBySlug = (slug: string) => GUIDES.find((g) => g.slug === slug);
