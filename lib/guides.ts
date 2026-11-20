@@ -1172,6 +1172,89 @@ export const GUIDES: Guide[] = [
       { label: "GOV.UK: Civil Service Fast Track Apprenticeship, how to apply (withdrawn 27 November 2020)", url: "https://www.gov.uk/guidance/civil-service-fast-track-apprenticeship-how-to-apply" },
     ],
   },
+  {
+    slug: "degree-apprenticeships-for-parents",
+    title: "Degree apprenticeships for parents and carers: your questions answered",
+    seoTitle: "Degree apprenticeships for parents and carers: FAQs",
+    description:
+      "A plain guide for parents and carers: is it a real degree, who pays, what an apprentice earns, their rights as an employee, how long it takes, and what to check before your child applies.",
+    intro:
+      "A degree apprenticeship is a job with an employer that includes a degree. At Level 6 the degree is a bachelor's, studied alongside the work, and in the vacancies we read the employer funds it so the apprentice pays no tuition fees. They are paid, with an apprentice minimum of £8 an hour in the first year on the April 2026 rates, and they are an employee with holiday pay.",
+    sections: [
+      {
+        heading: "Is it a real degree?",
+        bullets: [
+          "UCAS describes a degree apprenticeship as a way to gain a full undergraduate or master's degree while you work.",
+          "GOV.UK lists Level 6 degree apprenticeships as equal to a bachelor's degree and Level 7 as equal to a master's.",
+          "The degree is awarded by a university. In the vacancies we read, the universities named included Warwick, Kent, Aston, Lincoln, Sheffield Hallam, Northumbria, Coventry, Teesside, Harper Adams, BPP and the University of Law.",
+        ],
+      },
+      {
+        heading: "Who pays, and what does an apprentice earn?",
+        bullets: [
+          "The employer pays a wage. The apprentice minimum is £8 an hour in the first year for apprentices under 19 and those 19 or over in their first year, and GOV.UK shows it rising to £8.31 from April 2027.",
+          "Real 2027 vacancies we read advertised between about £16,640 and £26,000 a year, and many employers pay more than the minimum. Our pay guide lists them.",
+          "The vacancies we read that mentioned tuition described the degree as funded, with no tuition fees for the apprentice. Check each advert, because arrangements can differ.",
+        ],
+      },
+      {
+        heading: "Do they get an employee's rights?",
+        bullets: [
+          "GOV.UK says apprentices are employees, earning a wage and getting holiday pay, with at least 20 days of paid holiday a year plus bank holidays.",
+          "At least 20% of their normal working hours must be spent on training, and that training time is paid.",
+          "Employers add their own benefits. Examples in the vacancies we read include pensions, health cover and extra leave.",
+        ],
+      },
+      {
+        heading: "How long does it take, and what is the week like?",
+        paragraphs: [
+          "UCAS says three to six years depending on the level. About 80% of the time is work and about 20% is study, in one or two days a week or in blocks such as a week at a time. A solicitor route we read runs six years, and a supply chain route runs two.",
+        ],
+      },
+      {
+        heading: "What if it does not work out?",
+        bullets: [
+          "Places are limited, and the vacancies we read had between one and ten. Applying to several is normal, and UCAS says your child is free to apply for multiple degree apprenticeships and university courses at the same time.",
+          "If an application is unsuccessful, they can ask for feedback. GOV.UK also says they can complain if they think they were treated unfairly.",
+          "Some employers let people reapply the next year, as M&G says, so a rejection is not always final.",
+          "GOV.UK has an apprenticeship helpline for anyone who is made redundant from an apprenticeship and wants to apply again.",
+        ],
+      },
+      {
+        heading: "What to check in an advert",
+        bullets: [
+          "The level and what degree or qualification it leads to, and the university that awards it.",
+          "The length of the programme and whether it is a permanent job or a fixed term. One law apprenticeship we read describes a six-year temporary position, with progression possible but not guaranteed.",
+          "Rules about residency, nationality or security clearance. Government Social Research requires the right to work, three years of UK residence and meeting the Civil Service Nationality Rules, and several defence roles need security clearance.",
+          "Where the job is based, and whether the apprentice must be willing to relocate, as one quantity surveying employer states.",
+          "The closing date, because many employers fill places as applications arrive.",
+        ],
+      },
+      {
+        heading: "How you can help",
+        bullets: [
+          "Help your child keep a list of employers, dates and what each asks for. Our deadlines page shows who is open now and when they close.",
+          "Encourage them to write their own applications. Employers can tell, and interviewers ask about what is written.",
+          "Practise interview questions and talk through their examples together.",
+          "Keep a university application going alongside, so both options stay open until offers arrive.",
+        ],
+      },
+    ],
+    cta: { href: "/parents", label: "For parents: what Level6 costs", blurb: "What Level6 is, what is free, what Pro costs and how to cancel." },
+    related: ["degree-apprenticeship-vs-university", "degree-apprenticeship-salary", "what-is-a-degree-apprenticeship", "how-to-apply-for-a-degree-apprenticeship"],
+    updated: "2026-11-20",
+    sources: [
+      { label: "UCAS: degree apprenticeships", url: "https://www.ucas.com/apprenticeships/degree-apprenticeships" },
+      { label: "GOV.UK: apprenticeship qualifications and levels", url: "https://www.gov.uk/apprenticeships-guide/qualifications-and-levels" },
+      { label: "GOV.UK: apprentice pay and conditions", url: "https://www.gov.uk/become-apprentice/pay-and-conditions" },
+      { label: "GOV.UK: apply for an apprenticeship", url: "https://www.gov.uk/become-apprentice/apply-for-an-apprenticeship" },
+      { label: "GOV.UK: National Minimum Wage and National Living Wage rates", url: "https://www.gov.uk/national-minimum-wage-rates" },
+      { label: "GOV.UK: Government Social Research degree apprenticeship", url: "https://www.gov.uk/guidance/government-social-research-degree-apprenticeship-programme" },
+      { label: "TLT vacancy (Find an Apprenticeship)", url: "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000056706" },
+      { label: "Hanson vacancy (Find an Apprenticeship)", url: "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000057225" },
+      { label: "M&G: routes into M&G FAQs", url: "https://group.mandg.com/careers/routes-into-mandg/faqs" },
+    ],
+  },
 ];
 
 export const guideBySlug = (slug: string) => GUIDES.find((g) => g.slug === slug);
