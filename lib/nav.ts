@@ -33,6 +33,8 @@ export const NAV_GROUPS: NavGroup[] = [
     links: [
       { href: "/sectors", label: "Sector guides", blurb: "What changes between tech, engineering, finance and more" },
       { href: "/guide", label: "Process guide", blurb: "What happens at each stage" },
+      { href: "/interview-questions", label: "Reported interview questions", blurb: "Questions candidates report, by employer and type, with sources" },
+      { href: "/how-employers-recruit", label: "How employers recruit", blurb: "What we found across the employers we researched: tests, video interviews, stages" },
       { href: "/tips", label: "Tips", blurb: "Tests, video interviews and assessment centres" },
       { href: "/timeline", label: "Timeline", blurb: "When to do what" },
       { href: "/faq", label: "FAQ", blurb: "Common questions answered" },

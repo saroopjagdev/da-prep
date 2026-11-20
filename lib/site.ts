@@ -50,6 +50,8 @@ export const PUBLIC_PATHS = [
   "/sectors/finance/myths",
   "/faq",
   "/parents",
+  "/interview-questions",
+  "/how-employers-recruit",
   "/pricing",
   "/about",
   "/privacy",
