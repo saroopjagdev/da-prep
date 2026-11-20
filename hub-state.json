@@ -1,5 +1,5 @@
 {
- "checked": "2026-11-19",
+ "checked": "2026-11-20",
  "jobs": {
   "7f949662-465a-43cb-a95e-1216afb54e93": {
    "id": "7f949662-465a-43cb-a95e-1216afb54e93",
@@ -148,7 +148,7 @@
    "level": "7",
    "location": "London",
    "deadline": "2026-12-04",
-   "status": "open",
+   "status": "closing_soon",
    "apply": "https://bateswells.grad.allhires.com/app/"
   },
   "4c62ec59-02ec-4b41-8160-de4dea35ab0e": {

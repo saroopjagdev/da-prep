@@ -1,5 +1,5 @@
 {
- "checked": "2026-11-19",
+ "checked": "2026-11-20",
  "jobs": {
   "2000050834": {
    "id": "2000050834",
@@ -870,16 +870,6 @@
    "deadline": "2027-01-31",
    "posted": "2026-10-19",
    "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000059710"
-  },
-  "2000059816": {
-   "id": "2000059816",
-   "employer": "BRITISH AIRWAYS (BA) LIMITED",
-   "title": "Data Science Apprenticeship",
-   "level": "6",
-   "location": "Harmondsworth UB7",
-   "deadline": "2026-11-19",
-   "posted": "2026-10-19",
-   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000059816"
   },
   "2000060218": {
    "id": "2000060218",
@@ -2270,6 +2260,16 @@
    "deadline": "2027-04-30",
    "posted": "2026-11-19",
    "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000065093"
+  },
+  "2000065095": {
+   "id": "2000065095",
+   "employer": "WSP UK LIMITED",
+   "title": "Civil Engineering Degree Apprenticeship - Basingstoke (Bridges)",
+   "level": "6",
+   "location": "Basingstoke RG21",
+   "deadline": "2027-04-30",
+   "posted": "2026-11-19",
+   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000065095"
   },
   "2000065096": {
    "id": "2000065096",
