@@ -27,6 +27,10 @@ describe("guides", () => {
       "solicitor-apprenticeship",
       "public-sector-degree-apprenticeships",
       "degree-apprenticeships-for-parents",
+      "money-for-degree-apprentices",
+      "apprenticeship-funding-changes-2026-27",
+      "degree-apprenticeships-scotland-wales-northern-ireland",
+      "support-for-disabled-applicants",
     ]) {
       const g = guideBySlug(slug)!;
       expect(g, slug).toBeDefined();
@@ -45,6 +49,25 @@ describe("guides", () => {
     const text = JSON.stringify(guideBySlug("degree-apprenticeship-salary"));
     expect(text).toContain("£16,640");
     expect(text).toContain("20 days of paid holiday");
+  });
+  it("the money guide's worked example adds up: £24,000 in 2026 to 2027, tax at 20% over £12,570 and National Insurance at 8% over £242 a week", () => {
+    const salary = 24000;
+    const tax = (salary - 12570) * 0.2;
+    const niThreshold = 242 * 52;
+    const ni = (salary - niThreshold) * 0.08;
+    expect(tax).toBeCloseTo(2286, 2);
+    expect(niThreshold).toBe(12584);
+    expect(ni).toBeCloseTo(913.28, 2);
+    expect(salary - tax - ni).toBeCloseTo(20800.72, 2);
+    const text = JSON.stringify(guideBySlug("money-for-degree-apprentices"));
+    for (const figure of ["£2,286", "£913.28", "£20,800", "£11,430", "£11,416", "£12,570"]) expect(text, figure).toContain(figure);
+  });
+  it("the funding guide states the Level 7 age rule and warns that September 2027 starts fall under the next rules", () => {
+    const text = JSON.stringify(guideBySlug("apprenticeship-funding-changes-2026-27"));
+    expect(text).toMatch(/16 to 21/);
+    expect(text).toMatch(/22 to 24/);
+    expect(text).toMatch(/31 July 2027/);
+    expect(text).toMatch(/following year/);
   });
   it("the new guides are long enough to be useful and state their level of certainty", () => {
     for (const slug of ["degree-apprenticeship-salary", "degree-apprenticeship-entry-requirements", "apprenticeship-levels-explained", "how-to-apply-for-a-degree-apprenticeship"]) {

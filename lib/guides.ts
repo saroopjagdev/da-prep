@@ -1091,7 +1091,7 @@ export const GUIDES: Guide[] = [
       {
         heading: "A funding rule to check",
         paragraphs: [
-          "The SRA page, updated on 28 November 2025, says that from January 2026 government funding for Level 7 apprenticeships is restricted to people aged 21 and under, people aged 16 to 25 who have an education, health and care plan or are care leavers, and existing apprentices. If you are older, ask each firm whether it can offer the apprenticeship to you, and check the current SRA and GOV.UK pages, because funding rules change.",
+          "The government's apprenticeship funding rules for starts on or after 1 August 2026 say a Level 7 apprentice is only eligible for funding if they are aged 16 to 21 at the start of training, or aged 22 to 24 with an education, health and care plan or having been in the care of their local authority. The SRA page, updated on 28 November 2025, words it a little differently, saying funding is restricted to people aged 21 and under, people aged 16 to 25 who have an education, health and care plan or are care leavers, and existing apprentices. If you are 22 or older, ask each firm whether it can offer the apprenticeship to you, and check the current SRA and GOV.UK pages, because funding rules change each year. Our guide to the 2026 to 2027 funding changes has more.",
         ],
       },
       {
@@ -1255,6 +1255,275 @@ export const GUIDES: Guide[] = [
       { label: "M&G: routes into M&G FAQs", url: "https://group.mandg.com/careers/routes-into-mandg/faqs" },
     ],
   },
+  {
+    slug: "money-for-degree-apprentices",
+    title: "Money for degree apprentices and their parents: pay, tax and Child Benefit",
+    seoTitle: "Degree apprentice money: pay, tax and Child Benefit 2026-27",
+    description:
+      "What a degree apprentice earns and pays: the apprentice minimum wage, income tax and National Insurance for 2026 to 2027 with a worked example, and the Child Benefit rule for parents.",
+    intro:
+      "A degree apprentice is an employee, so they pay income tax and National Insurance like anyone else once their pay passes the thresholds. For parents, GOV.UK says Child Benefit stops when a child starts an apprenticeship in England, which surprises many families.",
+    sections: [
+      {
+        heading: "Pay",
+        bullets: [
+          "The apprentice minimum wage is £8 an hour on the April 2026 rates, for apprentices under 19 and those 19 or over in their first year. GOV.UK shows it rising to £8.31 from April 2027.",
+          "After the first year, an apprentice aged 19 or over gets the minimum wage for their age. GOV.UK's example is a 21-year-old at £12.71 an hour.",
+          "At least 20% of normal working hours are training and are paid, and apprentices get at least 20 days of paid holiday plus bank holidays.",
+          "Real 2027 vacancies we read advertised between about £16,640 and £26,000 a year. Our pay guide lists them.",
+        ],
+      },
+      {
+        heading: "Income tax in 2026 to 2027",
+        bullets: [
+          "GOV.UK gives the current tax year as 6 April 2026 to 5 April 2027.",
+          "The Personal Allowance is £12,570. Income above it is taxed at 20% up to £50,270 of taxable income, then 40%.",
+          "Scotland has different rates and bands, which GOV.UK sets out on a separate page.",
+        ],
+      },
+      {
+        heading: "National Insurance in 2026 to 2027",
+        bullets: [
+          "For an employee in category A, GOV.UK's table shows 0% on earnings from £129 to £242 a week, 8% from £242.01 to £967 a week, and 2% above that. Other categories have different rates.",
+          "Employer National Insurance is separate and is not deducted from the apprentice's pay.",
+        ],
+      },
+      {
+        heading: "A simple worked example",
+        paragraphs: [
+          "Take a salary of £24,000, which is what one engineering degree apprenticeship we read advertised. Income tax is 20% of the £11,430 above the £12,570 allowance, which is £2,286 a year. National Insurance is 8% of the £11,416 above £12,584 (that is £242 a week for 52 weeks), which is £913.28 a year. That leaves about £20,800 a year before anything else. This is a simple illustration for someone in England with a standard tax code and category A National Insurance, with no pension contribution or student loan, so a real payslip will differ.",
+        ],
+      },
+      {
+        heading: "Child Benefit",
+        bullets: [
+          "GOV.UK says Child Benefit is normally payable for a child aged 16 or over while they are under 20 and in approved education or training.",
+          "It also says Child Benefit stops if the child starts an apprenticeship in England. The page does not say whether an apprenticeship in Scotland, Wales or Northern Ireland has the same effect.",
+          "It stops too if the child starts paid work of 24 hours or more a week and is no longer in approved education or training, or starts certain benefits in their own right, such as Universal Credit.",
+          "GOV.UK has a separate page on Child Benefit for 16 to 19-year-olds, including what counts as approved education or training, and we have not read it. Check it before the apprenticeship starts.",
+        ],
+      },
+      {
+        heading: "Other support",
+        bullets: [
+          "GOV.UK says that if an apprentice was in local authority care and is under 25 when they start, they may be eligible for a bursary, and the training provider can say how to claim. The funding rules also list an apprenticeships bursary for care leavers.",
+          "Disabled apprentices may be entitled to benefits or support with work-related costs. See our guide to support for disabled applicants.",
+        ],
+      },
+      {
+        heading: "What we have not covered",
+        paragraphs: [
+          "We have not researched discount cards and Railcards, council tax, or how Universal Credit treats an apprentice's pay, so this guide does not say anything about them. Check each on GOV.UK or the issuing body before you rely on it.",
+        ],
+      },
+    ],
+    cta: { href: "/learn/degree-apprenticeship-salary", label: "See real 2027 salaries", blurb: "What degree apprenticeship vacancies actually advertised, with the legal minimum." },
+    related: ["degree-apprenticeship-salary", "degree-apprenticeships-for-parents", "degree-apprenticeship-vs-university"],
+    updated: "2026-11-20",
+    sources: [
+      { label: "GOV.UK: Child Benefit eligibility", url: "https://www.gov.uk/child-benefit/eligibility" },
+      { label: "GOV.UK: income tax rates and Personal Allowances", url: "https://www.gov.uk/income-tax-rates" },
+      { label: "GOV.UK: National Insurance rates and categories", url: "https://www.gov.uk/national-insurance-rates-letters" },
+      { label: "GOV.UK: National Minimum Wage and National Living Wage rates", url: "https://www.gov.uk/national-minimum-wage-rates" },
+      { label: "GOV.UK: apprentice pay and conditions", url: "https://www.gov.uk/become-apprentice/pay-and-conditions" },
+      { label: "GOV.UK: funding rules for apprenticeships (guidance collection)", url: "https://www.gov.uk/guidance/apprenticeship-funding-rules" },
+      { label: "Thales vacancy (Find an Apprenticeship)", url: "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000057141" },
+    ],
+  },
+  {
+    slug: "apprenticeship-funding-changes-2026-27",
+    title: "What changed in apprenticeship funding for 2026 to 2027",
+    seoTitle: "Apprenticeship funding changes 2026 to 2027: what applicants need",
+    description:
+      "What the 2026 to 2027 apprenticeship funding rules mean for applicants: the Level 7 age rule, the 8-month minimum, funding for 16 to 24-year-olds, and why September 2027 starts follow the next rules.",
+    intro:
+      "The England funding rules for apprenticeships that start between 1 August 2026 and 31 July 2027 limit government funding for Level 7 apprenticeships, such as solicitor, to 16 to 21-year-olds and some 22 to 24-year-olds. They are written for employers and training providers, so this guide picks out what matters if you are applying. September 2027 starts fall under the following year's rules, which can differ.",
+    sections: [
+      {
+        heading: "Who sets the rules now",
+        paragraphs: [
+          "The GOV.UK funding rules page says responsibility for apprenticeship guidance moved to the Department for Work and Pensions on 1 April 2026. The rules apply to England only. The current rules were published on 22 April 2026 and last updated on 3 August 2026, and the page says different rules apply to different start dates.",
+        ],
+      },
+      {
+        heading: "Level 7 funding is restricted by age",
+        paragraphs: [
+          "The 2026 to 2027 rules say apprentices starting a Level 7 standard are only eligible for funding if, at the start of training, they are aged 16 to 21, or aged 22 to 24 and have an education, health and care plan or have been in the care of their local authority. Level 7 includes the solicitor apprenticeship, and our solicitor guide covers what firms advertise.",
+          "The SRA's own page words the restriction slightly differently, saying funding is restricted to people aged 21 and under, people aged 16 to 25 with an education, health and care plan or who are care leavers, and existing apprentices. The funding rules document is the official source for the funding rule, so if you are 22 or over, ask the employer directly whether it can offer you the apprenticeship.",
+        ],
+      },
+      {
+        heading: "A minimum length",
+        paragraphs: [
+          "The rules say the practical period of an apprenticeship must last at least 8 months after any prior learning is taken into account, and some standards require longer. The minimum is based on working at least 30 hours a week including training, and the rules say working fewer hours or having a zero-hours contract must not stop you completing an apprenticeship.",
+        ],
+      },
+      {
+        heading: "Who pays for training",
+        bullets: [
+          "From 1 August 2026, the rules say government funds all training costs for apprentices aged 16 to 24 where an employer uses co-investment, and for apprentices aged 25 or over the employer pays a share (5% for employers who do not pay the levy).",
+          "The 10% government top-up on levy funds is removed from 1 August 2026.",
+          "From 1 October 2026, employers who do not pay the levy can get a £2,000 apprenticeship hiring payment for recruiting apprentices aged 16 to 24, paid in two instalments with the first after 90 days.",
+          "None of this changes what an apprentice pays for the degree. In the vacancies we read, the apprentice paid no tuition fees.",
+        ],
+      },
+      {
+        heading: "Other changes the rules mention",
+        bullets: [
+          "The rules refer to both the apprenticeship levy and the growth and skills levy, and include foundation apprenticeships.",
+          "The minimum amount of off-the-job training for each standard is now published on the Skills England website, on each standard's page.",
+          "Rules for English and maths are clarified, for example that they must not be delivered fully by self-directed distance learning.",
+        ],
+      },
+      {
+        heading: "What this means for you",
+        bullets: [
+          "These rules cover apprenticeships starting up to 31 July 2027. A September 2027 start falls under the rules for the following year, which we have not read, so check that nothing changes for your level.",
+          "If you are applying for a Level 7 route and are over 21, ask the employer how it is funded for you before you spend time on an application.",
+        ],
+      },
+    ],
+    cta: { href: "/learn/solicitor-apprenticeship", label: "Solicitor apprenticeships", blurb: "How the Level 7 solicitor route works, with real pay and entry requirements." },
+    related: ["solicitor-apprenticeship", "apprenticeship-levels-explained", "degree-apprenticeship-vs-university"],
+    updated: "2026-11-20",
+    sources: [
+      { label: "GOV.UK: funding rules for apprenticeships (collection, updated 3 August 2026)", url: "https://www.gov.uk/guidance/apprenticeship-funding-rules" },
+      { label: "GOV.UK: apprenticeship funding rules 2026 to 2027 (publication)", url: "https://www.gov.uk/government/publications/apprenticeship-funding-rules-and-assessment-plan-guidance-2026-to-2027" },
+      { label: "GOV.UK: apprenticeship funding rules 2026 to 2027, summary of changes", url: "https://www.gov.uk/government/publications/apprenticeship-funding-rules-and-assessment-plan-guidance-2026-to-2027/apprenticeship-funding-rules-summary-of-changes-version-1" },
+      { label: "SRA: solicitor apprenticeships (updated 28 November 2025)", url: "https://www.sra.org.uk/become-solicitor/sqe/solicitor-apprenticeships/" },
+    ],
+  },
+  {
+    slug: "degree-apprenticeships-scotland-wales-northern-ireland",
+    title: "Degree apprenticeships in Scotland, Wales and Northern Ireland",
+    seoTitle: "Degree apprenticeships in Scotland, Wales and Northern Ireland",
+    description:
+      "How graduate apprenticeships in Scotland, degree apprenticeships in Wales and higher level apprenticeships in Northern Ireland work, the levels, who can apply and where to find vacancies.",
+    intro:
+      "Each UK nation runs its own apprenticeship system. Scotland calls its degree-level route graduate apprenticeships (SCQF levels 9 to 11), Wales offers degree apprenticeships at Level 6 with Level 7 on some, and Northern Ireland has higher level apprenticeships from Level 4 to Level 7, most of them at Level 5. The GOV.UK rules our other guides use apply to England.",
+    sections: [
+      {
+        heading: "England, for comparison",
+        paragraphs: [
+          "GOV.UK's rules say you must be 16 or over, living in England and not in full-time education. Degree apprenticeships are Level 6 (bachelor's) and Level 7 (master's), and our levels guide explains them.",
+        ],
+      },
+      {
+        heading: "Scotland: graduate apprenticeships",
+        bullets: [
+          "Apprenticeships.scot describes them as paid jobs combining work with study towards a degree: you are employed by a company, study part of the week at university and get an Ordinary or Master's degree.",
+          "Its FAQ says there are 15 types at SCQF Level 9 (Ordinary degree) up to SCQF Level 11 (Master's degree), and the qualification is the same as on a standard university course.",
+          "They take two to five years. You must be at least the legal school-leaving age and have left school before you start, but you can apply before leaving, and there is no maximum age.",
+          "Apprentices must be paid at least the National Minimum Wage for apprentices. The page links to SAAS for eligibility rules and does not say who pays tuition, so check that for your course.",
+          "Examples of subjects include accounting, construction and the built environment, and data science. You search vacancies on the site, and each vacancy explains how to apply.",
+        ],
+      },
+      {
+        heading: "Wales: degree apprenticeships",
+        bullets: [
+          "Careers Wales lists four types: foundation (Level 2, GCSE equivalent), apprenticeship (Level 3, A-level equivalent), higher level (Level 4 and above, such as HNC, HND or a foundation degree, with some at bachelor's or master's level) and degree apprenticeships.",
+          "A degree apprenticeship is Level 6, a bachelor's degree, with Level 7 on some. The page says Wales works differently from the rest of the UK and links to a separate degree apprenticeships page.",
+          "UCAS says England and Wales offer degree apprenticeships, with most options in England.",
+          "The levels page does not give application steps. It points to Careers Wales for how to get an apprenticeship.",
+        ],
+      },
+      {
+        heading: "Northern Ireland: higher level apprenticeships",
+        bullets: [
+          "NI Direct says higher level apprenticeships are for people who have completed A-levels or equivalent, combine paid employment with training and a recognised higher qualification, and run from Level 4 to Level 7 (master's), with most at Level 5 (foundation degree or equivalent).",
+          "The minimum length is two years. You must be employed with a Northern Ireland company, or about to take up permanent paid employment as an apprentice, and work at least 21 hours a week including off-the-job training.",
+          "They are offered in over 20 occupational areas, including ICT, business and professional services, engineering, life and health sciences, accountancy and health care.",
+          "The page says they let you gain professional-level qualifications without paying higher education tuition fees. You apply by contacting the relevant further education college or university directly.",
+        ],
+      },
+      {
+        heading: "Choosing between nations",
+        bullets: [
+          "Check which nation's system an advert belongs to. The same job title can lead to a different qualification and level.",
+          "Use the nation's own site for vacancies and eligibility, because funding and entry rules differ.",
+          "Employers with UK-wide sites sometimes list the Scottish graduate apprenticeship separately from the English degree apprenticeship, so read the advert for the location.",
+        ],
+      },
+    ],
+    cta: { href: "/learn/apprenticeship-levels-explained", label: "Apprenticeship levels explained", blurb: "Level 2 to Level 7 and which are degree apprenticeships." },
+    related: ["apprenticeship-levels-explained", "what-is-a-degree-apprenticeship", "how-to-apply-for-a-degree-apprenticeship"],
+    updated: "2026-11-20",
+    sources: [
+      { label: "Apprenticeships.scot: graduate apprenticeships", url: "https://www.apprenticeships.scot/become-an-apprentice/graduate-apprenticeships/" },
+      { label: "NI Direct: higher level apprenticeships", url: "https://www.nidirect.gov.uk/articles/higher-level-apprenticeships" },
+      { label: "Careers Wales: apprenticeship levels explained", url: "https://careerswales.gov.wales/apprenticeships/apprenticeship-levels-explained" },
+      { label: "UCAS: degree apprenticeships", url: "https://www.ucas.com/apprenticeships/degree-apprenticeships" },
+      { label: "GOV.UK: apprenticeships guide", url: "https://www.gov.uk/apprenticeships-guide" },
+    ],
+  },
+  {
+    slug: "support-for-disabled-applicants",
+    title: "Support for disabled applicants: reasonable adjustments and Access to Work",
+    seoTitle: "Disabled applicants: reasonable adjustments and Access to Work",
+    description:
+      "How reasonable adjustments work in apprenticeship applications, what Access to Work can pay for, what employers say about adjustments and guaranteed interviews, and how to ask.",
+    intro:
+      "If you are disabled, employers have a legal duty to make reasonable adjustments for job applicants as well as staff, such as giving you more time on written or reading tests. Access to Work is a separate government scheme that can pay for practical support and for communication support at interviews.",
+    sections: [
+      {
+        heading: "Reasonable adjustments",
+        bullets: [
+          "Acas describes them as changes an employer makes to remove or reduce a disadvantage related to your disability. They are specific to the individual.",
+          "The Equality Act 2010 requires employers to make them for job applicants as well as employees and workers.",
+          "The duty applies when the employer knows or could reasonably be expected to know that you are disabled, or when a disabled applicant or employee asks.",
+          "The employer pays for them. It must consider whether an adjustment is reasonable, based on whether it removes the disadvantage, is practical, is affordable and is safe for others.",
+          "Acas's examples for recruitment include giving someone more time on written or reading tests that are part of an interview, and holding an interview in a room a wheelchair user can reach. Others include documents in an accessible format and a sign language interpreter.",
+          "The Acas page does not say whether you must tell an employer about a disability. It describes what the employer must do once it knows or could reasonably be expected to know.",
+        ],
+      },
+      {
+        heading: "What employers say about it",
+        bullets: [
+          "Forvis Mazars says it welcomes applications from disabled and neurodivergent candidates, reminds candidates before each stage and says they can request reasonable adjustments throughout.",
+          "EDF says it runs a guaranteed interview scheme for candidates with disabilities who meet the minimum criteria and disclose their disability, and it is a Disability Confident employer.",
+          "Several employers whose vacancies we read, including Thales, Molson Coors, Cranswick and Cavendish Nuclear, say a fair proportion of interviews are offered to applicants with a disability or long-term health condition who meet the essential requirements.",
+          "Visa says you can ask the recruiter for adjustments to the process after you apply, and Vodafone links to its application adjustments guidance.",
+        ],
+      },
+      {
+        heading: "Access to Work",
+        bullets: [
+          "GOV.UK describes it as a scheme that can help you get or stay in work if you have a physical or mental health condition or disability, with three kinds of support.",
+          "A grant for practical support at work, such as specialist equipment and software, support workers (the page's examples are a BSL interpreter, a job coach and a travel buddy), travel to work if you cannot use public transport, and changes to your workplace.",
+          "Support with managing your mental health at work, which you apply for directly through Able Futures or Maximus.",
+          "Money for communication support at job interviews, for example a BSL interpreter or lipspeaker if you are deaf or hard of hearing, or if you have a health condition or learning difficulty and need communication support.",
+          "The grant does not have to be paid back and does not affect other benefits, although you or your employer may need to pay some costs up front and claim them back. It does not pay for the reasonable adjustments an employer must make by law.",
+          "The main page does not mention apprentices specifically. Its eligibility details are on a separate page, so check it before you apply.",
+        ],
+      },
+      {
+        heading: "Neurodivergent applicants",
+        paragraphs: [
+          "Acas has a separate page on adjustments for neurodiversity, which we did not read, so we have not summarised it here. Some employers tailor their processes: Forvis Mazars says its online assessment aims to account for neurodiversity by adapting to differences in decision-making style. The principle is the same as for any adjustment: tell the employer what would help, and ask what is possible for tests, video interviews and assessment centres.",
+        ],
+      },
+      {
+        heading: "How to ask",
+        bullets: [
+          "Say so before the stage, not during it. Use the contact details in the invitation or advert, and say what would help, such as extra time on a test or a different format.",
+          "Be specific about the adjustment you want and why it helps you do the task.",
+          "You can ask at any stage: Forvis Mazars, for one, says candidates can request adjustments throughout.",
+          "If you are unsure, the employer's recruitment team, the Acas page and the Access to Work pages are the places to start.",
+        ],
+      },
+    ],
+    cta: { href: "/learn/how-to-apply-for-a-degree-apprenticeship", label: "How to apply", blurb: "Step by step, from finding vacancies to what to do if you are unsuccessful." },
+    related: ["how-to-apply-for-a-degree-apprenticeship", "assessment-centre-tips", "video-interview-tips-hirevue"],
+    updated: "2026-11-20",
+    sources: [
+      { label: "Acas: reasonable adjustments (updated 30 January 2025)", url: "https://www.acas.org.uk/reasonable-adjustments" },
+      { label: "GOV.UK: Access to Work", url: "https://www.gov.uk/access-to-work" },
+      { label: "GOV.UK: Disability Confident campaign", url: "https://www.gov.uk/government/collections/disability-confident-campaign" },
+      { label: "Forvis Mazars: selection process", url: "https://careers-uk.forvismazars.com/jobs/selection-process/" },
+      { label: "EDF: apprenticeships", url: "https://careers.edfenergy.com/apprenticeships" },
+      { label: "Visa: apprenticeship application process", url: "https://uk.review.visa.com/careers/next-gen-careers/application-process-apprenticeship.html" },
+    ],
+  },
 ];
 
 export const guideBySlug = (slug: string) => GUIDES.find((g) => g.slug === slug);
@@ -1264,7 +1533,7 @@ export const GUIDE_TOPICS = [
   { id: "basics", label: "The basics", blurb: "What a degree apprenticeship is, how it compares with university, and the levels." },
   { id: "applying", label: "Applying", blurb: "When to apply, how applications work, and writing a statement that stands out." },
   { id: "tests-interviews", label: "Tests and interviews", blurb: "Reasoning tests, video interviews, assessment centres and interview questions." },
-  { id: "pay-requirements", label: "Pay and requirements", blurb: "What apprentices earn and what employers ask for, with real examples." },
+  { id: "pay-requirements", label: "Pay, money and requirements", blurb: "What apprentices earn and pay, what changed in funding, and what employers ask for, with real examples." },
   { id: "by-sector", label: "By sector", blurb: "How the route works in law and in the public sector." },
 ] as const;
 export type GuideTopic = (typeof GUIDE_TOPICS)[number]["id"];
@@ -1284,6 +1553,10 @@ export const GUIDE_TOPIC_OF: Record<string, GuideTopic> = {
   "civil-service-judgement-test": "tests-interviews",
   "assessment-centre-tips": "tests-interviews",
   "degree-apprenticeship-salary": "pay-requirements",
+  "money-for-degree-apprentices": "pay-requirements",
+  "apprenticeship-funding-changes-2026-27": "pay-requirements",
+  "degree-apprenticeships-scotland-wales-northern-ireland": "basics",
+  "support-for-disabled-applicants": "applying",
   "degree-apprenticeship-entry-requirements": "pay-requirements",
   "solicitor-apprenticeship": "by-sector",
   "public-sector-degree-apprenticeships": "by-sector",
