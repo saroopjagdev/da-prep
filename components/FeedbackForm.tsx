@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { postJson } from "@/lib/api";
-import { MAX_MESSAGE, MAX_NAME } from "@/lib/feedback";
+import { MAX_MESSAGE, MAX_NAME, canOfferQuote } from "@/lib/feedback";
 import { ratingFromParam } from "@/lib/feedback-ask";
 
 /**
@@ -20,17 +20,27 @@ export default function FeedbackForm() {
 
   // The banner and the email carry a one-tap rating (?r=5); it only fills in the optional rating box.
   useEffect(() => {
-    const r = ratingFromParam(new URLSearchParams(window.location.search).get("r"));
+    const r = ratingFromParam(
+      new URLSearchParams(window.location.search).get("r"),
+    );
     // eslint-disable-next-line react-hooks/set-state-in-effect -- the address is only readable in the browser
     if (r) setRating(r);
   }, []);
+
+  // A low rating is feedback for us to act on, so it is asked for as "what should we fix?" and the show-my-comment option is not offered.
+  const offerQuote = canOfferQuote(rating);
 
   async function send(e: React.FormEvent) {
     e.preventDefault();
     setError("");
     setBusy(true);
     try {
-      await postJson("/api/feedback", { rating, message, mayQuote, displayName: mayQuote ? displayName : undefined });
+      await postJson("/api/feedback", {
+        rating,
+        message,
+        mayQuote: offerQuote && mayQuote,
+        displayName: offerQuote && mayQuote ? displayName : undefined,
+      });
       setSent(true);
     } catch (err) {
       setError((err as Error).message);
@@ -42,7 +52,11 @@ export default function FeedbackForm() {
   if (sent) {
     return (
       <p role="status" className="callout bg-mint-50 text-mint-600">
-        Thank you. We read every message{mayQuote ? ", and we will only show yours if we choose it, with the name you gave" : ""}.
+        Thank you. We read every message
+        {offerQuote && mayQuote
+          ? ", and we will only show yours if we choose it, with the name you gave"
+          : ""}
+        .
       </p>
     );
   }
@@ -50,11 +64,26 @@ export default function FeedbackForm() {
   return (
     <form onSubmit={send} className="card space-y-4 p-5">
       <fieldset className="space-y-2">
-        <legend className="text-sm font-semibold">How would you rate Level6 so far? (optional)</legend>
-        <div className="flex flex-wrap gap-2" role="radiogroup" aria-label="Rating out of 5">
+        <legend className="text-sm font-semibold">
+          How would you rate Level6 so far? (optional)
+        </legend>
+        <div
+          className="flex flex-wrap gap-2"
+          role="radiogroup"
+          aria-label="Rating out of 5"
+        >
           {[1, 2, 3, 4, 5].map((n) => (
-            <label key={n} className={`flex cursor-pointer items-center gap-1.5 rounded-lg border px-3 py-1.5 text-sm ${rating === n ? "border-brand-600 bg-brand-50 font-semibold" : "border-line"}`}>
-              <input type="radio" name="rating" className="sr-only" checked={rating === n} onChange={() => setRating(n)} />
+            <label
+              key={n}
+              className={`flex cursor-pointer items-center gap-1.5 rounded-lg border px-3 py-1.5 text-sm ${rating === n ? "border-brand-600 bg-brand-50 font-semibold" : "border-line"}`}
+            >
+              <input
+                type="radio"
+                name="rating"
+                className="sr-only"
+                checked={rating === n}
+                onChange={() => setRating(n)}
+              />
               {n} {n === 1 ? "star" : "stars"}
             </label>
           ))}
@@ -63,7 +92,9 @@ export default function FeedbackForm() {
 
       <div className="space-y-1">
         <label htmlFor="fb-message" className="text-sm font-semibold">
-          What is working, and what is not?
+          {offerQuote
+            ? "What is working, and what is not?"
+            : "What should we fix or do better?"}
         </label>
         <textarea
           id="fb-message"
@@ -75,41 +106,58 @@ export default function FeedbackForm() {
           className="w-full rounded-lg border border-line p-3 text-sm"
           placeholder="Anything helps: what you used, what was useful, what confused you or put you off."
         />
-        <p className="text-xs text-muted">Please do not include your full name, school, email or phone number.</p>
+        <p className="text-xs text-muted">
+          Please do not include your full name, school, email or phone number.
+        </p>
       </div>
 
-      <div className="space-y-2 rounded-lg bg-soft p-3 text-sm">
-        <label className="flex items-start gap-2">
-          <input type="checkbox" className="mt-1 accent-brand-600" checked={mayQuote} onChange={(e) => setMayQuote(e.target.checked)} />
-          <span>
-            You may show my comment on the Level6 website, with the name I give below. I understand you choose which comments to show, and I can ask for mine to be taken down at any time.
-          </span>
-        </label>
-        {mayQuote && (
-          <div className="space-y-1 pl-6">
-            <label htmlFor="fb-name" className="font-medium">
-              Name to show
-            </label>
+      {offerQuote && (
+        <div className="space-y-2 rounded-lg bg-soft p-3 text-sm">
+          <label className="flex items-start gap-2">
             <input
-              id="fb-name"
-              value={displayName}
-              onChange={(e) => setDisplayName(e.target.value)}
-              maxLength={MAX_NAME}
-              required
-              className="w-full rounded-lg border border-line p-2"
-              placeholder="For example: Aisha, Year 13"
+              type="checkbox"
+              className="mt-1 accent-brand-600"
+              checked={mayQuote}
+              onChange={(e) => setMayQuote(e.target.checked)}
             />
-            <p className="text-xs text-muted">A first name or a nickname is enough. No surname or school.</p>
-          </div>
-        )}
-      </div>
+            <span>
+              You may show my comment on the Level6 website, with the name I
+              give below. I understand you choose which comments to show, and I
+              can ask for mine to be taken down at any time.
+            </span>
+          </label>
+          {mayQuote && (
+            <div className="space-y-1 pl-6">
+              <label htmlFor="fb-name" className="font-medium">
+                Name to show
+              </label>
+              <input
+                id="fb-name"
+                value={displayName}
+                onChange={(e) => setDisplayName(e.target.value)}
+                maxLength={MAX_NAME}
+                required
+                className="w-full rounded-lg border border-line p-2"
+                placeholder="For example: Aisha, Year 13"
+              />
+              <p className="text-xs text-muted">
+                A first name or a nickname is enough. No surname or school.
+              </p>
+            </div>
+          )}
+        </div>
+      )}
 
       {error && (
         <p role="alert" className="callout bg-coral-50 text-coral-600">
           {error}
         </p>
       )}
-      <button type="submit" disabled={busy || !message.trim()} className="btn btn-primary">
+      <button
+        type="submit"
+        disabled={busy || !message.trim()}
+        className="btn btn-primary"
+      >
         {busy ? "Sending…" : "Send feedback"}
       </button>
     </form>
