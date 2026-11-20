@@ -10,6 +10,10 @@ export const MAX_PER_USER = 5;
 /** How many chosen comments the site shows at most. */
 export const MAX_SHOWN = 6;
 
+/** Lowest rating whose comment can be offered for showing on the site. Lower ratings are still collected in full. */
+export const MIN_SHOWABLE_RATING = 4;
+export const canOfferQuote = (rating: number | undefined) => rating === undefined || rating >= MIN_SHOWABLE_RATING;
+
 export const feedbackInput = z
   .object({
     rating: z.number().int().min(1).max(5).optional(),
@@ -17,7 +21,10 @@ export const feedbackInput = z
     mayQuote: z.boolean().default(false),
     displayName: z.string().trim().max(MAX_NAME, `Keep the name under ${MAX_NAME} characters.`).optional(),
   })
-  .refine((v) => !v.mayQuote || Boolean(v.displayName), { message: "Add the name you want shown, or untick the permission.", path: ["displayName"] });
+  .refine((v) => !v.mayQuote || Boolean(v.displayName), { message: "Add the name you want shown, or untick the permission.", path: ["displayName"] })
+  // Every rating is welcome and read. Only 4 and 5 star (or unrated) comments can be offered for the site, so a low rating
+  // is feedback for us to act on and never a candidate to be shown. The form hides the permission box; this is the backstop.
+  .transform((v) => (canOfferQuote(v.rating) ? v : { ...v, mayQuote: false, displayName: undefined }));
 
 export type FeedbackInput = z.infer<typeof feedbackInput>;
 

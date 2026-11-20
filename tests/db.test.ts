@@ -148,6 +148,25 @@ describe("first-steps email candidates and admin engagement counts", () => {
     expect(await ids(`select user_id from nudge_candidates('first-steps', 2, 14, array['admin@x'])`)).toEqual([QUIET]);
   });
 
+  it("feedback-email candidates: used something, never sent feedback, not asked or unsubscribed", async () => {
+    await db.exec(`
+      insert into usage (user_id, period, practice) values ('${SENT}', 'lifetime', 1), ('${STOPPED}', 'lifetime', 1), ('${ADMIN}', 'lifetime', 1), ('${TOO_NEW}', 'lifetime', 1), ('${UNCONFIRMED}', 'lifetime', 1);
+      insert into nudge_sent (user_id, kind) values ('${BUSY}', 'feedback-ask');
+    `);
+    // SENT has only the first-steps log, so it is eligible. BUSY was already asked, STOPPED unsubscribed, QUIET has used
+    // nothing, UNCONFIRMED is not confirmed, TOO_NEW is too new, ADMIN is excluded.
+    expect(await ids(`select user_id from feedback_ask_candidates('feedback-ask', 2, 14, array['admin@x'])`)).toEqual([SENT]);
+    await db.exec(`insert into feedback (user_id, message) values ('${SENT}', 'hello')`);
+    expect(await ids(`select user_id from feedback_ask_candidates('feedback-ask', 2, 14, array['admin@x'])`)).toEqual([]);
+    expect((await as(A, `select * from feedback_ask_candidates('feedback-ask', 2, 14, '{}')`)).err).toBeTruthy();
+    // Leave the rows as they were for the tests after this one.
+    await db.exec(`
+      delete from feedback where user_id = '${SENT}';
+      delete from nudge_sent where kind = 'feedback-ask';
+      delete from usage where user_id in ('${SENT}', '${STOPPED}', '${ADMIN}', '${TOO_NEW}', '${UNCONFIRMED}');
+    `);
+  });
+
   it("keeps the functions away from signed-in users and the public", async () => {
     expect((await as(A, `select * from nudge_candidates('first-steps', 2, 14, '{}')`)).err).toBeTruthy();
     expect((await as(null, `select admin_engagement('{}')`)).err).toBeTruthy();

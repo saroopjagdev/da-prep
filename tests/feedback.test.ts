@@ -75,6 +75,14 @@ describe("POST /api/feedback", () => {
     expect(inserted.every((r) => r.user_id === "u1" && r.may_quote === false && r.display_name === null)).toBe(true);
   });
 
+  it("collects a low rating's feedback in full but never lets it be offered for the site", async () => {
+    userFromRequest.mockResolvedValue({ id: "u1" });
+    await sendFeedback(post({ message: "Too slow and confusing", rating: 2, mayQuote: true, displayName: "Sam" }));
+    await sendFeedback(post({ message: "Brilliant", rating: 4, mayQuote: true, displayName: "Aisha" }));
+    expect(inserted[0]).toMatchObject({ rating: 2, message: "Too slow and confusing", may_quote: false, display_name: null });
+    expect(inserted[1]).toMatchObject({ rating: 4, may_quote: true, display_name: "Aisha" });
+  });
+
   it("stores a display name only when permission to show the comment was given", async () => {
     userFromRequest.mockResolvedValue({ id: "u1" });
     await sendFeedback(post({ message: "Great", mayQuote: true, displayName: "Aisha, Year 13" }));

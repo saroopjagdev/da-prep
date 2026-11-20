@@ -68,6 +68,7 @@ export default function Privacy() {
         <li>
           <strong>If you send us feedback:</strong> what you wrote, the rating if you gave one, and the date, kept with your account so we can read it and fix things. If you tick the box to let us show your comment on the site, we may publish
           your words with the name you typed (a first name or nickname is enough; please do not give a surname or school). We choose which comments to show, and we show only those with that permission. Ask us and we will take yours down, and it is deleted if you delete your account (consent for showing it; our legitimate interest in improving the service for reading it).
+          {" "}We may ask for feedback with a small banner under your results, which remembers in your browser if you chose &ldquo;Maybe later&rdquo; or &ldquo;Don&apos;t ask again&rdquo; (nothing is sent to us), and with at most one email, sent once to an account that has used the site for a few days and never sent feedback. That email has the same one-click link to stop it as the deadline emails, and we log that it was sent so it does not go twice.
         </li>
         <li>
           <strong>If you buy Pro:</strong> a Stripe customer ID and your plan. When you pay we also record, with the payment, that you

@@ -5,6 +5,7 @@ import RequireAccount from "@/components/RequireAccount";
 import Link from "next/link";
 import { useState } from "react";
 import AreaTabs from "@/components/AreaTabs";
+import FeedbackAsk from "@/components/FeedbackAsk";
 import FileTextPicker from "@/components/FileTextPicker";
 import { postJson } from "@/lib/api";
 import { AI_RULES, COMMON_QUESTIONS, countWords, type AppQuestion } from "@/lib/application-questions";
@@ -268,6 +269,7 @@ function ReviewInner({ firms }: { firms: ReviewFirm[] }) {
           <p className="callout bg-brand-50">
             <strong>A stronger opening:</strong> {review.rewrittenOpening}
           </p>
+          <FeedbackAsk />
         </div>
       )}
     </div>
