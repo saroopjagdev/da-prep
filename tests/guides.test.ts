@@ -24,6 +24,8 @@ describe("guides", () => {
       "apprenticeship-levels-explained",
       "how-to-apply-for-a-degree-apprenticeship",
       "video-interview-tips-hirevue",
+      "solicitor-apprenticeship",
+      "public-sector-degree-apprenticeships",
     ]) {
       const g = guideBySlug(slug)!;
       expect(g, slug).toBeDefined();
