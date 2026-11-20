@@ -57,10 +57,34 @@ export const GUIDES: Guide[] = [
           "Plenty of people apply for degree apprenticeships and to university through UCAS at the same time, and decide when offers arrive. Applications for degree apprenticeships often open in the autumn, and many close earlier than UCAS deadlines, so start by finding who is open now and what each employer asks for.",
         ],
       },
+      {
+        heading: "Side by side",
+        bullets: [
+          "How you apply: degree apprenticeships are advertised through the year, each with its own deadline, and UCAS says there is no application cycle like university's. University applications follow the UCAS calendar.",
+          "How long it takes: UCAS says three to six years depending on the course level.",
+          "How your time is split: about 80% working and 20% studying according to UCAS, and GOV.UK says at least 20% of working hours must be training.",
+          "Money: you are paid a wage, with an apprentice minimum of £8 an hour in the first year on the April 2026 rates. The vacancies we read described the degree as funded, with no tuition fees for the apprentice.",
+          "The qualification: GOV.UK lists Level 6 degree apprenticeships as equal to a bachelor's degree and Level 7 as equal to a master's.",
+        ],
+      },
+      {
+        heading: "Three things people get wrong",
+        bullets: [
+          "\"It is a lesser route.\" The degree level is the same: a Level 6 apprenticeship is equal to a bachelor's degree. What differs is how you get there and how much work experience you have when you finish.",
+          "\"You have to pick one.\" UCAS says you are free to apply for multiple degree apprenticeships and traditional university courses at the same time.",
+          "\"It is only engineering and IT.\" The 2027 vacancies we read include solicitor, surveying, supply chain, packaging, civil engineering, nuclear engineering and finance routes.",
+        ],
+      },
+      {
+        heading: "Places are limited, so keep both doors open",
+        paragraphs: [
+          "Some vacancies have very few places. The ones we read ranged from one to ten, so apply to several and keep your university applications going. If you are not sure which suits you, an honest pros and cons list with someone who knows you, such as a teacher or careers adviser, is worth more than any rule of thumb.",
+        ],
+      },
     ],
     cta: { href: "/opportunities", label: "See who is open now", blurb: "Every employer we cover, with open, closing soon and opening soon in one list." },
-    related: ["what-is-a-degree-apprenticeship", "degree-apprenticeship-interview-questions"],
-    updated: "2026-10-06",
+    related: ["what-is-a-degree-apprenticeship", "degree-apprenticeship-salary", "apprenticeship-levels-explained", "degree-apprenticeship-interview-questions"],
+    updated: "2026-11-20",
   },
   {
     slug: "what-is-a-degree-apprenticeship",
@@ -95,10 +119,43 @@ export const GUIDES: Guide[] = [
           "Usually directly to the employer through its careers page, with some roles also on the government's Find an Apprenticeship service. Most selection processes include an application form, online tests, a video interview and an assessment centre or final interview. Dates differ by employer, and many close early or when places are full.",
         ],
       },
+      {
+        heading: "How it works week to week",
+        paragraphs: [
+          "UCAS says about 80% of your time is work and about 20% is study. The study can be one or two days a week or in blocks such as a week at a time, depending on the university and the employer. The employer pays you throughout, and an end-point assessment at the end checks you can do the job, alongside assignments during the course.",
+        ],
+      },
+      {
+        heading: "What you finish with",
+        bullets: [
+          "A Level 6 degree apprenticeship is equal to a bachelor's degree, and a Level 7 is equal to a master's, according to GOV.UK.",
+          "Many also include professional qualifications. For example, a chartered surveyor route we read leads to a RICS-accredited degree, and UBS's investment bank route includes CFA Level 1 or a Chartered Banker Institute qualification.",
+          "The length depends on the level: UCAS says three to six years.",
+        ],
+      },
+      {
+        heading: "Who can apply",
+        bullets: [
+          "GOV.UK says you must be 16 or over, living in England and not in full-time education. A previous qualification, even a degree, does not stop you starting an apprenticeship.",
+          "Each employer sets its own entry requirements, so see our guide to the grades and other rules real vacancies ask for.",
+          "Scotland calls its version graduate apprenticeships. UCAS says Wales offers degree apprenticeships too, and Northern Ireland has higher level apprenticeships, mostly at Level 5.",
+        ],
+      },
+      {
+        heading: "Where to find them",
+        paragraphs: [
+          "Search the GOV.UK Find an apprenticeship service, UCAS's apprenticeship search and employers' own careers pages. Our deadlines page lists which employers are open now and when each closes, and our employer pages say plainly which employers offer a degree apprenticeship and which offer a different level.",
+        ],
+      },
     ],
     cta: { href: "/guide", label: "Walk through each stage", blurb: "What happens at every stage of a typical application, and how to prepare." },
-    related: ["degree-apprenticeship-vs-university", "degree-apprenticeship-personal-statement"],
-    updated: "2026-10-06",
+    related: ["apprenticeship-levels-explained", "degree-apprenticeship-vs-university", "degree-apprenticeship-entry-requirements", "how-to-apply-for-a-degree-apprenticeship"],
+    updated: "2026-11-20",
+    sources: [
+      { label: "UCAS: degree apprenticeships", url: "https://www.ucas.com/apprenticeships/degree-apprenticeships" },
+      { label: "GOV.UK: apprenticeship qualifications and levels", url: "https://www.gov.uk/apprenticeships-guide/qualifications-and-levels" },
+      { label: "GOV.UK: apprenticeships guide", url: "https://www.gov.uk/apprenticeships-guide" },
+    ],
   },
   {
     slug: "degree-apprenticeship-personal-statement",
@@ -145,10 +202,36 @@ export const GUIDES: Guide[] = [
           "Check the word count, the question, the employer's name and the spelling of everything. Then get feedback and fix the weakest sentence.",
         ],
       },
+      {
+        heading: "Turn what you have done into evidence",
+        paragraphs: [
+          "Employers read dozens of statements that say \"I am hard-working and a good team player\". What stands out is a specific thing you did, what it needed from you and what happened. A simple pattern for each paragraph is: what you did, the skill it shows, and the result.",
+          "For example (a pattern, not a line to copy): \"I organised the rota for our school's charity fun run with six volunteers. Keeping it fair when two people dropped out showed me how to plan around problems, and we raised more than the year before.\" Swap in your own facts and numbers, and only include what is true.",
+        ],
+      },
+      {
+        heading: "Edit it in one hour",
+        bullets: [
+          "10 minutes: read it aloud and cross out every sentence that could be written by anyone.",
+          "15 minutes: for each skill you claim, add one specific example, or delete the claim.",
+          "10 minutes: check the opening and the ending. Start with your motivation, not your life story, and end on what you will bring and learn.",
+          "10 minutes: match it to the advert. Use the employer's own words for the skills it asks for, where they are true of you.",
+          "15 minutes: proofread, then ask someone else to read it. Spelling slips look careless in a job application.",
+        ],
+      },
+      {
+        heading: "Mistakes that cost you",
+        bullets: [
+          "Copying a model statement. Employers recognise them, and they say nothing about you.",
+          "Listing activities without saying what you did or learned from them.",
+          "Using the same statement for every employer. A short, specific line about why this employer matters more than a long general one.",
+          "Exaggerating. Interviewers ask follow-up questions about anything you wrote, so be ready to talk about every line.",
+        ],
+      },
     ],
     cta: { href: "/review", label: "Get feedback out of 100", blurb: "Paste or upload your statement and see what to fix, with a stronger version of weak lines." },
-    related: ["how-to-answer-why-this-company", "what-is-a-degree-apprenticeship"],
-    updated: "2026-10-06",
+    related: ["how-to-answer-why-this-company", "what-is-a-degree-apprenticeship", "how-to-apply-for-a-degree-apprenticeship"],
+    updated: "2026-11-20",
   },
   {
     slug: "degree-apprenticeship-interview-questions",
@@ -191,10 +274,42 @@ export const GUIDES: Guide[] = [
           "Test your camera, sound, lighting and connection first, and have a backup plan for technical problems.",
         ],
       },
+      {
+        heading: "The four kinds of question",
+        bullets: [
+          "Motivation: why this employer, why an apprenticeship, why this area. Reported often, including \"why an apprenticeship rather than a traditional degree?\".",
+          "Competency: tell me about a time you worked in a team, handled a deadline or dealt with something that went wrong.",
+          "Strengths-based: what do you enjoy, and what are you good at? Some employers, including Forvis Mazars, use a strengths-based interview, where honest and energetic answers matter.",
+          "Situational: what would you do if... A short, practical answer that shows your reasoning does better than a perfect one.",
+        ],
+      },
+      {
+        heading: "A worked STAR answer (a pattern)",
+        paragraphs: [
+          "Question: tell me about a time something did not go to plan. Situation: \"Our school enterprise stall had its main supplier cancel two days before the sale.\" Task: \"As the person in charge of stock, I needed enough product to keep the stall open.\" Action: \"I phoned three other suppliers, compared prices and delivery times, and chose the one that could deliver by Friday, then told the team the plan.\" Result: \"We opened on time and sold out, and I learned to keep a backup option for anything important.\" This is an example of the shape; use your own true story.",
+        ],
+      },
+      {
+        heading: "Build a bank of five stories",
+        bullets: [
+          "Choose five experiences from school, work, sport, volunteering or home that you can describe in detail.",
+          "Write each as situation, task, action, result in four short lines.",
+          "Tag each with the skills it shows, such as teamwork, resilience, organisation, initiative and leadership. One story can answer several questions.",
+          "Say them out loud against a timer. A clear answer usually takes one to two minutes.",
+        ],
+      },
+      {
+        heading: "On the day",
+        bullets: [
+          "It is fine to pause and think before you answer. A calm, structured answer beats a rushed one.",
+          "If you do not understand a question, ask for it to be repeated or rephrased.",
+          "Ask one or two real questions at the end, based on your research about the programme.",
+        ],
+      },
     ],
     cta: { href: "/interview", label: "Practise an interview", blurb: "Answer out loud or in text and get a mark out of 100 with a stronger version of each answer." },
-    related: ["how-to-answer-why-this-company", "assessment-centre-tips"],
-    updated: "2026-10-06",
+    related: ["video-interview-tips-hirevue", "how-to-answer-why-this-company", "assessment-centre-tips"],
+    updated: "2026-11-20",
   },
   {
     slug: "numerical-verbal-reasoning-tests",
@@ -238,10 +353,44 @@ export const GUIDES: Guide[] = [
           "Some employers say you must not use AI or other help during online tests, video interviews and assessment centres. Using it can end your application, so read the instructions and do the tests yourself.",
         ],
       },
+      {
+        heading: "What the questions look like",
+        bullets: [
+          "Verbal reasoning: you read a short passage and decide whether a statement is true, false or cannot be said from the passage alone. Answer only from the passage, not from what you know.",
+          "Numerical reasoning: you read tables and charts and work out percentages, ratios and changes over time. Practise reading the question first so you know what to look for.",
+          "Inductive or logical reasoning: you find the pattern in a sequence of shapes. UBS, for example, lists inductive-logical tests among the four it assigns by business area.",
+          "Situational judgement: you choose or rate responses to a work scenario. See our guide to the Civil Service judgement test for how one official version works.",
+        ],
+      },
+      {
+        heading: "How tight is the timing?",
+        paragraphs: [
+          "Timing varies by test and employer, so check your invitation. As an example of the pressure, the Civil Service Fast Track tests, which have since closed, gave a guide time of six minutes for 36 verbal questions and six minutes for 24 numerical ones. That is a speed test, and it is why practising under a timer matters more than doing untimed questions.",
+        ],
+      },
+      {
+        heading: "A four-week practice plan (advice)",
+        bullets: [
+          "Week 1: one untimed test of each type, reading every explanation to find the question types you miss.",
+          "Week 2: timed sets of 10 questions in your weaker type, aiming for accuracy first.",
+          "Week 3: full timed tests, and review only the mistakes.",
+          "Week 4: two or three timed tests under realistic conditions, on the device you will use, then rest the day before.",
+        ],
+      },
+      {
+        heading: "Tests versus games",
+        paragraphs: [
+          "Some employers use game-based assessments instead of, or as well as, these tests. Games usually measure traits or attention and memory rather than right and wrong answers, so the preparation is different. See our guides to the providers employers name, such as Arctic Shores, Pymetrics, HireVue games, Aon and Neurosight, and what each says about preparation.",
+        ],
+      },
     ],
     cta: { href: "/practice", label: "Practise employer-style tests", blurb: "Timed numerical, verbal, logical and situational practice with explanations." },
-    related: ["degree-apprenticeship-interview-questions", "assessment-centre-tips"],
-    updated: "2026-10-06",
+    related: ["civil-service-judgement-test", "degree-apprenticeship-interview-questions", "assessment-centre-tips"],
+    updated: "2026-11-20",
+    sources: [
+      { label: "GOV.UK: Civil Service Fast Track Apprenticeship, how to apply (withdrawn 27 November 2020)", url: "https://www.gov.uk/guidance/civil-service-fast-track-apprenticeship-how-to-apply" },
+      { label: "UBS: apprenticeships (UK)", url: "https://www.ubs.com/global/en/careers/apprenticeships/gbr.html" },
+    ],
   },
   {
     slug: "how-to-answer-why-this-company",
@@ -283,10 +432,35 @@ export const GUIDES: Guide[] = [
           "Talking only about what you will get. Add what you will give.",
         ],
       },
+      {
+        heading: "Three lengths of the same answer",
+        bullets: [
+          "Fifty words, for a form box or a short question: one specific fact about the employer, one reason it matches you, one line on what you will bring.",
+          "One hundred and fifty words, for a motivation question: add a short example from your own experience that connects to the employer's work.",
+          "Two minutes, for an interview or video question: the three parts in full, with the example told as a mini story and a clear ending about what you want to learn.",
+        ],
+      },
+      {
+        heading: "Where to find the specifics fast",
+        bullets: [
+          "The employer's programme page for what apprentices do and how the programme is structured.",
+          "Its values or principles page, then pick one value that genuinely matches something you have done.",
+          "Our employer pages, which list the programmes, the entry requirements and for many the values employers assess against.",
+          "A recent news story, but only if you can explain why it matters to apprentices or customers.",
+        ],
+      },
+      {
+        heading: "Check before you submit",
+        bullets: [
+          "Could this answer be sent to a different employer by changing the name? If so, add something only true of this one.",
+          "Is every claim about the employer one you could explain if asked?",
+          "Have you said what you will give, not only what you will get?",
+        ],
+      },
     ],
     cta: { href: "/employers", label: "Research an employer", blurb: "Employer guides with the process, values and programmes in one place." },
-    related: ["degree-apprenticeship-personal-statement", "degree-apprenticeship-interview-questions"],
-    updated: "2026-10-06",
+    related: ["degree-apprenticeship-personal-statement", "degree-apprenticeship-interview-questions", "video-interview-tips-hirevue"],
+    updated: "2026-11-20",
   },
   {
     slug: "assessment-centre-tips",
@@ -331,10 +505,43 @@ export const GUIDES: Guide[] = [
           "Sleep, eat and arrive early. Nerves are normal and the assessors expect them.",
         ],
       },
+      {
+        heading: "What assessors are looking for",
+        paragraphs: [
+          "You are usually scored against a set of behaviours, not against the other candidates. In a group task that means contributing ideas, listening, including quieter people and helping the group reach a decision, not winning the argument. In a written or case task it means a clear structure and a reasoned recommendation.",
+        ],
+      },
+      {
+        heading: "Group exercises",
+        bullets: [
+          "Speak early, with a useful point, so you are part of the discussion from the start.",
+          "Refer to what others said (\"building on Priya's point...\") and invite quieter members in.",
+          "Watch the time. Suggest a plan for the time you have and keep to it, and make sure a decision is reached.",
+          "Do not interrupt, dominate or stay silent. Both extremes score badly.",
+        ],
+      },
+      {
+        heading: "Written, case study and in-tray tasks",
+        bullets: [
+          "Read the brief twice and underline what you are being asked for before you write anything.",
+          "State your recommendation first, then give two or three reasons, then name a risk. Short, structured writing is easier to mark.",
+          "In an in-tray task, sort by urgency and importance and say briefly why. Mark what you would delegate or leave.",
+          "Use the time given. Leave two minutes to check for mistakes.",
+        ],
+      },
+      {
+        heading: "The day before and the day itself",
+        bullets: [
+          "Re-read the invitation for the schedule, location or link, and what to bring. Employers often ask for ID and certificates.",
+          "For an online centre, test your camera, microphone and connection and set up a quiet space.",
+          "Re-read your application and your notes on the employer so your answers match what you wrote.",
+          "Arrive or log in early. Treat everyone you meet, including reception and other candidates, politely, because assessors are often asked for their view.",
+        ],
+      },
     ],
     cta: { href: "/employers", label: "Practise a mock process", blurb: "Employer-style stages in order: tests, video interview, case study and final interview." },
-    related: ["degree-apprenticeship-interview-questions", "numerical-verbal-reasoning-tests"],
-    updated: "2026-10-06",
+    related: ["video-interview-tips-hirevue", "degree-apprenticeship-interview-questions", "numerical-verbal-reasoning-tests"],
+    updated: "2026-11-20",
   },
   {
     slug: "civil-service-judgement-test",
