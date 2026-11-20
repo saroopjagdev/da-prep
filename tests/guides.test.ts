@@ -15,4 +15,18 @@ describe("guides", () => {
       expect(g.cta.href.startsWith("/"), g.slug).toBe(true);
     }
   });
+  it("give https sources for the guides that state specific rules or dates", () => {
+    for (const slug of ["civil-service-judgement-test", "when-do-degree-apprenticeships-open"]) {
+      const g = guideBySlug(slug)!;
+      expect(g, slug).toBeDefined();
+      expect(g.sources?.length ?? 0, slug).toBeGreaterThanOrEqual(2);
+      for (const s of g.sources ?? []) expect(s.url.startsWith("https://"), `${slug} ${s.url}`).toBe(true);
+    }
+  });
+  it("the Civil Service guide says the old Fast Track is closed and that the pass mark is not published", () => {
+    const text = JSON.stringify(guideBySlug("civil-service-judgement-test"));
+    expect(text).toMatch(/is closed/);
+    expect(text).toMatch(/not published/);
+    expect(text).toMatch(/not timed/);
+  });
 });

@@ -67,6 +67,8 @@ export default function Deadlines() {
   const rows = opportunityRows(new Date());
   const open = rows.filter((r) => r.status === "open").sort(byClosing);
   const soon = rows.filter((r) => r.status === "opening-soon").sort((a, b) => (a.opens || "z").localeCompare(b.opens || "z") || a.name.localeCompare(b.name));
+  const closed = rows.filter((r) => r.status === "closed").length;
+  const unconfirmed = rows.filter((r) => r.status === "not-confirmed" || r.status === "not-announced").length;
   const updated = rows.map((r) => r.checked).filter((d): d is string => Boolean(d)).sort().at(-1);
 
   return (
@@ -96,6 +98,20 @@ export default function Deadlines() {
           {STATUS_LABEL["opening-soon"]} ({soon.length})
         </h2>
         {soon.length ? <Table rows={soon} caption="Employers opening soon" /> : <p className="text-sm text-muted">No opening dates confirmed yet.</p>}
+      </section>
+
+      <section className="space-y-2" aria-labelledby="when-open">
+        <h2 id="when-open" className="text-lg font-semibold">
+          When do degree apprenticeships open for 2027?
+        </h2>
+        <p className="text-sm text-muted">
+          There is no single date. Of the {rows.length} employers we track, {open.length} {open.length === 1 ? "is" : "are"} confirmed open and {soon.length} {soon.length === 1 ? "has" : "have"} a confirmed opening date. {closed > 0 && `${closed} ${closed === 1 ? "has" : "have"} already closed. `}For {unconfirmed}, the employer has not published a
+          2027 date that we could read yet, so we say &quot;check their site&quot; or &quot;not open yet&quot; instead of guessing. Many employers review applications as they arrive and fill places early, so apply near the start of a window, not the end.{" "}
+          <Link href="/learn/when-do-degree-apprenticeships-open" className="underline">
+            How the windows work, and what employers have said
+          </Link>
+          .
+        </p>
       </section>
 
       <section className="card space-y-2 p-5 print:hidden">

@@ -13,6 +13,8 @@ export type Guide = {
   cta: { href: string; label: string; blurb: string };
   related: string[];
   updated: string;
+  /** Where the facts came from, shown at the foot of the guide. Used where a guide states specific rules, dates or formats. */
+  sources?: { label: string; url: string }[];
 };
 
 export const GUIDES: Guide[] = [
@@ -333,6 +335,136 @@ export const GUIDES: Guide[] = [
     cta: { href: "/employers", label: "Practise a mock process", blurb: "Employer-style stages in order: tests, video interview, case study and final interview." },
     related: ["degree-apprenticeship-interview-questions", "numerical-verbal-reasoning-tests"],
     updated: "2026-10-06",
+  },
+  {
+    slug: "civil-service-judgement-test",
+    title: "The Civil Service judgement test: what it is and how to prepare",
+    seoTitle: "Civil Service judgement test: what it is and how to prepare",
+    description:
+      "How the Civil Service judgement test works: two parts, no time limit, how it is scored, whether there is a pass mark, retakes and how to prepare, from the official GOV.UK guidance.",
+    intro:
+      "If a Civil Service Jobs application asks you to take the judgement test, it is a situational judgement test on workplace scenarios, and it is not timed. This guide sets out what the official guidance says, and says plainly where something is not published.",
+    sections: [
+      {
+        heading: "What the test is",
+        paragraphs: [
+          "GOV.UK describes it as an online situational judgement test that measures your judgement against the Civil Service Behaviours. It has two parts.",
+        ],
+        bullets: [
+          "Part 1 is a self-assessment of how you typically work and what you prefer, such as how ambitious, motivated and flexible you are. It counts for 15% of the overall score, and the guidance warns that your answers may be discussed at interview.",
+          "Part 2 shows workplace scenarios. For each scenario there are several possible actions, and you rate how effective each action is on a four-point scale: counterproductive, ineffective, fairly effective or effective.",
+        ],
+      },
+      {
+        heading: "How the scenarios work",
+        bullets: [
+          "There are three scenarios for each behaviour, and four actions to rate in each scenario.",
+          "You rate each action on its own, so more than one action can get the same rating.",
+          "Some scenarios are videos (with subtitles, BSL and transcripts) and some are text. Which you see depends on the job.",
+          "You only see scenarios that match the level of the job you applied for.",
+        ],
+      },
+      {
+        heading: "Timing: allow an hour",
+        paragraphs: [
+          "The test is not timed. GOV.UK says most people spend two to four minutes on each scenario and recommends allowing at least an hour, in a quiet place with a stable internet connection. Do not start it ten minutes before you need to leave.",
+        ],
+      },
+      {
+        heading: "Scoring, pass marks and feedback",
+        bullets: [
+          "Your score is based on the number and difficulty of the questions and is shown as a percentile against a representative group.",
+          "You get your score and automatically generated feedback in your Civil Service Jobs application centre. Feedback on individual questions is not given, for security reasons.",
+          "Reaching the minimum for the job's level triggers a message. After the deadline the recruiter can set a higher pass mark, and meeting the minimum does not guarantee you are invited to the next stage.",
+          "The exact pass mark is not published, and how Part 1 and Part 2 combine beyond the 15% figure is not stated.",
+        ],
+      },
+      {
+        heading: "Retakes",
+        paragraphs: [
+          "If you do not reach the minimum, you can take the test again in a future application. A hiring manager can also ask for a supervised retake if you are invited to interview, and you are told if that applies to you.",
+        ],
+      },
+      {
+        heading: "How to prepare",
+        bullets: [
+          "Use the official practice test linked from the GOV.UK guidance. It is not scored and needs no specialist knowledge.",
+          "Read the Civil Service Behaviours for the level you are applying for, so you know what good judgement looks like in this context.",
+          "For each action, ask what would genuinely help the team and the public, within the rules, rather than what sounds cautious or bold.",
+          "Answer every question, read the instructions, and use a larger screen if you can. The test works on most modern browsers, and phones and tablets should work.",
+          "If you need adjustments or have a technical problem, tell the recruitment team at least two working days before the deadline, using the contact in the job advert.",
+        ],
+      },
+      {
+        heading: "Do not confuse it with the old Fast Track tests",
+        paragraphs: [
+          "The Civil Service Fast Track Apprenticeship is closed: its guidance was withdrawn on 27 November 2020. Its old process used verbal and numerical reasoning tests, a situational judgement questionnaire that asked you to pick the most and least effective option from four, and a competency questionnaire. Some prep sites still describe that process as current. Today, Civil Service apprenticeships are advertised by individual departments, so read the advert for which tests and stages that campaign uses.",
+        ],
+      },
+    ],
+    cta: { href: "/employers/civil-service-fast-track", label: "Civil Service guide", blurb: "The closed Fast Track process and what current Civil Service apprenticeship applications involve." },
+    related: ["numerical-verbal-reasoning-tests", "assessment-centre-tips", "degree-apprenticeship-interview-questions"],
+    updated: "2026-11-20",
+    sources: [
+      { label: "GOV.UK: Preparing for the Civil Service judgement test (updated 24 May 2024)", url: "https://www.gov.uk/guidance/preparing-for-the-civil-service-judgement-test" },
+      { label: "GOV.UK: Civil Service Fast Track Apprenticeship, how to apply (withdrawn 27 November 2020)", url: "https://www.gov.uk/guidance/civil-service-fast-track-apprenticeship-how-to-apply" },
+    ],
+  },
+  {
+    slug: "when-do-degree-apprenticeships-open",
+    title: "When do degree apprenticeships open and close? The 2027 intake",
+    seoTitle: "When do degree apprenticeships open? 2027 intake dates",
+    description:
+      "There is no single date. How degree apprenticeship windows work for the 2027 intake, which employers have said what, why rolling applications close early, and how to track the dates.",
+    intro:
+      "There is no single date when degree apprenticeships open. Each employer sets its own window, many fill places as applications arrive, and several have not published their 2027 dates yet. Here is how it works and how to avoid missing yours.",
+    sections: [
+      {
+        heading: "The short answer",
+        paragraphs: [
+          "Most large employers open for the next September intake some time between late summer and early spring, and the window can be a few weeks or most of the year. Because many review applications as they arrive, a scheme can close well before its stated end date once it has enough applicants. The safe habit is to apply early in the window, not near the end.",
+        ],
+      },
+      {
+        heading: "What employers have actually said",
+        bullets: [
+          "BAE Systems says on its careers pages that it reopens for 2027 opportunities in January, with its main recruitment window starting at the beginning of January and running for about six weeks.",
+          "The Financial Conduct Authority ran its 2026 scheme from March to 19 April 2026, with apprentices starting on 7 September 2026. That shows a spring window exists for some employers, but check its page for 2027 dates.",
+          "A university apprenticeships page says firms typically open their degree apprenticeship applications for the autumn start between September and March.",
+          "A prep-site tracker still lists the 2027 deadlines of several large professional services firms as to be confirmed, so do not assume last year's dates repeat.",
+        ],
+      },
+      {
+        heading: "Rolling applications close early",
+        paragraphs: [
+          "Where an employer reviews applications in the order they arrive, the closing date is a maximum, not a promise. Reports advise applying early for employers such as BAE Systems because roles can close once enough applications are in. When our tracker shows an employer as rolling, treat it as closing when full.",
+        ],
+      },
+      {
+        heading: "What to do now",
+        bullets: [
+          "Pick a shortlist of employers and check each one's own page for the 2027 window.",
+          "Add them to a tracker with their dates, and set up deadline emails so you are told when each opens and a week before it closes.",
+          "Have your personal statement and CV drafted before applications open, so you can apply in the first days.",
+          "Practise the online tests and video interview that stage of the process uses, because many employers screen before you ever speak to a person.",
+        ],
+      },
+      {
+        heading: "Where to see the dates",
+        paragraphs: [
+          "Our deadlines page lists every employer we have a confirmed date for, soonest closing date first, with when each date was last checked on the employer's own page. Employers that have not published dates are marked as not confirmed rather than guessed.",
+        ],
+      },
+    ],
+    cta: { href: "/deadlines", label: "See who is open now", blurb: "Closing dates for the 2027 intake, soonest first, with the date each was last checked." },
+    related: ["degree-apprenticeship-personal-statement", "how-to-answer-why-this-company"],
+    updated: "2026-11-20",
+    sources: [
+      { label: "BAE Systems: degree apprenticeships", url: "https://www.baesystems.com/careers/locations/uk/apprentices/degree.html" },
+      { label: "Financial Conduct Authority: apprenticeships", url: "https://www.fca.org.uk/apprenticeships" },
+      { label: "Loughborough University: how can I find an apprenticeship?", url: "https://lboro.ac.uk/degree-apprenticeships/apprentices/find-apprenticeship/" },
+      { label: "Intervyo: 2027 consulting and accountancy tracker (third party)", url: "https://www.intervyo.co.uk/tracker/consulting-degree-apprenticeship" },
+    ],
   },
 ];
 

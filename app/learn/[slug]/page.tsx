@@ -80,6 +80,22 @@ export default async function GuidePage({ params }: { params: Promise<{ slug: st
           </ul>
         </section>
       )}
+      {g.sources && g.sources.length > 0 && (
+        <section className="space-y-1 text-sm" aria-labelledby="sources">
+          <h2 id="sources" className="text-base font-bold tracking-tight">
+            Sources
+          </h2>
+          <ul className="list-disc space-y-1 pl-5 text-muted">
+            {g.sources.map((s) => (
+              <li key={s.url}>
+                <a href={s.url} className="underline" target="_blank" rel="noreferrer">
+                  {s.label}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
       <p className="text-xs text-muted">Last updated {new Date(g.updated).toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" })}. This guide describes common practice; always check the employer&apos;s own advert and rules.</p>
     </article>
   );
