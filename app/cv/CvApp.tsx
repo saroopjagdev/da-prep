@@ -4,6 +4,7 @@ import SignInNotice from "@/components/SignInNotice";
 import RequireAccount from "@/components/RequireAccount";
 import { useState } from "react";
 import AreaTabs from "@/components/AreaTabs";
+import FeedbackAsk from "@/components/FeedbackAsk";
 import FileTextPicker from "@/components/FileTextPicker";
 import { postJson } from "@/lib/api";
 import type { CvOutput } from "@/lib/cv";
@@ -158,6 +159,7 @@ function CvInner({ firms }: { firms: { slug: string; name: string }[] }) {
               ))}
             </section>
           )}
+          <FeedbackAsk />
         </div>
       )}
     </div>

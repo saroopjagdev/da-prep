@@ -8,6 +8,7 @@ import { useEffect, useRef, useState } from "react";
 import CameraPreview from "@/components/CameraPreview";
 import LevelMeter from "@/components/LevelMeter";
 import Progress from "@/components/Progress";
+import FeedbackAsk from "@/components/FeedbackAsk";
 import ScoreRing from "@/components/ScoreRing";
 import { speak, stopSpeaking, useDictation } from "@/components/speech";
 import DiagPanel from "@/components/DiagPanel";
@@ -816,6 +817,7 @@ function InterviewInner({
             ))}
           </ol>
         </section>
+        <FeedbackAsk />
         {history.map((t, i) => {
           const r = result.turns[i];
           return (

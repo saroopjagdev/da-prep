@@ -34,6 +34,8 @@ export const FUNNEL_EVENTS = [
   "dash_track", // they tapped Track on an employer from the home page
   "dash_upgrade_click", // they pressed the upgrade button on the home page
   "pro_offer_click", // they followed a Pro offer shown for a stage or a mock process (the label says which)
+  "feedback_ask_view", // the "how is Level6 going?" banner was shown under a result
+  "feedback_ask_click", // they pressed Great, OK or Not great in it
 ] as const;
 
 /**

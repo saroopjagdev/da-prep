@@ -1,8 +1,9 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { postJson } from "@/lib/api";
 import { MAX_MESSAGE, MAX_NAME } from "@/lib/feedback";
+import { ratingFromParam } from "@/lib/feedback-ask";
 
 /**
  * Everyone sees this same form and can send anything. The rating is optional and never changes what happens next. The
@@ -16,6 +17,13 @@ export default function FeedbackForm() {
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState("");
   const [sent, setSent] = useState(false);
+
+  // The banner and the email carry a one-tap rating (?r=5); it only fills in the optional rating box.
+  useEffect(() => {
+    const r = ratingFromParam(new URLSearchParams(window.location.search).get("r"));
+    // eslint-disable-next-line react-hooks/set-state-in-effect -- the address is only readable in the browser
+    if (r) setRating(r);
+  }, []);
 
   async function send(e: React.FormEvent) {
     e.preventDefault();

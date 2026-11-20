@@ -1,7 +1,7 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
 type Row = Record<string, unknown>;
-const PK: Record<string, string[]> = { alert_subscriptions: ["user_id", "employer_key"], alert_prefs: ["user_id"], alert_sent: ["user_id", "event_key"] };
+const PK: Record<string, string[]> = { alert_subscriptions: ["user_id", "employer_key"], alert_prefs: ["user_id"], alert_sent: ["user_id", "event_key"], nudge_sent: ["user_id", "kind"] };
 const db: Record<string, Row[]> = {};
 const users: Record<string, { email?: string; email_confirmed_at?: string | null }> = {};
 let signedIn: { id: string } | null = null;
@@ -86,6 +86,7 @@ import { POST as unsubscribe } from "@/app/api/alerts/unsubscribe/route";
 import { ALERT_CYCLE, MAX_FOLLOWED, alertKey } from "@/lib/alerts";
 import { opportunityRows } from "@/lib/opportunities";
 import { runAlerts } from "@/lib/server/alerts";
+import { runFeedbackAsks } from "@/lib/server/feedback-email";
 import { runNudges } from "@/lib/server/nudges";
 
 const open = opportunityRows(new Date()).find((r) => r.status === "open")!;
@@ -237,6 +238,40 @@ describe("the first-steps email", () => {
     db.alert_prefs = [{ user_id: "u1", token }];
     await unsubscribe(new Request(`http://x/api/alerts/unsubscribe?t=${token}`, { method: "POST" }));
     expect(db.alert_prefs[0]).toMatchObject({ user_id: "u1", nudges_off: true });
+  });
+});
+
+describe("the how-is-it-going email", () => {
+  const send = vi.fn();
+  beforeEach(() => {
+    send.mockReset().mockResolvedValue(true);
+    rpcCalls.length = 0;
+    candidates = [{ user_id: "u1", email: "a@example.com" }];
+    db.nudge_sent = [];
+    delete process.env.FEEDBACK_EMAILS_ENABLED;
+    process.env.RESEND_API_KEY = "re_test";
+  });
+
+  it("does nothing unless it is switched on", async () => {
+    expect(await runFeedbackAsks(send)).toMatchObject({ skipped: expect.stringMatching(/FEEDBACK_EMAILS_ENABLED/), sent: 0 });
+    expect(send).not.toHaveBeenCalled();
+    expect(rpcCalls).toEqual([]);
+  });
+
+  it("sends once to each eligible account, leaving the admins out, and logs it so it cannot go twice", async () => {
+    process.env.FEEDBACK_EMAILS_ENABLED = "true";
+    expect(await runFeedbackAsks(send)).toEqual({ eligible: 1, sent: 1, failed: 0 });
+    expect(rpcCalls[0]).toMatchObject({ name: "feedback_ask_candidates", args: { p_kind: "feedback-ask", p_min_days: 7, p_max_days: 30 } });
+    expect((rpcCalls[0].args as { p_exclude: string[] }).p_exclude).toContain("ssjagdev@outlook.com");
+    expect(send.mock.calls[0][0]).toBe("a@example.com");
+    expect(send.mock.calls[0][1].text).toContain("/feedback?r=5");
+    expect(db.nudge_sent).toEqual([expect.objectContaining({ user_id: "u1", kind: "feedback-ask" })]);
+  });
+
+  it("counts a failed send and carries on", async () => {
+    process.env.FEEDBACK_EMAILS_ENABLED = "true";
+    send.mockResolvedValue(false);
+    expect(await runFeedbackAsks(send)).toEqual({ eligible: 1, sent: 0, failed: 1 });
   });
 });
 

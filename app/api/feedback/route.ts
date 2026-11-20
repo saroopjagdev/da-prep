@@ -4,6 +4,17 @@ import { admin, userFromRequest } from "@/lib/server/auth";
 import { clientIp } from "@/lib/server/guard";
 import { screenText } from "@/lib/server/safety";
 
+/** How much feedback this account has already sent, so the in-site ask can leave people alone who have. Nothing else is returned. */
+export async function GET(req: Request) {
+  const db = admin();
+  if (!db) return Response.json({ sent: 0 });
+  const user = await userFromRequest(req);
+  if (!user) return Response.json({ error: "Sign in first." }, { status: 401 });
+  if (!(await rateLimit(`feedback-count:${user.id}`, 30, 60_000))) return Response.json({ error: "Too many requests." }, { status: 429 });
+  const { count } = await db.from("feedback").select("id", { count: "exact", head: true }).eq("user_id", user.id);
+  return Response.json({ sent: count ?? 0 });
+}
+
 /**
  * Feedback from a signed-in member. Everyone can send it whatever they think of Level6: the rating is stored but never
  * decides what happens next. Nothing is shown publicly from here; an admin chooses comments separately, and only ones

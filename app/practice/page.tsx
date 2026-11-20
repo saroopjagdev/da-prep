@@ -5,6 +5,7 @@ import AreaTabs from "@/components/AreaTabs";
 import Progress from "@/components/Progress";
 import ScoreRing from "@/components/ScoreRing";
 import { useSector } from "@/lib/prefs";
+import FeedbackAsk from "@/components/FeedbackAsk";
 import SaveScorePrompt from "@/components/SaveScorePrompt";
 import PracticeLimitCard from "@/components/PracticeLimitCard";
 import RequireAccount from "@/components/RequireAccount";
@@ -169,6 +170,7 @@ function PracticeInner() {
                 : "Keep practising. Every attempt helps."}
           </p>
           <SaveScorePrompt />
+          <FeedbackAsk />
           <div className="flex justify-center gap-3">
             <button onClick={() => begin(category)} className="btn btn-primary">
               Try again

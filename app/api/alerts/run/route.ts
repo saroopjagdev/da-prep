@@ -1,6 +1,7 @@
 import { rateLimit } from "@/lib/rateLimit";
 import { clientIp } from "@/lib/server/guard";
 import { runAlerts } from "@/lib/server/alerts";
+import { runFeedbackAsks } from "@/lib/server/feedback-email";
 import { runNudges } from "@/lib/server/nudges";
 import { expirePasses } from "@/lib/server/passes";
 
@@ -25,8 +26,11 @@ export async function GET(req: Request) {
   // The first-steps email rides on the same daily job; it does nothing unless NUDGES_ENABLED is "true".
   const nudges = await runNudges();
   console.log("first-steps emails", JSON.stringify(nudges));
+  // The one "how is Level6 going?" email; it does nothing unless FEEDBACK_EMAILS_ENABLED is "true".
+  const feedbackAsks = await runFeedbackAsks();
+  console.log("feedback emails", JSON.stringify(feedbackAsks));
   // Season Passes that have run out go back to free (monthly subscribers have no end date and are not touched).
   const passes = await expirePasses();
   console.log("season passes", JSON.stringify(passes));
-  return Response.json({ ...result, nudges, passes });
+  return Response.json({ ...result, nudges, feedbackAsks, passes });
 }
