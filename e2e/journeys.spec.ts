@@ -220,6 +220,13 @@ test("employer pages link to matching practice", async ({ page }) => {
   await expect(page).toHaveURL(/\/mock\/goldman-sachs/);
 });
 
+test("a short employer page says plainly when there is no degree apprenticeship", async ({ page }) => {
+  await page.goto("/employers/dains");
+  await expect(page.getByRole("heading", { level: 1, name: /Dains degree apprenticeship 2027/ })).toBeVisible();
+  await expect(page.getByText("No degree apprenticeship found")).toBeVisible();
+  await expect(page.getByRole("link", { name: "Open the page we read" })).toBeVisible();
+});
+
 test("pricing shows the single Pro plan and asks signed-out visitors to sign in", async ({ page }) => {
   await page.goto("/pricing");
   await expect(page.getByText("£9.99 a month").first()).toBeVisible();
