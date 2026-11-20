@@ -1258,3 +1258,35 @@ export const GUIDES: Guide[] = [
 ];
 
 export const guideBySlug = (slug: string) => GUIDES.find((g) => g.slug === slug);
+
+/** The groups the Resources page shows guides in, in reading order. Every guide belongs to exactly one (see tests/guides.test.ts). */
+export const GUIDE_TOPICS = [
+  { id: "basics", label: "The basics", blurb: "What a degree apprenticeship is, how it compares with university, and the levels." },
+  { id: "applying", label: "Applying", blurb: "When to apply, how applications work, and writing a statement that stands out." },
+  { id: "tests-interviews", label: "Tests and interviews", blurb: "Reasoning tests, video interviews, assessment centres and interview questions." },
+  { id: "pay-requirements", label: "Pay and requirements", blurb: "What apprentices earn and what employers ask for, with real examples." },
+  { id: "by-sector", label: "By sector", blurb: "How the route works in law and in the public sector." },
+] as const;
+export type GuideTopic = (typeof GUIDE_TOPICS)[number]["id"];
+
+export const GUIDE_TOPIC_OF: Record<string, GuideTopic> = {
+  "what-is-a-degree-apprenticeship": "basics",
+  "degree-apprenticeship-vs-university": "basics",
+  "apprenticeship-levels-explained": "basics",
+  "degree-apprenticeships-for-parents": "basics",
+  "how-to-apply-for-a-degree-apprenticeship": "applying",
+  "when-do-degree-apprenticeships-open": "applying",
+  "degree-apprenticeship-personal-statement": "applying",
+  "how-to-answer-why-this-company": "applying",
+  "degree-apprenticeship-interview-questions": "tests-interviews",
+  "video-interview-tips-hirevue": "tests-interviews",
+  "numerical-verbal-reasoning-tests": "tests-interviews",
+  "civil-service-judgement-test": "tests-interviews",
+  "assessment-centre-tips": "tests-interviews",
+  "degree-apprenticeship-salary": "pay-requirements",
+  "degree-apprenticeship-entry-requirements": "pay-requirements",
+  "solicitor-apprenticeship": "by-sector",
+  "public-sector-degree-apprenticeships": "by-sector",
+};
+
+export const guidesInTopic = (topic: GuideTopic) => GUIDES.filter((g) => GUIDE_TOPIC_OF[g.slug] === topic);

@@ -1,0 +1,43 @@
+name: freshness
+
+# On the first of every month: list the pages whose facts were read from an employer or official page a while ago (see
+# scripts/freshness.check.ts for the limits). If any are stale, ONE issue titled "Pages to re-read" is opened, or commented on
+# if it is already open, with the list. Close the issue once the pages are re-read. The workflow changes no code.
+on:
+  schedule:
+    - cron: "0 6 1 * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - name: Run the freshness check
+        id: fresh
+        run: |
+          set +e
+          npm run check:freshness > freshness.txt 2>&1
+          echo "status=$?" >> "$GITHUB_OUTPUT"
+      - name: Open or update the issue
+        if: steps.fresh.outputs.status != '0'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          body="Some pages were last read a while ago. Re-read each from its source, update the read date, then close this issue.\n\n\`\`\`\n$(grep -E '^(Re-|  )' freshness.txt | head -120)\n\`\`\`"
+          number=$(gh issue list --state open --search "Pages to re-read in:title" --json number --jq '.[0].number')
+          if [ -n "$number" ]; then
+            gh issue comment "$number" --body "$(printf "$body")"
+          else
+            gh issue create --title "Pages to re-read" --body "$(printf "$body")"
+          fi
