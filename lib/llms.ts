@@ -7,6 +7,7 @@
 import { FIRMS } from "@/lib/firms";
 import { PROVIDERS } from "@/lib/games/providers";
 import { GUIDES } from "@/lib/guides";
+import { LITE_EMPLOYERS } from "@/lib/lite-employers";
 import { SITE_DESCRIPTION, SITE_NAME, SITE_URL } from "@/lib/site";
 
 const abs = (path: string) => `${SITE_URL}${path}`;
@@ -43,6 +44,10 @@ export function buildLlmsTxt(): string {
   for (const f of FIRMS) lines.push(`- [${f.name}](${abs(`/employers/${f.slug}`)}): ${f.sector}; researched ${f.lastVerified}`);
   lines.push("");
 
+  lines.push("## Short employer pages (what each offers, whether any programme is degree level)", "");
+  for (const l of LITE_EMPLOYERS) lines.push(`- [${l.name}](${abs(`/employers/${l.slug}`)}): ${one(l.summary)}`);
+  lines.push("");
+
   lines.push("## Full text", "", `- [llms-full.txt](${abs("/llms-full.txt")}): the guides, provider questions and employer summaries as plain text`, "");
   return lines.join("\n");
 }
@@ -70,6 +75,15 @@ export function buildLlmsFullTxt(): string {
     for (const w of p.whatWeKnow) lines.push(`- ${w}`);
     lines.push("");
     for (const f of p.faqs ?? []) lines.push(`Q: ${f.q}`, `A: ${f.a}`, "");
+  }
+
+  lines.push("# Short employer pages", "");
+  for (const l of LITE_EMPLOYERS) {
+    lines.push(`## ${l.name}`, `URL: ${abs(`/employers/${l.slug}`)}`, `Read from the employer's page: ${l.checked}`, `Source: ${l.source}`, "", l.summary, "");
+    for (const p of l.programmes) lines.push(`- Programme: ${p.name}${p.level ? ` (${p.level})` : ""}`);
+    if (l.entry) lines.push(`- Entry requirements: ${one(l.entry)}`);
+    if (l.pay) lines.push(`- Pay: ${one(l.pay)}`);
+    lines.push("");
   }
 
   lines.push("# Researched employer guides", "");

@@ -23,6 +23,7 @@ describe("guides", () => {
       "degree-apprenticeship-entry-requirements",
       "apprenticeship-levels-explained",
       "how-to-apply-for-a-degree-apprenticeship",
+      "video-interview-tips-hirevue",
     ]) {
       const g = guideBySlug(slug)!;
       expect(g, slug).toBeDefined();
