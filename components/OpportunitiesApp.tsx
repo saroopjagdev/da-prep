@@ -320,9 +320,9 @@ export default function OpportunitiesApp({ rows }: { rows: OpportunityRow[] }) {
               const folded = collapsed.has(groupOf(r));
                 const actions = (
                   <span className="inline-flex flex-wrap items-center justify-end gap-x-1.5 gap-y-1.5">
-              {r.slug ? (
+              {r.pageSlug ? (
                 <>
-                  <Link href={`/employers/${r.slug}`} className="whitespace-nowrap underline">
+                  <Link href={`/employers/${r.pageSlug}`} className="whitespace-nowrap underline">
                     Guide
                   </Link>
                   {r.hasMock && (
@@ -342,7 +342,7 @@ export default function OpportunitiesApp({ rows }: { rows: OpportunityRow[] }) {
               ) : null}
               {(r.applyUrl ?? r.vacancyUrl) && (
                 <>
-                  {r.slug ? " · " : ""}
+                  {r.pageSlug ? " · " : ""}
                   <a href={r.applyUrl ?? r.vacancyUrl} target="_blank" rel="noreferrer" className="whitespace-nowrap underline" onClick={followedApply}>
                     {r.slug ? "Apply" : "Careers"}
                   </a>
@@ -418,8 +418,8 @@ export default function OpportunitiesApp({ rows }: { rows: OpportunityRow[] }) {
                       )}
                     </td>
                     <td className="px-3 py-2">
-                      {r.slug ? (
-                        <Link href={`/employers/${r.slug}`} className="font-semibold underline-offset-2 hover:underline">
+                      {r.pageSlug ? (
+                        <Link href={`/employers/${r.pageSlug}`} className="font-semibold underline-offset-2 hover:underline">
                           {r.name}
                         </Link>
                       ) : (

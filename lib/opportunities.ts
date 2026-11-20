@@ -7,6 +7,7 @@
 import { directory, type DirectoryEntry } from "@/lib/directory";
 import { FIRMS } from "@/lib/firms";
 import { LISTED, normName, vacancySearchUrl, type Listed } from "@/lib/listings";
+import { liteByTrackerName } from "@/lib/lite-employers";
 import { getMock } from "@/lib/mockprocess/definitions";
 import type { Confidence } from "@/lib/firms/types";
 import type { SectorId } from "@/lib/sectors";
@@ -513,6 +514,8 @@ export type OpportunityRow = {
   source?: string;
   /** There is a mock process for this employer. */
   hasMock?: boolean;
+  /** The employer's page on this site: the researched guide's slug, or a short page (lib/lite-employers.ts) for employers without one. */
+  pageSlug?: string;
   /** Web search for this employer's own careers page, for employers without a guide. */
   vacancyUrl?: string;
   /** The employer's own careers page to apply on, where we have read one (the page the dates came from, or the firm's first official link). */
@@ -547,6 +550,7 @@ export function opportunityRows(today = new Date()): OpportunityRow[] {
     return {
       name: f.name.replace(/\s*\(.*\)\s*$/, ""),
       slug: f.slug,
+      pageSlug: f.slug,
       sectors: [...new Set([...e.sectors, ...listed.flatMap((l) => l.sectors)])],
       programmes,
       status: statusOf(w, today),
@@ -590,6 +594,7 @@ export function opportunityRows(today = new Date()): OpportunityRow[] {
         checked: w?.checked,
         source: w?.source,
         vacancyUrl: vacancySearchUrl(l.name),
+        pageSlug: liteByTrackerName(l.name)?.slug,
       };
     })
     .sort((a, b) => (ORDER[a.status] - ORDER[b.status]) || a.name.localeCompare(b.name));

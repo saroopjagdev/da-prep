@@ -4,6 +4,7 @@ import { FIRMS } from "@/lib/firms";
 import { PLAYABLE } from "@/lib/games/catalog";
 import { PROVIDERS } from "@/lib/games/providers";
 import { GUIDES } from "@/lib/guides";
+import { LITE_EMPLOYERS } from "@/lib/lite-employers";
 import { ALL_MOCKS } from "@/lib/mockprocess/definitions";
 import { SECTOR_IDS } from "@/lib/sectors";
 import { PUBLIC_PATHS, SITE_URL } from "@/lib/site";
@@ -14,11 +15,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...FIRMS.map((f) => [`/employers/${f.slug}`, new Date(f.lastVerified)] as [string, Date]),
     ...GUIDES.map((g) => [`/learn/${g.slug}`, new Date(g.updated)] as [string, Date]),
     ...PROVIDERS.map((p) => [`/games/provider/${p.id}`, new Date(p.checked)] as [string, Date]),
+    ...LITE_EMPLOYERS.map((l) => [`/employers/${l.slug}`, new Date(l.checked)] as [string, Date]),
   ]);
   const paths = [
     ...PUBLIC_PATHS,
     ...SECTOR_IDS.map((id) => `/sectors/${id}`),
     ...FIRMS.map((f) => `/employers/${f.slug}`),
+    ...LITE_EMPLOYERS.map((l) => `/employers/${l.slug}`),
     ...GUIDES.map((g) => `/learn/${g.slug}`),
     ...TESTS.map((t) => `/tests/${t.id}`),
     ...PLAYABLE.map((g) => `/games/${g.id}`),

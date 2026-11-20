@@ -38,8 +38,8 @@ function Table({ rows, caption }: { rows: OpportunityRow[]; caption: string }) {
           {rows.map((r) => (
             <tr key={r.name} className="border-t border-line align-top">
               <td className="px-3 py-2 font-semibold">
-                {r.slug ? (
-                  <Link href={`/employers/${r.slug}`} className="underline underline-offset-2">
+                {r.pageSlug ? (
+                  <Link href={`/employers/${r.pageSlug}`} className="underline underline-offset-2">
                     {r.name}
                   </Link>
                 ) : (

@@ -7,13 +7,15 @@ import { glance, practiceLinks } from "@/lib/firms/glance";
 import { getGame } from "@/lib/games/catalog";
 import { providersForText } from "@/lib/games/providers";
 import JsonLd from "@/components/JsonLd";
+import LiteEmployerPage, { liteDescription, liteTitle } from "@/components/LiteEmployerPage";
+import { LITE_EMPLOYERS, liteBySlug } from "@/lib/lite-employers";
 import ShareButton from "@/components/ShareButton";
 import { logoPath } from "@/lib/logos";
 import { opportunityRows } from "@/lib/opportunities";
 import { articleLd, breadcrumbLd } from "@/lib/seo";
 import { pageMeta } from "@/lib/site";
 
-export const generateStaticParams = () => FIRMS.map((f) => ({ slug: f.slug }));
+export const generateStaticParams = () => [...FIRMS.map((f) => ({ slug: f.slug })), ...LITE_EMPLOYERS.map((l) => ({ slug: l.slug }))];
 
 /** The firm sector labels are free text ("Banking / financial services"), so group them into a few families to link similar guides. */
 const FAMILIES: [string, RegExp][] = [
@@ -38,8 +40,13 @@ function windowLine(slug: string): string {
 }
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
-  const firm = getFirm((await params).slug);
-  if (!firm) return { title: "Employer not found" };
+  const slug = (await params).slug;
+  const firm = getFirm(slug);
+  if (!firm) {
+    const lite = liteBySlug(slug);
+    if (!lite) return { title: "Employer not found" };
+    return pageMeta({ title: liteTitle(lite), description: liteDescription(lite), path: `/employers/${lite.slug}` });
+  }
   const stages = firm.stages.map((s) => s.name.split(/[(:]/)[0].trim().toLowerCase()).join(", ");
   return pageMeta({
     title: `${firm.name} degree apprenticeship 2027: dates, process, tests and interview`,
@@ -51,7 +58,11 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 export default async function FirmPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
   const firm = getFirm(slug);
-  if (!firm) notFound();
+  if (!firm) {
+    const lite = liteBySlug(slug);
+    if (lite) return <LiteEmployerPage e={lite} />;
+    notFound();
+  }
 
   const logo = logoPath(firm.slug);
   const sourced = extraBlocks(firm);
