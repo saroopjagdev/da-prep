@@ -29,7 +29,7 @@ const FAMILIES: [string, RegExp][] = [
 const sectorFamily = (sector: string) => FAMILIES.find(([, re]) => re.test(sector))?.[0] ?? sector;
 
 // The application window in the page's search snippet follows the calendar, so rebuild hourly (like the tracker).
-export const revalidate = 3600;
+export const revalidate = 86400;
 
 /** "Applications open until 18 December 2026." and the like, from the tracker's dates; empty when we have none. */
 function windowLine(slug: string): string {

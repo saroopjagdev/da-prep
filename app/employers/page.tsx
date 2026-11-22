@@ -14,7 +14,7 @@ export const metadata = pageMeta({
 });
 
 // Status follows the calendar, so rebuild hourly like the opportunities page.
-export const revalidate = 3600;
+export const revalidate = 86400;
 
 export default function Employers() {
   const cards: DirectoryCard[] = opportunityRows(new Date())

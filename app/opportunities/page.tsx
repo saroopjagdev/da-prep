@@ -13,7 +13,7 @@ export const metadata = pageMeta({
 });
 
 // Status follows the calendar (an opening date passing flips a row to Open), so rebuild the page hourly.
-export const revalidate = 3600;
+export const revalidate = 86400;
 
 export default function Opportunities() {
   const rows = opportunityRows(new Date());

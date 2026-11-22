@@ -10,7 +10,7 @@ import { SECTOR_BY_ID, SECTOR_IDS, type SectorId } from "@/lib/sectors";
 import { pageMeta } from "@/lib/site";
 
 // Status follows the calendar, so rebuild hourly (the same as the tracker and deadlines pages).
-export const revalidate = 3600;
+export const revalidate = 86400;
 
 export function generateStaticParams() {
   return SECTOR_IDS.map((slug) => ({ slug }));
