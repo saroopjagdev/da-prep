@@ -14,7 +14,7 @@ export const metadata = pageMeta({
 });
 
 // Status follows the calendar, so rebuild the page hourly (the same as the opportunities tracker).
-export const revalidate = 3600;
+export const revalidate = 86400;
 
 /** Soonest closing date first; employers with no full closing date come after the dated ones. */
 const byClosing = (a: OpportunityRow, b: OpportunityRow) => (a.closesIso ?? "9999").localeCompare(b.closesIso ?? "9999") || a.name.localeCompare(b.name);

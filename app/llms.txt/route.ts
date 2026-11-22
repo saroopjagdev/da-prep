@@ -1,6 +1,6 @@
 import { buildLlmsTxt } from "@/lib/llms";
 
-export const revalidate = 3600;
+export const revalidate = 86400;
 
 /** A short plain-text index of the site for AI assistants (the llms.txt convention). */
 export function GET() {

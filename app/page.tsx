@@ -11,7 +11,7 @@ import { logoPath } from "@/lib/logos";
 import { BONUS_EXTRA, FREE_GAMES, FREE_INTERVIEWS, FREE_PRACTICE, FREE_REVIEWS, FREE_STORIES, PASS_PLAN, PRO_PLAN, passOffered } from "@/lib/plans";
 
 // Rebuilt hourly so the "open now" row follows the dates (an opening date passing flips an employer to open).
-export const revalidate = 3600;
+export const revalidate = 86400;
 
 // Well-known employers we have a guide for. A logo shows if a file named <slug>.svg (or .png, .jpg) is in public/logos,
 // otherwise the name is shown as a wordmark. Add only logos you are licensed or permitted to use.
