@@ -1,5 +1,5 @@
 {
- "checked": "2026-11-22",
+ "checked": "2026-11-23",
  "jobs": {
   "7f949662-465a-43cb-a95e-1216afb54e93": {
    "id": "7f949662-465a-43cb-a95e-1216afb54e93",
@@ -368,7 +368,7 @@
    "level": "6",
    "location": "Bristol",
    "deadline": "2026-12-07",
-   "status": "open",
+   "status": "closing_soon",
    "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000058725"
   },
   "b0247169-a1a6-4e90-8f63-fc5d3aa1214b": {
@@ -378,7 +378,7 @@
    "level": "6",
    "location": "Bristol, Plymouth",
    "deadline": "2026-12-07",
-   "status": "open",
+   "status": "closing_soon",
    "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000058724"
   },
   "72c7cd66-6d74-41ea-99c3-1ca70b1cc25f": {

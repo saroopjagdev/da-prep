@@ -1,5 +1,5 @@
 {
- "checked": "2026-11-22",
+ "checked": "2026-11-23",
  "jobs": {
   "2000050834": {
    "id": "2000050834",
@@ -1221,26 +1221,6 @@
    "posted": "2026-11-09",
    "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000063284"
   },
-  "2000063286": {
-   "id": "2000063286",
-   "employer": "AMAZON UK SERVICES LTD.",
-   "title": "Automation Engineering Apprentice - London",
-   "level": "6",
-   "location": "Enfield EN3",
-   "deadline": "2027-02-01",
-   "posted": "2026-11-09",
-   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000063286"
-  },
-  "2000063287": {
-   "id": "2000063287",
-   "employer": "AMAZON UK SERVICES LTD.",
-   "title": "Automation Engineering Apprentice - Minworth",
-   "level": "6",
-   "location": "Sutton Coldfield B76",
-   "deadline": "2027-02-01",
-   "posted": "2026-11-09",
-   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000063287"
-  },
   "2000063290": {
    "id": "2000063290",
    "employer": "AMAZON UK SERVICES LTD.",
@@ -1871,6 +1851,16 @@
    "posted": "2026-11-17",
    "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000064595"
   },
+  "2000064603": {
+   "id": "2000064603",
+   "employer": "DATA DEVELOPMENTS UK LTD ",
+   "title": "Digital Marketing Degree Apprentice",
+   "level": "6",
+   "location": "Wolverhampton WV1",
+   "deadline": "2026-11-30",
+   "posted": "2026-11-23",
+   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000064603"
+  },
   "2000064626": {
    "id": "2000064626",
    "employer": "PA Consulting",
@@ -2220,6 +2210,16 @@
    "deadline": "2027-04-30",
    "posted": "2026-11-19",
    "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000065096"
+  },
+  "2000065348": {
+   "id": "2000065348",
+   "employer": "WINSCOMBE EYE CLINIC LTD ",
+   "title": "Apprentice Dispensing Optician (Funded Level 6 Apprenticeship)",
+   "level": "6",
+   "location": "WINSCOMBE BS25",
+   "deadline": "2026-12-20",
+   "posted": "2026-11-23",
+   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000065348"
   }
  }
 }
