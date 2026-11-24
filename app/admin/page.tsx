@@ -39,6 +39,8 @@ const STEPS: [string, string][] = [
   ["signed_in", "Signed in"],
   ["first_practice", "First practice"],
   ["first_mock", "First mock"],
+  ["welcome_view", "Setup views"],
+  ["welcome_click", "Setup clicks"],
   ["pricing_view", "Pricing views"],
   ["limit_hit", "Limit hits"],
   ["checkout_start", "Checkouts"],

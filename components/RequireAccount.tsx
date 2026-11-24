@@ -4,7 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect } from "react";
 import { useAuth } from "@/components/AuthProvider";
-import { track } from "@/lib/funnel";
+import { gateLabel, track } from "@/lib/funnel";
 import { BONUS_EXTRA, FREE_GAMES, FREE_INTERVIEWS, FREE_PRACTICE, FREE_REVIEWS } from "@/lib/plans";
 
 const PERKS = [
@@ -27,8 +27,9 @@ export default function RequireAccount({ what, children, preview, heading: Headi
   const pathname = usePathname();
   const gated = enabled && ready && !user;
   useEffect(() => {
-    if (gated) track("gate_view", { oncePerLoad: true });
-  }, [gated]);
+    // The label is the tool's path ("practice", "mock"), so the counters show which tool brings people to sign up.
+    if (gated) track("gate_view", { oncePerLoad: true, label: gateLabel(pathname) });
+  }, [gated, pathname]);
   if (!enabled || user) return <>{children}</>;
   if (!ready) return <div aria-busy="true">{preview}</div>;
   return (

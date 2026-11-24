@@ -33,6 +33,8 @@ export const FUNNEL_EVENTS = [
   "checkout_return", // they came back from the payment page (the Plans page opened with ?success)
   "dash_track", // they tapped Track on an employer from the home page
   "dash_upgrade_click", // they pressed the upgrade button on the home page
+  "welcome_view", // the "Get set up" checklist was shown on the home page
+  "welcome_click", // they followed a step in it (the label says which)
   "pro_offer_click", // they followed a Pro offer shown for a stage or a mock process (the label says which)
   "feedback_ask_view", // the "how is Level6 going?" banner was shown under a result
   "feedback_ask_click", // they pressed Great, OK or Not great in it
@@ -136,6 +138,12 @@ export const cleanCampaign = (v: unknown): string =>
 
 /** The link's utm_campaign (which TikTok video or bio link brought them), cleaned. Empty when there is none. */
 export const campaignFrom = (search: string): string => cleanCampaign(new URLSearchParams(search).get("utm_campaign"));
+
+/**
+ * Which tool a sign-up gate was shown on: the first part of its path ("practice", "interview", "mock"), so the counters say
+ * which tool brings people to create an account. Empty for the home page.
+ */
+export const gateLabel = (pathname: string): string => cleanCampaign(pathname.split("/").filter(Boolean)[0] ?? "");
 
 /** Which kind of page a visit began on, from its path. */
 export function entryEvent(pathname: string): FunnelEvent {
