@@ -48,6 +48,7 @@ export const SERVER_EVENTS = [
   "checkout_refused", // the server declined to create one (label: why)
   "pro_started", // the payment arrived and the account became Pro
   "pro_ended", // a subscription ended or lapsed and the account went back to Free
+  "webhook_failed", // a Stripe webhook could not be applied (label: why), so a payer may have stayed on Free
 ] as const;
 
 export type ServerFunnelEvent = (typeof SERVER_EVENTS)[number];

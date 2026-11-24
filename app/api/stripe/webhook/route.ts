@@ -14,6 +14,8 @@ export async function POST(req: Request) {
   const db = admin();
   const sig = req.headers.get("stripe-signature");
   if (!key || !secret || !db || !sig) {
+    // A request with no signature is just noise; a missing key or secret means every real payment would be dropped.
+    if (sig) await countServer("webhook_failed", "not-configured");
     return Response.json({ error: "Webhook not configured." }, { status: 503 });
   }
 
@@ -61,6 +63,7 @@ export async function POST(req: Request) {
   if (error) {
     // A non-2xx makes Stripe retry, so a transient database failure doesn't leave someone paid but on Free.
     console.error(error);
+    await countServer("webhook_failed", "db-error");
     return Response.json({ error: "Could not update the plan." }, { status: 500 });
   }
   return Response.json({ received: true });

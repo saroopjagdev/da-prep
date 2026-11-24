@@ -133,7 +133,7 @@ describe("traffic source", () => {
   it("includes the new steps in the event list", () => {
     for (const e of ["pricing_view", "limit_hit", "checkout_start", "checkout_error", "checkout_return", "apply_click", "share_click", "visit_employer"]) expect(isFunnelEvent(e)).toBe(true);
     // Steps only the server counts cannot be sent from a browser.
-    for (const e of ["checkout_session", "checkout_refused", "pro_started", "pro_ended"]) expect(isFunnelEvent(e)).toBe(false);
+    for (const e of ["checkout_session", "checkout_refused", "pro_started", "pro_ended", "webhook_failed"]) expect(isFunnelEvent(e)).toBe(false);
   });
 });
 

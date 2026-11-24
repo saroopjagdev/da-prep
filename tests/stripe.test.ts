@@ -265,7 +265,8 @@ describe("what the server counts, so a checkout that goes nowhere is visible", (
     rpcCalls.length = 0;
     dbError = { message: "boom" };
     await hook();
-    expect(counted()).toEqual([]);
+    // No pro_started when the write failed; the failure itself is counted so the daily health check can email about it.
+    expect(counted()).toEqual(["webhook_failed:db-error"]);
   });
 
   it("counts Pro ending when a subscription ends, but not on an ordinary update", async () => {

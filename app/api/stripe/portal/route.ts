@@ -13,9 +13,15 @@ export async function POST(req: Request) {
   if (!profile?.stripe_customer_id) {
     return Response.json({ error: "No subscription to manage." }, { status: 404 });
   }
-  const session = await new Stripe(key).billingPortal.sessions.create({
-    customer: profile.stripe_customer_id,
-    return_url: `${SITE_URL}/pricing`,
-  });
-  return Response.json({ url: session.url });
+  try {
+    const session = await new Stripe(key).billingPortal.sessions.create({
+      customer: profile.stripe_customer_id,
+      return_url: `${SITE_URL}/pricing`,
+    });
+    return Response.json({ url: session.url });
+  } catch (e) {
+    // Without this a Stripe error (an expired key, or the portal not set up) ended as an unexplained 500 with no trace.
+    console.error("Could not open the Stripe billing portal", e);
+    return Response.json({ error: "We couldn't open the billing page. Please try again, or email us and we'll sort it." }, { status: 502 });
+  }
 }

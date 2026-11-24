@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useEffect } from "react";
 import { track } from "@/lib/funnel";
+import { PRO_PLAN } from "@/lib/plans";
 import ParentShare from "@/components/ParentShare";
 import UnlockProgress from "@/components/UnlockProgress";
 
@@ -17,7 +18,7 @@ export default function PracticeLimitCard({ limit, noun = "practice test", body 
       <p className="text-sm text-muted">{body}</p>
       <UnlockProgress className="mx-auto max-w-sm text-left" />
       <div className="flex flex-wrap justify-center gap-3">
-        <Link href="/pricing" className="btn btn-primary">
+        <Link href="/pricing" className="btn btn-primary" onClick={() => track("pro_offer_click", { label: "limit-card" })}>
           See Pro
         </Link>
         <ParentShare label="Ask a parent or guardian" />
@@ -25,6 +26,7 @@ export default function PracticeLimitCard({ limit, noun = "practice test", body 
           See who is open
         </Link>
       </div>
+      <p className="text-xs text-muted">Pro is {PRO_PLAN.price}, and you can cancel any time.</p>
     </section>
   );
 }

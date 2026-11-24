@@ -40,6 +40,10 @@ const COMPARE: [string, string, string][] = [
   ["Firm mock processes", "Not included", "Included"],
 ];
 
+/** After paying, how often and how many times to look again for the plan to turn Pro. */
+const RECHECK_MS = 4000;
+const MAX_RECHECKS = 10;
+
 // Pre-contract information and the cancellation wording are a draft for legal review before launch (docs/LAUNCH.md).
 export default function Pricing() {
   const { enabled, user } = useAuth();
@@ -67,18 +71,39 @@ export default function Pricing() {
   useEffect(() => {
     if (!user) return;
     const sb = supabase();
-    sb?.from("profiles")
-      .select("plan")
-      .eq("id", user.id)
-      .maybeSingle()
-      .then(({ data }) => setPlan((data?.plan as "free" | "pro") ?? "free"));
-    // The pass end date is a separate read: it lives in a column added by the Season Pass migration, and if that is not
-    // there yet this just returns nothing, so a Pro member is never shown as free because of it.
-    sb?.from("profiles")
-      .select("pro_until")
-      .eq("id", user.id)
-      .maybeSingle()
-      .then(({ data }) => setProUntil((data?.pro_until as string | null) ?? null));
+    let stopped = false;
+    let timer: ReturnType<typeof setTimeout> | undefined;
+    const back = new URLSearchParams(window.location.search).has("success");
+    let attempts = 0;
+
+    const read = () => {
+      sb?.from("profiles")
+        .select("plan")
+        .eq("id", user.id)
+        .maybeSingle()
+        .then(({ data }) => {
+          if (stopped) return;
+          const now = (data?.plan as "free" | "pro") ?? "free";
+          setPlan(now);
+          // Back from paying: the payment provider tells us a moment after the page returns, so look again until the plan
+          // changes (for up to about 40 seconds) instead of showing Free, and the Pay button, to someone who just paid.
+          if (back && now === "free" && ++attempts < MAX_RECHECKS) timer = setTimeout(read, RECHECK_MS);
+        });
+      // The pass end date is a separate read: it lives in a column added by the Season Pass migration, and if that is not
+      // there yet this just returns nothing, so a Pro member is never shown as free because of it.
+      sb?.from("profiles")
+        .select("pro_until")
+        .eq("id", user.id)
+        .maybeSingle()
+        .then(({ data }) => {
+          if (!stopped) setProUntil((data?.pro_until as string | null) ?? null);
+        });
+    };
+    read();
+    return () => {
+      stopped = true;
+      if (timer) clearTimeout(timer);
+    };
   }, [user]);
 
   const ready = startNow && acceptTerms;
@@ -118,7 +143,7 @@ export default function Pricing() {
       </div>
       {success && (
         <p role="status" className="callout bg-mint-50 text-mint-600">
-          Thanks! Your Pro plan will be active within a minute or two.
+          {plan === "pro" ? "Thanks! Your Pro plan is active now." : "Thanks! Your Pro plan will be active within a minute or two. This page will update when it is."}
         </p>
       )}
 
