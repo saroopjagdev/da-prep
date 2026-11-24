@@ -3,6 +3,7 @@ import { clientIp } from "@/lib/server/guard";
 import { runAlerts } from "@/lib/server/alerts";
 import { runFeedbackAsks } from "@/lib/server/feedback-email";
 import { runNudges } from "@/lib/server/nudges";
+import { runPaymentHealth } from "@/lib/server/payment-health";
 import { expirePasses } from "@/lib/server/passes";
 
 export const dynamic = "force-dynamic";
@@ -32,5 +33,8 @@ export async function GET(req: Request) {
   // Season Passes that have run out go back to free (monthly subscribers have no end date and are not touched).
   const passes = await expirePasses();
   console.log("season passes", JSON.stringify(passes));
-  return Response.json({ ...result, nudges, feedbackAsks, passes });
+  // Reads the Stripe price and the last day's refused checkouts; emails the owners only if payments look broken.
+  const payments = await runPaymentHealth();
+  console.log("payment health", JSON.stringify({ ok: payments.ok, problems: payments.problems.length, emailed: payments.emailed }));
+  return Response.json({ ...result, nudges, feedbackAsks, passes, payments: { ok: payments.ok, problems: payments.problems.length, emailed: payments.emailed } });
 }

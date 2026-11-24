@@ -1,8 +1,9 @@
 import Stripe from "stripe";
-import { PASS_PLAN, PRO_PLAN, checkoutInput } from "@/lib/plans";
+import { checkoutInput } from "@/lib/plans";
 import { SITE_URL } from "@/lib/site";
 import { admin, userFromRequest } from "@/lib/server/auth";
 import { countServer } from "@/lib/server/funnel";
+import { checkStripePrice } from "@/lib/server/stripe-price";
 
 const priceId = () => process.env.STRIPE_PRICE_ID || process.env.STRIPE_PRICE_MONTHLY;
 
@@ -30,19 +31,10 @@ export async function POST(req: Request) {
   const stripe = new Stripe(key);
 
   // The page shows the price from lib/plans.ts, so refuse to take money if the Stripe price is not the same thing.
-  try {
-    const p = await stripe.prices.retrieve(price);
-    const matches =
-      plan === "pass"
-        ? p.unit_amount === PASS_PLAN.pence && p.currency === PASS_PLAN.currency && !p.recurring && p.active
-        : p.unit_amount === PRO_PLAN.pence && p.currency === PRO_PLAN.currency && p.recurring?.interval === "month" && p.active;
-    if (!matches) {
-      console.error("STRIPE_PRICE_ID does not match the plan shown on the site", { unit_amount: p.unit_amount, currency: p.currency });
-      return refuse("price-mismatch", "Payments are temporarily unavailable.", 503);
-    }
-  } catch (e) {
-    console.error("Could not read the Stripe price", e);
-    return refuse("price-unreadable", "Payments are temporarily unavailable.", 503);
+  const check = await checkStripePrice(stripe, price, plan === "pass" ? "pass" : "monthly");
+  if (!check.ok) {
+    console.error(check.reason === "price-mismatch" ? "STRIPE_PRICE_ID does not match the plan shown on the site" : "Could not read the Stripe price", check.detail);
+    return refuse(check.reason, "Payments are temporarily unavailable.", 503);
   }
 
   // Two checkout tabs could both complete before the webhook marks the first; ask Stripe directly as well.
