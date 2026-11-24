@@ -27,6 +27,7 @@ import { SECTOR_BY_ID } from "@/lib/sectors";
 import { useCollection } from "@/lib/store";
 import { fromTemplate } from "@/lib/tracker-item";
 import { nextPrompt } from "@/lib/tracker-prompts";
+import { welcomeProgress, welcomeSteps } from "@/lib/welcome";
 import type {
   Application,
   PracticeRecord,
@@ -99,6 +100,88 @@ const closesText = (o: OpenNow) =>
     : o.rolling
       ? "Rolling: closes when full"
       : brief(o.closes) || "Open now";
+
+const WELCOME_HIDDEN = "da-prep:welcome:hidden";
+
+/**
+ * Three first steps with progress, so someone new knows what to do and in what order. It goes away once all three are
+ * done, and can be hidden before then (remembered in this browser only). Counted anonymously when shown and when a step
+ * is followed.
+ */
+function WelcomeCard({ tracked, practice, sessions }: { tracked: number; practice: number; sessions: number }) {
+  const steps = welcomeSteps({ tracked, practice, sessions });
+  const progress = welcomeProgress(steps);
+  const [hidden, setHidden] = useState(true);
+  useEffect(() => {
+    // Whether it was hidden is only known in the browser, so decide after mount.
+    let was = false;
+    try {
+      was = localStorage.getItem(WELCOME_HIDDEN) === "1";
+    } catch {
+      /* it just shows */
+    }
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setHidden(was);
+  }, []);
+  const show = !hidden && !progress.complete;
+  useEffect(() => {
+    if (show) track("welcome_view", { oncePerLoad: true });
+  }, [show]);
+  if (!show) return null;
+
+  return (
+    <Section
+      title="Get set up"
+      aside={
+        <span className="text-xs font-semibold text-muted">
+          {progress.done} of {progress.total} done
+        </span>
+      }
+    >
+      <ol className="space-y-1">
+        {steps.map((s) => (
+          <li key={s.key}>
+            <Link
+              href={s.href}
+              onClick={() => track("welcome_click", { label: s.key })}
+              className="flex items-start gap-3 rounded-lg py-2 hover:bg-soft/60"
+            >
+              <span
+                className={`mt-0.5 grid h-5 w-5 shrink-0 place-items-center rounded-full border text-xs font-bold ${
+                  s.done ? "border-mint-600 bg-mint-50 text-mint-700" : "border-line text-muted"
+                }`}
+                aria-hidden
+              >
+                {s.done ? "✓" : ""}
+              </span>
+              <span className="min-w-0">
+                <span className={`block text-sm font-semibold ${s.done ? "text-muted line-through" : ""}`}>
+                  {s.title}
+                  {s.done && <span className="sr-only"> (done)</span>}
+                </span>
+                {!s.done && <span className="block text-xs text-muted">{s.hint}</span>}
+              </span>
+            </Link>
+          </li>
+        ))}
+      </ol>
+      <button
+        type="button"
+        className="mt-2 text-xs text-muted underline"
+        onClick={() => {
+          try {
+            localStorage.setItem(WELCOME_HIDDEN, "1");
+          } catch {
+            /* it just comes back next time */
+          }
+          setHidden(true);
+        }}
+      >
+        Hide this
+      </button>
+    </Section>
+  );
+}
 
 function Section({
   title,
@@ -518,6 +601,9 @@ export default function HomeDashboard({ open }: { open: OpenNow[] }) {
         </div>
 
         <div className="flex min-w-0 flex-col gap-4 [&>*:last-child]:flex-1">
+          {apps.loaded && practice.loaded && sessions.loaded && (
+            <WelcomeCard tracked={tracked.length} practice={practice.items.length} sessions={sessions.items.length} />
+          )}
           <Section title="Practise">
             <ul className="divide-y divide-line">
               {(
