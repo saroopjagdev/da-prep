@@ -1,5 +1,5 @@
 {
- "checked": "2026-11-23",
+ "checked": "2026-11-24",
  "jobs": {
   "2000050834": {
    "id": "2000050834",
@@ -751,16 +751,6 @@
    "posted": "2026-10-14",
    "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000059173"
   },
-  "2000059234": {
-   "id": "2000059234",
-   "employer": "PORTLAND FUEL LIMITED",
-   "title": "IT Trainee Apprentice (Portland Fuel Limited)",
-   "level": "6",
-   "location": "YORK YO1",
-   "deadline": "2026-11-28",
-   "posted": "2026-10-15",
-   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000059234"
-  },
   "2000059344": {
    "id": "2000059344",
    "employer": "DALCOUR MACLAREN LIMITED",
@@ -1131,16 +1121,6 @@
    "posted": "2026-11-05",
    "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000062769"
   },
-  "2000062775": {
-   "id": "2000062775",
-   "employer": "QIAGEN MANCHESTER LIMITED",
-   "title": "Apprentice Technical Assistant",
-   "level": "6",
-   "location": "CityLabs 2.0 M13",
-   "deadline": "2026-11-23",
-   "posted": "2026-11-05",
-   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000062775"
-  },
   "2000062981": {
    "id": "2000062981",
    "employer": "FGP Surveyors Limited",
@@ -1160,26 +1140,6 @@
    "deadline": "2027-01-15",
    "posted": "2026-11-06",
    "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000062991"
-  },
-  "2000063159": {
-   "id": "2000063159",
-   "employer": "Clarke and Simpson",
-   "title": "Apprentice Rural Surveyor (Estate Management)",
-   "level": "6",
-   "location": "FRAMLINGHAM IP13",
-   "deadline": "2026-11-23",
-   "posted": "2026-11-09",
-   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000063159"
-  },
-  "2000063202": {
-   "id": "2000063202",
-   "employer": "ACTIVATE MANAGEMENT LIMITED ",
-   "title": "Sports Coach Apprenticeship",
-   "level": "7",
-   "location": "Northampton NN1",
-   "deadline": "2026-11-23",
-   "posted": "2026-11-09",
-   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000063202"
   },
   "2000063227": {
    "id": "2000063227",
@@ -2220,6 +2180,16 @@
    "deadline": "2026-12-20",
    "posted": "2026-11-23",
    "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000065348"
+  },
+  "2000065549": {
+   "id": "2000065549",
+   "employer": "ACCENTURE (UK) LIMITED",
+   "title": "Newcastle Technology Degree Apprenticeship 2027 -2028 (Software Engineering)",
+   "level": "6",
+   "location": "Cobalt Business Park NE27",
+   "deadline": "2026-12-31",
+   "posted": "2026-11-24",
+   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000065549"
   }
  }
 }

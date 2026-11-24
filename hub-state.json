@@ -1,5 +1,5 @@
 {
- "checked": "2026-11-23",
+ "checked": "2026-11-24",
  "jobs": {
   "7f949662-465a-43cb-a95e-1216afb54e93": {
    "id": "7f949662-465a-43cb-a95e-1216afb54e93",
@@ -180,26 +180,6 @@
    "deadline": "",
    "status": "open",
    "apply": "https://higherin.com/jobs/43096/unilever/register-your-interest-digital-marketing-degree-apprenticeship-2027"
-  },
-  "b62fe570-0c05-48cc-9fbb-420634dcb7df": {
-   "id": "b62fe570-0c05-48cc-9fbb-420634dcb7df",
-   "employer": "BBC",
-   "title": "Software Engineering Degree Apprenticeship 2027",
-   "level": "6",
-   "location": "London",
-   "deadline": "2026-11-24",
-   "status": "closing_soon",
-   "apply": "https://careers.bbc.co.uk/search/?locale=en_GB&searchResultView=LIST"
-  },
-  "5c0b94a1-f8fd-42af-9eb8-b65c2cde60a9": {
-   "id": "5c0b94a1-f8fd-42af-9eb8-b65c2cde60a9",
-   "employer": "BBC",
-   "title": "Broadcast and Media Systems Engineer Degree Apprenticeship 2027",
-   "level": "6",
-   "location": "Wood Norton, Worcestershire",
-   "deadline": "2026-11-24",
-   "status": "closing_soon",
-   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/VAC2000062570"
   },
   "3a564153-2e9d-4a28-b952-6df388e67dbc": {
    "id": "3a564153-2e9d-4a28-b952-6df388e67dbc",
@@ -500,6 +480,46 @@
    "deadline": "2027-01-13",
    "status": "open",
    "apply": "https://www.pwc.co.uk/careers/early-careers/entry-level/flying-start.html"
+  },
+  "55b1a553-17e9-4a1f-8d9a-0fb277c8063d": {
+   "id": "55b1a553-17e9-4a1f-8d9a-0fb277c8063d",
+   "employer": "EY",
+   "title": "Audit Apprenticeship Programme 2027",
+   "level": "7",
+   "location": "Multiple UK locations",
+   "deadline": "",
+   "status": "open",
+   "apply": "https://ukstudents.ey.com/"
+  },
+  "40730a88-3b4a-4d19-8006-cd67eaa321b6": {
+   "id": "40730a88-3b4a-4d19-8006-cd67eaa321b6",
+   "employer": "KPMG",
+   "title": "2027 Tax Apprenticeship",
+   "level": "7",
+   "location": "Reading, Bristol, Glasgow",
+   "deadline": "",
+   "status": "open",
+   "apply": "https://www.kpmgcareers.co.uk/Vacancies/apprenticeshipstaxapprenticeshipreadingautumn2027/c64431b0-934c-5407-5f5b-7afe72394d87"
+  },
+  "b62fe570-0c05-48cc-9fbb-420634dcb7df": {
+   "id": "b62fe570-0c05-48cc-9fbb-420634dcb7df",
+   "employer": "BBC",
+   "title": "Software Engineering Degree Apprenticeship 2027",
+   "level": "6",
+   "location": "London",
+   "deadline": "2026-11-24",
+   "status": "reference_only",
+   "apply": "https://careers.bbc.co.uk/search/?locale=en_GB&searchResultView=LIST"
+  },
+  "5c0b94a1-f8fd-42af-9eb8-b65c2cde60a9": {
+   "id": "5c0b94a1-f8fd-42af-9eb8-b65c2cde60a9",
+   "employer": "BBC",
+   "title": "Broadcast and Media Systems Engineer Degree Apprenticeship 2027",
+   "level": "6",
+   "location": "Wood Norton, Worcestershire",
+   "deadline": "2026-11-24",
+   "status": "reference_only",
+   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/VAC2000062570"
   },
   "5fc93154-198e-4883-a21e-daaa6b6a120b": {
    "id": "5fc93154-198e-4883-a21e-daaa6b6a120b",
@@ -980,26 +1000,6 @@
    "deadline": "",
    "status": "reference_only",
    "apply": "https://www.kpmgcareers.co.uk/Vacancies/apprenticeshipstaxapprenticeshipbristolautumn2027/05535102-b525-2c44-857f-9368f7006e33"
-  },
-  "484bc2bc-18c2-49fd-afb5-647c13d5c581": {
-   "id": "484bc2bc-18c2-49fd-afb5-647c13d5c581",
-   "employer": "KPMG",
-   "title": "Tax Apprenticeship Glasgow Autumn 2027",
-   "level": "7",
-   "location": "Glasgow",
-   "deadline": "",
-   "status": "reference_only",
-   "apply": "https://www.kpmgcareers.co.uk/Vacancies/apprenticeshipstaxapprenticeshipglasgowautumn2027/"
-  },
-  "bd798137-fed6-41ff-a1f1-a08501f7b3ee": {
-   "id": "bd798137-fed6-41ff-a1f1-a08501f7b3ee",
-   "employer": "KPMG",
-   "title": "Audit Apprenticeship South Coast - Southampton Autumn 2027",
-   "level": "7",
-   "location": "South Coast - Southampton",
-   "deadline": "",
-   "status": "reference_only",
-   "apply": "https://www.kpmgcareers.co.uk/Vacancies/apprenticeshipsauditapprenticeshipsouthcoastsouthamptonautumn2027/71723265-1410-f418-da02-66b29cb8f7ab"
   }
  }
 }
