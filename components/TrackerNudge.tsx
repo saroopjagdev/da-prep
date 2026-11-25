@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { useUsage } from "@/components/useUsage";
 import { proOffer } from "@/lib/dashboard";
 import { track } from "@/lib/funnel";
-import { PRO_PLAN } from "@/lib/plans";
+import { PASS_PLAN, PRO_PLAN, passOffered } from "@/lib/plans";
 import { pipelineCounts, type TrackerPrompt } from "@/lib/tracker-prompts";
 import type { Application } from "@/lib/types";
 
@@ -48,6 +48,8 @@ export default function TrackerNudge({
 
   const counts = pipelineCounts(apps).filter((c) => c.n > 0);
   const offer = proOffer(prompt, usage);
+  // Most people are here for a few weeks of applications, so lead with the one-off pass when it is on sale.
+  const price = passOffered() ? `${PASS_PLAN.price} once for ${PASS_PLAN.lengthText}` : PRO_PLAN.price;
   if (!apps.length) return null;
 
   return (
@@ -74,13 +76,13 @@ export default function TrackerNudge({
               </Link>
               {offer ? (
                 <Link href="/pricing" className="text-sm font-semibold underline" onClick={() => track("pro_offer_click", { label: offer.surface })}>
-                  {offer.cta} ({PRO_PLAN.price})
+                  {offer.cta} ({price})
                 </Link>
               ) : (
                 prompt.pro &&
                 usage?.plan === "free" && (
-                  <Link href="/pricing" className="text-sm font-semibold underline">
-                    Part of Pro ({PRO_PLAN.price}): see what it includes
+                  <Link href="/pricing" className="text-sm font-semibold underline" onClick={() => track("pro_offer_click", { label: `stage-${prompt.key}` })}>
+                    Part of Pro ({price}): see what it includes
                   </Link>
                 )
               )}

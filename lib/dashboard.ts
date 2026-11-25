@@ -189,6 +189,19 @@ export function proOffer(prompt: Pick<TrackerPrompt, "key" | "employer" | "pro">
       surface: "stage-video-interview",
     };
   }
+  if (prompt.key === "applied-waiting") {
+    // The commonest state (applied, waiting for a reply). The suggestion is to practise, so the offer only appears once the
+    // free practice is gone: before that the free test is the better next step, and an offer would only be noise.
+    const a = get("practice");
+    if (!a || left(a) > 0) return null;
+    return {
+      headline: `Waiting to hear from ${who}`,
+      body: `You have used your free practice test. If the online tests arrive, Pro gives unlimited practice, so use the wait to get ready.`,
+      cta: "Unlock unlimited practice",
+      urgent: true,
+      surface: "stage-applied-waiting",
+    };
+  }
   if (prompt.key === "assessment-centre") {
     return {
       headline: `Assessment centre at ${who}`,
