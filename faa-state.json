@@ -1,5 +1,5 @@
 {
- "checked": "2026-11-24",
+ "checked": "2026-11-25",
  "jobs": {
   "2000050834": {
    "id": "2000050834",
@@ -971,16 +971,6 @@
    "posted": "2026-11-02",
    "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000061787"
   },
-  "2000062205": {
-   "id": "2000062205",
-   "employer": "BBC Public Service",
-   "title": "Journalist Apprenticeship - Level 6 - BBC Radio Northampton - Northampton",
-   "level": "6",
-   "location": "BBC Northampton, Broadcasting House, Abington Street, Northampton, NN1",
-   "deadline": "2026-11-24",
-   "posted": "2026-11-04",
-   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000062205"
-  },
   "2000062213": {
    "id": "2000062213",
    "employer": "Higgs LLP",
@@ -990,16 +980,6 @@
    "deadline": "2027-01-31",
    "posted": "2026-11-03",
    "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000062213"
-  },
-  "2000062222": {
-   "id": "2000062222",
-   "employer": "BBC Public Service",
-   "title": "Journalist Apprenticeship - Level 6 - BBC Three Counties Radio - Dunstable",
-   "level": "6",
-   "location": "Dunstable LU5",
-   "deadline": "2026-11-24",
-   "posted": "2026-11-04",
-   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000062222"
   },
   "2000062496": {
    "id": "2000062496",
@@ -1020,16 +1000,6 @@
    "deadline": "2027-01-30",
    "posted": "2026-11-04",
    "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000062504"
-  },
-  "2000062570": {
-   "id": "2000062570",
-   "employer": "BBC Public Service",
-   "title": "Broadcast and Media Systems Engineer Degree Apprenticeship - Level 6 -  Wood Norton",
-   "level": "6",
-   "location": "Worcester WR11",
-   "deadline": "2026-11-24",
-   "posted": "2026-11-04",
-   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000062570"
   },
   "2000062635": {
    "id": "2000062635",
@@ -2190,6 +2160,36 @@
    "deadline": "2026-12-31",
    "posted": "2026-11-24",
    "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000065549"
+  },
+  "2000065779": {
+   "id": "2000065779",
+   "employer": "STANTEC UK LIMITED",
+   "title": "Apprentice Structural Engineer - Reading",
+   "level": "6",
+   "location": "Waterman Place RG1",
+   "deadline": "2026-12-18",
+   "posted": "2026-11-25",
+   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000065779"
+  },
+  "2000065865": {
+   "id": "2000065865",
+   "employer": "AJ Bell plc",
+   "title": "Digital and Technology Solutions Degree Apprenticeship - Cyber Security Pathway",
+   "level": "6",
+   "location": "Manchester M5",
+   "deadline": "2027-02-28",
+   "posted": "2026-11-25",
+   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000065865"
+  },
+  "2000065874": {
+   "id": "2000065874",
+   "employer": "AJ Bell plc",
+   "title": "Digital and Technology Solutions Degree Apprenticeship - Software Development Pathway",
+   "level": "6",
+   "location": "Manchester M5",
+   "deadline": "2027-02-28",
+   "posted": "2026-11-25",
+   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000065874"
   }
  }
 }
