@@ -82,6 +82,13 @@ describe("the Pro offer for the stage someone has reached", () => {
     expect(proOffer(p("assessment-centre", { pro: true }), free())!.body).toContain("whole Arup process");
     expect(proOffer(p("assessment-centre"), free())!.body).toContain("every firm mock process");
   });
+  it("offers practice to someone waiting after applying, but only once the free practice is used up", () => {
+    expect(proOffer(p("applied-waiting"), free())).toBeNull();
+    const o = proOffer(p("applied-waiting"), free({ practice: { used: 1, limit: 1 } }))!;
+    expect(o.urgent).toBe(true);
+    expect(o.headline).toBe("Waiting to hear from Arup");
+    expect(o.surface).toBe("stage-applied-waiting");
+  });
   it("makes no offer to Pro members, when limits are off, or for stages where practice is not the next need", () => {
     expect(proOffer(p("online-tests"), { plan: "pro", enforced: true })).toBeNull();
     expect(proOffer(p("online-tests"), { ...free(), enforced: false })).toBeNull();
