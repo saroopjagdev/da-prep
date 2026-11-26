@@ -1,5 +1,5 @@
 {
- "checked": "2026-11-25",
+ "checked": "2026-11-26",
  "jobs": {
   "2000050834": {
    "id": "2000050834",
@@ -2190,6 +2190,26 @@
    "deadline": "2027-02-28",
    "posted": "2026-11-25",
    "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000065874"
+  },
+  "2000066060": {
+   "id": "2000066060",
+   "employer": "ASTREA ACADEMY TRUST",
+   "title": "Apprentice Careers Advisor - Level 6",
+   "level": "6",
+   "location": "Barnsley S73",
+   "deadline": "2026-12-08",
+   "posted": "2026-11-26",
+   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000066060"
+  },
+  "2000066061": {
+   "id": "2000066061",
+   "employer": "ASTREA ACADEMY TRUST",
+   "title": "Apprentice Careers Advisor - Level 6",
+   "level": "6",
+   "location": "St. Ives PE27",
+   "deadline": "2026-12-08",
+   "posted": "2026-11-26",
+   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000066061"
   }
  }
 }
