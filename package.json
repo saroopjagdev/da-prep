@@ -12,20 +12,20 @@
     "check:freshness": "vitest run --config vitest.freshness.config.mts"
   },
   "dependencies": {
-    "@supabase/supabase-js": "^2.119.0",
+    "@supabase/supabase-js": "^2.119.2",
     "@vercel/analytics": "^2.0.1",
     "mammoth": "^1.13.0",
     "next": "16.4.6",
-    "openai": "^7.57.0",
+    "openai": "^7.63.0",
     "react": "^19.3.1",
     "react-dom": "^19.3.1",
     "stripe": "^22.6.2",
-    "unpdf": "^2.1.0",
+    "unpdf": "^2.2.2",
     "zod": "^4.6.7"
   },
   "devDependencies": {
     "@axe-core/playwright": "^4.14.0",
-    "@electric-sql/pglite": "^0.5.16",
+    "@electric-sql/pglite": "^0.6.0",
     "@playwright/test": "1.56.1",
     "@tailwindcss/postcss": "^4",
     "@types/node": "^24.19.2",
@@ -36,7 +36,7 @@
     "jszip": "^3.10.2",
     "tailwindcss": "^4",
     "typescript": "^5",
-    "vitest": "^5.1.0"
+    "vitest": "^5.1.1"
   },
   "overrides": {
     "playwright-core": "1.56.1"
