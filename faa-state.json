@@ -1,5 +1,5 @@
 {
- "checked": "2026-11-26",
+ "checked": "2026-11-27",
  "jobs": {
   "2000050834": {
    "id": "2000050834",
@@ -1541,16 +1541,6 @@
    "posted": "2026-11-19",
    "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000064316"
   },
-  "2000064317": {
-   "id": "2000064317",
-   "employer": "WSP UK LIMITED",
-   "title": "Civil Engineering Degree Apprenticeship - Birmingham (Roads)",
-   "level": "6",
-   "location": "100 Wharfside Street B1",
-   "deadline": "2027-04-30",
-   "posted": "2026-11-19",
-   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000064317"
-  },
   "2000064318": {
    "id": "2000064318",
    "employer": "WSP UK LIMITED",
@@ -1600,16 +1590,6 @@
    "deadline": "2027-04-30",
    "posted": "2026-11-19",
    "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000064369"
-  },
-  "2000064372": {
-   "id": "2000064372",
-   "employer": "WSP UK LIMITED",
-   "title": "Civil Engineering Degree Apprenticeship - Birmingham (Water)",
-   "level": "6",
-   "location": "100 Wharfside Street B1",
-   "deadline": "2027-04-30",
-   "posted": "2026-11-19",
-   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000064372"
   },
   "2000064374": {
    "id": "2000064374",
@@ -2061,46 +2041,6 @@
    "posted": "2026-11-19",
    "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000065082"
   },
-  "2000065083": {
-   "id": "2000065083",
-   "employer": "WSP UK LIMITED",
-   "title": "Project Management Degree Apprenticeship - London (Bridges)",
-   "level": "6",
-   "location": "WSP, 11 Westferry Circus, Canary Wharf , London E14",
-   "deadline": "2027-04-30",
-   "posted": "2026-11-19",
-   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000065083"
-  },
-  "2000065087": {
-   "id": "2000065087",
-   "employer": "WSP UK LIMITED",
-   "title": "Project Management Degree Apprenticeship - London (Rail)",
-   "level": "6",
-   "location": "WSP, 11 Westferry Circus, Canary Wharf , London E14",
-   "deadline": "2027-04-30",
-   "posted": "2026-11-19",
-   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000065087"
-  },
-  "2000065088": {
-   "id": "2000065088",
-   "employer": "WSP UK LIMITED",
-   "title": "Project Management Degree Apprenticeship - Birmingham (Rail)",
-   "level": "6",
-   "location": "100 Wharfside Street B1",
-   "deadline": "2027-04-30",
-   "posted": "2026-11-19",
-   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000065088"
-  },
-  "2000065090": {
-   "id": "2000065090",
-   "employer": "WSP UK LIMITED",
-   "title": "Project Management Degree Apprenticeship - Manchester (Rail)",
-   "level": "6",
-   "location": "8 First Street M15",
-   "deadline": "2027-04-30",
-   "posted": "2026-11-19",
-   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000065090"
-  },
   "2000065092": {
    "id": "2000065092",
    "employer": "WSP UK LIMITED",
@@ -2130,16 +2070,6 @@
    "deadline": "2027-04-30",
    "posted": "2026-11-19",
    "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000065095"
-  },
-  "2000065096": {
-   "id": "2000065096",
-   "employer": "WSP UK LIMITED",
-   "title": "Civil Engineering Degree Apprenticeship - London (Bridges)",
-   "level": "6",
-   "location": "WSP, 11 Westferry Circus, Canary Wharf , London E14",
-   "deadline": "2027-04-30",
-   "posted": "2026-11-19",
-   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000065096"
   },
   "2000065348": {
    "id": "2000065348",
