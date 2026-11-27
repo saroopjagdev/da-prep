@@ -3,10 +3,9 @@
 import { CONTACT_EMAIL, OPERATOR_NAME } from "@/lib/legal";
 import { SITE_URL } from "@/lib/site";
 import type { Email } from "@/lib/alerts";
+import { emailButton, emailP, emailShell, esc } from "@/lib/email-layout";
 
 export const NUDGE_KIND = "first-steps";
-
-const esc = (s: string) => s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
 
 export function buildNudgeEmail(unsubscribeToken: string, site = SITE_URL): Email {
   const unsub = `${site}/unsubscribe?t=${unsubscribeToken}`;
@@ -29,14 +28,17 @@ export function buildNudgeEmail(unsubscribeToken: string, site = SITE_URL): Emai
     `${OPERATOR_NAME}${CONTACT_EMAIL ? `, ${CONTACT_EMAIL}` : ""}`,
   ].join("\n");
 
-  const html = `<div style="font-family:system-ui,Arial,sans-serif;max-width:34rem;color:#14213d;line-height:1.5">
-<p style="margin:0 0 12px"><strong>Welcome to Level6.</strong> Here are three quick ways to start:</p>
-<ul style="margin:0 0 16px;padding-left:20px">
-${steps.map(([label, href]) => `<li style="margin:0 0 6px"><a href="${esc(href)}">${esc(label)}</a></li>`).join("\n")}
-</ul>
-<p style="color:#555;font-size:14px">Degree apprenticeship places often close early, so the sooner you know the dates, the better.</p>
-<p style="color:#555;font-size:13px">You are getting this once because you created a Level6 account. <a href="${esc(unsub)}">Stop these and deadline emails</a>.<br>${esc(OPERATOR_NAME)}${CONTACT_EMAIL ? `, ${esc(CONTACT_EMAIL)}` : ""}</p>
-</div>`;
+  const html = emailShell({
+    site,
+    preheader: "See who is open, track your favourites, and try a practice test.",
+    heading: "Welcome to Level6",
+    bodyHtml: [
+      emailP("Here are three quick ways to start:"),
+      `<p style="margin:0 0 12px">${steps.map(([label, href], i) => emailButton(label, href, i === 0 ? "primary" : "secondary")).join("<br>")}</p>`,
+      emailP("Degree apprenticeship places often close early, so the sooner you know the dates, the better.", { muted: true }),
+    ].join("\n"),
+    footerHtml: `You are getting this once because you created a Level6 account. <a href="${esc(unsub)}" style="color:#5d6e6f">Stop these and deadline emails</a>.<br>${esc(OPERATOR_NAME)}${CONTACT_EMAIL ? `, ${esc(CONTACT_EMAIL)}` : ""}`,
+  });
 
   return { subject: "Three quick ways to start on Level6", text, html, headers: { "List-Unsubscribe": `<${oneClick}>`, "List-Unsubscribe-Post": "List-Unsubscribe=One-Click" } };
 }

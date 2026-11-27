@@ -1,5 +1,6 @@
 // Deadline email alerts: which news is due for whom, and the email that carries it. Pure logic, no network. The sending
 // and the database sit in lib/server/alerts.ts. Safe for client and server (the tracker uses alertKey).
+import { emailButton, emailNote, emailP, emailShell, esc } from "@/lib/email-layout";
 import { CONTACT_EMAIL, OPERATOR_NAME } from "@/lib/legal";
 import type { OpportunityRow } from "@/lib/opportunities";
 import { SITE_URL } from "@/lib/site";
@@ -65,8 +66,6 @@ export function dueAlerts(rows: OpportunityRow[], subs: Sub[], sent: Sent[], tod
   return out;
 }
 
-const esc = (s: string) => s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
-
 export type Email = { subject: string; text: string; html: string; headers: Record<string, string> };
 
 const line = (a: Alert) =>
@@ -90,16 +89,19 @@ export function buildEmail(alerts: Alert[], unsubscribeToken: string, site = SIT
     `${OPERATOR_NAME}${CONTACT_EMAIL ? `, ${CONTACT_EMAIL}` : ""}`,
   ].join("\n");
 
-  const html = `<div style="font-family:system-ui,Arial,sans-serif;max-width:34rem;color:#14213d;line-height:1.5">
-${alerts
-  .map(
-    (a) => `<p style="margin:0 0 4px"><strong>${esc(line(a))}</strong></p>
-<p style="margin:0 0 16px"><a href="${esc(guide(a))}">Our guide</a>${a.applyUrl ? ` &middot; <a href="${esc(a.applyUrl)}">Apply on their site</a>` : ""}</p>`,
-  )
-  .join("\n")}
-<p style="color:#555;font-size:14px">Dates can change, so check the employer&rsquo;s own page before you apply.</p>
-<p style="color:#555;font-size:13px">You are getting this because you chose to follow these employers on Level6. <a href="${esc(unsub)}">Stop all alerts</a>.<br>${esc(OPERATOR_NAME)}${CONTACT_EMAIL ? `, ${esc(CONTACT_EMAIL)}` : ""}</p>
-</div>`;
+  const html = emailShell({
+    site,
+    preheader: alerts.length === 1 ? line(alerts[0]) : "Dates and openings for the employers you follow.",
+    heading: alerts.length === 1 ? (alerts[0].kind === "open" ? "Now open for applications" : "Closing soon") : "Updates on employers you follow",
+    bodyHtml: [
+      ...alerts.map(
+        (a) =>
+          `${emailNote(`<strong>${esc(line(a))}</strong>`)}<p style="margin:0 0 18px">${emailButton("Read our guide", guide(a), a.applyUrl ? "secondary" : "primary")}${a.applyUrl ? emailButton("Apply on their site", a.applyUrl) : ""}</p>`,
+      ),
+      emailP("Dates can change, so check the employer&rsquo;s own page before you apply.", { muted: true }),
+    ].join("\n"),
+    footerHtml: `You are getting this because you chose to follow these employers on Level6. <a href="${esc(unsub)}" style="color:#5d6e6f">Stop all alerts</a>.<br>${esc(OPERATOR_NAME)}${CONTACT_EMAIL ? `, ${esc(CONTACT_EMAIL)}` : ""}`,
+  });
 
   return { subject, text, html, headers: { "List-Unsubscribe": `<${oneClick}>`, "List-Unsubscribe-Post": "List-Unsubscribe=One-Click" } };
 }
