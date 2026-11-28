@@ -1,5 +1,5 @@
 {
- "checked": "2026-11-27",
+ "checked": "2026-11-28",
  "jobs": {
   "2000050834": {
    "id": "2000050834",
@@ -100,16 +100,6 @@
    "deadline": "2027-01-22",
    "posted": "2026-10-01",
    "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000056571"
-  },
-  "2000056706": {
-   "id": "2000056706",
-   "employer": "TLT LLP",
-   "title": "Legal Solicitor Apprentice (TLT LLP)",
-   "level": "7",
-   "location": "Bristol BS1 +3 more",
-   "deadline": "2027-02-21",
-   "posted": "2026-10-13",
-   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000056706"
   },
   "2000057112": {
    "id": "2000057112",
@@ -941,16 +931,6 @@
    "posted": "2026-10-30",
    "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000061719"
   },
-  "2000061720": {
-   "id": "2000061720",
-   "employer": "SIEMENS PUBLIC LIMITED COMPANY",
-   "title": "Degree Apprentice - Software Design Engineer",
-   "level": "6",
-   "location": "Congleton CW12",
-   "deadline": "2026-11-27",
-   "posted": "2026-10-30",
-   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000061720"
-  },
   "2000061779": {
    "id": "2000061779",
    "employer": "CAPGEMINI UK PLC",
@@ -1161,16 +1141,6 @@
    "posted": "2026-11-09",
    "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000063290"
   },
-  "2000063293": {
-   "id": "2000063293",
-   "employer": "AMAZON UK SERVICES LTD.",
-   "title": "Finance Apprentice (Fixed Term Contract)",
-   "level": "7",
-   "location": "London EC2A +1 more",
-   "deadline": "2027-02-01",
-   "posted": "2026-11-09",
-   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000063293"
-  },
   "2000063385": {
    "id": "2000063385",
    "employer": "HOLLIS GLOBAL LIMITED",
@@ -1250,16 +1220,6 @@
    "deadline": "2027-02-19",
    "posted": "2026-11-10",
    "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000063559"
-  },
-  "2000063579": {
-   "id": "2000063579",
-   "employer": "AMAZON UK SERVICES LTD.",
-   "title": "Project Manager Degree Apprentice (42-month Fixed term contract)",
-   "level": "6",
-   "location": "London EC2A +1 more",
-   "deadline": "2027-02-01",
-   "posted": "2026-11-10",
-   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000063579"
   },
   "2000063853": {
    "id": "2000063853",
@@ -2140,6 +2100,36 @@
    "deadline": "2026-12-08",
    "posted": "2026-11-26",
    "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000066061"
+  },
+  "2000066240": {
+   "id": "2000066240",
+   "employer": "HASSOCKMOOR CHILDCARE & OUT OF SCHOOL CLUB",
+   "title": "Early Years Initial Teacher Training (EYITT) – Hassockmoor Childcare & Out of School Club Apprentice",
+   "level": "6",
+   "location": "Barrington TA19",
+   "deadline": "2027-01-01",
+   "posted": "2026-11-27",
+   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000066240"
+  },
+  "2000066256": {
+   "id": "2000066256",
+   "employer": "TLT LLP",
+   "title": "Legal Solicitor Apprentice (TLT LLP)",
+   "level": "7",
+   "location": "Bristol BS1 +3 more",
+   "deadline": "2027-02-21",
+   "posted": "2026-11-27",
+   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000066256"
+  },
+  "2000066260": {
+   "id": "2000066260",
+   "employer": "TLT LLP",
+   "title": "Legal Solicitor Apprentice (TLT LLP)",
+   "level": "7",
+   "location": "Bristol BS1 +3 more",
+   "deadline": "2027-02-21",
+   "posted": "2026-11-27",
+   "apply": "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000066260"
   }
  }
 }
