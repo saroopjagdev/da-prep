@@ -44,6 +44,9 @@ const BART = "https://www.millisecond.com/library/v7/bart/bart/bart/bart.manual"
 const EEFRT = "https://www.millisecond.com/library/v7/effortexpenditureforrewardtask/effortexpenditureforrewardtask/effortexpenditureforrewardtask.manual";
 const TOL = "https://www.millisecond.com/library/v7/toweroflondon/toweroflondon/toweroflondon.manual";
 const FLANKER = "https://www.millisecond.com/library/v7/flankertask/arrowflankertest/arrowflankertest_keyboard/arrowflankertest_keyboard/arrowflankertest_keyboard.manual";
+const AON_DECK = "http://gbaworkshop.tntlab.org/wp-content/uploads/2019/08/Vendor-5-Siemsen.pdf";
+const GAP_AON = "https://www.gameassessmentprep.com/aon";
+const GAP_HV = "https://www.gameassessmentprep.com/hirevue";
 const HV_AUDIT = "https://www.hirevue.com/wp-content/uploads/2021/04/hirevue-industry-organizational-psychology-audit-report-2021.pdf";
 
 export const GAMES: Game[] = [
@@ -284,6 +287,48 @@ export const GAMES: Game[] = [
     confidence: "single-report",
     sources: [PATENT, GAP_PYM],
     tips: ["The difference in the mouths is small. Answer what you see, and notice whether the points start to steer you."],
+  },
+  {
+    id: "numerosity",
+    name: "Numerosity",
+    tagline: "Pick the two numbers that make the target",
+    kind: "ability",
+    minutes: 3,
+    about: "A mental-arithmetic game. Each round shows a target and an operation. Pick the two numbers that reach the target. It starts with addition and moves through subtraction and multiplication to division, getting harder as you get things right.",
+    how: ["A target and an operation are shown, such as A × B = 24.", "Pick the two numbers from the eight shown that make it work.", "A right answer raises the level and a wrong one lowers it. You have 15 seconds a round and 3 minutes in all."],
+    looksAt: ["Numerical comprehension and speed under a clock."],
+    reportedWith: ["HireVue games (Numerosity)"],
+    confidence: "multiple-candidate-reports",
+    sources: [GAP_HV, HV_AUDIT],
+    tips: ["Scan for the pair rather than testing every number. For division, look for the numbers that divide exactly."],
+  },
+  {
+    id: "digit-challenge",
+    name: "Digit challenge",
+    tagline: "Fill the gaps so the equation comes out right",
+    kind: "ability",
+    minutes: 4,
+    about: "An equation game in the style of Aon's digitChallenge. An equation has two to four gaps and a result. Fill the gaps with different digits from 1 to 9 so it comes out. More than one fill can be right. Each solved equation makes the next one harder.",
+    how: ["Tap digits to fill the gaps in order. Each digit can be used once in an equation.", "Multiplication is done before addition and subtraction.", "Press Check, or Enter. There are 4 minutes."],
+    looksAt: ["Basic numerical comprehension and trial-and-adjust reasoning."],
+    reportedWith: ["Aon smartPredict (digitChallenge)"],
+    confidence: "multiple-candidate-reports",
+    sources: [AON_DECK, GAP_AON],
+    tips: ["Put the largest digit where it does the most work, usually in a multiplication, then adjust the rest."],
+  },
+  {
+    id: "grid-challenge",
+    name: "Grid challenge",
+    tagline: "Remember the cells while answering symmetry questions",
+    kind: "ability",
+    minutes: 4,
+    about: "A working-memory game in the style of Aon's gridChallenge. Cells light up one at a time. After each, you answer a question about whether a pattern is symmetric. Then you tap the cells back in the order they lit up.",
+    how: ["A cell lights up on a 4 by 4 grid.", "Say whether the pattern shown is a left-to-right mirror image.", "After the last one, tap the cells in the order they lit up.", "Six tasks, from 2 cells up to 5."],
+    looksAt: ["Working memory under distraction."],
+    reportedWith: ["Aon smartPredict (gridChallenge)"],
+    confidence: "multiple-candidate-reports",
+    sources: [AON_DECK, GAP_AON],
+    tips: ["Link the cells into a path or a shape as they appear, and keep answering the symmetry questions rather than skipping them."],
   },
   {
     id: "switch",

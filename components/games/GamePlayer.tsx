@@ -8,6 +8,7 @@ import Balloon from "@/components/games/Balloon";
 import Cards from "@/components/games/Cards";
 import { DigitSpan, Sequence } from "@/components/games/Spans";
 import { Flashback, Keypress, Stroop } from "@/components/games/Speed";
+import { DigitChallenge, GridChallenge, Numerosity } from "@/components/games/Cognitive";
 import Effort from "@/components/games/Effort";
 import { Arrows, Direction } from "@/components/games/Flanker";
 import Lengths from "@/components/games/Lengths";
@@ -39,6 +40,9 @@ const COMPONENTS: Record<string, GameComponent> = {
   security: Lock,
   "easy-or-hard": Effort,
   lengths: Lengths,
+  numerosity: Numerosity,
+  "digit-challenge": DigitChallenge,
+  "grid-challenge": GridChallenge,
 };
 
 type Phase = { name: "intro" } | { name: "play"; seed: number } | { name: "done"; result: GameResult };

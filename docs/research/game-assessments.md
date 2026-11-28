@@ -120,8 +120,8 @@ Arctic Shores' official task list and the "Guide to Your Assessment" PDF (help c
 Built on branch `feat/game-accuracy`:
 - **Shared stage:** every game plays on one dark stage with progress, status line and keyboard hints; older games are recoloured to match.
 - **Corrected:** Balloon (39 balloons, three colours, 5p a pump), Towers (Tower of London, 5 coloured discs, target board, 8 puzzles by breadth-first search), Flashback (N-back rising 1 to 3), Stop (120-trial go/no-go, red press / green hold), Money Exchange split into 1 (trust, 10 rounds) and 2 (propose and respond, 10 rounds).
-- **Added:** Arrows (colour-ruled flanker), Direction (Arctic Shores-style flanker, Q/P), Tickets (task switching), Security (timed lock), Easy or Hard (EEfRT parameters), Lengths (reward learning).
-- **Not yet built:** Faces and E-motions (needs face stimuli), Numerosity, Pathfinder, Shapedance, Puzzlepicture, Singularity, Pulse variant, Aon Grid, Digit and Motion, Order, Energy, Balance, Predict, Team Sales, Analysis, Token Search, Finger Tapping.
+- **Added:** Arrows (colour-ruled flanker), Direction (Arctic Shores-style flanker, Q/P), Tickets (task switching), Security (timed lock), Easy or Hard (EEfRT parameters), Lengths (reward learning), Numerosity (HireVue-style arithmetic), Digit challenge and Grid challenge (Aon-style).
+- **Not yet built:** Faces and E-motions (needs face stimuli), Pathfinder, Shapedance, Puzzlepicture, Singularity, Aon Motion, Order, Energy, Balance, Predict, Team Sales, Analysis, Token Search, Finger Tapping.
 
 ## Build plan, highest value first
 
