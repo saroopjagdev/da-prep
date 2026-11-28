@@ -3,7 +3,6 @@ import { GAMES, GAME_DISCLAIMER, PLAYABLE, getGame, gamesForText, providersForGa
 import { firmsForProvider } from "@/lib/games/firms";
 import { GENERAL_ID, PROVIDERS, getProvider, providersForText } from "@/lib/games/providers";
 import {
-  BALLOON,
   CARD_TURNS,
   DECKS,
   KEY_ROUNDS,
@@ -12,43 +11,23 @@ import {
   SPAN_MAX_MISSES,
   SPAN_START,
   TRUST,
+  ULTIMATUM,
+  partnerAccepts,
   backTrials,
-  balloonBursts,
-  canMove,
   digitSequence,
   drawCard,
   goTrials,
-  isSolved,
-  minMoves,
-  movePeg,
   netPerTen,
   nextSpan,
   scoreSignal,
-  summariseBalloon,
   summariseKeys,
   summariseMoney,
   tileSequence,
-  towerStart,
   trustReturn,
   wordTrials,
 } from "@/lib/games/logic";
 import { practiceLinks } from "@/lib/firms/glance";
 import { getFirm } from "@/lib/firms";
-
-describe("balloon", () => {
-  it("is the same for the same seed and bursts somewhere between 1 and the maximum", () => {
-    expect(balloonBursts(7)).toEqual(balloonBursts(7));
-    expect(balloonBursts(7)).not.toEqual(balloonBursts(8));
-    for (const b of balloonBursts(3, 500)) {
-      expect(b).toBeGreaterThanOrEqual(1);
-      expect(b).toBeLessThanOrEqual(BALLOON.maxPumps);
-    }
-  });
-  it("banks only the balloons that did not burst", () => {
-    const s = summariseBalloon([{ pumps: 4, popped: false }, { pumps: 9, popped: true }, { pumps: 6, popped: false }]);
-    expect(s).toEqual({ banked: 50, pops: 1, avgPumpsKept: 5 });
-  });
-});
 
 describe("card decks", () => {
   it("A and B lose over ten cards and C and D gain, as intended", () => {
@@ -64,36 +43,6 @@ describe("card decks", () => {
         expect(cards.reduce((s, c) => s + c.gain - c.loss, 0)).toBe(netPerTen(deck));
       }
     expect(CARD_TURNS).toBe(40);
-  });
-});
-
-describe("tower", () => {
-  it("starts with everything on the first peg, largest at the bottom", () => {
-    expect(towerStart(3)).toEqual([[3, 2, 1], [], []]);
-  });
-  it("never lets a larger disc onto a smaller one, or move from an empty peg", () => {
-    const p = movePeg(towerStart(3), 0, 1);
-    expect(canMove(p, 0, 1)).toBe(false);
-    expect(movePeg(p, 0, 1)).toBe(p);
-    expect(canMove(p, 2, 0)).toBe(false);
-    expect(canMove(p, 1, 1)).toBe(false);
-  });
-  it("can be solved in exactly the fewest moves by the standard method", () => {
-    for (const n of [3, 4, 5]) {
-      let pegs = towerStart(n);
-      let moves = 0;
-      const solve = (k: number, from: number, to: number, via: number) => {
-        if (k === 0) return;
-        solve(k - 1, from, via, to);
-        expect(canMove(pegs, from, to)).toBe(true);
-        pegs = movePeg(pegs, from, to);
-        moves++;
-        solve(k - 1, via, to, from);
-      };
-      solve(n, 0, 2, 1);
-      expect(isSolved(pegs, n)).toBe(true);
-      expect(moves).toBe(minMoves(n));
-    }
   });
 });
 
@@ -150,6 +99,16 @@ describe("go / no-go and colour words", () => {
   });
 });
 
+describe("money exchange 2", () => {
+  it("accepts a proposal only at or above the partner's minimum, and the pot is 10", () => {
+    expect(partnerAccepts(2, 0)).toBe(false);
+    expect(partnerAccepts(3, 0)).toBe(true);
+    expect(partnerAccepts(1, 1)).toBe(false);
+    expect(ULTIMATUM.pot).toBe(10);
+    expect(ULTIMATUM.rounds).toBe(TRUST.rounds);
+  });
+});
+
 describe("money exchange", () => {
   it("triples what is sent and returns a fixed share, never more than was received", () => {
     for (let r = 0; r < TRUST.rounds; r++)
@@ -199,7 +158,7 @@ describe("the catalog", () => {
     expect(gamesForText("Online assessment (SHL) Numerical reasoning, 18 questions")).toEqual([]);
     expect(gamesForText("Video interview, 3 questions")).toEqual([]);
     const shores = gamesForText("Online assessment (Arctic Shores) Game-style behavioural assessment").map((g) => g.id);
-    expect(shores).toEqual(["balloon", "reaction", "sequence"]);
+    expect(shores).toEqual(["balloon", "direction", "tickets", "security", "sequence"]);
     expect(gamesForText("Pymetrics games").map((g) => g.id)).toContain("cards");
     expect(gamesForText("Aon switchChallenge game").map((g) => g.id)).toContain("switch");
     expect(gamesForText("An interactive game or task-based assessment").length).toBeGreaterThan(0);

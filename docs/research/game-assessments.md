@@ -65,6 +65,38 @@ Four games, adaptive, roughly 6 minutes each (Grid about 9, some sources say 5).
 ### Others (not yet researched in depth)
 Revelian Cognify (replaced Theme Park Hero; six games including Tally Up numerical and a rotation pattern task), Sova (no game names found), SHL Verify Interactive, Saville, Criteria, Cappfinity, Thomas, Plum, Owiwi, Mindx. Needs a separate pass.
 
+## Primary-source findings (round 2)
+
+Where a provider's own document or a published task manual exists, it beats prep-site reconstruction. What we could read:
+
+**pymetrics patents (US 9,842,314 and US 11,030,554, via Google Patents).** Both name the same 17 tasks: Analogical Reasoning, Balloon Analogue Risk Task, Choice Task, Dictator Task, Digit Span, EEfRT, Facial Affect Task, Finger Tapping, Future Discounting, Flanker Task, Go/No-Go, Mind in the Eyes, N-Back, Pattern Recognition, Reward Learning Task, Tower of London and Trust Task. So every pymetrics game is a classic published paradigm, which is the strongest evidence we have for how they work.
+- BART: a cartoon pump inflates a balloon; collect money at any point; a pop loses it; "about 80 trials" in one patent (prep sites say 39: the sources conflict).
+- Digit span: longer sequence after each correct answer; score is the longest remembered.
+- Trust Task ("Money Exchange 1" in the patent's own table): two stages, send money to an unknown person who may send some back; tripled in one passage, doubled in another.
+- Tower of London: two sets of three pegs, a target with **five coloured discs**; rearrange to match; measures moves, accuracy and initial thinking time.
+- Reward Learning Task: a digital face with a "short" or "long" mouth, minimal but perceptible difference; right arrow for long, left for short; money for correct choices under a **differential reinforcement schedule**. This is the pymetrics "Lengths" game.
+- Flanker: red arrow among five red arrows means answer the middle one; a red arrow among four blue means the blue arrows decide. This matches the "Arrows" colour rule.
+- Facial Affect Task: photographs of men and women, some with a short situation story; **four** emotion choices in the patent (prep sites say ten).
+- Finger Tapping: tap a circle with the dominant index finger "as fast as possible for 60 seconds".
+- Scoring: gameplay features (time spent, attempts, actions, time per action, accuracy, decision weights) go into a model (SVMs named); output is a 0 to 100% fit. No trial counts, rewards or probabilities are published except the BART count above.
+
+**HireVue (2020 chapter, Oct 2020 I-O audit).** Confirms: ten cognitive games (Digitspan, Disconumbers, Puzzlepicture, Pathfinder, Symbolspan, Flashback, Colortracks, Numerosity, Singularity, Shapedance) packaged as Short (2), Standard (3) or Comprehensive (4) games, 6 to 15 minutes in all; most are "gamified versions of classic cognitive assessment tasks, like Raven's Progressive Matrices and the Wechsler working memory assessments"; **Pulse is a gamified go/no-go task**; E-motions is a gamified emotion recognition task over pictures and videos with **six** emotions; Portrait is a forced-choice Big Five image game; chat games are branched situational judgement tests. Data recorded: levels played, highest level reached, levels won and lost. Difficulty adapts by adding shapes, colours or elements. Single-game convergent validity ranges from .35 (Pathfinder) to .50 (Digitspan).
+
+**Arctic Shores Skill-enabler guide (2025).** Confirms the Security task mechanic ("Stop the rotating area on the highlighted number by pressing the spacebar", with an on-screen progress percentage), that every move is scored (up to 6,000 data points per candidate), seven Skill-enablers, and 25 to 35 minutes if all seven are assessed. It names no other task.
+
+**Aon smartPredict (2019 deck).** Constructs only: motionChallenge = complex planning, gridChallenge = working memory, switchChallenge = deductive logical reasoning, digitChallenge = basic numerical comprehension. Each challenge is generated at run time. No rules or scoring.
+
+**Published task manuals (Millisecond Inquisit).** Standard parameters, used where the commercial version is unpublished:
+- EEfRT (Treadway 2009): easy = 30 presses in 7 s for 1.00; hard = 100 presses in 21 s for 1.24 to 4.30 in 8 steps; win chance 12%, 50% or 88%; each combination twice per 48 trials; choose with E (easy) or I (hard). We follow this.
+- BART (Lejuez 2002): 30 balloons, 0.05 per pump, burst point drawn from 1 to 128; the original uses three colours with different maxima. We use three colours with 8, 16 and 32 so a round is quick.
+- Flanker (keyboard): fixation 1000 ms, five arrows, Q/P keys, 1750 ms response limit.
+- Stop-signal and go/no-go: signal on a third of trials, 250 ms stimulus onset; cued go/no-go uses 250 trials.
+- Tower of London: three pegs, 12 test problems from 2 to 5 moves, scored by planning time and moves.
+- IGT: 100 trials; deck payoffs were not in the page we could read (our decks follow the standard good/bad structure).
+
+## What we could not get
+Arctic Shores' official task list and the "Guide to Your Assessment" PDF (help centre returns 403), Harver's per-game mechanics, Oxford's page, Aon's rules and scoring, the Trust and Ultimatum original papers, and the IGT payoff table. Everything not listed above remains prep-site reconstruction.
+
 ## Gap analysis against what we ship today (11 games)
 
 | Our game | Closest real task | Problems |
@@ -82,6 +114,14 @@ Revelian Cognify (replaced Theme Park Hero; six games including Tally Up numeric
 | Switch puzzles | Aon Switch | Existing replica; keep. |
 
 **Missing entirely** (reported for real providers): Arctic Shores Direction, Tickets, Security, Order; pymetrics Easy or Hard, Faces, Lengths, Arrows, Money Exchange 2, Towers (correct version); HireVue Pathfinder, Numerosity, Shapedance, Puzzlepicture, Singularity; Aon Grid, Digit, Motion.
+
+## Implementation status (28 Nov 2026)
+
+Built on branch `feat/game-accuracy`:
+- **Shared stage:** every game plays on one dark stage with progress, status line and keyboard hints; older games are recoloured to match.
+- **Corrected:** Balloon (39 balloons, three colours, 5p a pump), Towers (Tower of London, 5 coloured discs, target board, 8 puzzles by breadth-first search), Flashback (N-back rising 1 to 3), Stop (120-trial go/no-go, red press / green hold), Money Exchange split into 1 (trust, 10 rounds) and 2 (propose and respond, 10 rounds).
+- **Added:** Arrows (colour-ruled flanker), Direction (Arctic Shores-style flanker, Q/P), Tickets (task switching), Security (timed lock), Easy or Hard (EEfRT parameters), Lengths (reward learning).
+- **Not yet built:** Faces and E-motions (needs face stimuli), Numerosity, Pathfinder, Shapedance, Puzzlepicture, Singularity, Pulse variant, Aon Grid, Digit and Motion, Order, Energy, Balance, Predict, Team Sales, Analysis, Token Search, Finger Tapping.
 
 ## Build plan, highest value first
 

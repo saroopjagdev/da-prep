@@ -1,103 +1,114 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useMemo, useRef, useState } from "react";
+import { GameStage } from "@/components/games/stage";
 import type { GameProps, GameResult } from "@/components/games/types";
-import { isSolved, minMoves, movePeg, towerStart, canMove, type Pegs } from "@/lib/games/logic";
+import { stacksKey, towerMove, towerPuzzles, type Stacks } from "@/lib/games/tasks";
 
-const LEVELS = [3, 4, 5];
 /** Milliseconds from a steady clock; called only from event handlers. */
 const clock = () => performance.now();
-type Round = { disks: number; moves: number; seconds: number; firstMove: number };
+type Round = { best: number; moves: number; seconds: number; firstMove: number };
+
+const DISC = ["#ef4444", "#f59e0b", "#22c55e", "#3b82f6", "#a855f7"];
+const NAMES = ["red", "amber", "green", "blue", "purple"];
 
 function result(rounds: Round[]): GameResult {
-  const extra = rounds.reduce((s, r) => s + (r.moves - minMoves(r.disks)), 0);
-  const slowStart = rounds.filter((r) => r.firstMove >= 4).length;
+  const extra = rounds.reduce((s, r) => s + (r.moves - r.best), 0);
+  const perfect = rounds.filter((r) => r.moves === r.best).length;
+  const slowStart = rounds.filter((r) => r.firstMove >= 5).length;
   return {
-    headline: extra === 0 ? "Every level in the fewest moves" : `${extra} move${extra === 1 ? "" : "s"} more than the fewest possible`,
-    stats: rounds.map((r) => ({ label: `${r.disks} discs`, value: `${r.moves} moves (fewest ${minMoves(r.disks)}), ${r.seconds}s` })),
+    headline: extra === 0 ? "Every puzzle in the fewest moves" : `${perfect} of ${rounds.length} puzzles in the fewest moves`,
+    stats: [
+      { label: "Puzzles solved", value: `${rounds.length} of ${rounds.length}` },
+      { label: "Extra moves in total", value: String(extra) },
+      { label: "Average time before the first move", value: `${(rounds.reduce((s, r) => s + r.firstMove, 0) / rounds.length).toFixed(1)}s` },
+      { label: "Total time", value: `${rounds.reduce((s, r) => s + r.seconds, 0)}s` },
+    ],
     reading: [
-      extra === 0 ? "You found the shortest route each time." : "Extra moves usually mean a plan had to be undone. Planning the first few moves before you start tends to cut them.",
-      slowStart > 0 ? `You paused for 4 seconds or more before your first move on ${slowStart} level${slowStart === 1 ? "" : "s"}: planning first.` : "You started each level quickly, with little time before the first move.",
+      extra === 0 ? "You found the shortest route every time." : "Extra moves usually mean a plan had to be undone. Planning the whole route before the first move tends to cut them.",
+      slowStart > 0 ? `You paused for 5 seconds or more before your first move on ${slowStart} puzzle${slowStart === 1 ? "" : "s"}: planning first.` : "You started each puzzle quickly, with little thinking time before the first move.",
     ],
   };
 }
 
-export default function Tower({ onFinish }: GameProps) {
+function Board({ stacks, held, onPick, label, small }: { stacks: Stacks; held?: number | null; onPick?: (i: number) => void; label: string; small?: boolean }) {
+  return (
+    <div className="space-y-1.5">
+      <p className="text-center text-xs font-semibold uppercase tracking-wide text-white/60">{label}</p>
+      <div className="grid grid-cols-3 gap-2">
+        {stacks.map((peg, i) => (
+          <button
+            key={i}
+            type="button"
+            disabled={!onPick}
+            onClick={() => onPick?.(i)}
+            aria-label={`${label}, peg ${i + 1}: ${peg.length ? `${peg.map((d) => NAMES[d]).join(", ")} from the bottom` : "empty"}${held === i ? ", selected" : ""}`}
+            className={`relative flex flex-col-reverse items-center justify-start gap-1 rounded-lg border-2 px-2 pb-2 pt-1 ${small ? "h-36" : "h-52"} ${held === i ? "border-white bg-white/15" : "border-white/20 bg-white/5"} ${onPick ? "hover:bg-white/10" : ""}`}
+          >
+            <span className="pointer-events-none absolute inset-x-1/2 bottom-0 top-3 w-1 -translate-x-1/2 rounded bg-white/15" aria-hidden="true" />
+            {peg.map((d) => (
+              <span key={d} className={`relative block w-4/5 rounded-md shadow ${small ? "h-5" : "h-7"}`} style={{ background: DISC[d] }} aria-hidden="true" />
+            ))}
+          </button>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+export default function Tower({ seed, onFinish }: GameProps) {
+  const puzzles = useMemo(() => towerPuzzles(seed), [seed]);
   const [level, setLevel] = useState(0);
-  const disks = LEVELS[level];
-  const [pegs, setPegs] = useState<Pegs>(() => towerStart(LEVELS[0]));
+  const [stacks, setStacks] = useState<Stacks>(puzzles[0].start);
   const [held, setHeld] = useState<number | null>(null);
   const [moves, setMoves] = useState(0);
   const [note, setNote] = useState("");
   const rounds = useRef<Round[]>([]);
-  const t0 = useRef(0);
+  const t0 = useRef<number | null>(null);
   const first = useRef<number | null>(null);
-
-  useEffect(() => {
-    t0.current = clock();
-    first.current = null;
-  }, [level]);
+  const p = puzzles[level];
 
   function choose(i: number) {
-    // Thinking time: from the level appearing to the first peg chosen.
-    if (first.current === null) first.current = (clock() - t0.current) / 1000;
+    const now = clock();
+    t0.current ??= now;
     if (held === null) {
-      if (pegs[i].length) setHeld(i);
+      if (stacks[i].length) setHeld(i);
       return;
     }
     if (held === i) {
       setHeld(null);
       return;
     }
-    if (!canMove(pegs, held, i)) {
-      setNote("A larger disc cannot go on a smaller one.");
-      setHeld(null);
-      return;
-    }
-    const next = movePeg(pegs, held, i);
+    first.current ??= (now - t0.current) / 1000;
+    const next = towerMove(stacks, held, i);
     const n = moves + 1;
     setHeld(null);
-    setNote("");
-    if (isSolved(next, disks)) {
-      rounds.current.push({ disks, moves: n, seconds: Math.round((clock() - t0.current) / 1000), firstMove: first.current ?? 0 });
+    if (stacksKey(next) === stacksKey(p.target)) {
+      rounds.current.push({ best: p.best, moves: n, seconds: Math.round((now - t0.current) / 1000), firstMove: first.current ?? 0 });
+      t0.current = null;
       first.current = null;
-      if (level + 1 >= LEVELS.length) {
+      if (level + 1 >= puzzles.length) {
         onFinish(result(rounds.current));
         return;
       }
       setLevel(level + 1);
-      setPegs(towerStart(LEVELS[level + 1]));
+      setStacks(puzzles[level + 1].start);
       setMoves(0);
-      setNote(`Level ${level + 1} done in ${n} moves.`);
+      setNote(n === p.best ? `Solved in ${n}: the fewest possible.` : `Solved in ${n} moves (fewest possible: ${p.best}).`);
     } else {
-      setPegs(next);
+      setStacks(next);
       setMoves(n);
+      setNote("");
     }
   }
 
   return (
-    <section className="card space-y-4 p-5" aria-label="Tower">
-      <p className="text-center text-sm text-muted">
-        Level {level + 1} of {LEVELS.length}: {disks} discs · {moves} moves (fewest possible: {minMoves(disks)})
-      </p>
-      <div className="grid grid-cols-3 gap-3">
-        {pegs.map((peg, i) => (
-          <button
-            key={i}
-            type="button"
-            onClick={() => choose(i)}
-            aria-label={`Peg ${i + 1}${i === 2 ? " (target)" : ""}, ${peg.length ? `top disc size ${peg[peg.length - 1]}` : "empty"}${held === i ? ", selected" : ""}`}
-            className={`flex h-56 flex-col-reverse items-center gap-1 rounded-xl border-2 p-2 ${held === i ? "border-brand-600 bg-brand-50" : "border-line"} ${i === 2 ? "bg-mint-50" : ""}`}
-          >
-            {peg.map((d) => (
-              <span key={d} className="block h-6 rounded bg-brand-600" style={{ width: `${30 + d * 14}%` }} aria-hidden="true" />
-            ))}
-          </button>
-        ))}
+    <GameStage title="Tower" left={`Puzzle ${level + 1} of ${puzzles.length}`} right={`${moves} moves (fewest possible: ${p.best})`} progress={level / puzzles.length} status={note || (held !== null ? "Now choose where to put it." : "Choose a peg to lift its top disc. Make the left board match the target.")}>
+      <div className="grid gap-4 sm:grid-cols-[1fr_0.6fr]">
+        <Board stacks={stacks} held={held} onPick={choose} label="Your board" />
+        <Board stacks={p.target} label="Target" small />
       </div>
-      <p role="status" aria-live="polite" className="min-h-6 text-center text-sm">
-        {note || (held !== null ? "Now choose where to put it." : "Choose a peg to pick up its top disc. Move the whole stack to the right-hand peg.")}
-      </p>
-    </section>
+    </GameStage>
   );
 }
+

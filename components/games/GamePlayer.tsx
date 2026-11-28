@@ -7,8 +7,14 @@ import { useUsage } from "@/components/useUsage";
 import Balloon from "@/components/games/Balloon";
 import Cards from "@/components/games/Cards";
 import { DigitSpan, Sequence } from "@/components/games/Spans";
-import { Flashback, Keypress, Reaction, Stroop } from "@/components/games/Speed";
-import Money from "@/components/games/Money";
+import { Flashback, Keypress, Stroop } from "@/components/games/Speed";
+import Effort from "@/components/games/Effort";
+import { Arrows, Direction } from "@/components/games/Flanker";
+import Lengths from "@/components/games/Lengths";
+import Lock from "@/components/games/Lock";
+import { MoneyShare, MoneyTrust } from "@/components/games/Money";
+import Stop from "@/components/games/Stop";
+import Tickets from "@/components/games/Tickets";
 import Tower from "@/components/games/Tower";
 import type { GameComponent, GameResult } from "@/components/games/types";
 import { GAME_DISCLAIMER, GAMES, type Game } from "@/lib/games/catalog";
@@ -22,10 +28,17 @@ const COMPONENTS: Record<string, GameComponent> = {
   "digit-span": DigitSpan,
   sequence: Sequence,
   flashback: Flashback,
-  reaction: Reaction,
+  stop: Stop,
   keypress: Keypress,
-  money: Money,
+  "money-exchange-1": MoneyTrust,
+  "money-exchange-2": MoneyShare,
   stroop: Stroop,
+  arrows: Arrows,
+  direction: Direction,
+  tickets: Tickets,
+  security: Lock,
+  "easy-or-hard": Effort,
+  lengths: Lengths,
 };
 
 type Phase = { name: "intro" } | { name: "play"; seed: number } | { name: "done"; result: GameResult };
@@ -64,13 +77,15 @@ export default function GamePlayer({ game }: { game: Game }) {
   if (phase.name === "play") {
     return (
       <div className="space-y-3">
-        <Play
-          seed={phase.seed}
-          onFinish={(result) => {
-            track("game_complete");
-            setPhase({ name: "done", result });
-          }}
-        />
+        <div className="game-dark">
+          <Play
+            seed={phase.seed}
+            onFinish={(result) => {
+              track("game_complete");
+              setPhase({ name: "done", result });
+            }}
+          />
+        </div>
         <p className="text-xs text-muted">{GAME_DISCLAIMER}</p>
       </div>
     );

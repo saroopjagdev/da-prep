@@ -1,30 +1,9 @@
 // The rules and scoring behind the practice games, kept free of React so they can be tested. Everything here follows the
-// published idea of each task type (balloon risk, card decks, tower planning, digit span, n-back, go/no-go, Corsi
-// blocks, a trust and fairness game, Stroop). Nothing here is any provider's actual task, timing or scoring.
+// published idea of each task type (card decks, digit span, n-back, go/no-go, Corsi blocks, a trust and fairness game,
+// Stroop). The balloon, tower and other task-style games are in lib/games/tasks.ts. Nothing here is any provider's actual task, timing or scoring.
 import { rng, type Rng } from "@/lib/assess/rng";
 
 export const makeRng = (seed: number): Rng => rng(seed);
-
-/* ---------------------------------------------------------------- Balloon (risk) */
-
-export const BALLOON = { rounds: 10, maxPumps: 24, perPump: 5 } as const;
-
-/** For each balloon, the pump number on which it bursts (1 to maxPumps, evenly likely). Same seed, same balloons. */
-export function balloonBursts(seed: number, rounds: number = BALLOON.rounds, maxPumps: number = BALLOON.maxPumps): number[] {
-  const r = rng(seed);
-  return Array.from({ length: rounds }, () => r.int(1, maxPumps));
-}
-
-export type BalloonRound = { pumps: number; popped: boolean };
-
-export function summariseBalloon(rounds: BalloonRound[], perPump = BALLOON.perPump) {
-  const kept = rounds.filter((x) => !x.popped);
-  return {
-    banked: kept.reduce((s, x) => s + x.pumps * perPump, 0),
-    pops: rounds.filter((x) => x.popped).length,
-    avgPumpsKept: kept.length ? kept.reduce((s, x) => s + x.pumps, 0) / kept.length : 0,
-  };
-}
 
 /* ---------------------------------------------------------------- Card decks (learning under risk) */
 
@@ -48,29 +27,6 @@ export function drawCard(seed: number, deck: Deck, n: number): { gain: number; l
 }
 
 export const netPerTen = (deck: Deck) => 10 * GAIN[deck] - LOSSES[deck].reduce((s, x) => s + x, 0);
-
-/* ---------------------------------------------------------------- Tower (planning) */
-
-export type Pegs = number[][];
-
-export const towerStart = (disks: number): Pegs => [Array.from({ length: disks }, (_, i) => disks - i), [], []];
-export const minMoves = (disks: number) => 2 ** disks - 1;
-export const isSolved = (pegs: Pegs, disks: number) => pegs[2].length === disks;
-
-export function canMove(pegs: Pegs, from: number, to: number): boolean {
-  if (from === to || !pegs[from]?.length) return false;
-  const disk = pegs[from][pegs[from].length - 1];
-  const top = pegs[to].at(-1);
-  return top === undefined || top > disk;
-}
-
-/** The pegs after moving the top disk, or the same pegs when the move is not allowed. */
-export function movePeg(pegs: Pegs, from: number, to: number): Pegs {
-  if (!canMove(pegs, from, to)) return pegs;
-  const next = pegs.map((p) => [...p]);
-  next[to].push(next[from].pop()!);
-  return next;
-}
 
 /* ---------------------------------------------------------------- Digit span and block sequences (memory) */
 
@@ -126,6 +82,19 @@ export function backTrials(seed: number, count: number, n = 1, matchShare = 0.3)
   return out;
 }
 
+/** The level structure of Flashback: shapes to compare with the one 1, then 2, then 3 back. Counted only from within each level. */
+export const NBACK_LEVELS = [
+  { n: 1, count: 20 },
+  { n: 2, count: 25 },
+  { n: 3, count: 400 },
+] as const;
+
+export type NBackTrial = { shape: Shape; match: boolean; n: number; first: boolean };
+
+export function nBackRun(seed: number): NBackTrial[] {
+  return NBACK_LEVELS.flatMap((lv, k) => backTrials(seed + k * 31, lv.count, lv.n).map((t, i) => ({ ...t, n: lv.n, first: i === 0 })));
+}
+
 /** `said[i]` is true when "same" was pressed for trial i. */
 export function scoreSignal(trials: { match: boolean }[], said: boolean[]) {
   let hits = 0, misses = 0, falseAlarms = 0, correctRejections = 0;
@@ -145,11 +114,11 @@ export function scoreSignal(trials: { match: boolean }[], said: boolean[]) {
 export type GoTrial = { go: boolean; shape: "circle" | "square"; wait: number };
 
 /** Mostly "go" shapes with a minority of "no-go" ones, each after a short random wait (milliseconds). */
-export function goTrials(seed: number, count: number, noGoShare = 0.25): GoTrial[] {
+export function goTrials(seed: number, count: number, noGoShare = 0.25, waitMin = 500, waitMax = 1400): GoTrial[] {
   const r = rng(seed);
   return Array.from({ length: count }, () => {
     const go = r.next() >= noGoShare;
-    return { go, shape: go ? "circle" : "square", wait: r.int(500, 1400) };
+    return { go, shape: go ? "circle" : "square", wait: r.int(waitMin, waitMax) };
   });
 }
 
@@ -170,17 +139,17 @@ export function wordTrials(seed: number, count: number, congruentShare = 0.4): W
 
 /* ---------------------------------------------------------------- Money exchange (trust and fairness) */
 
-export const TRUST = { rounds: 6, endowment: 10, multiplier: 3 } as const;
+export const TRUST = { rounds: 10, endowment: 10, multiplier: 3 } as const;
 
 /** How much of what was sent (after tripling) the partner returns, round by round. Mixed, so no one rule fits. */
-export const PARTNER_RETURNS = [0.5, 0.2, 0.5, 0.35, 0.5, 0.1];
+export const PARTNER_RETURNS = [0.5, 0.2, 0.5, 0.35, 0.5, 0.1, 0.4, 0.5, 0.25, 0.45];
 
 export function trustReturn(sent: number, round: number): number {
   return Math.round(sent * TRUST.multiplier * PARTNER_RETURNS[round % PARTNER_RETURNS.length]);
 }
 
 /** The share of 10 offered to you in each of the fairness rounds. */
-export const OFFERS = [5, 2, 4, 1, 3, 5, 2, 3];
+export const OFFERS = [5, 2, 4, 1, 3];
 
 export function summariseMoney(sent: number[], accepted: boolean[]) {
   const avg = (a: number[]) => (a.length ? a.reduce((s, x) => s + x, 0) / a.length : 0);
@@ -216,3 +185,11 @@ export function summariseKeys(presses: number[]) {
 }
 
 export const mean = (xs: number[]) => (xs.length ? xs.reduce((s, x) => s + x, 0) / xs.length : 0);
+
+/* ---------------------------------------------------------------- Money exchange 2 (proposing and responding) */
+
+/** Ten rounds: odd ones you answer an offer (the five offers above), even ones you propose a split of 10 and the partner decides. */
+export const ULTIMATUM = { rounds: 10, pot: 10 } as const;
+/** The smallest share of 10 the partner will take in each proposing round. A refusal leaves both with nothing. */
+export const PARTNER_MINIMUMS = [3, 2, 4, 3, 2];
+export const partnerAccepts = (offered: number, proposalIndex: number) => offered >= PARTNER_MINIMUMS[proposalIndex % PARTNER_MINIMUMS.length];
