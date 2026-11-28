@@ -92,7 +92,7 @@ export const WINDOWS: WindowEntry[] = [
     closesLabel: "About six weeks after opening, with more hiring through February",
     note: "The page says degree apprenticeships are closed and 2027 applications open in January 2027, with a main recruitment window of about six weeks. Another section of the same page says the window runs from the beginning of November to the end of February, so confirm with BAE Systems before planning around either.",
     confidence: "official",
-    checked: "2026-11-20",
+    checked: "2026-11-28",
   },
   {
     slug: "natwest",
@@ -117,7 +117,7 @@ export const WINDOWS: WindowEntry[] = [
     rolling: true,
     note: "The apprenticeships page says applications open in November 2026. Not all roles have a fixed deadline: some are reviewed on a rolling basis and may close as soon as they are filled, and where there is a deadline it is on the vacancy.",
     confidence: "official",
-    checked: "2026-11-20",
+    checked: "2026-11-28",
   },
   {
     slug: "atkinsrealis",
@@ -134,7 +134,7 @@ export const WINDOWS: WindowEntry[] = [
     opensLabel: "Usually February",
     note: "Applications ran 2 to 22 February in the last cycle.",
     confidence: "official",
-    checked: "2026-11-20",
+    checked: "2026-11-28",
   },
   {
     name: "Schroders",
@@ -143,7 +143,7 @@ export const WINDOWS: WindowEntry[] = [
     opensLabel: "January (apply in January to start in September)",
     note: "Two-year school-leaver apprenticeship with Level 3 and 4 qualifications, not a degree. No 2027 dates on the page.",
     confidence: "official",
-    checked: "2026-11-20",
+    checked: "2026-11-28",
   },
   {
     name: "Aon",
@@ -152,7 +152,7 @@ export const WINDOWS: WindowEntry[] = [
     opensLabel: "November each year",
     note: "The page says apprenticeship opportunities open in November each year. It gives no 2027 opening date or closing date, and says deadlines vary by role, so check each posting.",
     confidence: "official",
-    checked: "2026-11-20",
+    checked: "2026-11-28",
   },
   {
     name: "M&G",
@@ -169,7 +169,7 @@ export const WINDOWS: WindowEntry[] = [
     opensLabel: "Advertised by the end of October",
     note: "Four-year degree apprenticeships (BSc Hons). No fixed opening date; roles are aimed to be advertised by the end of October.",
     confidence: "official",
-    checked: "2026-11-20",
+    checked: "2026-11-28",
   },
   {
     name: "Unilever",
@@ -181,7 +181,7 @@ export const WINDOWS: WindowEntry[] = [
     rolling: true,
     note: "The Packaging Professional Level 6 apprenticeship (September 2027 start) opens for applications on Monday 9 November 2026, on a rolling deadline that may close early. The page still says the 2026 intake is closed, and gives no dates for other programmes.",
     confidence: "official",
-    checked: "2026-11-20",
+    checked: "2026-11-28",
   },
   {
     name: "Leonardo",
@@ -191,7 +191,7 @@ export const WINDOWS: WindowEntry[] = [
     opensLabel: "Open now for 2027 programmes",
     note: "The page says applications are open for all 2027 apprenticeship programmes at its Scottish and English sites, screened first come first served, and that applications close when each role is filled. No closing date is given. It also says its summer 2027 early careers roles will open soon.",
     confidence: "official",
-    checked: "2026-11-20",
+    checked: "2026-11-28",
   },
   {
     name: "EDF",
@@ -199,7 +199,7 @@ export const WINDOWS: WindowEntry[] = [
     opens: "2027-01",
     note: "The page says apprenticeship programmes will open for applications in January 2027, in engineering, project management, chemistry and business. Its jobs list currently shows no openings, and the page does not mention degree apprenticeships.",
     confidence: "official",
-    checked: "2026-11-20",
+    checked: "2026-11-28",
   },
   {
     name: "Vodafone",
@@ -207,7 +207,7 @@ export const WINDOWS: WindowEntry[] = [
     state: "not-announced",
     note: "Register your interest for the 2027 intake. The page says this is not an application to a specific programme and that timelines will be sent to those who register; no dates are given.",
     confidence: "official",
-    checked: "2026-11-20",
+    checked: "2026-11-28",
   },
   {
     name: "United Utilities",
@@ -215,7 +215,7 @@ export const WINDOWS: WindowEntry[] = [
     state: "not-announced",
     note: "The page says applications for 2026 are closed and you can register to be notified when 2027 roles become available. No 2027 dates are given.",
     confidence: "official",
-    checked: "2026-11-20",
+    checked: "2026-11-28",
   },
   {
     name: "Neptune North",
@@ -224,7 +224,7 @@ export const WINDOWS: WindowEntry[] = [
     closesLabel: "Likely late November or early December 2026",
     note: "The 2027 Digital and Technology Solutions Degree Apprenticeship (September 2027 start) is advertised on Neptune North's own application page, which says applications will likely close towards the end of November or early December 2026.",
     confidence: "official",
-    checked: "2026-11-20",
+    checked: "2026-11-28",
   },
   {
     name: "AWE",
@@ -234,7 +234,7 @@ export const WINDOWS: WindowEntry[] = [
     state: "open",
     note: "AWE's own apprenticeships page says applications are now open and to only apply to one role (the Level 6 Degree Apprenticeship advert said 12 October 2026). Check each advert for eligibility rules such as nationality and security clearance.",
     confidence: "official",
-    checked: "2026-11-20",
+    checked: "2026-11-28",
   },
   {
     name: "Saffery",
@@ -258,7 +258,7 @@ export const WINDOWS: WindowEntry[] = [
     state: "open",
     note: "The page says Degree Apprenticeship opportunities in England and Graduate Apprenticeship opportunities in Scotland are now live. Intermediate, Advanced, Higher and Modern Apprenticeships open in December. No closing dates are given.",
     confidence: "official",
-    checked: "2026-11-20",
+    checked: "2026-11-28",
   },
   {
     name: "St James's Place",
@@ -267,7 +267,7 @@ export const WINDOWS: WindowEntry[] = [
     closes: "2027-01-08",
     note: "The page says applications for the 2027 Apprenticeship Programmes open on Monday 16 November 2026 and are scheduled to close on Friday 8 January 2027. SJP may close vacancies early once it has enough applications.",
     confidence: "official",
-    checked: "2026-11-20",
+    checked: "2026-11-28",
   },
   {
     name: "bp",
@@ -294,7 +294,7 @@ export const WINDOWS: WindowEntry[] = [
     closesLabel: "End of February 2027",
     note: "The Elevate apprenticeship page says applications are open online from mid December 2026 to the end of February 2027, with offers from March 2027 and a start in autumn 2027.",
     confidence: "official",
-    checked: "2026-11-20",
+    checked: "2026-11-28",
   },
   {
     slug: "ey",
@@ -338,7 +338,7 @@ export const WINDOWS: WindowEntry[] = [
     state: "open",
     note: "Read from the employer's own degree-level adverts on Find an apprenticeship (the government's vacancy service), closing 18 December 2026. Other adverts from the same employer can have other dates, so confirm on the one you want.",
     confidence: "official",
-    checked: "2026-11-20",
+    checked: "2026-11-28",
   },
   {
     name: "Dalcour Maclaren",
@@ -347,7 +347,7 @@ export const WINDOWS: WindowEntry[] = [
     state: "open",
     note: "Read from the employer's own degree-level adverts on Find an apprenticeship (the government's vacancy service), closing 22 January 2027. Other adverts from the same employer can have other dates, so confirm on the one you want.",
     confidence: "official",
-    checked: "2026-11-20",
+    checked: "2026-11-28",
   },
   {
     name: "Devonport Royal Dockyard",
@@ -365,7 +365,7 @@ export const WINDOWS: WindowEntry[] = [
     state: "open",
     note: "Read from the employer's own degree-level adverts on Find an apprenticeship (the government's vacancy service), closing 7 December 2026. Other adverts from the same employer can have other dates, so confirm on the one you want.",
     confidence: "official",
-    checked: "2026-11-20",
+    checked: "2026-11-28",
   },
   {
     name: "Trowers & Hamlins",
@@ -374,7 +374,7 @@ export const WINDOWS: WindowEntry[] = [
     state: "open",
     note: "Read from the employer's own degree-level adverts on Find an apprenticeship (the government's vacancy service), closing 19 February 2027. Other adverts from the same employer can have other dates, so confirm on the one you want.",
     confidence: "official",
-    checked: "2026-11-20",
+    checked: "2026-11-28",
   },
   {
     name: "Molson Coors",
@@ -383,7 +383,7 @@ export const WINDOWS: WindowEntry[] = [
     state: "open",
     note: "Read from the employer's own degree-level adverts on Find an apprenticeship (the government's vacancy service), closing 15 January 2027. Other adverts from the same employer can have other dates, so confirm on the one you want.",
     confidence: "official",
-    checked: "2026-11-20",
+    checked: "2026-11-28",
   },
   {
     name: "Morrisons",
@@ -406,11 +406,11 @@ export const WINDOWS: WindowEntry[] = [
   {
     name: "TLT",
     source: "https://www.findapprenticeship.service.gov.uk/apprenticeship/reference/2000056706",
-    closes: "2027-02-21",
-    state: "open",
-    note: "Read from the employer's own degree-level adverts on Find an apprenticeship (the government's vacancy service), closing 21 February 2027. Other adverts from the same employer can have other dates, so confirm on the one you want.",
+    closes: "2026-11-27",
+    state: "closed",
+    note: "Find an apprenticeship says this advert closed on 27 November 2026. Check the employer's careers page for the next intake.",
     confidence: "official",
-    checked: "2026-11-20",
+    checked: "2026-11-28",
   },
   {
     name: "GKN Aerospace",
@@ -428,7 +428,7 @@ export const WINDOWS: WindowEntry[] = [
     state: "open",
     note: "Read from the employer's own degree-level adverts on Find an apprenticeship (the government's vacancy service), closing 1 April 2027. Other adverts from the same employer can have other dates, so confirm on the one you want.",
     confidence: "official",
-    checked: "2026-11-20",
+    checked: "2026-11-28",
   },
   {
     name: "Hanson",
@@ -437,7 +437,7 @@ export const WINDOWS: WindowEntry[] = [
     state: "open",
     note: "Read from the employer's own degree-level adverts on Find an apprenticeship (the government's vacancy service), closing 15 February 2027. Other adverts from the same employer can have other dates, so confirm on the one you want.",
     confidence: "official",
-    checked: "2026-11-20",
+    checked: "2026-11-28",
   },
   {
     name: "British Airways",
