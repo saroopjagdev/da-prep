@@ -5,8 +5,7 @@ import type { GameProps, GameResult } from "@/components/games/types";
 import {
   INKS,
   KEY_ROUNDS,
-  backTrials,
-  goTrials,
+  nBackRun,
   mean,
   scoreSignal,
   summariseKeys,
@@ -52,7 +51,7 @@ const pct = (n: number, d: number) => (d ? `${Math.round((100 * n) / d)}%` : "no
 const FLASH_SECONDS = 180;
 
 export function Flashback({ seed, onFinish }: GameProps) {
-  const trials = useMemo(() => backTrials(seed, 400), [seed]);
+  const trials = useMemo(() => nBackRun(seed), [seed]);
   const [i, setI] = useState(0);
   const [left, setLeft] = useState(FLASH_SECONDS);
   const said = useRef<boolean[]>([]);
@@ -107,8 +106,9 @@ export function Flashback({ seed, onFinish }: GameProps) {
   return (
     <section className="card space-y-4 p-5 text-center" aria-label="Flashback">
       <p className="text-sm text-muted">
-        {Math.floor(left / 60)}:{String(left % 60).padStart(2, "0")} left · {i} answered
+        {Math.floor(left / 60)}:{String(left % 60).padStart(2, "0")} left · {i} answered · Level {trials[i].n}
       </p>
+      <p className="font-semibold">Is it the same as the shape {trials[i].n === 1 ? "just before it" : `${trials[i].n} shapes back`}?</p>
       <div className="grid place-items-center">
         <ShapeIcon shape={trials[i].shape} />
       </div>
@@ -120,92 +120,7 @@ export function Flashback({ seed, onFinish }: GameProps) {
           Different (D)
         </button>
       </div>
-      <p className="text-xs text-muted">Is this the same shape as the one just before it? The first shape has nothing before it, so it is Different.</p>
-    </section>
-  );
-}
-
-/* ------------------------------------------------------------------ Shape reaction */
-
-type Outcome = { go: boolean; pressed: boolean; rt: number | null };
-
-export function Reaction({ seed, onFinish }: GameProps) {
-  const trials = useMemo(() => goTrials(seed, 40), [seed]);
-  const [i, setI] = useState(0);
-  const [showing, setShowing] = useState(false);
-  const outcomes = useRef<Outcome[]>([]);
-  const early = useRef(0);
-  const onset = useRef(0);
-  const showingRef = useRef(false);
-
-  const record = useCallback(
-    (o: Outcome) => {
-      outcomes.current.push(o);
-      showingRef.current = false;
-      setShowing(false);
-      if (outcomes.current.length >= trials.length) {
-        const all = outcomes.current;
-        const hits = all.filter((x) => x.go && x.pressed);
-        const misses = all.filter((x) => x.go && !x.pressed).length;
-        const falseAlarms = all.filter((x) => !x.go && x.pressed).length;
-        const noGo = all.filter((x) => !x.go).length;
-        const rt = mean(hits.map((x) => x.rt!));
-        onFinish({
-          headline: hits.length ? `Average reaction ${Math.round(rt)} ms` : "No green circles caught",
-          stats: [
-            { label: "Average reaction (green circle)", value: hits.length ? `${Math.round(rt)} ms` : "none" },
-            { label: "Green circles caught", value: `${hits.length} of ${all.filter((x) => x.go).length}` },
-            { label: "Pressed for a red square", value: `${falseAlarms} of ${noGo}` },
-            { label: "Pressed too early", value: String(early.current) },
-          ],
-          reading: [
-            falseAlarms > noGo / 3 ? "You pressed for several red squares: you favoured speed over restraint." : "You held back on most red squares: restraint was good.",
-            early.current > 2 ? "Several early presses: waiting for the shape is part of the task." : misses > 3 ? "You missed several green circles: a little more readiness would help." : "Good control: few early presses and few misses.",
-          ],
-        });
-        return;
-      }
-      setI(outcomes.current.length);
-    },
-    [trials.length, onFinish],
-  );
-
-  useEffect(() => {
-    const t = trials[i];
-    const timers: number[] = [];
-    timers.push(
-      window.setTimeout(() => {
-        onset.current = performance.now();
-        showingRef.current = true;
-        setShowing(true);
-        timers.push(window.setTimeout(() => record({ go: t.go, pressed: false, rt: null }), 900));
-      }, t.wait),
-    );
-    return () => timers.forEach(window.clearTimeout);
-  }, [i, trials, record]);
-
-  function press() {
-    if (!showingRef.current) {
-      early.current++;
-      return;
-    }
-    const t = trials[outcomes.current.length];
-    record({ go: t.go, pressed: true, rt: performance.now() - onset.current });
-  }
-  useKeys((k) => k === " " && press());
-
-  return (
-    <section className="card space-y-4 p-5 text-center" aria-label="Shape reaction">
-      <p className="text-sm text-muted">
-        Shape {i + 1} of {trials.length}
-      </p>
-      <div className="grid h-40 place-items-center">
-        {showing && (trials[i].go ? <span className="block h-28 w-28 rounded-full bg-mint-600" role="img" aria-label="Green circle: press now" /> : <span className="block h-28 w-28 bg-coral-600" role="img" aria-label="Red square: do not press" />)}
-      </div>
-      <button type="button" className="btn btn-primary !h-16 w-full max-w-xs !text-lg" onClick={press}>
-        Press (Space)
-      </button>
-      <p className="text-xs text-muted">Green circle: press as fast as you can. Red square: do nothing.</p>
+      <p className="text-xs text-muted">{trials[i].first ? `A new level starts here: count back from this level's shapes only, so the first ${trials[i].n} are Different. ` : ""}It gets harder: 1 back, then 2 back, then 3 back.</p>
     </section>
   );
 }

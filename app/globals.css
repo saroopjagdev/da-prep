@@ -292,3 +292,38 @@ html[data-returning="1"] .landing {
 html:not([data-returning="1"]) .home-dashboard {
   display: none;
 }
+
+/* Practice games: every game plays on one dark stage so the stimulus stands out. Games written before the shared stage
+   used light cards, so those are recoloured here instead of being rewritten one by one. */
+.game-dark {
+  background: var(--color-navy);
+  color: #fff;
+  border-radius: 1rem;
+  overflow: hidden;
+}
+.game-dark .card {
+  background: transparent;
+  border-color: transparent;
+  box-shadow: none;
+  color: #fff;
+}
+.game-dark .text-muted {
+  color: rgba(255, 255, 255, 0.72);
+}
+.game-dark .btn-secondary {
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+  border-color: rgba(255, 255, 255, 0.35);
+}
+.game-dark .btn-secondary:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.2);
+}
+.game-dark .bg-brand-50 {
+  background: rgba(255, 255, 255, 0.1);
+}
+.game-dark .border-line {
+  border-color: rgba(255, 255, 255, 0.25);
+}
+.game-dark .bg-mint-50 {
+  background: rgba(255, 255, 255, 0.06);
+}
